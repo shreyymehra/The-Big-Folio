@@ -1,0 +1,4 @@
+# local preview server logs
+*.log
+.DS_Store
+Thumbs.db
