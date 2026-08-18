@@ -1,0 +1,98 @@
+/* ============================================================
+   TOKENS — the only place values live.
+   Change the aesthetic here. Nothing below this file hardcodes
+   a colour, a size, or a curve.
+   ============================================================ */
+
+:root {
+  /* --- ground & ink ---------------------------------------- */
+  --bone:        #efebe3;  /* warm paper ground */
+  --bone-dim:    #e4dfd4;  /* recessed surface */
+  --ink:         #12100e;  /* near-black, never pure */
+  --ink-2:       #1c1916;  /* dark scene ground */
+
+  /* type on light */
+  --on-bone:     #12100e;
+  --on-bone-mid: rgba(18, 16, 14, 0.66);
+  --on-bone-low: rgba(18, 16, 14, 0.42);
+
+  /* type on dark */
+  --on-ink:      #efebe3;
+  --on-ink-mid:  rgba(239, 235, 227, 0.66);
+  --on-ink-low:  rgba(239, 235, 227, 0.40);
+
+  /* --- accents ---------------------------------------------- */
+  --flare:       #e8442c;  /* the one loud move */
+  --gold:        #c9a96e;  /* hairlines, marks, small caps */
+
+  /* semantic aliases — components use ONLY these */
+  --ground:      var(--bone);
+  --surface:     var(--bone-dim);
+  --text:        var(--on-bone);
+  --text-mid:    var(--on-bone-mid);
+  --text-low:    var(--on-bone-low);
+  --rule:        rgba(18, 16, 14, 0.14);
+
+  /* --- type ------------------------------------------------- */
+  --display: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --body:    "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --label:   "JetBrains Mono", ui-monospace, "Courier New", monospace;
+
+  /* fluid display scale — no intermediate sizes by design */
+  --t-mega:  clamp(3.4rem, 13vw, 13rem);
+  --t-huge:  clamp(2.6rem, 7.5vw, 6.5rem);
+  --t-big:   clamp(1.9rem, 3.6vw, 3.2rem);
+  --t-lede:  clamp(1.15rem, 1.7vw, 1.6rem);
+  --t-body:  clamp(1rem, 1.05vw, 1.125rem);
+  --t-label: 0.72rem;
+
+  --lh-tight: 0.92;
+  --lh-snug:  1.14;
+  --lh-body:  1.62;
+  --tr-label: 0.18em;
+
+  /* --- space ------------------------------------------------ */
+  --s-1: 0.5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2.5rem;
+  --s-5: 4rem;
+  --s-6: 6rem;
+  --s-7: 9rem;
+  --s-8: 14rem;
+
+  --gutter: clamp(1.25rem, 5vw, 5.5rem);
+  --measure: 62ch;
+  --max: 96rem;
+
+  /* scene breathing — heavy by mandate */
+  --scene-y: clamp(6rem, 16vh, 14rem);
+
+  /* --- motion ----------------------------------------------- */
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-slow: cubic-bezier(0.32, 0.72, 0, 1);
+  --d-fast: 260ms;
+  --d-mid:  620ms;
+  --d-slow: 980ms;
+
+  /* --- texture ---------------------------------------------- */
+  --grain-opacity: 0.055;
+
+  --z-grain: 90;
+  --z-nav:   100;
+}
+
+/* Dark scenes flip the semantic aliases. Components need no dark
+   variants of their own — they read --text and --ground and adapt. */
+.on-dark {
+  --ground:   var(--ink-2);
+  --surface:  #262119;
+  --text:     var(--on-ink);
+  --text-mid: var(--on-ink-mid);
+  --text-low: var(--on-ink-low);
+  --rule:     rgba(239, 235, 227, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --d-fast: 1ms; --d-mid: 1ms; --d-slow: 1ms; }
+}

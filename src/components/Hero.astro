@@ -1,0 +1,139 @@
+---
+const eyebrow = "Creative strategy — brand, culture & communications";
+const tagline = "I build brands people want to belong to.";
+---
+
+<section class="hero" aria-label="Introduction">
+  <div class="shell hero-shell">
+    <p class="label hero-eyebrow">{eyebrow}</p>
+
+    <h1 class="display hero-name">
+      <span class="wipe" style="--wipe-delay:120ms"><span>Shrey</span></span>
+      <span class="wipe hero-surname" style="--wipe-delay:230ms"><span>Mehra</span></span>
+    </h1>
+
+    <div class="hero-foot">
+      <p class="lede hero-tag" data-rise style="--rise-delay:520ms">
+        {tagline}
+      </p>
+
+      <dl class="hero-meta" data-rise style="--rise-delay:640ms">
+        <div>
+          <dt class="label">Based</dt>
+          <dd>Melbourne <span class="sep" aria-hidden="true">/</span> Global</dd>
+        </div>
+        <div>
+          <dt class="label">Status</dt>
+          <dd><span class="pulse" aria-hidden="true"></span>Open to full-time</dd>
+        </div>
+      </dl>
+    </div>
+
+    <a class="hero-cue" href="#work" data-rise style="--rise-delay:780ms">
+      <span class="label">Selected work</span>
+      <span class="cue-line" aria-hidden="true"></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: flex-end;
+    padding-block: calc(var(--s-8) * 0.55) var(--s-5);
+    background: var(--bone);
+    overflow: clip;
+  }
+
+  .hero-shell { width: 100%; }
+
+  .hero-eyebrow {
+    margin-bottom: var(--s-4);
+    max-width: 30ch;
+    color: var(--on-bone-mid);
+  }
+
+  .hero-name {
+    font-size: var(--t-mega);
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+  }
+  /* Optical offset — the surname steps in, breaking the flush-left grid. */
+  .hero-surname {
+    margin-left: clamp(0rem, 8vw, 9rem);
+    font-style: italic;
+    color: var(--flare);
+  }
+
+  .hero-foot {
+    margin-top: var(--s-5);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--s-4);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--rule);
+  }
+
+  .hero-tag { max-width: 24ch; color: var(--on-bone); }
+
+  .hero-meta { display: flex; gap: var(--s-4); }
+  .hero-meta dt { margin-bottom: 0.35rem; }
+  .hero-meta dd {
+    font-family: var(--label);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .sep { color: var(--on-bone-low); }
+
+  .pulse {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--flare);
+    box-shadow: 0 0 0 0 rgba(232, 68, 44, 0.55);
+    animation: pulse 2.6s var(--ease-out) infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(232, 68, 44, 0.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(232, 68, 44, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(232, 68, 44, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .pulse { animation: none; } }
+
+  .hero-cue {
+    margin-top: var(--s-4);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 44px;
+  }
+  .cue-line {
+    width: clamp(2.5rem, 7vw, 6rem);
+    height: 1px;
+    background: var(--on-bone-low);
+    transform-origin: left;
+    transition: transform var(--d-mid) var(--ease-out), background var(--d-mid) var(--ease-out);
+  }
+  .hero-cue:hover .cue-line { transform: scaleX(1.35); background: var(--flare); }
+
+  @media (max-width: 720px) {
+    .hero { align-items: center; padding-block: var(--s-8) var(--s-5); }
+    .hero-foot { grid-template-columns: 1fr; align-items: start; gap: var(--s-3); }
+    .hero-meta { flex-wrap: wrap; gap: var(--s-3); }
+    .hero-surname { margin-left: 0; }
+  }
+</style>
+
+<script>
+  // The hero is above the fold — its reveal fires on load, not on scroll.
+  requestAnimationFrame(() => {
+    document
+      .querySelectorAll(".hero .wipe, .hero [data-rise]")
+      .forEach((el) => el.classList.add("is-in"));
+  });
+</script>
