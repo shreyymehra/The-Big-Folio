@@ -140,3 +140,57 @@ Shrey's own writing, kept because it is unfakeable and sets the register:
 > A boy's got to fund his dreams and the city rent.
 
 > Sharpening the axe is the fastest way to cut down the tree.
+
+---
+
+## Stack (v4 rebuild, branch `v4-cinematic`)
+
+**Astro.** Chosen after the v3 static build proved unable to absorb new
+instructions: one 700-line stylesheet, one 400-line HTML file, five case pages
+sharing an identical nav block by copy-paste, and no content layer. Adding a
+section meant hand-editing four places.
+
+```sh
+npm run dev      # localhost:4321
+npm run build    # -> ./dist
+npm run preview
+```
+
+Node lives at `C:\Program Files\nodejs` and is **not** on the inherited PATH of
+already-running shells. Prepend it per command:
+
+```sh
+export PATH="/c/Program Files/nodejs:$PATH"
+```
+
+The old site is preserved untouched in `_legacy/`. The L'Oréal and Vastr
+**writing** is worth porting; the shell around it is not. The three
+"in development" stubs were templated filler and should not be ported.
+
+### Architecture rules for this rebuild
+
+1. **Case studies are content, not pages.** Markdown in a content collection.
+   Adding one is a file, never a copied template.
+2. **Every token in one place.** Colour, type, spacing, motion curves. The
+   aesthetic is still being decided — when it lands it must be a token swap and
+   a scene re-skin, not another rebuild. This is the whole point.
+3. **Scenes, not sections.** Direction is cinematic (Up Bank / Netflix / Apple).
+   Work is staged as full-bleed scenes arriving on scroll, not a row index.
+4. Motion is `transform` and `opacity` only. `IntersectionObserver`, never
+   scroll listeners. Grain lives on a fixed `pointer-events-none` layer.
+
+## Skills installed for this work
+
+- `.agents/skills/` — 13 taste skills (`npx skills add Leonxlnx/taste-skill`).
+  Most relevant: `design-taste-frontend`, `high-end-visual-design`,
+  `redesign-existing-projects`, `brandkit`.
+- `~/.claude/commands/web-interface-guidelines.md` — Vercel's guidelines.
+- `rampstack-skills@rampstack` in user settings — 103 website-lifecycle skills.
+
+**All three need a Claude Code restart to load.** Until then their SKILL.md
+files can be read directly off disk.
+
+Note: `high-end-visual-design` bans Inter, which the original `CONTEXT` §9
+specified as the body face. Its "Editorial Luxury" archetype — warm creams,
+high-contrast serif, film grain at 3% — independently lands very close to
+Shrey's original parchment/Bodoni/grain system.
