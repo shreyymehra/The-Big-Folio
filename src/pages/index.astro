@@ -1,43 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
-import WorkScene from "../components/WorkScene.astro";
-import Ticker from "../components/Ticker.astro";
-
-const work = (await getCollection("work")).sort(
-  (a, b) => a.data.index - b.data.index
-);
+import Value from "../components/Value.astro";
 ---
-
 <Base
   title="Shrey Mehra — I build brands people want to belong to."
   description="Creative strategy, brand and communications. Melbourne to global."
 >
   <Hero />
-
-  <Ticker />
-
-  <section id="work" class="scene work-intro" aria-label="Selected work">
-    <div class="shell">
-      <p class="label" data-rise>Selected work</p>
-      <h2 class="display work-lede" data-rise style="--rise-delay:100ms">
-        <span class="wipe"><span>Five pieces.</span></span>
-        <span class="wipe" style="--wipe-delay:110ms"><span>Two finished,</span></span>
-        <span class="wipe italic" style="--wipe-delay:200ms"><span>three honest about it.</span></span>
-      </h2>
-    </div>
-  </section>
-
-  {work.map((w) => <WorkScene {...w.data} />)}
+  <Value />
 </Base>
-
-<style>
-  .work-intro { padding-block: var(--s-7) var(--s-5); }
-  .work-lede {
-    margin-top: var(--s-3);
-    font-size: var(--t-big);
-    max-width: 20ch;
-  }
-  .work-lede .italic { font-style: italic; color: var(--on-bone-mid); }
-</style>

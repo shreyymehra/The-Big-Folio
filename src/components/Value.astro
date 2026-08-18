@@ -1,0 +1,46 @@
+---
+import CutWord from "./CutWord.astro";
+/** What sits on the other side of the nostalgia. The turn from
+ *  "cute kid" to "here is the actual proposition". */
+---
+<section class="value" aria-label="What I do now">
+  <div class="shell">
+    <p class="micro stamp">And here is what that turned into</p>
+
+    <h1 class="claim">
+      <span class="claim-l">
+        <CutWord cut={4} rotate={-1} size="sm">I build</CutWord>
+        <CutWord cut={1} rotate={2}>brands</CutWord>
+      </span>
+      <span class="claim-l">
+        <CutWord cut={3} rotate={-2} size="sm">people</CutWord>
+        <CutWord cut={2} rotate={1} tone="hot">want to belong to</CutWord>
+      </span>
+    </h1>
+
+    <p class="sub">
+      Creative strategy with a commercial spine. I find the idea, write the
+      words, then build the case for why it moves a number.
+    </p>
+  </div>
+</section>
+
+<style>
+  .value {
+    position: relative;
+    background: var(--paper);
+    color: var(--ink);
+    padding-block: clamp(5rem, 16vh, 11rem);
+  }
+  .stamp { color: rgba(20,18,15,.5); margin-bottom: var(--s-3); }
+  .claim { display: grid; gap: .5rem; justify-items: start; }
+  .claim-l { display: flex; flex-wrap: wrap; gap: .45rem; align-items: baseline; }
+  .claim-l :global(.cut) { box-shadow: 3px 3px 0 rgba(20,18,15,.22); }
+  .claim-l :global(.tone-paper) { background: var(--ink); color: var(--paper); }
+  .sub {
+    margin-top: var(--s-3);
+    max-width: 46ch;
+    color: rgba(20,18,15,.7);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+  }
+</style>
