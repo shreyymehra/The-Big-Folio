@@ -105,12 +105,11 @@
 
   /* ---------- work index: hover swaps the preview ---------- */
   var PV = [
-    { file: "01_BRAND_WORLD.CASE", big: "A world<br>from nothing", cap: "Full brand universe for a made-up AI company", tags: "Brand · Creative Strategy · Spec", year: "2026", ink: "#E8401B" },
-    { file: "02_REPO.CASE", big: "Again,<br>properly", cap: "Real brand, public data. Spec, and it says so", tags: "Creative Strategy · Comms · Spec", year: "2026", ink: "#1A1713" },
-    { file: "03_LAUNCH.GTM", big: "Say this<br>first", cap: "Positioning → message → launch", tags: "PMM · GTM · Spec", year: "2026", ink: "#0E7B5B" },
-    { file: "04_CUT_THE_NOISE.CASE", big: "Cut the<br>noise.", cap: "The category shouts. This one declines", tags: "Comms · Campaign · Spec", year: "2026", ink: "#E8401B" },
-    { file: "05_TEARDOWN.TXT", big: "No design.<br>Just thinking", cap: "One real acquisition engine, taken apart", tags: "Commercial · PMM · Spec", year: "2026", ink: "#1A1713" },
-    { file: "A_VRL.SHIPPED", big: "VRL", cap: "Logo and identity for a family logistics company", tags: "Brand Identity · Real Client", year: "Shipped", ink: "#0E7B5B" },
+    { file: "01_LOREAL.CASE", big: "Hair or not,<br>here we come", cap: "A scalp line for the people the category stopped talking to", tags: "Brand · Creative Strategy · Spec", year: "Spec", ink: "#E8401B" },
+    { file: "02_VASTR.GTM", big: "You already<br>own the outfit", cap: "Named, positioned and launched from a blank page", tags: "PMM · GTM · Spec", year: "Spec", ink: "#0E7B5B" },
+    { file: "03_ABSOLUT.CASE", big: "Absolutely<br>yours", cap: "Forty years of cultural fluency, meet a generation that drinks less", tags: "Creative Strategy · Spec", year: "In development", ink: "#1A1713" },
+    { file: "04_DUOLINGO.CASE", big: "Keep the<br>gremlin", cap: "The hard part is not building the personality. It is not losing it", tags: "Creative Strategy · Comms · Spec", year: "In development", ink: "#E8401B" },
+    { file: "05_VRL.SHIPPED", big: "VRL", cap: "Logo and identity for a family logistics company", tags: "Brand Identity · Real Client", year: "Shipped", ink: "#0E7B5B" },
   ];
   var rows = document.querySelectorAll(".row[data-pv]");
   var pvBody = document.getElementById("pv-body");

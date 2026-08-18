@@ -400,6 +400,13 @@ section { scroll-margin-top: 96px; }
 }
 .row:hover .chip-real, .row.is-active .chip-real { color: var(--paper); }
 
+.row .chip-wip {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1.5px dashed currentColor; border-radius: 999px; padding: 3px 8px; margin-left: 10px;
+  color: var(--ink-faint); vertical-align: middle; display: inline-block; transform: rotate(-3deg);
+}
+.row:hover .chip-wip, .row.is-active .chip-wip { color: var(--paper); }
+
 /* preview window */
 .pv { position: sticky; top: 110px; border: 1.5px solid var(--ink); background: var(--paper); box-shadow: 8px 8px 0 var(--ink); }
 .pv-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; border-bottom: 1.5px solid var(--ink); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -723,3 +730,7 @@ section { scroll-margin-top: 96px; }
   .vinyl-chip.is-playing .disc { animation: none; }
   .vinyl-chip.is-note { animation: none; }
 }
+
+/* Resume before the PDF exists: a label, not a link. Nothing to click, nothing to 404. */
+.is-pending { color: var(--ink-faint); cursor: default; }
+.is-pending::before, .is-pending::after { content: none; }
