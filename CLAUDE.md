@@ -1,196 +1,96 @@
-# The Big 'Folio — project context
+# CLAUDE.md
 
-Personal portfolio for **Shrey Mehra** (Melbourne). Creative strategy, brand,
-comms. Targeting Anthropic, OpenAI, FAANG and culture-driven scaleups across
-APAC and US/Global.
-
-**The reaction being engineered:** *"This person could build a world out of nothing."*
-
-**Positioning line:** I build brands people want to belong to.
+Read this file before writing any code, every session. These are constraints, not suggestions. Do not re-derive, re-propose, or "improve" anything marked LOCKED.
 
 ---
 
-## Run it locally
+## PROJECT
 
-No Node or Python on this machine. A dependency-free PowerShell static server
-ships with the repo:
+Personal portfolio for **Shrey Mehra** — Creative Strategist, Brand & Culture. Targets: Anthropic, OpenAI, FAANG, culture-led brands.
 
-```bash
-PORT=5050 pwsh ./serve.ps1
+Most visitors arrive from a cold email, are sceptical, and decide within ten seconds. Build for that visitor.
+
+**The site must not read as AI-generated or templated.** If a section could belong to any other portfolio, it is wrong.
+
+---
+
+## HOW THIS REPO IS ORGANISED
+
+```
+CLAUDE.md              ← you are here. Global constraints.
+/briefs                ← one file per section. Read the relevant one before building.
+  00-system.md            Design tokens, motion, accessibility. Read first.
+  01-hero.md
+  02-ticker.md
+  03-work.md
+  04-brain-dump.md
+  05-about.md
+  06-faq.md
+  07-vinyl.md
+  08-contact.md
+/references            ← annotated screenshots. See /references/README.md
 ```
 
-Then open `http://localhost:5050`. Plain static HTML/CSS/JS — no build step.
+**Before building any section: read `/briefs/00-system.md`, then that section's brief.** Do not work from memory of a previous session.
 
 ---
 
-## Source documents (outside the repo)
+## THE THREE MARKERS
 
-These live in `C:\Users\User\Contacts\` and are **not** version controlled:
-
-| File | Date | Role |
-|---|---|---|
-| `PortfolioBuild.odt` | 10 Aug 2026 | **Newest. Wins on content.** Sections, case study substance, skills, contact copy |
-| `BRIEF_PACK_Portfolio.md` | 5 Aug 2026 | Sharpest reasoning. Wins on UX rationale and house rules |
-| `CONTEXT_Shrey_Portfolio.md` | 6 Jul 2026 | Standing brief. Voice, audience, taste |
-| `Visual Cues/` | Jul 2026 | Reference screenshots (Antony Raphy, Prasshanna) — contextual, keeps changing |
-| `Shrey_Portfolio_Framer/` | Jul 2026 | Origin of this build. `preview/` was copied here to seed the repo |
+- **`[LOCKED]`** — decided. Build as stated. Do not propose alternatives.
+- **`[OPEN]`** — a genuine decision, with its tradeoff stated. Ask before assuming.
+- **`[GAP]`** — content only Shrey can supply. **Stub it visibly** — `[GAP: teaser sentence]` — and say so in your response. Never invent it.
 
 ---
 
-## The single most important piece of history
+## BUILD ORDER — STRICTLY SEQUENTIAL
 
-**The visual system has been re-specified three times and shipped zero times.**
+`HERO → TICKER → WORK → BRAIN DUMP → ABOUT → FAQ → VINYL → CONTACT`
 
-- `CONTEXT` §9 and `BRIEF_PACK` §5 both mark a **near-black + parchment + gold +
-  Bodoni + film grain** system as `[LOCKED]`
-- The July Framer README specifies **Y2K riso on paper** — cobalt, tangerine,
-  halftone — and states the parchment-and-gold system "is gone"
-- What was actually **built** is a third thing: **warm paper + race red + Syne**
-
-`BRIEF_PACK` §5 also instructs "match `PortfolioHero.tsx` exactly." **That file
-does not exist** — the real hero is `Hero.tsx`, in the third system. The brief's
-own anchor is missing, which is how the systems drifted without anyone noticing.
-
-**Resolution: the built v3 system wins.** It is documented in
-[`DESIGN-TOKENS.md`](DESIGN-TOKENS.md), which is now the source of truth. Do not
-re-derive the palette from the briefs. If a brief and the CSS disagree, the CSS
-is right.
-
-The bottleneck on this project has never been taste. It is a live URL.
-**Bias every decision toward shipping.**
+`PortfolioHero.tsx` already exists. Match its system exactly rather than reinventing it.
 
 ---
 
-## Conflicts between briefs, and how each was resolved
+## HOW TO WORK
 
-| Question | `.odt` (newest) | `BRIEF_PACK` | Resolution |
-|---|---|---|---|
-| Opening sequence (childhood photo prelude) | Wants it | Killed it — spends the 10-second cold-email budget before delivering value | **Killed.** Photo relocates to About |
-| Ticker content | Client logos | `[LOCKED]` text — logos imply client relationships that don't exist | **Text.** Now carries the six testimonial lines |
-| Signature element | Kept vinyl **and** cube | Pick one — "boldness is spent in one place" | **Vinyl only** (not yet built). Cube cut |
-| Case study 01 subject | L'Oréal | L'Oréal | Agreed. (`CONTEXT` said fictional AI company — superseded) |
-| Work slate | 5 pieces | Same 5 | Agreed. "Cut The Noise" and "The Teardown" from v3 are **not** on the `.odt` slate |
+**One component at a time. Never batch.** After each, stop, show the result, wait.
 
----
+**Within a component, work in four passes:**
+1. Static structure — no styling refinement, no hover, no motion
+2. Refine spacing, type scale, alignment
+3. Behaviour — hover, click, expand
+4. Motion — reveals, transitions
 
-## House rules — non-negotiable
+Never compress these into one request. Doing so is the primary cause of generic output.
 
-1. **Nothing reads as AI-generated.** First person, specific, occasionally funny,
-   never corporate. If a line could belong to someone else's portfolio, it is
-   wrong — rewrite it.
-2. **No invented metrics. Ever.** Including years. Where a number would go, show
-   the reasoning instead.
-3. **Spec work discloses itself in the first line** of the case study.
-4. **Never a dead link.** Unfinished work is labelled "In development" with a date.
-5. **No services menu, no pricing, no booking widget.** This is a creative
-   statement, not a freelance funnel.
-6. **Accessibility is a floor.** Visible focus states, keyboard reachable,
-   `prefers-reduced-motion` honoured, 44px touch targets, WCAG AA contrast.
-7. **Preserve Shrey's voice when editing his copy.** Typo-correct; do not rewrite
-   for tone. Flag changes rather than erasing him.
+**When a request is ambiguous, ask.** A wrong assumption costs more than a question.
+
+**Never invent content or metrics.** Where a number would go, show reasoning.
+
+**Preserve Shrey's voice.** Copy he wrote is source material. Fix typos only. Do not rewrite for tone.
 
 ---
 
-## Working style
+## CURRENT BUILD STATE — appended 18 Aug 2026, post-handover
 
-From `CONTEXT` §4: *"Anti-sycophancy is on. Blunt, top-tier advisory. Push back on
-weak ideas. Never fabricate progress."* Act as a creative sparring partner, not a
-yes-man.
+The pack above predates the current build. Three corrections, all verified:
 
-**Build order is sequential** — HERO → TICKER → WORK → BRAIN DUMP → ABOUT → FAQ →
-CONTACT. Stop after each section, show the result, review, then continue. Do not
-batch. Shrey's note: the portfolio has failed before by being mushed together.
+**1. `PortfolioHero.tsx` does not exist.** The build-order section says to match it. There is no such file and there never was in this repo — the reference was inherited from an older brief. Chasing it is what let three different visual systems drift apart unnoticed. **The hero is `src/components/Hero.astro` and it is built.**
 
----
+**2. Stack is Astro, not React/TSX.** Astro 7.2.2, Node 24.19.0, native CSS, no framework. Run the dev server **from the repo root** — passing `--root` doubles the path and breaks every import:
 
-## Current state
+    node node_modules/astro/bin/astro.mjs dev --port 4321
 
-**Built:** Hero (name + flipping ID card + cursor aura), testimonial ticker,
-Work index, Brain Dump (5 steps), About, FAQ, Contact, footer with a JoJo
-easter egg (hold the crest). Mobile nav collapses to crest + Contact at ≤560px.
+**3. The aesthetic is the cut-out / ransom-note system** — from Shrey's reference image, 18 Aug. Each word in its own label box, **a different typeface per adjacent word** (that mismatch is the effect; never unify). Starburst punctuation over photography on near-black.
 
-**Written case studies:** `case-loreal.html`, `case-vastr.html`.
+`src/components/CutWord.astro` is the primitive — `cut={1..5}` selects the family. Build every headline from it. All values live in `src/styles/tokens.css`; nothing downstream hardcodes a colour, size or curve.
 
-**Open — needs Shrey:**
+Three earlier aesthetics were rejected and must not be revived: dark+gold+Bodoni+grain, paper+race-red+Syne+halftone, bone+flare+Bodoni. Recoverable at tags `archive/v3-printed-paper` and `archive/v4-cinematic`.
 
-- Resume file or link (`[GAP]`)
-- ID photo (`assets/shrey-id.jpg`) and childhood photo for About
-- Spotify playlist URL, if the vinyl gets built
-- Absolut, Duolingo and VRL case study content; VRL needs real files
-- **Skills honesty split.** The `.odt` claims *Anthropic API & MCP* while
-  applying to Anthropic — this will be asked. Also Salesforce, Tableau,
-  MoEngage, Amplitude, GitHub. Anything Shrey cannot defend for five minutes
-  under interview pressure moves to Working Knowledge or comes off. A shorter
-  honest list costs nothing; getting caught thin is unrecoverable.
+**Built:** loader (slot machine), hero, value section. **Unbuilt:** ticker, work, brain dump, about, FAQ, vinyl, contact.
 
-**Standing recommendation not yet accepted:** lead the work slate with Vastr
-rather than L'Oréal. Four of five pieces improve brands that already exist;
-Vastr is the only one that starts from a blank page, and it is therefore the
-only piece carrying the "world from nothing" proof.
+**Layout rule, learned by failing it:** compose with CSS **grid areas**, never `translate3d` percentage offsets. Percentages resolve against an element's own width and never respond to viewport — that produced a hero using 35% of a 1440px screen. It now re-lays-out at 1080px and 760px.
 
----
+**Before art-directing anything, fix screenshot capture.** The previous session could never see its own output — the preview tab reported `visibilityState: hidden`, which also suspends `requestAnimationFrame` and scroll events. An entire direction was built blind and rejected on sight. Measurements verify structure; they cannot tell you whether it looks good.
 
-## Voice reference
-
-Shrey's own writing, kept because it is unfakeable and sets the register:
-
-> My high-school crush called me an 'empath' once and I took it seriously as a
-> job title.
-
-> A boy's got to fund his dreams and the city rent.
-
-> Sharpening the axe is the fastest way to cut down the tree.
-
----
-
-## Stack (v4 rebuild, branch `v4-cinematic`)
-
-**Astro.** Chosen after the v3 static build proved unable to absorb new
-instructions: one 700-line stylesheet, one 400-line HTML file, five case pages
-sharing an identical nav block by copy-paste, and no content layer. Adding a
-section meant hand-editing four places.
-
-```sh
-npm run dev      # localhost:4321
-npm run build    # -> ./dist
-npm run preview
-```
-
-Node lives at `C:\Program Files\nodejs` and is **not** on the inherited PATH of
-already-running shells. Prepend it per command:
-
-```sh
-export PATH="/c/Program Files/nodejs:$PATH"
-```
-
-The old site is preserved untouched in `_legacy/`. The L'Oréal and Vastr
-**writing** is worth porting; the shell around it is not. The three
-"in development" stubs were templated filler and should not be ported.
-
-### Architecture rules for this rebuild
-
-1. **Case studies are content, not pages.** Markdown in a content collection.
-   Adding one is a file, never a copied template.
-2. **Every token in one place.** Colour, type, spacing, motion curves. The
-   aesthetic is still being decided — when it lands it must be a token swap and
-   a scene re-skin, not another rebuild. This is the whole point.
-3. **Scenes, not sections.** Direction is cinematic (Up Bank / Netflix / Apple).
-   Work is staged as full-bleed scenes arriving on scroll, not a row index.
-4. Motion is `transform` and `opacity` only. `IntersectionObserver`, never
-   scroll listeners. Grain lives on a fixed `pointer-events-none` layer.
-
-## Skills installed for this work
-
-- `.agents/skills/` — 13 taste skills (`npx skills add Leonxlnx/taste-skill`).
-  Most relevant: `design-taste-frontend`, `high-end-visual-design`,
-  `redesign-existing-projects`, `brandkit`.
-- `~/.claude/commands/web-interface-guidelines.md` — Vercel's guidelines.
-- `rampstack-skills@rampstack` in user settings — 103 website-lifecycle skills.
-
-**All three need a Claude Code restart to load.** Until then their SKILL.md
-files can be read directly off disk.
-
-Note: `high-end-visual-design` bans Inter, which the original `CONTEXT` §9
-specified as the body face. Its "Editorial Luxury" archetype — warm creams,
-high-contrast serif, film grain at 3% — independently lands very close to
-Shrey's original parchment/Bodoni/grain system.
+See `COWORK-BRIEF.md` for the full gap inventory and `POSTMORTEM.md` for why two builds were rejected.
