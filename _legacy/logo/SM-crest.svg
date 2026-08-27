@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- SM crest — line version. Inherits currentColor. -->
-  <circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="7"/>
-  <circle cx="60" cy="21.5" r="4.5" fill="currentColor"/>
-  <path d="M32 72 V52 Q32 35 46 35 Q60 35 60 52 V72 M60 52 Q60 35 74 35 Q88 35 88 52 V72"
-        stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M32 88 C40 80 52 80 60 88 C68 96 80 96 88 88"
-        stroke="currentColor" stroke-width="8.5" stroke-linecap="round"/>
-</svg>

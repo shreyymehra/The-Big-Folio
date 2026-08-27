@@ -6,7 +6,7 @@ Read this file before writing any code, every session. These are constraints, no
 
 ## PROJECT
 
-Personal portfolio for **Shrey Mehra** — Creative Strategist, Brand & Culture. Targets: Anthropic, OpenAI, FAANG, culture-led brands.
+Personal portfolio for **Shrey Mehra**. Territory is brand, marketing, product, GTM, business ops and creative execution — see `DIRECTION.md` for the positioning, which is deliberately not "a designer".
 
 Most visitors arrive from a cold email, are sceptical, and decide within ten seconds. Build for that visitor.
 
@@ -17,21 +17,30 @@ Most visitors arrive from a cold email, are sceptical, and decide within ten sec
 ## HOW THIS REPO IS ORGANISED
 
 ```
+index.html             ← THE SOURCE OF TRUTH. The live site, one self-contained file.
+                         Every change ships here. Nothing supersedes it.
+absolutily.html        ← case studies. Linked from index.html#work, chained to each other.
+cut-the-noise.html
+vastr.html
+voicedna.html
+vrl.html
+
 CLAUDE.md              ← you are here. Global constraints.
-/briefs                ← one file per section. Read the relevant one before building.
-  00-system.md            Design tokens, motion, accessibility. Read first.
-  01-hero.md
-  02-ticker.md
-  03-work.md
-  04-brain-dump.md
-  05-about.md
-  06-faq.md
-  07-vinyl.md
-  08-contact.md
-/references            ← annotated screenshots. See /references/README.md
+DIRECTION.md           ← governing design rules. Positioning, hierarchy, grid, type,
+                         colour, motion, and the veto list. Read before building.
+TASTE.md               ← what to take and what to leave from each reference.
+serve.ps1              ← static preview server. No Node, no npm, no install.
+/public                ← favicons, plus the source .webp artwork the hero was cut from.
+/references            ← annotated screenshots only. See /references/README.md
+/_archive              ← superseded prototypes and specs. Never build from these.
 ```
 
-**Before building any section: read `/briefs/00-system.md`, then that section's brief.** Do not work from memory of a previous session.
+**Before building: read `DIRECTION.md`, then `TASTE.md`.** Do not work from memory of a previous session.
+
+**No build step.** `index.html` is hand-authored and self-contained — inline CSS, inline JS,
+images as data URIs. There is no framework, no bundler, no `npm install`. Edit the file directly.
+Preview with `powershell -ExecutionPolicy Bypass -File serve.ps1` at http://localhost:4321.
+Do not reintroduce a toolchain without asking.
 
 ---
 
@@ -43,19 +52,38 @@ CLAUDE.md              ← you are here. Global constraints.
 
 ---
 
-## BUILD ORDER — STRICTLY SEQUENTIAL
+## CURRENT STATE
 
-`HERO → TICKER → WORK → BRAIN DUMP → ABOUT → FAQ → VINYL → CONTACT`
+`index.html` is built and complete: loader, nav, hero, work, brain dump, about, FAQ, vinyl, contact.
+Five case studies are built and cross-linked. Work from what is in the file, not from a spec of it.
 
-`PortfolioHero.tsx` already exists. Match its system exactly rather than reinventing it.
+**Palette `[LOCKED]`** — three working colours, declared at `:root` in `index.html`:
+
+| Token | Value | Use |
+|---|---|---|
+| `--cream` | `#EFE2BA` | ground |
+| `--deep` | `#1F2A5C` | all body type and line work |
+| `--fluoro` | `#F13C20` | accent, countable per page |
+
+Deep on Cream measures 10.53. Text is never pure black.
+
+**Type `[LOCKED]`** — Bricolage Grotesque (display), Instrument Sans (body), Martian Mono (metadata).
+
+**Rejected aesthetics — do not revive.** Dark+gold+Bodoni+grain; paper+race-red+Syne+halftone;
+bone+flare+Bodoni; the six-ink riso set; the near-black cut-out / ransom-note system.
+Recoverable at tags `archive/v3-printed-paper` and `archive/v4-cinematic`, and in `_archive/`.
+
+**Layout rule, learned by failing it:** compose with CSS **grid areas**, never `translate3d`
+percentage offsets. Percentages resolve against an element's own width and never respond to
+viewport — that produced a hero using 35% of a 1440px screen.
 
 ---
 
 ## HOW TO WORK
 
-**One component at a time. Never batch.** After each, stop, show the result, wait.
+**One section at a time. Never batch.** After each, stop, show the result, wait.
 
-**Within a component, work in four passes:**
+**Within a section, work in four passes:**
 1. Static structure — no styling refinement, no hover, no motion
 2. Refine spacing, type scale, alignment
 3. Behaviour — hover, click, expand
@@ -69,28 +97,5 @@ Never compress these into one request. Doing so is the primary cause of generic 
 
 **Preserve Shrey's voice.** Copy he wrote is source material. Fix typos only. Do not rewrite for tone.
 
----
-
-## CURRENT BUILD STATE — appended 18 Aug 2026, post-handover
-
-The pack above predates the current build. Three corrections, all verified:
-
-**1. `PortfolioHero.tsx` does not exist.** The build-order section says to match it. There is no such file and there never was in this repo — the reference was inherited from an older brief. Chasing it is what let three different visual systems drift apart unnoticed. **The hero is `src/components/Hero.astro` and it is built.**
-
-**2. Stack is Astro, not React/TSX.** Astro 7.2.2, Node 24.19.0, native CSS, no framework. Run the dev server **from the repo root** — passing `--root` doubles the path and breaks every import:
-
-    node node_modules/astro/bin/astro.mjs dev --port 4321
-
-**3. The aesthetic is the cut-out / ransom-note system** — from Shrey's reference image, 18 Aug. Each word in its own label box, **a different typeface per adjacent word** (that mismatch is the effect; never unify). Starburst punctuation over photography on near-black.
-
-`src/components/CutWord.astro` is the primitive — `cut={1..5}` selects the family. Build every headline from it. All values live in `src/styles/tokens.css`; nothing downstream hardcodes a colour, size or curve.
-
-Three earlier aesthetics were rejected and must not be revived: dark+gold+Bodoni+grain, paper+race-red+Syne+halftone, bone+flare+Bodoni. Recoverable at tags `archive/v3-printed-paper` and `archive/v4-cinematic`.
-
-**Built:** loader (slot machine), hero, value section. **Unbuilt:** ticker, work, brain dump, about, FAQ, vinyl, contact.
-
-**Layout rule, learned by failing it:** compose with CSS **grid areas**, never `translate3d` percentage offsets. Percentages resolve against an element's own width and never respond to viewport — that produced a hero using 35% of a 1440px screen. It now re-lays-out at 1080px and 760px.
-
-**Before art-directing anything, fix screenshot capture.** The previous session could never see its own output — the preview tab reported `visibilityState: hidden`, which also suspends `requestAnimationFrame` and scroll events. An entire direction was built blind and rejected on sight. Measurements verify structure; they cannot tell you whether it looks good.
-
-See `COWORK-BRIEF.md` for the full gap inventory and `POSTMORTEM.md` for why two builds were rejected.
+**`index.html` is 1.9MB because the images are inline.** Edit with targeted string
+replacement, not whole-file rewrites.

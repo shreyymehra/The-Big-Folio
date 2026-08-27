@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Riso Ink Set — Contrast Proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#EFE2BA; --federal:#4056A1; --fluoro:#F13C20;
+  --ochre:#D79922; --pale:#C5CBE3; --deep:#1F2A5C;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--deep);
+  font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+/* paper grain */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(1.5rem,5vw,3rem)}
+.mono{font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+h1{font-family:'Bricolage Grotesque','Archivo Black',sans-serif;font-weight:800;font-size:clamp(2.6rem,7vw,4.25rem);line-height:.92;margin:0 0 1rem;letter-spacing:-.01em}
+h2{font-family:'Bricolage Grotesque','Archivo Black',sans-serif;font-weight:800;font-size:2.625rem;line-height:.92;margin:0 0 .5rem}
+header{padding:7.5rem 0 3rem}
+section{padding:0 0 5rem}
+.lede{font-size:1.625rem;line-height:1.3;max-width:34em;margin:0 0 1.5rem}
+p{max-width:34em}
+
+/* proof rows */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:1.5rem}
+.chip{border:3px solid var(--deep);position:relative;overflow:hidden}
+.chip .band{padding:1.25rem 1rem 1.5rem;position:relative}
+.chip .band::after{ /* halftone */
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:radial-gradient(circle at 1px 1px, #000 1px, transparent 1.1px);
+  background-size:4px 4px;
+}
+.chip .big{font-family:'Bricolage Grotesque','Archivo Black',sans-serif;font-weight:800;font-size:2.1rem;line-height:.95;display:block;margin-bottom:.35rem}
+.chip .small{font-size:.8125rem;display:block;line-height:1.4}
+.chip .meta{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem;border-top:3px solid var(--deep);background:var(--cream);color:var(--deep)}
+.ratio{font-family:'Martian Mono',monospace;font-weight:600;font-size:.875rem}
+.verdict{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 6px;border:1px solid var(--deep)}
+.v-pass{background:var(--deep);color:var(--cream)}
+.v-large{background:var(--ochre);color:var(--deep)}
+.v-fail{background:var(--fluoro);color:var(--cream)}
+
+.callout{border:3px solid var(--deep);padding:1.75rem;margin:2rem 0;position:relative;background:var(--pale)}
+.callout h3{font-family:'Bricolage Grotesque','Archivo Black',sans-serif;font-weight:800;font-size:1.4rem;margin:0 0 .6rem;line-height:1.05}
+.callout p{margin:0 0 .6rem;max-width:60em}
+.callout p:last-child{margin-bottom:0}
+
+.fixrow{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.25rem}
+@media(max-width:700px){.fixrow{grid-template-columns:1fr}}
+.fixcell{border:3px solid var(--deep);padding:1.5rem;position:relative}
+.fixcell .lbl{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem;display:block}
+.num{font-family:'Bricolage Grotesque','Archivo Black',sans-serif;font-weight:800;font-size:3.4rem;line-height:1;display:block}
+
+table{width:100%;border-collapse:collapse;margin-top:1.25rem;font-size:.8125rem}
+th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid rgba(31,42,92,.25)}
+th{font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+td.r{font-family:'Martian Mono',monospace;font-weight:600}
+.star{display:inline-block;width:14px;height:14px;background:var(--fluoro);vertical-align:-2px;
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+footer{border-top:3px solid var(--deep);padding:2.5rem 0 5rem;margin-top:2rem}
+:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:1ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mono" style="margin-bottom:1.5rem">The Big 'Folio &nbsp;·&nbsp; Riso ink set &nbsp;·&nbsp; measured 19.08.2026</div>
+  <h1>Two of your six<br>inks can't hold type.</h1>
+  <p class="lede">You flagged Ochre on Cream as the tightest pair. It isn't tight — it's unusable. Here is every combination the spec calls for, rendered at real size, measured against WCAG.</p>
+</header>
+
+<section>
+  <h2>Every pair, rendered</h2>
+  <p>Large type is ≥24px, or ≥18.66px bold — the 3:1 threshold. Body copy needs 4.5:1. UI components and focus rings need 3:1.</p>
+
+  <div class="grid">
+
+    <div class="chip">
+      <div class="band" style="background:#EFE2BA;color:#1F2A5C">
+        <span class="big">Deep on Cream</span>
+        <span class="small">All body copy sits here. This is the workhorse pair and it is comfortable.</span>
+      </div>
+      <div class="meta"><span class="ratio">10.53</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#1F2A5C;color:#EFE2BA">
+        <span class="big">Cream on Deep</span>
+        <span class="small">The Contact section inverts to this. Identical ratio — safe for everything.</span>
+      </div>
+      <div class="meta"><span class="ratio">10.53</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#C5CBE3;color:#1F2A5C">
+        <span class="big">Deep on Pale</span>
+        <span class="small">FAQ ground and the Ideas hover row. Plenty of headroom.</span>
+      </div>
+      <div class="meta"><span class="ratio">8.44</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#D79922;color:#1F2A5C">
+        <span class="big">Deep on Ochre</span>
+        <span class="small">Ochre as a fill, Deep as the type. This is how Ochre survives.</span>
+      </div>
+      <div class="meta"><span class="ratio">5.49</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#EFE2BA;color:#4056A1">
+        <span class="big">Federal on Cream</span>
+        <span class="small">The Work section accent. Safe at any size, including captions.</span>
+      </div>
+      <div class="meta"><span class="ratio">5.31</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#4056A1;color:#EFE2BA">
+        <span class="big">Cream on Federal</span>
+        <span class="small">Ticker row 3. Safe. The strongest of the three bands.</span>
+      </div>
+      <div class="meta"><span class="ratio">5.31</span><span class="verdict v-pass">Body ✓</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#1F2A5C;color:#F13C20">
+        <span class="big">Fluoro on Deep</span>
+        <span class="small">Contact links and the focus ring. Headline-scale only — this sentence is already too small.</span>
+      </div>
+      <div class="meta"><span class="ratio">3.50</span><span class="verdict v-large">Large only</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#EFE2BA;color:#F13C20">
+        <span class="big">Fluoro on Cream</span>
+        <span class="small">Hero accent, Ideas hover title. Clears 3:1 by 0.01. Never body copy — like this.</span>
+      </div>
+      <div class="meta"><span class="ratio">3.01</span><span class="verdict v-large">Large only</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#F13C20;color:#EFE2BA">
+        <span class="big">Cream on Fluoro</span>
+        <span class="small">Ticker row 1, at 42px. Fine there. Not fine at this size.</span>
+      </div>
+      <div class="meta"><span class="ratio">3.01</span><span class="verdict v-large">Large only</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#EFE2BA;color:#D79922">
+        <span class="big">Ochre on Cream</span>
+        <span class="small">The FAQ tile numbers are specified this way. Read this sentence — that is the problem.</span>
+      </div>
+      <div class="meta"><span class="ratio">1.92</span><span class="verdict v-fail">Fails all</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#1F2A5C;color:#4056A1">
+        <span class="big">Federal on Deep</span>
+        <span class="small">Not currently specified. Worth knowing before someone reaches for it in Contact.</span>
+      </div>
+      <div class="meta"><span class="ratio">1.98</span><span class="verdict v-fail">Fails all</span></div>
+    </div>
+
+    <div class="chip">
+      <div class="band" style="background:#EFE2BA;color:#C5CBE3">
+        <span class="big">Pale on Cream</span>
+        <span class="small">Effectively invisible. Fine as a shape or a 15% background mark, never as a disabled state.</span>
+      </div>
+      <div class="meta"><span class="ratio">1.25</span><span class="verdict v-fail">Fails all</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>The Ochre problem</h2>
+  <p>Brain Dump is assigned Ochre as its section ink, on a Cream ground with a 4% Ochre wash — which makes the ground <em>warmer</em>, pushing the pair below 1.92. The FAQ hand-drawn numbers are Ochre on Cream tiles. Both are unreadable as written.</p>
+
+  <div class="callout">
+    <h3>Don't drop Ochre. Invert it.</h3>
+    <p>Ochre fails as ink and passes as paper. Deep type on an Ochre fill measures 5.49 — comfortably above the body threshold. The section keeps its warmth, the numbers stay legible, and the material logic actually improves: a riso ochre plate reads as a printed block, not as coloured text.</p>
+  </div>
+
+  <div class="fixrow">
+    <div class="fixcell" style="background:#EFE2BA">
+      <span class="lbl" style="color:#1F2A5C">As specified &nbsp;·&nbsp; 1.92 &nbsp;·&nbsp; fails</span>
+      <span class="num" style="color:#D79922">01.</span>
+      <span style="color:#D79922;font-size:.8125rem;display:block;margin-top:.5rem">Listen — really listen, notes and all.</span>
+    </div>
+    <div class="fixcell" style="background:#EFE2BA">
+      <span class="lbl" style="color:#1F2A5C">Inverted &nbsp;·&nbsp; 5.49 &nbsp;·&nbsp; passes</span>
+      <span class="num" style="background:#D79922;color:#1F2A5C;display:inline-block;padding:.05em .2em">01.</span>
+      <span style="color:#1F2A5C;font-size:.8125rem;display:block;margin-top:.5rem">Listen — really listen, notes and all.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Where each ink is allowed</h2>
+  <table>
+    <tr><th>Ink</th><th>As type</th><th>As fill</th><th>Verdict</th></tr>
+    <tr><td><strong>Deep</strong></td><td>Everywhere</td><td>Contact ground</td><td class="r">Unrestricted</td></tr>
+    <tr><td><strong>Federal</strong></td><td>On Cream and Pale, any size</td><td>With Cream type</td><td class="r">Safe both ways</td></tr>
+    <tr><td><strong>Fluoro</strong></td><td>≥24px only, or ≥18.66px bold</td><td>With Cream or Deep type, ≥24px</td><td class="r">Display only</td></tr>
+    <tr><td><strong>Ochre</strong></td><td>On Deep only</td><td>With Deep type — preferred use</td><td class="r">Paper, not ink</td></tr>
+    <tr><td><strong>Pale</strong></td><td>On Deep only</td><td>With Deep type</td><td class="r">Ground only</td></tr>
+    <tr><td><strong>Cream</strong></td><td>On Deep, Federal, Fluoro ≥24px</td><td>The default ground</td><td class="r">Safe</td></tr>
+  </table>
+</section>
+
+<footer>
+  <div class="mono"><span class="star"></span> &nbsp; Measured with the WCAG 2.1 relative-luminance formula. Every ratio above is computed, not estimated.</div>
+</footer>
+
+</div>
+</body>
+</html>

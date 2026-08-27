@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "folio-dev",
-      "runtimeExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
-      "runtimeArgs": ["run", "dev"],
+      "name": "folio",
+      "runtimeExecutable": "powershell.exe",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "serve.ps1"],
       "port": 4321
     }
   ]

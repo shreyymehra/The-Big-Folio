@@ -63,7 +63,7 @@ Group by **layer**, not by site:
 
 ---
 
-## WHEN A REFERENCE CONFLICTS WITH `/briefs/00-system.md`
+## WHEN A REFERENCE CONFLICTS WITH `DIRECTION.md`
 
 **The system wins.** References inform execution within the locked system — they do not override tokens, type families, spacing values, or motion doctrine.
 
