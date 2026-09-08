@@ -39,6 +39,11 @@ while ($true) {
       $rel = ($path -replace '/', '\').TrimStart('\')
       $file = Join-Path $root $rel
       $full = [System.IO.Path]::GetFullPath($file)
+      # clean routes: /work -> work\index.html, /work/ -> work\index.html
+      if ($full.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase) -and (Test-Path $full -PathType Container)) {
+        $idx = Join-Path $full "index.html"
+        if (Test-Path $idx -PathType Leaf) { $full = $idx }
+      }
       if ($full.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase) -and (Test-Path $full -PathType Leaf)) {
         $bytes = [System.IO.File]::ReadAllBytes($full)
         $ext = [System.IO.Path]::GetExtension($full).ToLower()

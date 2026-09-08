@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ideas — Shrey Mehra</title>
+<meta name="description" content="Observations, experiments and arguments about brand, marketing and AI.">
+<link rel="icon" href="/public/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;700&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head><body>
+
+<nav id="nav"><a class="sig" href="/">Shrey Mehra</a>
+  <span class="links"><a href="/work/">Work</a><a href="/ideas/" aria-current="page">Ideas</a><a href="/about/">About</a><a href="/contact/">Contact</a></span></nav>
+
+<header class="phead">
+  <div class="wrap">
+    <img class="star" src="/assets/star.webp" alt="">
+    <span class="no">05 / Ideas</span>
+    <h1>Thinking out loud, on the record</h1>
+    <p class="stand">[GAP: one or two lines on what Ideas is for &mdash; why these exist and what a reader gets from them. This is the only copy on the page that has to be yours.]</p>
+    <div class="rule"></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <a class="featured" href="/ideas/idea-1/" aria-disabled="true">
+    <span>
+      <span class="lb">Featured</span>
+      <h2>[GAP: featured idea title]</h2>
+      <p>[GAP: one paragraph on the argument this piece makes. The featured slot is the strongest thing you have written, not the newest.]</p>
+    </span>
+    <span class="lb">Not yet written</span>
+  </a>
+
+  <div class="filter" role="group" aria-label="Filter ideas by theme">
+    <span class="lab">Filter</span>
+    <button class="fbtn" data-f="all" aria-pressed="true">All <span class="c">5</span></button>
+    <button class="fbtn" data-f="ai" aria-pressed="false">AI</button>
+    <button class="fbtn" data-f="marketing" aria-pressed="false">Marketing</button>
+    <button class="fbtn" data-f="strategy" aria-pressed="false">Strategy</button>
+    <button class="fbtn" data-f="culture" aria-pressed="false">Culture</button>
+    <button class="fbtn" data-f="observation" aria-pressed="false">Observation</button>
+    <button class="fbtn" data-f="experiment" aria-pressed="false">Experiment</button>
+  </div>
+
+  <div class="ideas-list" id="ilist">
+    <a class="idea rv" href="/ideas/idea-1/" data-d="" aria-disabled="true">
+      <span class="n">01</span>
+      <span><h3>[GAP: idea 01 title]</h3><p class="sub">[GAP: one line premise]</p></span>
+      <span class="when">Not written</span>
+    </a>
+    <a class="idea rv" href="/ideas/idea-2/" data-d="" aria-disabled="true">
+      <span class="n">02</span>
+      <span><h3>[GAP: idea 02 title]</h3><p class="sub">[GAP: one line premise]</p></span>
+      <span class="when">Not written</span>
+    </a>
+    <a class="idea rv" href="/ideas/idea-3/" data-d="" aria-disabled="true">
+      <span class="n">03</span>
+      <span><h3>[GAP: idea 03 title]</h3><p class="sub">[GAP: one line premise]</p></span>
+      <span class="when">Not written</span>
+    </a>
+    <a class="idea rv" href="/ideas/idea-4/" data-d="" aria-disabled="true">
+      <span class="n">04</span>
+      <span><h3>[GAP: idea 04 title]</h3><p class="sub">[GAP: one line premise]</p></span>
+      <span class="when">Not written</span>
+    </a>
+    <a class="idea rv" href="/ideas/idea-5/" data-d="" aria-disabled="true">
+      <span class="n">05</span>
+      <span><h3>[GAP: idea 05 title]</h3><p class="sub">[GAP: one line premise]</p></span>
+      <span class="when">Not written</span>
+    </a>
+  </div>
+  <p class="fempty" id="fempty" hidden>Nothing under that filter.</p>
+
+  <div class="gapbox">[GAP: Ideas has no content yet. Five routed shells exist at /ideas/idea-1 through /ideas/idea-5. Each becomes real by replacing the copy &mdash; the route, the nav and the prev/next chain already work. Tag each piece by adding data-d on its row here.]</div>
+
+  <div class="pfoot">
+    <a href="/about/">About <span class="arw">&rarr;</span></a>
+    <span class="sig">Shrey Mehra &middot; shreyymehraa@gmail.com</span>
+  </div>
+</main>
+
+<script src="/assets/site.js"></script>
+<script>
+(function(){
+  var rows = [].slice.call(document.querySelectorAll('#ilist .idea'));
+  var empty = document.getElementById('fempty');
+  document.querySelectorAll('.fbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.dataset.f, shown = 0;
+      document.querySelectorAll('.fbtn').forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      rows.forEach(function(r){
+        var hit = f === 'all' || (' ' + (r.dataset.d || '') + ' ').indexOf(' ' + f + ' ') > -1;
+        r.hidden = !hit;
+        if(hit){ shown++; r.classList.add('in'); }
+      });
+      empty.hidden = shown > 0;
+    });
+  });
+})();
+</script>
+</body></html>
