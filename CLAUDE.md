@@ -313,9 +313,13 @@ nothing and needs rewriting.
 
    - **GitHub Pages** — live at `https://shreyymehra.github.io/The-Big-Folio/`, built from
      `v5-blocks`, `/(root)`. Served from a subpath; `.nojekyll` stops Jekyll processing.
-   - **Vercel** — `vercel.json` at the repo root sets it up: no build command, no output
-     directory, no install step, because there is nothing to build. Deploy from **`main`**
-     (PR #1 merged `v5-blocks` into it). Preset **Other**, root directory `./`.
+   - **Vercel** — `vercel.json` at the repo root sets it up. Deploy from **`main`** (PR #1 merged
+     `v5-blocks` into it). Preset **Other**, root directory `./`, no build or install command.
+     **`outputDirectory` must be `"."` and cannot be omitted.** Left unset, Vercel's zero-config
+     static default serves the `public/` directory as the site root — which here holds only
+     favicons, so every route 404s while `/favicon.svg` returns 200. That is the signature of
+     this bug if it recurs. Because the output directory is the repo root, everything not listed
+     in `.vercelignore` is publicly downloadable; the working documents are excluded there.
 
    Running both is fine but means two live URLs. **Pick one as canonical** and point a custom
    domain at it, otherwise a recruiter can land on whichever is staler. Still to do either way:
