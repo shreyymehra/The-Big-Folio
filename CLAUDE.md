@@ -1,142 +1,368 @@
-# The Big 'Folio — project context
+# CLAUDE.md
 
-Personal portfolio for **Shrey Mehra** (Melbourne). Creative strategy, brand,
-comms. Targeting Anthropic, OpenAI, FAANG and culture-driven scaleups across
-APAC and US/Global.
+Read this before writing any code, every session. These are constraints, not suggestions.
+Do not re-derive, re-propose, or "improve" anything marked LOCKED.
 
-**The reaction being engineered:** *"This person could build a world out of nothing."*
-
-**Positioning line:** I build brands people want to belong to.
+**Also read, before touching design or copy:**
+- `DIRECTION.md` — the governing art direction. Hierarchy, grid, colour, veto list.
+- `TASTE.md` — what the reference set is for. Take / leave / why.
+- `POSTMORTEM.md` — why two earlier builds were rejected. Read before proposing anything.
+- `taste-skill/SKILL.md` — the working method: reconcile sources, audit assets, verify claims, look at output.
 
 ---
 
-## Run it locally
+## PROJECT
 
-No Node or Python on this machine. A dependency-free PowerShell static server
-ships with the repo:
+Personal portfolio for **Shrey Mehra**. Melbourne, working globally.
+`shreyymehraa@gmail.com` · `linkedin.com/in/shreymehraa`
 
-```bash
-PORT=5050 pwsh ./serve.ps1
+**Positioning.** Culturally fluent, strategically and commercially aware creative professional.
+Territory is marketing, product, GTM, business ops, creative execution and AI-enabled ways of working.
+Not "a designer". Not "a copywriter". Targets: Anthropic, OpenAI, FAANG, culture-led scaleups.
+
+**Governing line.** If you appeal to everyone, you tie yourself to no one.
+
+**Traffic reality that shapes every decision.** Most visitors arrive from a cold email, clicked
+reluctantly, and decide in under ten seconds whether this person is worth their time. Build for the
+sceptical first-time visitor, not someone already convinced.
+
+**The site must not read as AI-generated.** If a section could belong to any other portfolio, it is wrong.
+
+---
+
+## SUPERSESSION — older handover docs conflict with this file
+
+A handover dated 8 Sep 2026 circulates that names the **v5 cut-out system** as authoritative
+(void `#0b0b0d`, hot pink, cold blue, acid, five typefaces, ransom note on near-black). It is stale.
+So is any doc listing the eyebrow as "Creative Strategist — Brand & Culture", a "Melbourne → Global"
+badge, or a five-piece slate led by L'Oréal with a fictional app called Debra.
+
+**Where anything conflicts with this file, this file wins.** The v6 editorial system below was
+approved after those docs were written, alongside a widened positioning and a veto list that
+explicitly kills the badge. Reviving v5 wholesale would be the fourth restart.
+
+What survived from v5: the found cut-out name tiles, the halftone photo merge, the riso star, the
+hover inversion. Those are devices inside the v6 system, not a licence to restore its palette.
+
+---
+
+## ACTUAL BUILD STATE — read this before believing any other file
+
+Corrected 8 Sep 2026. The Astro build described in earlier versions of this file no longer exists:
+commit `d5aa99b` ("Make index.html the source of truth; strip the dead toolchain") deleted `src/`,
+`package.json` and the toolchain deliberately, to collapse three parallel realities into one.
+The site is now routed, hand-authored HTML with a shared stylesheet and no build step.
+
+| Thing | State |
+|---|---|
+| `index.html` | **`/home`.** The narrative journey: hero, selected work, ideas, brain dump, about, contact. |
+| `/work/index.html` | **`/work`.** The complete index, tag-filtered, one row per project. |
+| `/work/<slug>/` | Five case pages: vastr, cut-the-noise, voicedna, vrl, absolutily. |
+| `/ideas/`, `/ideas/idea-N/` | Index plus five routed shells. **No content yet — every line is a `[GAP]`.** |
+| `/about/`, `/contact/` | One page each. About carries the long version plus the FAQ. |
+| `assets/site.css` | **THE stylesheet.** Every page links it. Edit here, never per page. |
+| `assets/site.js` | Shared behaviour: nav, reveals, rail, year stamp. |
+| `assets/scroll.js` | Work-index reveal. Uses Motion's `inView`, not scroll-linked — see the note in the file. |
+| `assets/vendor/` | Vendored `lenis.min.js` and `motion.min.js`. Prebuilt dists, committed on purpose. |
+| `assets/img/` | Page imagery, content-hashed. Extracted from inline data URIs (index.html was 1.81MB). |
+| `_archive/v6-prototype/v6.html` | The v6 ink/paper prototype. **Not adopted** — see the palette note below. |
+| `_archive/pre-routing-cases/` | The case pages before routing. Superseded by `/work/<slug>/`. |
+| `_archive/flat-routes/` | The flat root-level pages before routing. Superseded. |
+| Branch | `v5-blocks`, pushed, tracking `origin/v5-blocks`. |
+
+---
+
+## STOP MAKING NEW HTML FILES
+
+Six versions existed because each change shipped as a new self-contained file. Nothing accumulated
+and every change re-opened the whole page. This is the failure mode this repo keeps returning to,
+and `d5aa99b` was written specifically to end it.
+
+**The rule:** one page per route, edited in place. Versions live in git history, not in filenames.
+If you find yourself about to write `v7.html`, or to copy a page in order to change it, stop.
+A second copy of a live page is the bug, not the backup.
+
+**Shared, not self-contained.** CSS and JS are shared files; images are files under `assets/img/`.
+Inlining a stylesheet or an image back into a page is a regression — it is how the duplication
+started last time. There is still no framework, no bundler and no `npm install`.
+
+**Links are depth-relative, never root-relative.** A page at `/work/vastr/` links the stylesheet as
+`../../assets/site.css`; the home page links it as `assets/site.css`. This is not a style
+preference — the site is served from `https://shreyymehra.github.io/The-Big-Folio/`, a subpath, so
+a root-relative `/assets/site.css` resolves above the site root and 404s. Root-relative links
+shipped once and took the whole stylesheet, every image and all navigation down.
+
+Depth-relative also works at an apex domain and over `file://`, so it needs no per-host config.
+**After adding or moving a page, re-run the link check in COMMANDS.**
+
+**Adding a project** means: one `/work/<slug>/index.html`, one `.wrow` in `/work/index.html`, and
+a home-page card only if it is among the strongest three. Nothing else changes.
+
+```
+powershell -ExecutionPolicy Bypass -File serve.ps1
+```
+Serves the folder at http://localhost:4321 and resolves `/work/` to `work/index.html`.
+
+---
+
+## DESIGN SYSTEM — v6, LOCKED
+
+Full rationale in `DIRECTION.md`. The operative values, declared at `:root` in `assets/site.css`:
+
+```css
+--cream:#EFE2BA;   /* ground */
+--deep:#1F2A5C;    /* all body type and line work. 10.53 on cream. */
+--fluoro:#F13C20;  /* accent. Countable per page — if you cannot count them, there are too many. */
 ```
 
-Then open `http://localhost:5050`. Plain static HTML/CSS/JS — no build step.
+Text is never pure black.
+
+**Correction, 8 Sep 2026.** Earlier versions of this file locked an `ink #17181B` / `paper #F2EFE9`
+/ `accent #F1442A` palette. That palette belongs to `_archive/v6-prototype/v6.html`, which was
+never adopted. The five case studies and the whole live site are built on cream/deep/fluoro, and
+`d5aa99b` locked it. Do not reintroduce ink/paper — it would mean recolouring every page to match
+a prototype that lost.
+
+**Type.** Bricolage Grotesque (display), Instrument Sans (body), Martian Mono (metadata).
+Weight 500 does the work. 700 is a rare emphasis. Wide gaps in the scale, no intermediate steps
+added to smooth it: flatness is the failure mode the scale exists to prevent.
+
+**Grid.** 12 columns desktop, 8 tablet (≤1024px), 4 mobile (≤640px). CSS subgrid for section
+internals. Asymmetric by default. Centred layouts are a deliberate exception, never a fallback.
+
+**Hierarchy — apply to every block, never equal weight:**
+1. **Idea** — what the visitor must understand. Largest.
+2. **Evidence** — what proves it.
+3. **Context** — what helps them understand it. Neutral tone, not black.
+4. **Metadata** — role, date, tools. Smallest, mono, muted.
+
+**Motion.** Communicates arrival, hierarchy or transition. Motion that only demonstrates capability
+is cut. `prefers-reduced-motion` collapses everything, but note: collapsing durations does not stop
+an infinite animation. Loops must be paused explicitly in their own components.
 
 ---
 
-## Source documents (outside the repo)
+## THE VETO LIST — do not ship these
 
-These live in `C:\Users\User\Contacts\` and are **not** version controlled:
+Rounded cards. Drop shadows and offset shadows. Pills. Badges. Glassmorphism. Gradient meshes.
+Centred symmetrical layouts. Decorative scroll cues and section dividers that carry no information.
+Floating metadata chips without context (a bare "MELBOURNE · GLOBAL" capsule). Corporate copy.
+Clutter. **Em dashes in site copy.** Volume because content exists.
 
-| File | Date | Role |
+Anything on this list reads as AI-generated, which is the one impression that undoes the rest.
+
+**Where personality actually comes from:** real artefacts, specific copy, one bold move held with
+conviction, and inversion. Not effects. When a section feels flat, the instinct to add a shadow is
+always wrong. Full detail in `taste-skill/references/anti-generic.md`.
+
+---
+
+## SECTIONS AND THEIR JOBS
+
+| Section | Job | Failure mode |
 |---|---|---|
-| `PortfolioBuild.odt` | 10 Aug 2026 | **Newest. Wins on content.** Sections, case study substance, skills, contact copy |
-| `BRIEF_PACK_Portfolio.md` | 5 Aug 2026 | Sharpest reasoning. Wins on UX rationale and house rules |
-| `CONTEXT_Shrey_Portfolio.md` | 6 Jul 2026 | Standing brief. Voice, audience, taste |
-| `Visual Cues/` | Jul 2026 | Reference screenshots (Antony Raphy, Prasshanna) — contextual, keeps changing |
-| `Shrey_Portfolio_Framer/` | Jul 2026 | Origin of this build. `preview/` was copied here to seed the repo |
+| Hero | Identity, what I do, personality, curiosity, route to work | A tagline with nothing behind it |
+| Work | Primary evidence of capability | An image gallery |
+| Ideas | The intellectual layer. POV, observations, editorial | A blog with three posts |
+| About | The human context that makes the work memorable | A restated CV |
+| Contact | Frictionless, confident | Over-designed |
+
+**Case study shape.** Context → Challenge → Thinking → Execution → Outcome → Reflection. Not every
+stage appears in every piece, but the narrative must be continuous. Prioritise: my role, the problem,
+my contribution, the strategic thinking, the evidence, the result.
+
+**Show how he thinks, not what he made.** A beautiful artefact without reasoning is weaker than an
+ordinary artefact with strong reasoning.
 
 ---
 
-## The single most important piece of history
+## CONTENT — what is real
 
-**The visual system has been re-specified three times and shipped zero times.**
+**Locked copy, use verbatim, fix typos only:**
+- Hero: `and I have always wanted to build [brands/products/launches/systems/teams/worlds]`
+- Hero idea line: `I find the idea, write the words, and build the case for why it moves a number.`
+- Photo caption: `Delhi, 1998. First machine I was allowed to break.`
+- Contact CTA: `Let's build something you will always be proud of.`
+- Brain Dump: five steps, complete, in his voice
+- About: five paragraphs, his writing
+- FAQ: nine answers, three recovered from the v3 build, six written with him
+- Ticker: six real colleague quotes
 
-- `CONTEXT` §9 and `BRIEF_PACK` §5 both mark a **near-black + parchment + gold +
-  Bodoni + film grain** system as `[LOCKED]`
-- The July Framer README specifies **Y2K riso on paper** — cobalt, tangerine,
-  halftone — and states the parchment-and-gold system "is gone"
-- What was actually **built** is a third thing: **warm paper + race red + Syne**
+**Work slate (7).** Vastr · Cut The Noise · VoiceDNA are the three visible on load.
+Then Venus Roadlines · AbsolutILY · Duolingo · L'Oréal behind "show the other four".
 
-`BRIEF_PACK` §5 also instructs "match `PortfolioHero.tsx` exactly." **That file
-does not exist** — the real hero is `Hero.tsx`, in the third system. The brief's
-own anchor is missing, which is how the systems drifted without anyone noticing.
+**Real vs spec.** VoiceDNA and Venus Roadlines are real and shipped. Everything else is spec, and
+**spec is disclosed in the first line of the case study, every time.**
 
-**Resolution: the built v3 system wins.** It is documented in
-[`DESIGN-TOKENS.md`](DESIGN-TOKENS.md), which is now the source of truth. Do not
-re-derive the palette from the briefs. If a brief and the CSS disagree, the CSS
-is right.
+**Verified facts** live in the master resume. iSelect/CTM engagement +46% MoM, vendor costs −78%.
+Tickertape CTR +310%, 160k customers, 20k MAU. TEDxVIPS 130 volunteers, 1.2M views. Use these;
+do not invent neighbours for them.
 
-The bottleneck on this project has never been taste. It is a live URL.
-**Bias every decision toward shipping.**
+**Case detail worth keeping:**
 
----
+- **L'Oréal.** The insight is commercially real: scalp health persists without hair, so excluding bald
+  consumers is a positioning choice rather than a product one. Thesis line: *"you might not need hair
+  for haircare after all."* The **bald-by-choice vs bald-by-circumstance** distinction is the strategic
+  edge; keep it. Lead with *"Hair or not, here we come."* Cut *"This is an ad for all of you."*
+  Before publishing: rebuild the competitive set (Head & Shoulders has been scalp-first for decades,
+  so naming it as a hair-only foil inverts reality) and acknowledge L'Oréal's own scalp assets —
+  Kérastase Genesis, CeraVe, Elvive — then argue why the gap remains.
+- **Vastr** was called Debra. Two names lost: *Debra* read as a voice assistant, warm in the wrong
+  direction for a utility tool; *Whear* was clever in a room and impossible to spell from hearing.
+  Correct competitive set: Whering, Indyx, Acloset, Save Your Wardrobe, Stylebook. **Not H&M** —
+  that is a retailer, not a wardrobe app.
+- Vastr is the only piece starting from a blank page, so it carries the world-building proof alone.
 
-## Conflicts between briefs, and how each was resolved
-
-| Question | `.odt` (newest) | `BRIEF_PACK` | Resolution |
-|---|---|---|---|
-| Opening sequence (childhood photo prelude) | Wants it | Killed it — spends the 10-second cold-email budget before delivering value | **Killed.** Photo relocates to About |
-| Ticker content | Client logos | `[LOCKED]` text — logos imply client relationships that don't exist | **Text.** Now carries the six testimonial lines |
-| Signature element | Kept vinyl **and** cube | Pick one — "boldness is spent in one place" | **Vinyl only** (not yet built). Cube cut |
-| Case study 01 subject | L'Oréal | L'Oréal | Agreed. (`CONTEXT` said fictional AI company — superseded) |
-| Work slate | 5 pieces | Same 5 | Agreed. "Cut The Noise" and "The Teardown" from v3 are **not** on the `.odt` slate |
-
----
-
-## House rules — non-negotiable
-
-1. **Nothing reads as AI-generated.** First person, specific, occasionally funny,
-   never corporate. If a line could belong to someone else's portfolio, it is
-   wrong — rewrite it.
-2. **No invented metrics. Ever.** Including years. Where a number would go, show
-   the reasoning instead.
-3. **Spec work discloses itself in the first line** of the case study.
-4. **Never a dead link.** Unfinished work is labelled "In development" with a date.
-5. **No services menu, no pricing, no booking widget.** This is a creative
-   statement, not a freelance funnel.
-6. **Accessibility is a floor.** Visible focus states, keyboard reachable,
-   `prefers-reduced-motion` honoured, 44px touch targets, WCAG AA contrast.
-7. **Preserve Shrey's voice when editing his copy.** Typo-correct; do not rewrite
-   for tone. Flag changes rather than erasing him.
+**Two factual corrections that must not regress:**
+- Hungry Jack's has **never** traded as Burger King in Australia. The 1985 store execution is Hungry
+  Jack's own heritage. Burger King-branded stores here (1997–2003) were BKC's hostile competitor,
+  subject of a A$46.9m judgment against them. Do not reintroduce Burger King nostalgia.
+- AbsolutILY's five executions are all **unwitnessed wins**. The ABAC code prohibits positioning
+  alcohol as a response to adversity, so no execution may sit on a bad moment.
 
 ---
 
-## Working style
+## HARD RULES
 
-From `CONTEXT` §4: *"Anti-sycophancy is on. Blunt, top-tier advisory. Push back on
-weak ideas. Never fabricate progress."* Act as a creative sparring partner, not a
-yes-man.
-
-**Build order is sequential** — HERO → TICKER → WORK → BRAIN DUMP → ABOUT → FAQ →
-CONTACT. Stop after each section, show the result, review, then continue. Do not
-batch. Shrey's note: the portfolio has failed before by being mushed together.
-
----
-
-## Current state
-
-**Built:** Hero (name + flipping ID card + cursor aura), testimonial ticker,
-Work index, Brain Dump (5 steps), About, FAQ, Contact, footer with a JoJo
-easter egg (hold the crest). Mobile nav collapses to crest + Contact at ≤560px.
-
-**Written case studies:** `case-loreal.html`, `case-vastr.html`.
-
-**Open — needs Shrey:**
-
-- Resume file or link (`[GAP]`)
-- ID photo (`assets/shrey-id.jpg`) and childhood photo for About
-- Spotify playlist URL, if the vinyl gets built
-- Absolut, Duolingo and VRL case study content; VRL needs real files
-- **Skills honesty split.** The `.odt` claims *Anthropic API & MCP* while
-  applying to Anthropic — this will be asked. Also Salesforce, Tableau,
-  MoEngage, Amplitude, GitHub. Anything Shrey cannot defend for five minutes
-  under interview pressure moves to Working Knowledge or comes off. A shorter
-  honest list costs nothing; getting caught thin is unrecoverable.
-
-**Standing recommendation not yet accepted:** lead the work slate with Vastr
-rather than L'Oréal. Four of five pieces improve brands that already exist;
-Vastr is the only one that starts from a blank page, and it is therefore the
-only piece carrying the "world from nothing" proof.
+1. **Never invent.** Where content is missing, put a visible `[GAP: what is needed]` in the artefact
+   itself, not only in chat. It should be uncomfortable to ship.
+2. **No invented metrics.** Where a number would go and there isn't one, show the reasoning instead.
+3. **Never more than one placeholder of the same kind.** Three stubs sharing a sentence is the
+   clearest possible signal that nothing behind them is real.
+4. **No dead links.** Unfinished work is labelled "In development" and is not linked.
+5. **Spec disclosed in the first line.**
+6. **Preserve his voice.** Copy he wrote is source material. Flag changes, never quietly rewrite.
+7. **Accessibility is a floor.** Visible focus, keyboard reachable, reduced motion honoured, contrast
+   AA, alt text on every image, content reflows at 390px rather than shrinking, 404 exists.
+8. **No services menu, no pricing, no booking widget.** A creative statement, not a freelance funnel.
 
 ---
 
-## Voice reference
+## HOW TO WORK
 
-Shrey's own writing, kept because it is unfakeable and sets the register:
+**One section at a time. Build, screenshot, show, stop.** Batching is how whole builds get rejected
+at once with no way to tell which decision was wrong.
 
-> My high-school crush called me an 'empath' once and I took it seriously as a
-> job title.
+**Look at every output.** Structure verified through code is not verified.
+```
+node taste-skill/scripts/shoot.js references/v6.html --sel "#work" --out /tmp
+```
+Then open the PNGs. Bugs found only by looking this session: a grid column blown out by `1fr`
+deriving its minimum from content; collapsed accordion content visible because the container was a
+`<span>`; a `<ul>` inside a `<p>` auto-closed by the parser; an image stretched by `min-width`
+fighting a fixed height; a caption placed over the busiest part of a photograph.
 
-> A boy's got to fund his dreams and the city rent.
+**One decision at a time, with a recommendation attached.** He gets overwhelmed by parallel
+decisions. Four open questions gets none answered.
 
-> Sharpening the axe is the fastest way to cut down the tree.
+**A recommendation that goes unanswered is not consent.** Ask again.
+
+**Lead with what you need.** Open with the specific input required, then what changed, then why.
+
+**No fluff.** He has asked for this explicitly. Short, work-driven, signal over volume.
+
+**Blunt advisory.** Anti-sycophancy is on. Push back on weak ideas. Never fabricate progress.
+
+**Absence of evidence is not evidence.** If you cannot find something, name where you looked. A
+previous session concluded the build did not exist from two folders that happened not to contain it,
+wrote that into this file, and was wrong. The repo was in a third folder.
+
+**Never describe a tool or a site as live before it is.**
+
+**Execution over planning containers.** Do not drift into frameworks and scaffolding instead of
+shipped work. He has flagged this specifically.
+
+### Four passes per component, four separate requests
+
+Compressing these into one request is the main cause of generic output.
+
+1. Static structure. No styling refinement, no hover, no motion.
+2. Spacing, type scale, alignment.
+3. Behaviour: hover, click, expand.
+4. Motion: reveals, transitions, stagger.
+
+Four requests feels slower and finishes faster, because you are not patching a wrong foundation.
+
+### Diagnosing "this looks off"
+
+It is almost always one of four properties. Name the property, not the feeling.
+
+| Symptom | Property | What to say |
+|---|---|---|
+| Cluttered or empty | Spacing rhythm | Vertical spacing is inconsistent, standardise the section gap |
+| Flat, nothing stands out | Type scale | Not enough contrast, push display up and remove intermediate sizes |
+| Looks like a template | Alignment | Too much centred, left-align to the grid edge |
+| Busy | Hierarchy | Three elements competing, make one dominant and drop the rest to muted |
+
+### Feeding references
+
+Every reference needs **Take only** and **Ignore**. Without the Ignore line it gets absorbed
+wholesale and drags the design toward someone else's system. `TASTE.md` is written in this form.
+
+### Banned in headline copy
+
+*passionate · driven · storytelling · data-driven · growth.* If one appears, the line is doing
+nothing and needs rewriting.
+
+---
+
+## OPEN — needs Shrey, do not decide for him
+
+1. **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
+   Currently live on GitHub Pages from the `v5-blocks` branch at
+   `https://shreyymehra.github.io/The-Big-Folio/`. Links are depth-relative, so it also works at an
+   apex domain without changes. Two upgrades worth considering, neither urgent:
+   a custom domain (the field is empty in the Pages settings), or renaming the repo to
+   `shreyymehra.github.io` so it serves at the root as a user site — a better URL for a portfolio.
+2. **Two "essence" devices to add next.** Candidates offered: leader-line annotation on case pages,
+   cursor state over work rows, detail crops in case studies, star as scroll progress, one real
+   easter egg. He picks two.
+3. **Ideas has no content, but is now in the nav.** His architecture brief of 8 Sep names `/ideas`
+   as one of five primary areas and specifies `idea-1`…`idea-5`, so the routes and the nav entry
+   were built. That overrides the earlier "stays out of the nav until a piece exists" rule on
+   *structure* — but it leaves five identical `[GAP]` rows on `/ideas` and three on the home page,
+   which breaks HARD RULE 3. Either one real piece lands, or the index shows a single honest
+   "not written yet" state instead of five stubs. **Needs his call.**
+4. **Venus Roadlines identity work.** The case claims taglines, positioning and brand language shipped
+   alongside the 106-page manual. Only the manual exists on disk. Asked four times, unanswered.
+   Tags currently read `Operations · Communications`, not Brand Identity.
+5. **GAPs live on the page now:** two LinkedIn recommendations, Spotify URI, resume link, Vastr's
+   three GTM benchmark numbers.
+
+---
+
+## BUILD ORDER
+
+Items 1, 3 and 4 are done — routing, the shared stylesheet, the five case pages, and About/Contact
+all exist. What remains, in order:
+
+1. **Work needs visuals.** Every case study contains exactly one image, and it is the star mark.
+   There is no work imagery anywhere in the portfolio. The plates at `/work` are typographic
+   compositions standing in for artefacts, built as a slot so a real image drops in unchanged.
+   This is the single highest-leverage gap in the site.
+2. **Ideas needs one real piece.** Five routed shells exist and every line in them is a `[GAP]`.
+   See the note under HARD RULES about repeated placeholders — the current state breaks rule 3.
+3. Create `ESSENCE.md` — a register of every distinctive device, where it lives, what job it does.
+   Adding personality then becomes additive rather than re-argued.
+4. Section-level art direction, one section per request, four passes each. Loader and Work are done.
+   Ticker, Brain Dump, About, FAQ, Contact remain.
+5. Case-study CSS still lives inline in the five pages, because `.face`, `.tag`, `.stand`, `.sec`
+   and `.pull` mean different things there than in `site.css`. Merge under a scoped `.case` block.
+6. Responsive pass at 390 / 768 / 1024.
+7. Accessibility pass. 404 page. Portfolio schema.
+8. Deploy.
+
+---
+
+## COMMANDS
+
+```bash
+# preview server, from repo root. No Node, no npm, no install.
+powershell -ExecutionPolicy Bypass -File serve.ps1
+
+# check every internal link still resolves after adding or moving a page
+node -e "const f=require('fs'),p=require('path');(function w(d,a=[]){for(const e of f.readdirSync(d,{withFileTypes:true})){if(['.git','_archive','node_modules'].includes(e.name))continue;const q=p.join(d,e.name);e.isDirectory()?w(q,a):e.name.endsWith('.html')&&a.push(q)}return a})('.').forEach(x=>{for(const m of f.readFileSync(x,'utf8').matchAll(/(?:href|src)=\"(\/[^\"]+)\"/g)){const t=m[1].split('#')[0];if(!f.existsSync('.'+t)&&!f.existsSync('.'+t+'/index.html'))console.log('BROKEN',x,'->',t)}})"
+```
+
+Branch is `v5-blocks`, already pushed and tracking `origin/v5-blocks`. The name is historical and
+no longer describes the work; rename only in coordination with the remote, not unilaterally.

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE BIG 'FOLIO — Design Language & Motion Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@1,400;1,700;1,900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0b0b0d; --paper:#fbf9f4; --ink:#14120f;
+  --pink:#ff2e88; --blue:#2f5bff; --acid:#e8ff3a;
+  --muted:#7c7a75;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--void);color:var(--paper);
+  font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+section{padding:var(--s6) 0;border-top:1px solid rgba(251,249,244,.12)}
+section:first-of-type{border-top:0}
+
+/* ---------- meta / mono chrome ---------- */
+.mono{font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sechead{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s4)}
+.sechead h2{font-family:'Archivo Black',sans-serif;font-size:clamp(24px,3.4vw,38px);margin:0;letter-spacing:-.01em;text-transform:uppercase}
+.note{color:var(--muted);max-width:62ch;font-size:15px}
+.note strong{color:var(--paper);font-weight:500}
+
+/* ---------- cut word primitive ---------- */
+.cut{
+  display:inline-block;padding:.14em .34em;margin:.06em .1em;
+  background:var(--paper);color:var(--ink);
+  border-radius:2px;box-shadow:3px 3px 0 rgba(0,0,0,.42);
+  line-height:1.06;vertical-align:middle;
+  transition:transform .28s var(--ease),background .28s var(--ease),color .28s var(--ease);
+}
+.cut-1{font-family:'Playfair Display',serif;font-style:italic;font-weight:900}
+.cut-2{font-family:'Archivo Black',sans-serif}
+.cut-3{font-family:'Courier Prime',monospace;font-weight:700;letter-spacing:-.02em}
+.cut-4{font-family:'DM Sans',sans-serif;font-weight:700}
+.cut-5{font-family:'Bebas Neue',sans-serif;letter-spacing:.02em;padding-top:.18em}
+.cut.pink{background:var(--pink);color:var(--paper)}
+.cut.blue{background:var(--blue);color:var(--paper)}
+.cut.acid{background:var(--acid);color:var(--ink)}
+.cut.ink{background:var(--ink);color:var(--paper)}
+.cut.aged{background:#efe9dc;color:var(--ink)}
+.cut.tilt-l{transform:rotate(-2.5deg)}
+.cut.tilt-r{transform:rotate(2deg)}
+.cut.drop{transform:translateY(6px)}
+
+.headline{font-size:clamp(30px,6.6vw,78px);line-height:1.42;margin:0}
+
+/* ---------- masthead ---------- */
+.mast{padding:var(--s6) 0 var(--s5)}
+.mastmeta{display:flex;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s4)}
+
+/* ---------- palette ---------- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px}
+.sw{padding:var(--s3);min-height:132px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+.sw b{font-family:'Archivo Black',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.sw span{font-family:'Courier Prime',monospace;font-size:12px;opacity:.75}
+.sw i{font-style:normal;font-size:11px;opacity:.6;font-family:'Courier Prime',monospace;margin-top:6px}
+
+/* ---------- type specimens ---------- */
+.specimen{display:grid;grid-template-columns:64px 1fr;gap:var(--s3);align-items:center;padding:var(--s3) 0;border-bottom:1px solid rgba(251,249,244,.1)}
+.specimen .n{font-family:'Courier Prime',monospace;font-size:12px;color:var(--muted)}
+.specimen .word{font-size:clamp(28px,4.6vw,52px);line-height:1}
+.specimen .role{font-family:'Courier Prime',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+
+/* ---------- lab cards ---------- */
+.lab{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2px;margin-top:var(--s4)}
+.card{background:#111114;padding:var(--s4) var(--s3) var(--s3);position:relative;overflow:hidden;min-height:300px;display:flex;flex-direction:column}
+.card .idx{position:absolute;top:12px;left:16px;font-family:'Courier Prime',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em}
+.card h3{font-family:'Archivo Black',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.02em;margin:var(--s2) 0 6px}
+.card p{font-size:14px;color:var(--muted);margin:0 0 var(--s3);line-height:1.5}
+.card .stage{flex:1;display:flex;align-items:center;justify-content:center;background:#0b0b0d;position:relative;min-height:150px;border:1px dashed rgba(251,249,244,.14)}
+.tag{display:inline-block;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:1px solid rgba(251,249,244,.28);color:var(--muted);margin-right:4px}
+
+/* 1 loader reels */
+.reels{display:flex;gap:6px}
+.reel{width:74px;height:64px;overflow:hidden;background:var(--paper);color:var(--ink);position:relative}
+.reelstrip{position:absolute;top:0;left:0;width:100%;display:flex;flex-direction:column;align-items:center}
+.reelstrip span{height:64px;min-height:64px;flex:0 0 64px;display:flex;align-items:center;justify-content:center;font-size:38px;line-height:1;width:100%}
+@keyframes spin1{0%{transform:translateY(0)}100%{transform:translateY(-320px)}}
+.r1 .reelstrip{animation:spin1 .55s steps(5) infinite}
+.r2 .reelstrip{animation:spin1 .45s steps(5) infinite}
+.r3 .reelstrip{animation:spin1 .65s steps(5) infinite}
+.card.settled .reelstrip{animation:none;transform:translateY(-128px)}
+
+/* 2 cutword hover */
+.hoverline{font-size:clamp(24px,3.2vw,40px);cursor:pointer;text-align:center}
+
+/* 3 cut-to-focus */
+.focusstage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.clutter{position:absolute;inset:0;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px;padding:12px;filter:blur(0px);opacity:1;transition:filter .7s var(--ease),opacity .7s var(--ease)}
+.clutter span{font-family:'Archivo Black',sans-serif;font-size:12px;padding:3px 6px;background:var(--pink);color:var(--paper);transform:rotate(-3deg)}
+.clutter span:nth-child(even){background:var(--acid);color:var(--ink);transform:rotate(4deg)}
+.clutter span:nth-child(3n){background:var(--blue)}
+.signal{position:relative;z-index:2;filter:blur(6px);opacity:.55;transition:filter .7s var(--ease),opacity .7s var(--ease);text-align:center}
+.card.cutthru .clutter{filter:blur(9px);opacity:.22}
+.card.cutthru .signal{filter:blur(0);opacity:1}
+
+/* 4 ticker */
+.tickwin{width:100%;overflow:hidden;padding:14px 0;background:var(--paper);color:var(--ink)}
+.tickrow{display:flex;gap:22px;white-space:nowrap;font-family:'Courier Prime',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.06em;animation:tick 22s linear infinite;will-change:transform}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.star{display:inline-block;width:13px;height:13px;background:var(--pink);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);vertical-align:-1px}
+
+/* 5 work row */
+.rows{width:100%}
+.row{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;padding:11px 12px;border-bottom:1px solid rgba(251,249,244,.12);cursor:pointer;transition:background .25s var(--ease),padding .25s var(--ease)}
+.row:hover,.row:focus-visible{background:var(--paper);color:var(--ink);padding-left:20px;outline:none}
+.row .ttl{font-family:'Archivo Black',sans-serif;font-size:14px;text-transform:uppercase}
+.row .meta{font-family:'Courier Prime',monospace;font-size:11px;opacity:.6}
+.row .no{font-family:'Courier Prime',monospace;font-size:11px;opacity:.5}
+
+/* 6 bento */
+.bento{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%}
+.tile{background:var(--paper);color:var(--ink);padding:12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;transition:background .25s var(--ease),color .25s var(--ease)}
+.tile:nth-child(1){grid-row:span 2}
+.tile.open{background:var(--blue);color:var(--paper)}
+.tile .ans{font-weight:400;font-size:12px;line-height:1.45;max-height:0;overflow:hidden;transition:max-height .45s var(--ease),margin .45s var(--ease);margin-top:0}
+.tile.open .ans{max-height:200px;margin-top:8px}
+
+/* 7 reveal */
+.revealbox{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
+.rv{opacity:0;transform:translateY(14px) rotate(-2deg);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.card.revealed .rv{opacity:1;transform:none}
+
+/* 8 tape CTA */
+.tape{position:relative;display:inline-block;padding:14px 26px;background:var(--acid);color:var(--ink);font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:15px;border:0;cursor:pointer;transform:rotate(-1.4deg);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.tape::before,.tape::after{content:"";position:absolute;width:34px;height:13px;background:rgba(251,249,244,.5);top:-6px}
+.tape::before{left:8px;transform:rotate(-7deg)}
+.tape::after{right:8px;transform:rotate(6deg)}
+.tape:hover,.tape:focus-visible{transform:rotate(-1.4deg) translateY(-3px) scale(1.03);box-shadow:6px 8px 0 var(--pink);outline:none}
+
+/* 9 crosshair */
+.xhair{position:relative;width:100%;height:100%;cursor:none;overflow:hidden}
+.xh-v,.xh-h{position:absolute;background:var(--pink);opacity:.85;pointer-events:none}
+.xh-v{width:1px;top:0;bottom:0}.xh-h{height:1px;left:0;right:0}
+.xh-read{position:absolute;font-family:'Courier Prime',monospace;font-size:10px;color:var(--acid);pointer-events:none;transform:translate(10px,10px);letter-spacing:.06em}
+
+/* label vocabulary */
+.vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--s3);margin-top:var(--s4)}
+.vitem{border:1px solid rgba(251,249,244,.16);padding:var(--s3);min-height:150px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.vitem .demo{display:flex;align-items:center;justify-content:center;flex:1}
+.vitem .cap{font-family:'Courier Prime',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.barcode{height:38px;width:104px;background:repeating-linear-gradient(90deg,var(--paper) 0 2px,transparent 2px 4px,var(--paper) 4px 5px,transparent 5px 9px,var(--paper) 9px 12px,transparent 12px 13px)}
+.sidelabel{writing-mode:vertical-rl;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-left:2px solid var(--pink);padding-left:6px}
+.bracket{width:84px;height:56px;border:2px solid var(--paper);clip-path:polygon(0 0,26% 0,26% 6%,6% 6%,6% 30%,0 30%,0 100%,26% 100%,26% 94%,6% 94%,6% 70%,0 70%,0 0,100% 0,100% 30%,94% 30%,94% 6%,74% 6%,74% 0,100% 0,100% 100%,74% 100%,74% 94%,94% 94%,94% 70%,100% 70%,100% 100%,0 100%)}
+.leader{position:relative;width:100%;height:56px}
+.leader .dot{position:absolute;width:7px;height:7px;background:var(--acid);border-radius:50%;left:8%;top:70%}
+.leader .ln{position:absolute;left:9%;top:72%;width:52%;height:1px;background:var(--acid);transform-origin:left;transform:rotate(-28deg)}
+.leader .lb{position:absolute;right:2%;top:6%;font-family:'Courier Prime',monospace;font-size:10px;color:var(--acid);border:1px solid var(--acid);padding:2px 5px}
+
+/* halftone */
+.half{width:118px;height:118px;background:
+  radial-gradient(circle at 1px 1px, var(--paper) 1.1px, transparent 1.2px) 0 0/5px 5px,
+  linear-gradient(135deg,var(--blue),var(--pink));
+  background-blend-mode:multiply;}
+
+/* grid demo */
+.griddemo{display:grid;grid-template-areas:"a a b" "c d b" "c e e";gap:2px;height:230px;margin-top:var(--s3)}
+.griddemo div{background:rgba(251,249,244,.07);border:1px solid rgba(251,249,244,.16);display:flex;align-items:center;justify-content:center;font-family:'Courier Prime',monospace;font-size:11px;color:var(--muted)}
+.ga{grid-area:a}.gb{grid-area:b}.gc{grid-area:c}.gd{grid-area:d}.ge{grid-area:e}
+@media(max-width:760px){.griddemo{grid-template-areas:"a" "b" "c" "d" "e";height:auto}.griddemo div{min-height:56px}}
+
+/* verdict list */
+.verdict{width:100%;border-collapse:collapse;margin-top:var(--s3);font-size:14px}
+.verdict th,.verdict td{text-align:left;padding:10px 12px;border-bottom:1px solid rgba(251,249,244,.12);vertical-align:top}
+.verdict th{font-family:'Courier Prime',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:400}
+.pill{font-family:'Courier Prime',monospace;font-size:10px;padding:2px 7px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.pill.lock{background:var(--acid);color:var(--ink)}
+.pill.open{background:var(--pink);color:var(--paper)}
+.pill.cut{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--muted)}
+
+footer{padding:var(--s5) 0 var(--s6);color:var(--muted);font-size:13px;font-family:'Courier Prime',monospace}
+a{color:var(--acid)}
+:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="mastmeta">
+    <span class="mono">The Big 'Folio</span>
+    <span class="mono">Design language v5 · cut-out</span>
+    <span class="mono">19.08.2026</span>
+    <span class="mono">Shrey Mehra</span>
+  </div>
+  <h1 class="headline">
+    <span class="cut cut-2 tilt-l">I</span><span class="cut cut-1">build</span><span class="cut cut-5 pink tilt-r">BRANDS</span><br>
+    <span class="cut cut-3">people</span><span class="cut cut-4 blue">want</span><span class="cut cut-1 drop">to</span><span class="cut cut-2 acid tilt-l">BELONG</span><span class="cut cut-5">TO</span>
+  </h1>
+  <p class="note" style="margin-top:32px">
+    Every adjacent word is a different typeface. <strong>The mismatch is the effect.</strong> Nothing below is decoration —
+    each piece is a rule you can hand to a build session and get the same result twice. Interactions are live: hover, click, scroll.
+  </p>
+</header>
+
+<!-- 01 PALETTE -->
+<section id="palette">
+  <div class="sechead"><span class="mono">01</span><h2>Palette</h2></div>
+  <p class="note">Near-black ground, paper labels, three loud accents. <strong>One accent per viewport, never two.</strong> The pink and the blue never touch — put paper or void between them or the whole thing turns into a sticker bomb.</p>
+  <div class="swatches" style="margin-top:32px">
+    <div class="sw" style="background:#0b0b0d;box-shadow:inset 0 0 0 1px rgba(251,249,244,.2)"><b>Void</b><span>#0b0b0d</span><i>all grounds</i></div>
+    <div class="sw" style="background:#fbf9f4;color:#14120f"><b>Paper</b><span>#fbf9f4</span><i>label fill, body type</i></div>
+    <div class="sw" style="background:#14120f;box-shadow:inset 0 0 0 1px rgba(251,249,244,.2)"><b>Ink</b><span>#14120f</span><i>type on paper</i></div>
+    <div class="sw" style="background:#ff2e88"><b>Hot pink</b><span>#ff2e88</span><i>primary accent · starbursts</i></div>
+    <div class="sw" style="background:#2f5bff"><b>Cold blue</b><span>#2f5bff</span><i>secondary · states</i></div>
+    <div class="sw" style="background:#e8ff3a;color:#14120f"><b>Acid</b><span>#e8ff3a</span><i>CTA only · one per page</i></div>
+  </div>
+</section>
+
+<!-- 02 TYPE -->
+<section id="type">
+  <div class="sechead"><span class="mono">02</span><h2>The five cuts</h2></div>
+  <p class="note">Five families, no more. <strong>Never two adjacent words on the same cut.</strong> Assign by feel, not by rule — but once a headline is set, it is set; re-rolling on every load makes the site feel unfinished rather than alive.</p>
+  <div style="margin-top:32px">
+    <div class="specimen"><div class="n">cut=1</div><div><div class="word cut-1" style="display:inline-block">Playfair Display Italic</div><div class="role">the romantic · abstractions, feelings, the soft word in a hard line</div></div></div>
+    <div class="specimen"><div class="n">cut=2</div><div><div class="word cut-2" style="display:inline-block">Archivo Black</div><div class="role">the shout · verbs, the load-bearing noun, section headers</div></div></div>
+    <div class="specimen"><div class="n">cut=3</div><div><div class="word cut-3" style="display:inline-block">Courier Prime</div><div class="role">the evidence · meta, dates, labels, anything that reads as a receipt</div></div></div>
+    <div class="specimen"><div class="n">cut=4</div><div><div class="word cut-4" style="display:inline-block">DM Sans Bold</div><div class="role">the neutral · connective tissue, body, the word you don't want noticed</div></div></div>
+    <div class="specimen"><div class="n">cut=5</div><div><div class="word cut-5" style="display:inline-block">BEBAS NEUE</div><div class="role">the poster · proper nouns, brand names, anything set in caps</div></div></div>
+  </div>
+</section>
+
+<!-- 03 CUTWORD -->
+<section id="cutword">
+  <div class="sechead"><span class="mono">03</span><h2>CutWord — the primitive</h2></div>
+  <p class="note"><strong>This matches <code style="font-family:'Courier Prime',monospace;color:var(--acid)">src/components/CutWord.astro</code> as built.</strong> Props: <code style="font-family:'Courier Prime',monospace;color:var(--acid)">cut</code> 1–5 · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">tone</code> paper/hot/cold/acid/ink · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">rotate</code> degrees, keep to ±1–3 · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">size</code> lg/sm · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">depth</code> parallax, 0 = pinned. Colours are <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--hot</code> / <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--cold</code> / <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--acid</code> in <code style="font-family:'Courier Prime',monospace;color:var(--acid)">tokens.css</code> — not pink/blue.</p>
+  <div class="vocab" style="grid-template-columns:1fr">
+    <div class="vitem" style="min-height:auto">
+      <div class="demo" style="flex-wrap:wrap;font-size:clamp(20px,3vw,34px);padding:20px 0">
+        <span class="cut cut-2">TONE</span><span class="cut cut-1">paper</span><span class="cut cut-5 pink">HOT</span><span class="cut cut-4 blue">cold</span><span class="cut cut-3 acid">acid</span><span class="cut cut-2 ink">INK</span>
+      </div>
+      <div class="cap">Every label carries the 3px hard offset shadow — that is what makes it read as stuck down rather than typeset. Never soften it to a blur. "In development" uses tone="ink"</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 VOCABULARY -->
+<section id="vocab">
+  <div class="sechead"><span class="mono">04</span><h2>Punctuation &amp; furniture</h2></div>
+  <p class="note">The cut-out look collapses into a poster if type is all it has. These are the non-type marks — lifted straight from the collage references, translated into rules. <strong>Starbursts are punctuation, not decoration:</strong> they end a thought, they never sit alone.</p>
+  <div class="vocab">
+    <div class="vitem"><div class="demo"><svg width="86" height="86" viewBox="0 0 100 100"><path d="M50 2 L59 30 L88 22 L70 46 L96 62 L66 65 L72 94 L50 74 L28 94 L34 65 L4 62 L30 46 L12 22 L41 30 Z" fill="#ff2e88"/></svg></div><div class="cap">Starburst · terminal punctuation, ticker separator, "real ✓" stamp</div></div>
+    <div class="vitem"><div class="demo"><div class="barcode"></div></div><div class="cap">Barcode · case-study index numbers, footer serial. Never scannable — it is a mark, not a claim</div></div>
+    <div class="vitem"><div class="demo"><div class="sidelabel">User profile</div></div><div class="cap">Rotated side label · annotates a photo or card edge. Max one per element</div></div>
+    <div class="vitem"><div class="demo"><div class="bracket"></div></div><div class="cap">Corner brackets · focus marker for nav and interactive targets</div></div>
+    <div class="vitem"><div class="demo"><div class="leader"><span class="dot"></span><span class="ln"></span><span class="lb">the messy middle</span></div></div><div class="cap">Leader line + tag · the case-study annotation device. This is how process gets shown</div></div>
+    <div class="vitem"><div class="demo"><div class="half"></div></div><div class="cap">Halftone duotone · all photography. Dot grid 5px, blue→pink ramp. Never a clean photo</div></div>
+  </div>
+</section>
+
+<!-- 05 LAYOUT -->
+<section id="layout">
+  <div class="sechead"><span class="mono">05</span><h2>Layout</h2></div>
+  <p class="note">Compose with <strong>CSS Grid template areas</strong>. Never percentage <code style="font-family:'Courier Prime',monospace;color:var(--acid)">translate3d</code> offsets — percentages resolve against the element's own width, not the viewport, which is how a previous build ended up mobile-shaped and stranded in the middle of a desktop screen. Re-lay-out at 1080px and 760px. Spacing scale as it exists in <code style="font-family:'Courier Prime',monospace;color:var(--acid)">tokens.css</code>: <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-1</code> .5rem · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-2</code> 1rem · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-3</code> 1.75rem · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-4</code> 3rem · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-5</code> 5rem · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--s-6</code> 8rem. Nothing between.</p>
+  <div class="griddemo">
+    <div class="ga">a — headline</div><div class="gb">b — photo</div><div class="gc">c — meta</div><div class="gd">d — label</div><div class="ge">e — ticker</div>
+  </div>
+  <p class="note" style="margin-top:16px">Resize this window — the areas restack rather than shrink.</p>
+</section>
+
+<!-- 06 MOTION LAB -->
+<section id="motion">
+  <div class="sechead"><span class="mono">06</span><h2>Motion lab</h2><span class="mono">nine ideas · all live</span></div>
+  <p class="note"><code style="font-family:'Courier Prime',monospace;color:var(--acid)">--ease-out</code> is <code style="font-family:'Courier Prime',monospace;color:var(--acid)">cubic-bezier(.22, 1, .36, 1)</code>. Durations are <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--d-fast</code> 240ms · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--d-mid</code> 560ms · <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--d-slow</code> 900ms. Children stagger 80ms. <strong>Banned:</strong> bounce, spring overshoot, confetti, parallax on text — with one documented exception: <code style="font-family:'Courier Prime',monospace;color:var(--acid)">--ease-snap</code> overshoots at 1.06 and exists for the loader's reel settle, because a slot machine physically overshoots. <strong>Scope it to Loader.astro.</strong> Anywhere else it is drift.</p>
+  <p class="note"><code style="font-family:'Courier Prime',monospace;color:var(--acid)">prefers-reduced-motion</code> collapses the duration tokens to 1ms in tokens.css — but that does not stop an infinite animation. The ticker and the reel loop must be paused explicitly in their own components.</p>
+  <div class="lab">
+
+    <div class="card" id="c1">
+      <span class="idx">M-01</span>
+      <h3>Slot-machine loader</h3>
+      <p>Three reels spin through the five cuts and settle one at a time, left to right. Teaches the typeface-mismatch rule before a single word of copy is read. <span class="tag">built</span></p>
+      <div class="stage"><div class="reels">
+        <div class="reel r1"><div class="reelstrip"><span class="cut-1">S</span><span class="cut-2">S</span><span class="cut-3">S</span><span class="cut-4">S</span><span class="cut-5">S</span></div></div>
+        <div class="reel r2"><div class="reelstrip"><span class="cut-3">M</span><span class="cut-5">M</span><span class="cut-1">M</span><span class="cut-2">M</span><span class="cut-4">M</span></div></div>
+        <div class="reel r3"><div class="reelstrip"><span class="cut-4">✱</span><span class="cut-2">✱</span><span class="cut-5">✱</span><span class="cut-1">✱</span><span class="cut-3">✱</span></div></div>
+      </div></div>
+      <p class="note" style="font-size:12px;margin:12px 0 0">Max 1.2s total. A loader that outstays its welcome on a cold-email click is a bounce.</p>
+    </div>
+
+    <div class="card" id="c2">
+      <span class="idx">M-02</span>
+      <h3>Re-cut on hover</h3>
+      <p>Hovering a headline word swaps its typeface and fill. Costs nothing, proves the system is alive, and is the single cheapest "this person built this" signal on the page. <span class="tag">hover me</span></p>
+      <div class="stage"><div class="hoverline" id="hoverline">
+        <span class="cut cut-2">build</span><span class="cut cut-1">a</span><span class="cut cut-5 pink">WORLD</span><span class="cut cut-3">from</span><span class="cut cut-4 blue">nothing</span>
+      </div></div>
+    </div>
+
+    <div class="card" id="c3">
+      <span class="idx">M-03</span>
+      <h3>Cut the noise</h3>
+      <p>Clutter blurs out, signal snaps into focus. This is the Hungry Jack's mechanic — and it is the one interaction that <em>is</em> a case study rather than decorating one. <span class="tag">click stage</span></p>
+      <div class="stage" style="cursor:pointer" role="button" tabindex="0" aria-label="Toggle cut-through demo">
+        <div class="focusstage">
+          <div class="clutter"><span>50% OFF</span><span>TODAY ONLY</span><span>BIGGEST EVER</span><span>NEW!</span><span>LIMITED</span><span>HURRY</span><span>2 FOR 1</span><span>DON'T MISS</span><span>SALE</span><span>ENDS SOON</span><span>FREE</span><span>BONUS</span></div>
+          <div class="signal"><span class="cut cut-2" style="font-size:22px">CUT</span><span class="cut cut-1" style="font-size:22px">the</span><span class="cut cut-5 pink" style="font-size:22px">NOISE</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="c4">
+      <span class="idx">M-04</span>
+      <h3>Testimonial ticker</h3>
+      <p>Real quotes from colleagues, starburst separators, paper band on void. <strong>Text only — never client logos.</strong> A logo wall mixing iSelect with L'Oréal implies relationships that don't exist. <span class="tag">content ready</span></p>
+      <div class="stage" style="padding:0;align-items:center">
+        <div class="tickwin"><div class="tickrow" id="tickrow"></div></div>
+      </div>
+    </div>
+
+    <div class="card" id="c5">
+      <span class="idx">M-05</span>
+      <h3>Work row inversion</h3>
+      <p>The index is a list, not a card grid. Hover inverts the row to paper and nudges it right — the whole row is the target, so it works on keyboard and thumb. <span class="tag">hover / tab</span></p>
+      <div class="stage" style="align-items:stretch;padding:0">
+        <div class="rows">
+          <div class="row" tabindex="0"><span class="no">01</span><span class="ttl">Cut The Noise</span><span class="meta">Comms · Spec</span></div>
+          <div class="row" tabindex="0"><span class="no">02</span><span class="ttl">Brand World</span><span class="meta">Brand · Spec</span></div>
+          <div class="row" tabindex="0"><span class="no">03</span><span class="ttl">Go!Go!GTM</span><span class="meta">GTM · Spec</span></div>
+          <div class="row" tabindex="0"><span class="no">04</span><span class="ttl">Venus Roadlines</span><span class="meta">Real ✱ shipped</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="c6">
+      <span class="idx">M-06</span>
+      <h3>Bento FAQ</h3>
+      <p>Asymmetric tiles. Expansion <strong>pushes layout</strong> rather than overlaying — no modals. Your framing: a screening call in itself. <span class="tag">click a tile</span></p>
+      <div class="stage" style="align-items:stretch;padding:0">
+        <div class="bento">
+          <div class="tile" tabindex="0" role="button" aria-expanded="false">Is any of this work real?<div class="ans">The thinking is real. The clients are not, except Venus Roadlines, which shipped.</div></div>
+          <div class="tile" tabindex="0" role="button" aria-expanded="false">What are you looking for?<div class="ans">A place to build a culture and take my curiosity for a drive.</div></div>
+          <div class="tile" tabindex="0" role="button" aria-expanded="false">Why culture-led?<div class="ans">Shipping is the easy half.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="c7">
+      <span class="idx">M-07</span>
+      <h3>Label snap-in</h3>
+      <p>Section reveals: each cut word snaps in at 80ms intervals with a slight rotation settle. One thing resolves at a time — never a whole block fading in together. <span class="tag">scroll-triggered</span></p>
+      <div class="stage"><div class="revealbox">
+        <span class="cut cut-3 rv" style="transition-delay:0ms">one</span>
+        <span class="cut cut-2 rv" style="transition-delay:80ms">THING</span>
+        <span class="cut cut-1 rv" style="transition-delay:160ms">at</span>
+        <span class="cut cut-5 acid rv" style="transition-delay:240ms">A TIME</span>
+      </div></div>
+    </div>
+
+    <div class="card" id="c8">
+      <span class="idx">M-08</span>
+      <h3>Taped CTA</h3>
+      <p>The contact button is a taped-on label with a hard offset shadow. Acid is spent here and nowhere else on the page. 44px minimum target. <span class="tag">hover me</span></p>
+      <div class="stage"><button class="tape">Let's build something</button></div>
+    </div>
+
+    <div class="card" id="c9">
+      <span class="idx">M-09</span>
+      <h3>Crosshair cursor</h3>
+      <p>Mono coordinate readout follows the pointer inside media zones only — a nod to the ID-card reference. <strong>Never site-wide;</strong> hiding the real cursor on a whole page is hostile. <span class="tag">move inside</span></p>
+      <div class="stage" style="padding:0">
+        <div class="xhair" id="xhair">
+          <div class="xh-v"></div><div class="xh-h"></div><div class="xh-read">x:000 y:000</div>
+          <span class="cut cut-3" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:13px">MEDIA ZONE</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 07 ACCESSIBILITY -->
+<section id="a11y">
+  <div class="sechead"><span class="mono">07</span><h2>The floor</h2></div>
+  <p class="note">Not features. If one of these fails, the section is not done.</p>
+  <table class="verdict">
+    <tr><th>Check</th><th>Rule</th></tr>
+    <tr><td>Focus</td><td>Visible on every interactive element — 2px acid outline, 3px offset. Never <code style="font-family:'Courier Prime',monospace;color:var(--acid)">outline:none</code> without a replacement.</td></tr>
+    <tr><td>Keyboard</td><td>Work rows, FAQ tiles, ticker pause and vinyl are all reachable and operable by tab + enter.</td></tr>
+    <tr><td>Motion</td><td><code style="font-family:'Courier Prime',monospace;color:var(--acid)">prefers-reduced-motion</code> kills every animation on this page, including the ticker and the loader.</td></tr>
+    <tr><td>Contrast</td><td>Ink on paper and paper on void both clear AA. <strong>Acid on paper does not</strong> — acid only ever sits on void or ink.</td></tr>
+    <tr><td>Targets</td><td>44px minimum. The work row is tall enough; the FAQ tile is padded to reach it.</td></tr>
+    <tr><td>Reflow</td><td>Content restacks at 760px, never scales down. Test at 390px.</td></tr>
+  </table>
+</section>
+
+<!-- 08 STATUS -->
+<section id="status">
+  <div class="sechead"><span class="mono">08</span><h2>What's locked, what's yours</h2></div>
+  <table class="verdict">
+    <tr><th>Decision</th><th>State</th><th>Note</th></tr>
+    <tr><td>Cut-out / ransom-note direction</td><td><span class="pill lock">locked</span></td><td>Your July reference set backs it: halftone photo + oversized overlapping name, orange collage with cut type and starburst badge. None of them are gold-and-serif.</td></tr>
+    <tr><td>Five typefaces, one per adjacent word</td><td><span class="pill lock">locked</span></td><td>The mismatch is the effect. Unifying them kills the system.</td></tr>
+    <tr><td>Grid areas, not translate offsets</td><td><span class="pill lock">locked</span></td><td>Learned the hard way. Non-negotiable.</td></tr>
+    <tr><td>Gold #C9A96E · Playfair-only · film grain</td><td><span class="pill cut">dead</span></td><td>Was still live in <code style="font-family:'Courier Prime',monospace">briefs/00-system.md</code> <em>inside the build repo</em>, next to a tokens.css that is pure cut-out — and CLAUDE.md tells every session to read the brief first. Now replaced and archived.</td></tr>
+    <tr><td>The v5 build itself</td><td><span class="pill lock">exists</span></td><td>Loader, Hero, Value, CutWord, Burst and tokens.css are all built at <code style="font-family:'Courier Prime',monospace">Claude Projects\The-Big-Folio</code>. This lab is a reference for what comes next — it does not replace them.</td></tr>
+    <tr><td>Vinyl player vs Rubik's cube</td><td><span class="pill open">yours</span></td><td>Vinyl proves taste in three seconds; a photo cube doesn't. But it's your call — a previous session cutting both is what made the build forgettable.</td></tr>
+    <tr><td>Work slate — three deep or six thin</td><td><span class="pill open">yours</span></td><td>Three real, rest marked "in development". Six stubs sharing a sentence is what got a build rejected.</td></tr>
+    <tr><td>Crosshair + halftone on photography</td><td><span class="pill open">yours</span></td><td>Both are strong but they compete. Recommend halftone everywhere, crosshair only inside the work index.</td></tr>
+  </table>
+</section>
+
+<footer>
+  <div class="wrap" style="padding:0">
+    THE BIG 'FOLIO · design language v5 · cut-out<br>
+    Every interaction on this page is real. Nothing here is a picture of an idea.<br>
+    <span style="color:#7c7a75">Shrey Mehra · shreyymehraa@gmail.com · linkedin.com/in/shreymehraa</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // M-01 loader settle
+  var c1=document.getElementById('c1');
+  if(!reduce){ setTimeout(function(){ c1.classList.add('settled'); },1200); }
+  else { c1.classList.add('settled'); }
+
+  // M-02 re-cut on hover
+  var cuts=['cut-1','cut-2','cut-3','cut-4','cut-5'];
+  var fills=['','pink','blue','acid'];
+  document.querySelectorAll('#hoverline .cut').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      cuts.forEach(function(c){el.classList.remove(c)});
+      fills.forEach(function(f){ if(f) el.classList.remove(f) });
+      el.classList.add(cuts[Math.floor(Math.random()*5)]);
+      var f=fills[Math.floor(Math.random()*4)]; if(f) el.classList.add(f);
+    });
+  });
+
+  // M-03 cut through
+  var c3=document.getElementById('c3'), st3=c3.querySelector('.stage');
+  function tog3(){ c3.classList.toggle('cutthru'); }
+  st3.addEventListener('click',tog3);
+  st3.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();tog3();} });
+
+  // M-04 ticker content
+  var quotes=['What an absolute gem to work with','Love your attention to detail','A work friend we do not deserve, but need',"You sure AI didn't help you?",'My go-to person for AI, pop culture or ranting','Love your third eye'];
+  var row=document.getElementById('tickrow'), html='';
+  for(var pass=0;pass<2;pass++){
+    quotes.forEach(function(q){ html += '<span>&ldquo;'+q+'&rdquo;</span><span class="star"></span>'; });
+  }
+  row.innerHTML=html;
+
+  // M-06 bento
+  document.querySelectorAll('.tile').forEach(function(t){
+    function tog(){ var o=t.classList.toggle('open'); t.setAttribute('aria-expanded',o?'true':'false'); }
+    t.addEventListener('click',tog);
+    t.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();} });
+  });
+
+  // M-07 scroll reveal
+  var c7=document.getElementById('c7');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){
+      es.forEach(function(e){ if(e.isIntersecting){ c7.classList.add('revealed'); } else { c7.classList.remove('revealed'); } });
+    },{threshold:.4}).observe(c7);
+  } else { c7.classList.add('revealed'); }
+
+  // M-09 crosshair
+  var xh=document.getElementById('xhair');
+  var v=xh.querySelector('.xh-v'), h=xh.querySelector('.xh-h'), rd=xh.querySelector('.xh-read');
+  xh.addEventListener('pointermove',function(e){
+    var r=xh.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+    v.style.left=x+'px'; h.style.top=y+'px';
+    rd.style.left=x+'px'; rd.style.top=y+'px';
+    rd.textContent='x:'+String(Math.round(x)).padStart(3,'0')+' y:'+String(Math.round(y)).padStart(3,'0');
+  });
+})();
+</script>
+</body>
+</html>

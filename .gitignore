@@ -1,4 +1,11 @@
-# local preview server logs
+# logs
 *.log
+
+# environment variables
+.env
+.env.production
+
+# OS / editor cruft
 .DS_Store
 Thumbs.db
+.idea/

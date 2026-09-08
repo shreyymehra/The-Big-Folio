@@ -1,0 +1,133 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cut The Noise — Shrey Mehra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;500;700&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#EFE2BA;--deep:#1F2A5C;--fluoro:#F13C20;
+ --fd:'Bricolage Grotesque','Archivo Black',sans-serif;--fb:'Instrument Sans',system-ui,sans-serif;
+ --fu:'Martian Mono','Courier New',monospace;--ease:cubic-bezier(.16,1,.3,1);--pad:clamp(1.2rem,4vw,3rem);--max:1240px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0}
+body{background:var(--cream);color:var(--deep);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+a{color:inherit}
+.mono{font-family:var(--fu);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase}
+:focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
+.top{padding:2rem 0 0}
+.back{text-decoration:none;border-bottom:2px solid var(--fluoro);padding-bottom:2px}
+.chead{padding:3rem 0 2.5rem;border-bottom:3px solid var(--deep)}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.tag{font-family:var(--fu);font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--deep);padding:2px 6px}
+.tag.r{background:var(--deep);color:var(--cream)}
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(2.4rem,7vw,5.4rem);line-height:.9;letter-spacing:-.02em;margin:0 0 1.2rem}
+.stand{font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.35;max-width:26em;font-weight:500;margin:0 0 1.4rem}
+.meta{display:flex;gap:1.4rem;flex-wrap:wrap;opacity:.7}
+.spec{margin-top:1.6rem;border-left:4px solid var(--fluoro);padding-left:.9rem;font-style:italic;opacity:.85;max-width:34em}
+.face{margin:2.5rem 0 0;height:clamp(180px,30vw,380px);border:3px solid var(--deep);background:var(--deep);
+ display:grid;place-items:center;overflow:hidden;position:relative}
+.face span{font-family:var(--fd);font-weight:800;color:var(--cream);text-transform:uppercase;
+ font-size:clamp(2rem,7vw,5.5rem);line-height:.85;letter-spacing:-.03em;white-space:nowrap;padding:0 .1em}
+.face.f2{background:var(--fluoro)} .face.f3{background:var(--cream)} .face.f3 span{color:var(--deep)}
+.face::after{content:"";position:absolute;inset:0;opacity:.07;background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 1.15px);background-size:5px 5px}
+.cbody{display:grid;grid-template-columns:61.8% 38.2%;gap:3rem;padding:3.5rem 0 5rem;align-items:start}
+.sec{margin:0 0 3rem;scroll-margin-top:6rem}
+.sec > .eyebrow{font-family:var(--fu);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;display:block;margin-bottom:.5rem}
+.sec h2{font-family:var(--fd);font-weight:800;font-size:clamp(1.5rem,3vw,2.4rem);line-height:1;margin:0 0 1rem}
+.sec h3{font-family:var(--fd);font-weight:800;font-size:1.15rem;margin:1.8rem 0 .6rem}
+.sec p{max-width:34em;margin:0 0 1rem}
+.sec ul{max-width:34em;padding-left:1.1rem;margin:0 0 1rem}
+.sec li{margin-bottom:.45rem}
+.pull{font-family:var(--fb);font-weight:500;font-size:clamp(1.15rem,2.2vw,1.6rem);line-height:1.35;
+ border-left:4px solid var(--fluoro);padding-left:1.1rem;margin:2rem 0;max-width:30em}
+.exec{border-top:2px solid var(--deep);padding:1.2rem 0 .6rem;max-width:34em}
+.exec .t{font-family:var(--fd);font-weight:800;font-size:1.05rem;margin-bottom:.4rem}
+.exec .k{font-family:var(--fd);font-weight:800;font-size:1.35rem;color:var(--fluoro);margin-top:.5rem}
+.side{position:sticky;top:5rem}
+.side ol{list-style:none;margin:0;padding:0;border-top:2px solid var(--deep)}
+.side li a{display:block;padding:.55rem 0;text-decoration:none;font-family:var(--fu);font-size:.625rem;
+ letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid rgba(31,42,92,.25);opacity:.6;transition:opacity 200ms var(--ease),padding 200ms var(--ease)}
+.side li a:hover,.side li a.on{opacity:1;padding-left:.5rem}
+.side li a.on{border-bottom-color:var(--fluoro)}
+.gapbox{border:2px dashed rgba(31,42,92,.45);padding:.9rem 1rem;font-family:var(--fu);font-size:.625rem;
+ letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin:1.5rem 0;max-width:34em}
+.cfoot{background:var(--deep);color:var(--cream);padding:3.5rem 0}
+.cfoot .row{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:center}
+.cfoot a{text-decoration:none;border-bottom:3px solid var(--fluoro);padding-bottom:3px;
+ font-family:var(--fd);font-weight:800;font-size:clamp(1.2rem,2.4vw,1.9rem)}
+.star-mark{width:38px;height:auto;display:block;margin:0 0 1rem}
+.rv{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--ease),transform 600ms var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(max-width:900px){.cbody{grid-template-columns:1fr;gap:2rem}.side{position:static}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:1ms!important;transition-duration:1ms!important}.rv{opacity:1;transform:none}}
+
+/* ---------- global nav (shared shell) ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;
+ padding:1.1rem var(--pad);font-family:var(--fu);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
+ transition:transform 320ms var(--ease),background 320ms var(--ease)}
+nav.hide{transform:translateY(-115%)}
+nav.solid{background:var(--cream);border-bottom:1px solid var(--deep)}
+nav .sig{font-weight:600;text-decoration:none}
+nav .links{display:flex;gap:1.5rem}
+nav a{text-decoration:none;position:relative;padding:3px 0}
+nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--fluoro);transition:right 220ms var(--ease)}
+nav a:hover::after,nav a:focus-visible::after,nav a[aria-current="page"]::after{right:0}
+@media(max-width:820px){nav{padding:.8rem var(--pad)}nav .links{gap:.9rem;font-size:9px}}
+@media(max-width:420px){nav .sig{font-size:9px}nav .links{gap:.7rem}}
+.top{padding-top:calc(var(--pad) + 3.4rem)}
+
+/* ---------- project cross-navigation ---------- */
+.pnav{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2.2rem 0 0}
+.pnav a{display:grid;gap:.35rem;text-decoration:none;border:0;font-size:inherit;
+ border-top:1px solid rgba(239,226,186,.35);padding-top:.8rem}
+.pnav a.nx{text-align:right}
+.pnav .lb{font-family:var(--fu);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.pnav .tt{font-family:var(--fd);font-weight:800;font-size:clamp(1rem,2vw,1.4rem);line-height:1.05}
+.pnav span.empty{opacity:.3}
+@media(max-width:640px){.pnav{grid-template-columns:1fr}.pnav a.nx{text-align:left}}
+.cfoot .allwork{display:inline-block;font-family:var(--fu);font-size:.625rem;letter-spacing:.14em;
+ text-transform:uppercase;text-decoration:none;border-bottom:2px solid var(--fluoro);padding-bottom:3px;
+ font-weight:400;font-size:.625rem}
+.cfoot .sigline{display:block;margin-top:2.2rem;font-family:var(--fu);font-size:9px;letter-spacing:.12em;
+ text-transform:uppercase;opacity:.6}
+</style></head><body>
+<nav id="nav"><a class="sig" href="../../">Shrey Mehra</a>
+  <span class="links"><a href="../../work/" aria-current="page">Work</a><a href="../../ideas/">Ideas</a><a href="../../about/">About</a><a href="../../contact/">Contact</a></span></nav>
+
+<div class="wrap top"><a class="back mono" href="../../work/">← Work</a></div>
+<header class="wrap chead">
+  <img class="star-mark" src="../../assets/star.webp" alt="">
+  <div class="tags"><span class="tag">Campaign</span><span class="tag">Creative Strategy</span><span class="tag r">Spec</span></div>
+  <h1>Cut The Noise</h1>
+  <p class="stand">The campaign that wins back Hungry Jack's by making the most interesting move: leaving the feed.</p>
+  <div class="meta mono"><span>4 min read</span><span>Shrey Mehra</span></div>
+  <p class="spec">Spec work. Real brand, fictional brief, disclosed here.</p>
+  <div class="face f2"><span>CUT THE NOISE</span></div>
+</header>
+<div class="wrap cbody">
+  <main><section class="sec rv" id="s0"><span class="eyebrow">Problem</span><h2>Hungry Jack's is not losing to McDonald's. It's losing to the feed</h2><p>The product is fine. The food is the same food, the price is competitive, the locations exist. What's gone is the reason to be there. In an era where every QSR has an app, a loyalty point, a scroll-friendly ad and a delivery window, the experience of actually being in a Hungry Jack's has been reduced to a transaction. Fast food has become frictionless food, and frictionless is forgettable.</p><p>The brand can't out-content the content. There are not enough impressions in the budget to beat the algorithm at its own game. So the brief became: what if we left the game entirely?</p></section><section class="sec rv" id="s1"><span class="eyebrow">Hypothesis</span><h2>Restraint is a campaign</h2><p>The highest-signal thing a QSR brand can do in a saturated attention market is create an experience worth talking about. Not an ad worth watching — an experience worth describing to someone later.</p><div class='pull'>Anti-content is content. Restraint is a campaign.</div></section><section class="sec rv" id="s2"><span class="eyebrow">The insight</span><h2>People are not tired of Hungry Jack's</h2><p>They are tired of being treated like a session. An order number, a loyalty tier, a retargeting pixel. The moment a brand makes a customer feel like a person in a room rather than a unit in a funnel, the contrast is so sharp it becomes the thing they tell someone about.</p></section><section class="sec rv" id="s3"><span class="eyebrow">The idea</span><h2>Remove what everyone else is adding</h2><div class='exec'><div class='t'>Low-Noise Zone</div><p>Select stores in major cities run a one-week Low-Noise Zone. Screens dimmed. Ambient sound replaced with natural restaurant noise. Staff trained to use customer names, not numbers.</p><div class='k'>Cut onions. Cut the noise.</div></div><div class='exec'><div class='t'>The 1985 Store</div><p>Two or three stores restored to the original Hungry Jack's format for one week. No app. No QR code. No loyalty tier. No digital menu board. A printed menu, a counter, and someone who asks your name and then uses it.</p><p>Hungry Jack's has an origin story it has never spent. It is the only major QSR in the country that could never use its parent brand's name — the trademark was already taken when the franchise landed in 1971 — and it built a bigger local brand than the parent anyway, under a name borrowed from a pancake mix. That is a genuinely Australian piece of brand history, sitting unused.</p><div class='k'>Cut pickles. Cut the queue.</div></div><div class='exec'><div class='t'>The Number Script — live capture</div><p>Customers called by number. Confusion visible. Frustration mounting. Then the mascot walks in and calls them by their name. Filmed. No script, no actors. The real reaction is the content. Released within 48 hours.</p><div class='k'>No number. Just your name.</div></div></section><section class="sec rv" id="s4"><span class="eyebrow">Tagline system</span><h2>A format, not a headline</h2><p>The line is built to extend, which is what makes it a platform rather than a single ad. New lines can be written for placements nobody has thought of yet without breaking the system.</p><ul><li><strong>Cut onions.</strong> Cut the noise. — master line, Low-Noise Zone</li><li><strong>Cut pickles.</strong> Cut the queue. — the 1985 store</li><li><strong>Cut lettuce.</strong> Cut the scroll. — the three-second social films</li><li><strong>Cut cheese.</strong> Cut the small print. — no app, no QR, no loyalty tier</li><li><strong>Cut tomatoes.</strong> Cut the small talk. — transit and OOH</li></ul><p>Campaign close, used once: <em>You're more than an order.</em></p></section><section class="sec rv" id="s5"><span class="eyebrow">Channels</span><h2>Where the budget doesn't go</h2><p>OOH and transit carry the campaign — static, minimal copy, no QR code. Social gets three-second videos: screen goes black, sound cuts, then the sizzle of a burger and ambient restaurant noise. No voiceover. Paid spend is minimal and only activates behind proven earned content.</p></section><section class="sec rv" id="s6"><span class="eyebrow">Result</span><h2>What would be measured</h2><p>Spec. Aided brand recall in the target demographic pre and post campaign. Foot traffic differential between activated and non-activated stores. Earned media volume from the live-capture content. Share of organic conversation.</p><p>The hypothesis: the Low-Noise Zone generates coverage that a paid media spend of equivalent value could not buy.</p></section><section class="sec rv" id="s7"><span class="eyebrow">Learning</span><h2>The right question was never how to stand out in the feed</h2><p>Anti-content is the strategy, not the tactic. The brands winning in earned media are the ones creating moments real enough that people pull out their phones voluntarily — not because they were prompted to, but because the thing they just experienced is worth sharing. That loop is not replicable with ad spend. It has to be earned through the quality of the physical moment.</p><div class='pull'>A brief that asks &ldquo;how do we stand out in the feed?&rdquo; is the wrong brief. The right question is: what would make someone look up from it?</div></section></main>
+  <aside class="side"><ol><li><a href="#s0">Problem</a></li><li><a href="#s1">Hypothesis</a></li><li><a href="#s2">The insight</a></li><li><a href="#s3">The idea</a></li><li><a href="#s4">Tagline system</a></li><li><a href="#s5">Channels</a></li><li><a href="#s6">Result</a></li><li><a href="#s7">Learning</a></li></ol></aside>
+</div>
+<footer class="cfoot"><div class="wrap">
+  <a class="allwork" href="../../work/">&larr; All work</a>
+  <div class="pnav">
+    <a class="pv" href="../../work/vastr/"><span class="lb">&larr; Previous</span><span class="tt">Vastr: Out With The Old</span></a>
+    <a class="nx" href="../../work/voicedna/"><span class="lb">Next &rarr;</span><span class="tt">VoiceDNA</span></a>
+  </div>
+  <span class="sigline">Shrey Mehra &middot; shreyymehraa@gmail.com</span>
+</div></footer>
+<script>
+(function(){
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  var links=[].slice.call(document.querySelectorAll('.side a'));
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},
+    {rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('.sec').forEach(function(s){spy.observe(s)});
+ } else { document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')}); }
+})();
+</script></body></html>

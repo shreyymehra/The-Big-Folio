@@ -1,0 +1,157 @@
+/* ============================================================
+   THE BIG 'FOLIO — TOKENS
+   Riso print system. v6. 19 Aug 2026.
+
+   Supersedes the cut-out system (void/paper/hot/cold/acid).
+   Every value on the site lives here. Nothing downstream
+   hardcodes a colour, size, or curve.
+
+   ⚠ CONTRAST IS ENCODED BELOW. Read the pairing table before
+     using any ink as type. Two pairs in this set fail WCAG and
+     one of them fails badly — the rules are not advisory.
+   ============================================================ */
+
+:root {
+
+  /* ---- INK SET -------------------------------------------- */
+  --stock-cream:  #EFE2BA;   /* ground, paper                  */
+  --ink-federal:  #4056A1;   /* primary accent                 */
+  --ink-fluoro:   #F13C20;   /* attention, energy              */
+  --ink-ochre:    #D79922;   /* warmth, secondary              */
+  --ink-pale:     #C5CBE3;   /* tints, grounds, shapes         */
+  --ink-deep:     #1F2A5C;   /* ALL body text, all line work   */
+
+  /* Text is never pure black. --ink-deep is the darkest value
+     on the site. That is what riso does, and it is the cheapest
+     tell that the palette was chosen rather than defaulted.     */
+
+  /* ---- SEMANTIC ALIASES — prefer these downstream ---------- */
+  --ground:        var(--stock-cream);
+  --ground-invert: var(--ink-deep);      /* Contact only        */
+  --text:          var(--ink-deep);
+  --text-invert:   var(--stock-cream);
+  --rule:          var(--ink-deep);
+  --focus:         var(--ink-fluoro);
+
+  /* ---- CONTRAST PAIRING TABLE (measured, not estimated) ----
+     ratio   pair                        body≥4.5  large≥3  ui≥3
+     10.53   deep     on cream              PASS     PASS    PASS
+     10.53   cream    on deep               PASS     PASS    PASS
+      8.44   deep     on pale               PASS     PASS    PASS
+      5.49   deep     on ochre              PASS     PASS    PASS
+      5.49   ochre    on deep               PASS     PASS    PASS
+      5.31   federal  on cream              PASS     PASS    PASS
+      5.31   cream    on federal            PASS     PASS    PASS
+      3.50   fluoro   on deep               fail     PASS    PASS
+      3.50   deep     on fluoro             fail     PASS    PASS
+      3.01   fluoro   on cream              fail     PASS    PASS
+      3.01   cream    on fluoro             fail     PASS    PASS
+      1.98   federal  on deep               fail     fail    fail
+      1.92   ochre    on cream              fail     fail    fail
+      1.25   pale     on cream              fail     fail    fail
+
+     THE THREE RULES THAT FALL OUT OF IT:
+
+     1. OCHRE IS NEVER TYPE ON CREAM. 1.92 is not marginal, it
+        is unreadable. Ochre works as a FILL with deep type on
+        top (5.49), or as type on deep (5.49). Invert it, never
+        drop it.
+
+     2. FLUORO IS LARGE-TYPE ONLY. 3.01 on cream clears the 3:1
+        bar for large text (≥24px, or ≥18.66px bold) and for UI
+        components, and nothing else. No fluoro body copy, no
+        fluoro captions, no fluoro metadata.
+
+     3. PALE AND FEDERAL ARE GROUNDS, NOT INKS, ON THEIR
+        OPPOSITES. Pale on cream is invisible (1.25). Federal on
+        deep is invisible (1.98). Both are fine the other way up.
+     -------------------------------------------------------- */
+
+  /* ---- TYPE ----------------------------------------------- */
+  --face-display: 'Bricolage Grotesque', 'Archivo Black', sans-serif;  /* 800 */
+  --face-body:    'Instrument Sans', system-ui, sans-serif;            /* 400/500 */
+  --face-utility: 'Martian Mono', 'Courier Prime', monospace;          /* 400/600 */
+
+  /* golden ratio, φ = 1.618, base 16 */
+  --t-xs:    0.625rem;  /* 10px · utility, tracked, uppercase */
+  --t-sm:    0.8125rem; /* 13px */
+  --t-base:  1rem;      /* 16px · body — never smaller        */
+  --t-md:    1.625rem;  /* 26px · standfirst                  */
+  --t-lg:    2.625rem;  /* 42px · subsection                  */
+  --t-xl:    4.25rem;   /* 68px · section                     */
+  --t-2xl:   6.875rem;  /* 110px · hero scale                 */
+  --t-3xl:  11.125rem;  /* 178px · ONE oversized moment/page  */
+
+  --track-xs: 0.14em;
+  --lh-display: 0.92;
+  --lh-body:    1.55;
+  --lh-utility: 1.4;
+  --measure:    34em;   /* ~68 characters. Enforce on all body */
+
+  /* ---- LAYOUT --------------------------------------------- */
+  --cols:    12;
+  --gutter:  1.5rem;    /* 24px */
+  --max:     77.5rem;   /* 1240px */
+  --pad:     clamp(1.5rem, 5vw, 3rem);
+
+  /* Golden splits. NOTE: 61.8/38.2 does not land on 12-column
+     boundaries (it is 7.42 / 4.58 columns). Use these fractions
+     directly via grid-template-columns; do not pretend they are
+     column spans. The 12-col grid governs everything else.      */
+  --split-major: 61.8%;
+  --split-minor: 38.2%;
+
+  --section-y:    7.5rem;  /* 120px desktop */
+  --section-y-md: 4.5rem;  /* 72px tablet   */
+  --section-y-sm: 3.5rem;  /* 56px mobile   */
+
+  /* ---- MATERIAL ------------------------------------------- */
+  --halftone-opacity: 0.05;   /* 4–6% on every filled shape */
+  --grain-opacity:    0.03;   /* global, fixed, no pointer events */
+  --misreg:           2px;    /* offset shift — see motion below */
+  --rule-w:           3px;    /* comic-panel border */
+  --rule-w-hair:      1px;
+
+  /* No gradients. No blurred shadows. A shadow is an offset flat
+     shape in a second ink. Overlaps use mix-blend-mode: multiply. */
+  --shadow-offset: 4px 4px 0;
+
+  /* ---- MOTION --------------------------------------------- */
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  --d-hover:   200ms;
+  --d-micro:   120ms;   /* misregistration shift */
+  --d-standard:400ms;
+  --stagger:    60ms;
+
+  /* One thing resolves at a time. No bounce, no overshoot.
+     Scroll-triggered animation fires once and stays.          */
+}
+
+/* ---- REDUCED MOTION ---------------------------------------
+   Collapsing durations is not enough: it does not stop an
+   infinite animation. The ticker rows and the 404 bobblehead
+   must ALSO be paused in their own components.
+   ----------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --d-hover: 1ms;
+    --d-micro: 1ms;
+    --d-standard: 1ms;
+    --stagger: 0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- FOCUS — floor, not feature ---------------------------- */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+/* Fluoro focus ring measures 3.01 on cream and 3.50 on deep.
+   Both clear the 3:1 non-text minimum, neither with margin.
+   Do not lighten the fluoro. Do not reduce the ring below 2px. */
