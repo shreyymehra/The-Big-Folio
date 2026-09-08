@@ -86,8 +86,14 @@ A second copy of a live page is the bug, not the backup.
 Inlining a stylesheet or an image back into a page is a regression — it is how the duplication
 started last time. There is still no framework, no bundler and no `npm install`.
 
-**Links are root-relative** (`/work/vastr/`, `/assets/site.css`). Pages sit at different depths,
-so relative links break. After adding a page, confirm every internal reference still resolves.
+**Links are depth-relative, never root-relative.** A page at `/work/vastr/` links the stylesheet as
+`../../assets/site.css`; the home page links it as `assets/site.css`. This is not a style
+preference — the site is served from `https://shreyymehra.github.io/The-Big-Folio/`, a subpath, so
+a root-relative `/assets/site.css` resolves above the site root and 404s. Root-relative links
+shipped once and took the whole stylesheet, every image and all navigation down.
+
+Depth-relative also works at an apex domain and over `file://`, so it needs no per-host config.
+**After adding or moving a page, re-run the link check in COMMANDS.**
 
 **Adding a project** means: one `/work/<slug>/index.html`, one `.wrow` in `/work/index.html`, and
 a home-page card only if it is among the strongest three. Nothing else changes.
@@ -303,9 +309,11 @@ nothing and needs rewriting.
 ## OPEN — needs Shrey, do not decide for him
 
 1. **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
-   The site is now plain routed static files, which any host serves — Netlify, Vercel, Cloudflare
-   Pages, GitHub Pages. One caveat: links are root-relative, so a GitHub Pages *project* site
-   served from `/The-Big-Folio/` would break them. A custom domain or apex deploy avoids that.
+   Currently live on GitHub Pages from the `v5-blocks` branch at
+   `https://shreyymehra.github.io/The-Big-Folio/`. Links are depth-relative, so it also works at an
+   apex domain without changes. Two upgrades worth considering, neither urgent:
+   a custom domain (the field is empty in the Pages settings), or renaming the repo to
+   `shreyymehra.github.io` so it serves at the root as a user site — a better URL for a portfolio.
 2. **Two "essence" devices to add next.** Candidates offered: leader-line annotation on case pages,
    cursor state over work rows, detail crops in case studies, star as scroll progress, one real
    easter egg. He picks two.
