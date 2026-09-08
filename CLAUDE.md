@@ -302,13 +302,19 @@ nothing and needs rewriting.
 
 ## OPEN — needs Shrey, do not decide for him
 
-1. **Framer or Astro.** Framer's free tier has no CMS and no custom domain, which kills the two
-   things it was for. Paid plan or stay on Astro. Everything downstream depends on this.
+1. **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
+   The site is now plain routed static files, which any host serves — Netlify, Vercel, Cloudflare
+   Pages, GitHub Pages. One caveat: links are root-relative, so a GitHub Pages *project* site
+   served from `/The-Big-Folio/` would break them. A custom domain or apex deploy avoids that.
 2. **Two "essence" devices to add next.** Candidates offered: leader-line annotation on case pages,
    cursor state over work rows, detail crops in case studies, star as scroll progress, one real
    easter egg. He picks two.
-3. **Ideas has no content.** It is a named section in his brief with one unwritten outline
-   (*The Time Tax*). Stays out of the nav until at least one piece exists.
+3. **Ideas has no content, but is now in the nav.** His architecture brief of 8 Sep names `/ideas`
+   as one of five primary areas and specifies `idea-1`…`idea-5`, so the routes and the nav entry
+   were built. That overrides the earlier "stays out of the nav until a piece exists" rule on
+   *structure* — but it leaves five identical `[GAP]` rows on `/ideas` and three on the home page,
+   which breaks HARD RULE 3. Either one real piece lands, or the index shows a single honest
+   "not written yet" state instead of five stubs. **Needs his call.**
 4. **Venus Roadlines identity work.** The case claims taglines, positioning and brand language shipped
    alongside the 106-page manual. Only the manual exists on disk. Asked four times, unanswered.
    Tags currently read `Operations · Communications`, not Brand Identity.
@@ -319,34 +325,36 @@ nothing and needs rewriting.
 
 ## BUILD ORDER
 
-1. **Port `references/v6.html` into `src/`** as tokens.css, base.css, work.css and Hero/WorkIndex
-   components. Delete the stale cut-out components. This kills the versioning problem.
-2. Create `ESSENCE.md` — a register of every distinctive device, where it lives, what job it does.
+Items 1, 3 and 4 are done — routing, the shared stylesheet, the five case pages, and About/Contact
+all exist. What remains, in order:
+
+1. **Work needs visuals.** Every case study contains exactly one image, and it is the star mark.
+   There is no work imagery anywhere in the portfolio. The plates at `/work` are typographic
+   compositions standing in for artefacts, built as a slot so a real image drops in unchanged.
+   This is the single highest-leverage gap in the site.
+2. **Ideas needs one real piece.** Five routed shells exist and every line in them is a `[GAP]`.
+   See the note under HARD RULES about repeated placeholders — the current state breaks rule 3.
+3. Create `ESSENCE.md` — a register of every distinctive device, where it lives, what job it does.
    Adding personality then becomes additive rather than re-argued.
-3. Ideas, About, Contact in the v6 system.
-4. Case study template on the Context/Challenge/Thinking/Execution/Outcome/Reflection shape, then
-   the five pages.
-5. Responsive pass at 390 / 768 / 1024.
-6. Accessibility pass. 404 page. Portfolio schema.
-7. Deploy.
+4. Section-level art direction, one section per request, four passes each. Loader and Work are done.
+   Ticker, Brain Dump, About, FAQ, Contact remain.
+5. Case-study CSS still lives inline in the five pages, because `.face`, `.tag`, `.stand`, `.sec`
+   and `.pull` mean different things there than in `site.css`. Merge under a scoped `.case` block.
+6. Responsive pass at 390 / 768 / 1024.
+7. Accessibility pass. 404 page. Portfolio schema.
+8. Deploy.
 
 ---
 
 ## COMMANDS
 
 ```bash
-# dev server, from repo root
-node node_modules/astro/bin/astro.mjs dev --port 4321
+# preview server, from repo root. No Node, no npm, no install.
+powershell -ExecutionPolicy Bypass -File serve.ps1
 
-# look at the output
-node taste-skill/scripts/shoot.js <file-or-url> --sel "#work,#about" --out /tmp
-
-# check a palette before changing a colour
-python3 taste-skill/scripts/contrast.py --named paper=#F2EFE9 ink=#17181B accent=#F1442A
-
-# stage, commit, push (prompts before pushing)
-powershell -ExecutionPolicy Bypass -File commit.ps1
+# check every internal link still resolves after adding or moving a page
+node -e "const f=require('fs'),p=require('path');(function w(d,a=[]){for(const e of f.readdirSync(d,{withFileTypes:true})){if(['.git','_archive','node_modules'].includes(e.name))continue;const q=p.join(d,e.name);e.isDirectory()?w(q,a):e.name.endsWith('.html')&&a.push(q)}return a})('.').forEach(x=>{for(const m of f.readFileSync(x,'utf8').matchAll(/(?:href|src)=\"(\/[^\"]+)\"/g)){const t=m[1].split('#')[0];if(!f.existsSync('.'+t)&&!f.existsSync('.'+t+'/index.html'))console.log('BROKEN',x,'->',t)}})"
 ```
 
-Branch is `v5-blocks` and the name is now wrong. Rename before the first push:
-`git branch -m v5-blocks v6-editorial`
+Branch is `v5-blocks`, already pushed and tracking `origin/v5-blocks`. The name is historical and
+no longer describes the work; rename only in coordination with the remote, not unilaterally.
