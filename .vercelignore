@@ -1,0 +1,18 @@
+# outputDirectory is the repo root, so anything not excluded here is publicly
+# downloadable. Working documents are not part of the site.
+CLAUDE.md
+DIRECTION.md
+TASTE.md
+GAPS.md
+README.md
+portfolio-brief.zip
+
+# superseded builds and prototypes — never part of the deployed site
+_archive/
+
+# annotated screenshots, working reference material
+references/
+
+# local tooling
+serve.ps1
+.claude/
