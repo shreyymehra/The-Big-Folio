@@ -309,11 +309,17 @@ nothing and needs rewriting.
 ## OPEN — needs Shrey, do not decide for him
 
 1. **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
-   Currently live on GitHub Pages from the `v5-blocks` branch at
-   `https://shreyymehra.github.io/The-Big-Folio/`. Links are depth-relative, so it also works at an
-   apex domain without changes. Two upgrades worth considering, neither urgent:
-   a custom domain (the field is empty in the Pages settings), or renaming the repo to
-   `shreyymehra.github.io` so it serves at the root as a user site — a better URL for a portfolio.
+   Links are depth-relative, so the site runs unchanged at a subpath or at a root domain.
+
+   - **GitHub Pages** — live at `https://shreyymehra.github.io/The-Big-Folio/`, built from
+     `v5-blocks`, `/(root)`. Served from a subpath; `.nojekyll` stops Jekyll processing.
+   - **Vercel** — `vercel.json` at the repo root sets it up: no build command, no output
+     directory, no install step, because there is nothing to build. Deploy from **`main`**
+     (PR #1 merged `v5-blocks` into it). Preset **Other**, root directory `./`.
+
+   Running both is fine but means two live URLs. **Pick one as canonical** and point a custom
+   domain at it, otherwise a recruiter can land on whichever is staler. Still to do either way:
+   a `404.html` — Vercel and Pages both serve one automatically if it exists, and there isn't one.
 2. **Two "essence" devices to add next.** Candidates offered: leader-line annotation on case pages,
    cursor state over work rows, detail crops in case studies, star as scroll progress, one real
    easter egg. He picks two.
