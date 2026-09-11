@@ -70,12 +70,24 @@
   <div class="cue" data-t="1260"><span class="ln"></span> Scroll</div>
 </section>
 
-<section class="ticker" aria-label="Testimonials, places and disciplines">
-  <p class="head mono">Where I have been &amp; what they say</p>
-  <div class="bands">
-    <div class="band b1" tabindex="0"><div class="track" data-row="quotes"></div></div>
-    <div class="band b2" tabindex="0"><div class="track" data-row="places"></div></div>
-    <div class="band b3" tabindex="0"><div class="track" data-row="skills"></div></div>
+<section class="ticker" aria-label="What colleagues say, and where I have been">
+  <div class="wrap">
+    <p class="head mono">What they say</p>
+    <div class="says rv">
+      <blockquote class="say lead">A work friend we do not deserve, but need</blockquote>
+      <blockquote class="say b">What an absolute gem to work with</blockquote>
+      <blockquote class="say c">Love your attention to detail</blockquote>
+      <blockquote class="say d">You sure AI didn&rsquo;t help you?</blockquote>
+      <blockquote class="say e">Love your third eye</blockquote>
+      <blockquote class="say f">My go-to person for AI, pop culture or ranting</blockquote>
+    </div>
+    <p class="saygap mono">[GAP: who said these. Six real quotes with no names attached read as invented &mdash; a first name, role and company against even two of them would carry the whole section.]</p>
+  </div>
+
+  <div class="band" tabindex="0" aria-label="Where I have been"><div class="track" data-row="places"></div></div>
+
+  <div class="wrap tail">
+    <p class="disciplines mono">Brand Strategy · Creative Direction · Communications · Copywriting · Campaign Planning · AI Workflow Design · Community · Positioning</p>
   </div>
 </section>
 
@@ -160,22 +172,21 @@
 
 
 
-<section class="contact dark" id="contact">
+<section class="contact" id="contact">
   <div class="wrap">
-    <div class="recs rv">
-      <div class="rec"><p>&ldquo;[GAP: LinkedIn recommendation 1 — full quote]&rdquo;</p><p class="who">[GAP: Name · Title · Company]</p></div>
-      <div class="rec"><p>&ldquo;[GAP: LinkedIn recommendation 2 — full quote]&rdquo;</p><p class="who">[GAP: Name · Title · Company]</p></div>
+    <span class="no">05 / Contact</span>
+    <h2 class="cta rv">Let&#39;s build something<br>you will <em>always</em><br>be proud of.</h2>
+
+    <a class="reach rv" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
+
+    <div class="second rv">
+      <a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener">LinkedIn &nearr;</a>
+      <a href="contact/">Full contact page &rarr;</a>
     </div>
-    <div class="ctarow">
-      <h2 class="cta rv">Let&#39;s build something<br>you will <em>always</em><br>be proud of.</h2>
-      <img class="cstar" src="assets/img/4d7964f598.webp" alt="">
-    </div>
-    <div class="clinks rv">
-      <a href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
-      <a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="contact/">Contact →</a>
-    </div>
-    <div class="foot"><span>Shrey Mehra · Melbourne → Global</span><span>Built with Claude Code · <span id="yr"></span></span></div>
+
+    <p class="recgap">[GAP: two LinkedIn recommendations, quoted in full with name, title and company. They belong here, under the ask &mdash; not in the ticker, which is for short remarks.]</p>
+
+    <div class="foot"><span>Shrey Mehra &middot; Melbourne &rarr; Global</span><span>Built with Claude Code &middot; <span id="yr"></span></span></div>
   </div>
 </section>
 
@@ -228,18 +239,18 @@
     el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)})});
 
   /* ticker */
-  var ROWS={
-    quotes:['What an absolute gem to work with','Love your attention to detail',
-      'A work friend we do not deserve, but need',"You sure AI didn't help you?",
-      'My go-to person for AI, pop culture or ranting','Love your third eye'],
-    places:['iSelect','Compare the Market','Tickertape','TEDx','Bliss & Birch','Amazon'],
-    skills:['Brand Strategy','Creative Direction','Communications','Copywriting',
-      'Campaign Planning','AI Workflow Design','Community','Positioning']};
-  Object.keys(ROWS).forEach(function(k){
-    var el=document.querySelector('[data-row="'+k+'"]');if(!el)return;var h='';
-    for(var p=0;p<2;p++)ROWS[k].forEach(function(t){
-      h+='<span class="item">'+(k==='quotes'?'“'+t+'”':t)+'</span><span class="sep" aria-hidden="true"></span>'});
-    el.innerHTML=h});
+  /* Only the places marquee is generated. The quotes and the disciplines are
+     real markup now: quotes have to be readable and crawlable, and a list of
+     disciplines is metadata, not a performance. The duplication below is what
+     makes the loop seamless, which is the one thing this needs JS for. */
+  var PLACES=['iSelect','Compare the Market','Tickertape','TEDx','Bliss & Birch','Amazon'];
+  (function(){
+    var el=document.querySelector('[data-row="places"]'); if(!el) return;
+    var h='';
+    for(var p=0;p<2;p++) PLACES.forEach(function(t){
+      h+='<span class="item">'+t+'</span><span class="sep" aria-hidden="true"></span>'});
+    el.innerHTML=h;
+  })();
 
   /* work reveal */
   /* the home page shows a curated three and routes to /work for the rest,
