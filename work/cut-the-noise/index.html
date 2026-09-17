@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><script src="../../assets/theme.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cut The Noise · Shrey Mehra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,6 +108,10 @@ nav a:hover::after,nav a:focus-visible::after,nav a[aria-current="page"]::after{
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
  --g:#14161C; --t:#E9E5DC; --g2:#2A3446; --t2:#E9E5DC;
  --cream:#2A3446; --deep:#E9E5DC; --fluoro:#E07A5F}}
+/* same values when the visitor picks dark on a light system (assets/theme.js) */
+:root[data-theme="dark"]{
+ --g:#14161C; --t:#E9E5DC; --g2:#2A3446; --t2:#E9E5DC;
+ --cream:#2A3446; --deep:#E9E5DC; --fluoro:#E07A5F}
 /* Cross-page fade, so the two skins do not meet as a snap. Inert where
    unsupported, off under reduced motion. */
 @view-transition{navigation:auto}
@@ -126,6 +130,9 @@ section[id],[id]{scroll-margin-top:5.2rem}
   :root:not([data-theme="light"]) nav{border-bottom-color:rgba(252,250,246,.16)}
   :root:not([data-theme="light"]) nav.solid{border-bottom-color:rgba(252,250,246,.24)}
 }
+/* same values when the visitor picks dark on a light system (assets/theme.js) */
+:root[data-theme="dark"] nav{border-bottom-color:rgba(252,250,246,.16)}
+  :root[data-theme="dark"] nav.solid{border-bottom-color:rgba(252,250,246,.24)}
 </style></head><body>
 <nav id="nav"><a class="sig" href="../../">Shrey Mehra</a>
   <span class="links"><a href="../../work/" aria-current="page">Work</a><a href="../../ideas/">Ideas</a><a href="../../about/">About</a><a href="../../contact/">Contact</a></span></nav>
