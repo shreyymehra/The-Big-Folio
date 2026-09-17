@@ -1,0 +1,66 @@
+# Publishes only the site to GitHub Pages.
+#
+# Why this exists: Pages "deploy from a branch" serves the whole branch root, so
+# CLAUDE.md, GAPS.md, DIRECTION.md, TASTE.md, portfolio-brief.zip and the whole
+# of _archive/ were all publicly fetchable at shreyymehra.github.io/The-Big-Folio/.
+# This job stages the branch into _site/ minus the working documents, then
+# deploys that. The exclusion list is .vercelignore, so Pages and Vercel stay in
+# step and there is one place to edit.
+#
+# Requires: Settings > Pages > Source = "GitHub Actions". Without that toggle the
+# old branch deploy keeps serving and nothing here takes effect.
+
+name: Deploy site to Pages
+
+on:
+  push:
+    branches: [main, v5-blocks]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; the last push wins.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # rsync reads .vercelignore natively: blank lines and # comments are ignored.
+      - name: Stage the site without the working documents
+        run: |
+          mkdir -p _site
+          rsync -a ./ _site/ \
+            --exclude-from=.vercelignore \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '_site/' \
+            --exclude '.vercelignore' \
+            --exclude 'vercel.json'
+          touch _site/.nojekyll
+
+      - name: Fail if a working document slipped through
+        run: |
+          leaked=0
+          for f in CLAUDE.md DIRECTION.md TASTE.md GAPS.md README.md portfolio-brief.zip _archive references serve.ps1 .claude; do
+            if [ -e "_site/$f" ]; then echo "LEAKED: $f"; leaked=1; fi
+          done
+          [ "$leaked" -eq 0 ] || exit 1
+          echo "Staged tree is clean."
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -61,8 +61,10 @@ The site is now routed, hand-authored HTML with a shared stylesheet and no build
 | `/ideas/`, `/ideas/idea-N/` | Index plus five routed shells. **No content yet — every line is a `[GAP]`.** |
 | `/about/`, `/contact/` | One page each. About carries the long version plus the FAQ. |
 | `assets/site.css` | **THE stylesheet.** Every page links it. Edit here, never per page. |
-| `assets/site.js` | Shared behaviour: nav, reveals, rail, year stamp. |
-| `assets/scroll.js` | Work-index reveal. Uses Motion's `inView`, not scroll-linked — see the note in the file. |
+| `assets/site.js` | Shared behaviour: nav, reveals, rail, year stamp, card landing, FAQ, CTA lines. **Every page with shared behaviour loads it, home included.** |
+| `assets/home.js` | Home-only behaviour: hero assembly, tiles, ticker, vinyl, loader, parallax, trail. Loads after `site.js`. Never add a shared behaviour here. |
+| `assets/scroll-feel.js` | Lenis, site-wide, on all 11 routes after `vendor/lenis.min.js`. Owns scrolling and nothing else. |
+| `assets/scroll.js` | Work-index plate wipe only. Uses Motion's `inView`, not scroll-linked — see the note in the file. No longer touches scrolling. |
 | `assets/vendor/` | Vendored `lenis.min.js` and `motion.min.js`. Prebuilt dists, committed on purpose. |
 | `assets/img/` | Page imagery, content-hashed. Extracted from inline data URIs (index.html was 1.81MB). |
 | `_archive/v6-prototype/v6.html` | The v6 ink/paper prototype. **Not adopted** — see the palette note below. |
@@ -188,8 +190,9 @@ ordinary artefact with strong reasoning.
 - FAQ: nine answers, three recovered from the v3 build, six written with him
 - Ticker: six real colleague quotes
 
-**Work slate (7).** Vastr · Cut The Noise · VoiceDNA are the three visible on load.
-Then Venus Roadlines · AbsolutILY · Duolingo · L'Oréal behind "show the other four".
+**Work slate (7).** Vastr · VoiceDNA · Venus Roadlines are the three on the home page. Decided by
+Shrey, 17 Sep 2026: "the two that shipped, and the one that goes deepest." Cut The Noise · AbsolutILY ·
+Duolingo · L'Oréal live on `/work` only.
 
 **Real vs spec.** VoiceDNA and Venus Roadlines are real and shipped. Everything else is spec, and
 **spec is disclosed in the first line of the case study, every time.**
@@ -197,6 +200,10 @@ Then Venus Roadlines · AbsolutILY · Duolingo · L'Oréal behind "show the othe
 **Verified facts** live in the master resume. iSelect/CTM engagement +46% MoM, vendor costs −78%.
 Tickertape CTR +310%, 160k customers, 20k MAU. TEDxVIPS 130 volunteers, 1.2M views. Use these;
 do not invent neighbours for them.
+
+**Worked with** (confirmed by Shrey, 17 Sep 2026): iSelect, Compare the Market, Tickertape, TEDxVIPS,
+Bliss & Birch, Amazon. UN Youth and BCG were side projects during college, and are always
+labelled "College project" wherever they appear. Never present them as employment.
 
 **Case detail worth keeping:**
 

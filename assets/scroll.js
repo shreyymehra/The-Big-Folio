@@ -71,17 +71,4 @@
     }
   });
 
-  /* Lenis: scroll feel only. Light lerp, native touch, and it owns the
-     scroll position so in-page anchors have to route through it. */
-  if (window.Lenis) {
-    var lenis = new window.Lenis({ lerp: 0.115, wheelMultiplier: 1, smoothWheel: true, syncTouch: false });
-    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
-    window.lenis = lenis;
-    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); lenis.scrollTo(t); }
-      });
-    });
-  }
 })();

@@ -1,3 +1,190 @@
+/* ============================================================
+   PALETTE v7 — semantic ground/type layer.
+   Added alongside the legacy --cream/--deep/--fluoro literals, which the
+   six unmigrated sections still use. New work uses the semantic tokens
+   only. Migration is section by section, each one verified by eye.
+
+   The fault this fixes: the old set had three tones but two usable
+   pairings. Everything involving fluoro measured 3.0-3.5 in every
+   direction, so fluoro could never carry type and became flat planes of
+   low-contrast mush. Near-black ink #0E1223 unlocks it. Ink on fluoro is
+   4.79, so fluoro is now a ground that holds copy.
+
+   LIGHT ladder   paper -> deep -> fluoro -> paper -> ink -> paper -> cream
+   Measured steps 12.08    3.50     3.45      16.51   16.51   1.28 (a settle)
+
+   DARK is a re-anchor, not an inversion. Dark grounds compress: ink to
+   deep is only 1.37, so a five-step dark ladder is not physically
+   available. Dark mode therefore runs two grounds and lets fluoro carry
+   the whole rhythm. Stated rather than faked.
+   ============================================================ */
+:root{
+  /* palette — fixed values, never used directly in a rule */
+  --p-paper:#F7F1E3; --p-cream:#E8D6A4; --p-fluoro:#F13C20;
+  --p-deep:#1F2A5C;  --p-ink:#0E1223;   --p-fluoro-deep:#C0301A;
+  --p-fluoro-lift:#FF6A4D; --p-paper-dim:#E6E0D2;
+
+  /* semantic — what a rule may reference */
+  --g:var(--p-paper);        /* section ground            */
+  --g-inset:var(--p-cream);  /* card / inset on that ground */
+  --t-inset:var(--p-deep);   /* type ON that inset. An inset that changes
+                                ground must change its type with it, or a
+                                card silently renders ink on ink. */
+  --t:var(--p-deep);         /* primary type   12.08 on paper */
+  --t-mute:#535874;          /* metadata        6.18 on paper */
+  --t-accent:var(--p-fluoro-deep); /* small accent type 5.07 */
+  --mark:var(--p-fluoro);    /* rules, marks, display type only */
+  --rule:rgba(31,42,92,.22);
+}
+/* ground contexts. Put one of these on a section and the type follows. */
+.on-paper { --g:var(--p-paper);  --g-inset:var(--p-cream); --t-inset:var(--p-deep); --t:var(--p-deep);  --t-mute:#535874; --t-accent:var(--p-fluoro-deep); --rule:rgba(31,42,92,.22) }
+.on-cream { --g:var(--p-cream);  --g-inset:var(--p-paper); --t-inset:var(--p-deep); --t:var(--p-deep);  --t-mute:#4C5170; --t-accent:var(--p-deep);        --rule:rgba(31,42,92,.26) }
+.on-deep  { --g:var(--p-deep);   --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-paper); --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.24) }
+.on-ink   { --g:var(--p-ink);    --g-inset:var(--p-deep);  --t-inset:var(--p-paper-dim);  --t:var(--p-paper); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.20) }
+.on-fluoro{ --g:var(--p-fluoro); --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-ink);   --t-mute:#3A1008; --t-accent:var(--p-ink);         --rule:rgba(14,18,35,.30) }
+[class*="on-"]{background:var(--g);color:var(--t)}
+
+/* DARK. Grounds re-anchor to ink; the two light grounds fold into the two
+   darks. Fluoro is untouched, so the one violent moment survives the
+   switch unchanged. Pure paper at 16.51 on ink is harsh at night, so
+   dark-mode type is #E6E0D2 at 14.13. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim);
+    --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
+    --rule:rgba(247,241,227,.18);
+  }
+  :root:not([data-theme="light"]) .on-paper,
+  :root:not([data-theme="light"]) .on-ink{
+    --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
+    --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.18) }
+  :root:not([data-theme="light"]) .on-cream,
+  :root:not([data-theme="light"]) .on-deep{
+    --g:var(--p-deep); --g-inset:var(--p-ink); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
+    --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.22) }
+  /* .on-fluoro deliberately unchanged */
+}
+/* manual override hook, so a toggle can be added later without a rewrite */
+:root[data-theme="dark"]{ --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim);
+  --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
+  --rule:rgba(247,241,227,.18) }
+:root[data-theme="dark"] .on-paper, :root[data-theme="dark"] .on-ink{
+  --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
+  --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.18) }
+:root[data-theme="dark"] .on-cream, :root[data-theme="dark"] .on-deep{
+  --g:var(--p-deep); --g-inset:var(--p-ink); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
+  --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.22) }
+
+/* ============================================================
+   SKIN: QUIET  (scheme 02)
+   Put .skin-quiet on <html>. Homepage stays scheme 01, where the job is to
+   stop a sceptic in ten seconds. Case pages run quiet, where the job is to
+   be read end to end without fatigue.
+
+   Measured, on white #FCFAF6 / paper #F4F1EA:
+     slate 12.00 / 11.09   clay 5.67 / 5.24   mute 5.99 / 5.54
+   The win over scheme 01 is structural, not cosmetic: clay carries small
+   type on a light ground, which fluoro can never do at 3.45. One accent,
+   no fallback.
+
+   WHITE is a reading inset, never a ground step. White to paper is 1.08,
+   so as adjacent sections they would look like a rendering fault. As a
+   column of body copy lifted off a warm page, the lift is the point.
+
+   This class also remaps the legacy literals, so the unmigrated case pages
+   re-skin whole. Hard-coded rgba() hairlines are not remapped and stay
+   faintly navy; low enough alpha that it reads as warmth, not error. Worth
+   fixing when the case template moves to the semantic layer.
+   ============================================================ */
+.skin-quiet{
+  --p-white:#FCFAF6; --p-paper:#F4F1EA; --p-cream:#E4DED0;
+  --p-fluoro:#A8452B; --p-deep:#2A3446; --p-ink:#14161C;
+  --p-fluoro-deep:#8F3A24; --p-fluoro-lift:#E07A5F; --p-paper-dim:#E9E5DC;
+  --g:#FCFAF6; --g-inset:#F4F1EA; --t-inset:#2A3446;
+  --t:#2A3446; --t-mute:#5C6070; --t-accent:#A8452B; --rule:rgba(42,52,70,.20);
+  /* legacy literals, so unmigrated pages follow */
+  --cream:#F4F1EA; --deep:#2A3446; --fluoro:#A8452B;
+}
+.skin-quiet .on-paper{ --g:#FCFAF6; --g-inset:#F4F1EA; --t-inset:#2A3446; --t:#2A3446; --t-mute:#5C6070; --t-accent:#A8452B; --rule:rgba(42,52,70,.20) }
+.skin-quiet .on-cream{ --g:#E4DED0; --g-inset:#FCFAF6; --t-inset:#2A3446; --t:#2A3446; --t-mute:#55596A; --t-accent:#8F3A24; --rule:rgba(42,52,70,.24) }
+.skin-quiet .on-deep { --g:#2A3446; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#B3BCCB; --t-accent:#E07A5F; --rule:rgba(252,250,246,.22) }
+.skin-quiet .on-ink  { --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F; --rule:rgba(252,250,246,.18) }
+.skin-quiet .on-fluoro{--g:#A8452B; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#FCFAF6; --t-mute:#F0DCD5; --t-accent:#FCFAF6; --rule:rgba(252,250,246,.28) }
+.skin-quiet body{background:var(--g);color:var(--t)}
+
+@media (prefers-color-scheme: dark){
+  .skin-quiet:not([data-theme="light"]){
+    --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC;
+    --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F; --rule:rgba(252,250,246,.18);
+    --cream:#2A3446; --deep:#E9E5DC; --fluoro:#E07A5F;
+  }
+  .skin-quiet:not([data-theme="light"]) .on-paper,
+  .skin-quiet:not([data-theme="light"]) .on-ink{
+    --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F }
+  .skin-quiet:not([data-theme="light"]) .on-cream,
+  .skin-quiet:not([data-theme="light"]) .on-deep{
+    --g:#2A3446; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#B3BCCB; --t-accent:#E07A5F }
+}
+
+/* Reading inset. The near-white column that body copy sits on. */
+.reading{background:var(--p-white,#FCFAF6);box-shadow:0 0 0 1px var(--rule)}
+
+/* ---------- CROSS-PAGE TRANSITION ----------
+   The two skins meet at a navigation, so the switch must not snap.
+   View Transitions cross-fades document to document where supported and
+   is inert everywhere else, which is the right kind of enhancement: the
+   site is not relying on it to be usable. 260ms, matching the enter
+   timing used everywhere else. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:260ms;
+  animation-timing-function:cubic-bezier(.16,1,.3,1)}
+@media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+}
+
+/* ---------- PROOF ----------
+   The one fluoro plane. Fluoro carries no small type anywhere; on this ground
+   the type colour is ink, measured 4.79.
+   Kept deliberately short. Evidence read on the way past, not a destination. */
+.proof{padding:clamp(2.6rem,5vw,4.4rem) 0 clamp(2.2rem,4vw,3.4rem);
+  border-top:3px solid var(--p-ink);border-bottom:3px solid var(--p-ink)}
+.proof-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:1.2rem 3rem;align-items:end}
+.proof .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--t-mute);display:block;margin-bottom:.9rem}
+.proof h2{font-size:var(--lg);max-width:11em}
+.proof .lede{margin:0;font-size:var(--sm);line-height:1.55;max-width:26em;color:var(--t)}
+.stints{margin-top:clamp(1.8rem,3.4vw,2.8rem);display:grid;gap:1.6rem 2.4rem;
+  grid-template-columns:repeat(3,minmax(0,1fr))}
+.stint{border-top:2px solid var(--p-ink);padding-top:.85rem}
+.stint .who{font-family:var(--fu);font-size:var(--xs);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--t-mute);margin:0 0 1rem}
+.figs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:1.1rem 2rem}
+.fig .n{display:block;font-family:var(--fd);font-weight:800;
+  font-size:clamp(1.9rem,3.2vw,2.75rem);line-height:.92;letter-spacing:-.02em}
+.fig .n i{display:block;font-style:normal}
+.fig .l{display:block;margin-top:.3rem;font-size:12px;line-height:1.35}
+.proofgap{margin:clamp(1.6rem,3vw,2.4rem) 0 0;padding:.75rem .9rem;max-width:46em;
+  border:1px dashed rgba(14,18,35,.45);font-family:var(--fu);font-size:9.5px;
+  line-height:1.8;color:var(--t)}
+
+/* The roll. A clipped frame per figure; the number arrives from below on
+   entry, staggered. Same device as the hero verb list, so it reads as part
+   of the system rather than an effect.
+   .js-roll is added by home.js, never in the markup: with no JS, or if the
+   observer never fires, the numbers are simply present. Anything that hides
+   content has to guarantee un-hiding it. */
+.js-roll .fig .n{overflow:hidden;padding-bottom:.06em}
+.js-roll .fig .n i{transform:translateY(112%);transition:transform 520ms var(--ease)}
+.js-roll .fig.rolled .n i{transform:none}
+@media(prefers-reduced-motion:reduce){
+  .js-roll .fig .n i{transform:none;transition:none}
+}
+@media(max-width:1024px){.stints{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof-head{grid-template-columns:1fr;align-items:start}}
+@media(max-width:640px){.stints{grid-template-columns:1fr;gap:1.4rem}
+  .figs{gap:1rem 1.8rem}}
+
 :root{
   --cream:#EFE2BA; --deep:#1F2A5C; --fluoro:#F13C20;
   --ground:var(--cream); --text:var(--deep);
@@ -68,8 +255,21 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 .roll li{height:1.3em;line-height:1.3em;white-space:nowrap;font-family:var(--fd);font-weight:800}
 .value{font-weight:500;font-size:clamp(1.05rem,1.6vw,1.45rem);line-height:1.4;max-width:22em;margin:0}
 .value b{font-weight:700}
-.badge{display:inline-block;margin-top:1.3rem;font-family:var(--fu);font-size:var(--xs);letter-spacing:.14em;text-transform:uppercase;
-  border-bottom:2px solid var(--fluoro);padding:0 0 3px}
+/* discipline clause. Replaces the vetoed MELBOURNE -> GLOBAL badge.
+   Job: give a scanning recruiter a category to route him to, then undercut
+   the tidiness of the list so the range reads as deliberate rather than
+   scattered. The list is metadata and sits muted; the punchline is the
+   loudest thing in the block, which is the whole point. Tints measured
+   against cream #EFE2BA: #535874 = 5.39, deep = 10.53, fluoro = 3.01 and
+   therefore never carries this type. */
+.roleline{margin:1.3rem 0 0;font-family:var(--fu);font-size:var(--sm);line-height:1.7;
+  letter-spacing:.005em;max-width:32em}
+.roleline .dl{color:#535874}
+.roleline b{display:block;width:fit-content;margin-top:.5rem;line-height:1.35;font-weight:600;color:var(--deep);
+  background:linear-gradient(rgba(241,60,32,.26),rgba(241,60,32,.26)) 0 76% / 100% .52em no-repeat}
+.roleline .dw{display:block;margin-top:.9rem;font-size:var(--xs);letter-spacing:.12em;
+  text-transform:uppercase;color:#535874}
+@media(max-width:900px){.roleline{font-size:var(--xs);line-height:1.9;letter-spacing:.02em}}
 .cue{position:absolute;left:var(--pad);bottom:1.8rem;z-index:5;font-family:var(--fu);font-size:var(--xs);letter-spacing:.14em;
   text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
 .cue .ln{display:block;width:52px;height:1px;background:var(--deep);position:relative;overflow:hidden}
@@ -112,71 +312,208 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
   .say.b,.say.c,.say.d,.say.e,.say.f{grid-column:1 / -1;font-size:1.02rem;align-self:auto}
 }
 
-/* the pulse — one band, carrying the names you recognise at a glance */
-.band{position:relative;width:124%;margin-left:-12%;transform:rotate(-2.2deg);
-  border-top:3px solid var(--deep);border-bottom:3px solid var(--deep);
-  overflow:hidden;padding:.7rem 0;background:var(--fluoro);color:var(--cream)}
-.band .track{display:flex;width:max-content;white-space:nowrap;will-change:transform}
-.band .item{font-family:var(--fd);font-weight:800;font-size:clamp(1.2rem,2.6vw,2.2rem);
-  line-height:1.18;text-transform:uppercase;padding:0 .55em;display:flex;align-items:center}
-.band .sep{width:clamp(13px,1.4vw,20px);height:clamp(13px,1.4vw,20px);margin:0 .1em;flex:none;
-  align-self:center;background:currentColor;
-  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
-@keyframes tkL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.band .track{animation:tkL 48s linear infinite}
-.band:hover .track,.band:focus-within .track{animation-play-state:paused}
-@media(max-width:760px){.band{transform:rotate(-1.4deg);width:132%;margin-left:-16%}
-  .band .track{animation-duration:38s}}
-
 /* metadata. Smallest, mono, muted — the bottom of the hierarchy. */
 .saygap{border:2px dashed rgba(31,42,92,.4);padding:.7rem .9rem;margin:0 0 3rem;
   max-width:44em;opacity:.65;line-height:1.8;text-transform:none;letter-spacing:.02em}
-.disciplines{margin:2rem 0 0;opacity:.55;max-width:52em;line-height:2}
-.ticker .tail{padding-bottom:var(--sec)}
+/* ---------- worked with ----------
+   A credits line, not a logo wall. Six equal cells ruled like a table, names
+   muted until pointed at, when the cell inverts. Only real employers, events and
+   projects sit here, with context where it was not a job; spec brands never do. */
+.worked{margin:0 0 clamp(3.5rem,7vw,5.5rem)}
+.worked-k{font-size:var(--xs);letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin:0 0 1rem}
+.worked-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:1px;background:rgba(31,42,92,.28);border-top:1px solid var(--deep);border-bottom:1px solid var(--deep)}
+.worked-list li{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.4rem;
+  min-height:clamp(4.2rem,7vw,5.6rem);padding:.6rem 1rem;background:var(--cream);
+  transition:background .3s var(--ease),color .3s var(--ease)}
+.worked-name{font-family:var(--fd);font-weight:800;font-size:clamp(.95rem,1.2vw,1.15rem);line-height:1;
+  letter-spacing:-.02em;opacity:.8;transition:opacity .3s var(--ease)}
+/* context where the relationship was not employment. Honest beats impressive. */
+.worked-ctx{font-family:var(--fu);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.worked-list .mark{display:block;max-width:100%;max-height:1.9rem;width:auto}
+.worked-list li:hover{background:var(--deep);color:var(--cream)}
+.worked-list li:hover .worked-name{opacity:1}
+.worked-gap{font-size:var(--xs);letter-spacing:.04em;opacity:.6;margin:.8rem 0 0;max-width:52em}
+@media (max-width:1100px){.worked-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:560px){.worked-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ---------- work ---------- */
-.work{padding:var(--sec) 0}
-.pile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.2rem 1.6rem;margin-top:.5rem;align-items:start}
-.card{position:relative;min-width:0;display:flex;flex-direction:column;background:var(--cream);
-  border:3px solid var(--deep);text-decoration:none;color:var(--deep);
-  transition:transform 260ms var(--ease),box-shadow 260ms var(--ease)}
-.card:nth-child(3n+1){transform:rotate(-1.4deg)}
-.card:nth-child(3n+2){transform:rotate(.9deg);margin-top:1.8rem}
-.card:nth-child(3n+3){transform:rotate(-.5deg);margin-top:-.6rem}
-.card:hover,.card:focus-visible{transform:rotate(0) translateY(-6px);box-shadow:8px 10px 0 var(--fluoro)}
-.card .face{position:relative;aspect-ratio:4/3;overflow:hidden;min-width:0;border-bottom:3px solid var(--deep);
-  display:flex;align-items:center;justify-content:center;background:var(--deep)}
-.card .face span{font-family:var(--fd);font-weight:800;color:var(--cream);text-transform:uppercase;
-  font-size:clamp(1.5rem,3.4vw,2.9rem);line-height:.86;letter-spacing:-.03em;text-align:center;
-  opacity:.95;white-space:nowrap;max-width:none;padding:0 .1em}
-.card:nth-child(2) .face{background:var(--fluoro)}
-.card:nth-child(3) .face{background:var(--cream)}
-.card:nth-child(3) .face span{color:var(--deep)}
-.card:nth-child(5) .face{background:var(--fluoro)}
-.card:nth-child(7) .face{background:var(--cream)}
-.card:nth-child(7) .face span{color:var(--deep)}
-.card .face::after{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
-  background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 1.15px);background-size:5px 5px}
-.card .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
-.card .tags{display:flex;gap:.4rem;flex-wrap:wrap}
-.card .tag{font-family:var(--fu);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
-  border:1px solid var(--deep);padding:2px 5px}
-.card .tag.real{background:var(--deep);color:var(--cream)}
-.card .tag.dev{background:transparent;opacity:.55}
-.card h3{font-size:1.22rem;line-height:1.05}
-.card .teaser{font-size:var(--sm);opacity:.8;line-height:1.45;margin:0}
-.card .foot{margin-top:auto;padding-top:.7rem;border-top:1px solid rgba(31,42,92,.3);
-  display:flex;justify-content:space-between;align-items:center;font-family:var(--fu);font-size:9px;
-  letter-spacing:.1em;text-transform:uppercase}
-.card .go{font-family:var(--fb);font-size:var(--sm);font-weight:700;letter-spacing:0;text-transform:none}
-.hidden-card{display:none}
-.pile.open .hidden-card{display:flex}
-.moreline{display:flex;align-items:center;gap:1rem;margin-top:2.6rem}
-.moreline .rule{flex:1;height:1px;background:var(--deep);opacity:.35}
+/* ---------- the cross ----------
+   Two bands meet in an X, from the riyadesign reference (chosen by Shrey,
+   17 Sep 2026). What he does runs one way on deep; what it moved runs the
+   other way on cream, ruled so it reads where it crosses. Speed follows the
+   scroll through Lenis: scrolling pushes the bands, scrolling back reverses
+   them, pointing at a band slows it to a stop. The riso star is the separator. */
+.cross{position:relative;height:clamp(190px,19vw,290px);overflow:hidden;margin:clamp(-1.5rem,-2vw,-.5rem) 0 var(--sec)}
+.xband{position:absolute;left:-10vw;width:120vw;top:50%;overflow:hidden}
+.xband--do{background:var(--deep);color:var(--cream);transform:translateY(-50%) rotate(-6deg);z-index:1}
+.xband--moved{background:var(--cream);color:var(--deep);border-top:2px solid var(--deep);border-bottom:2px solid var(--deep);
+  transform:translateY(-50%) rotate(6deg);z-index:2;backface-visibility:hidden}
+.xtrack{display:flex;width:max-content;will-change:transform}
+.xset{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
+.xset li{display:flex;align-items:baseline;gap:.45em;white-space:nowrap;padding:clamp(.8rem,1.5vw,1.2rem) 0;
+  font-family:var(--fd);font-weight:500;font-size:clamp(1.15rem,2.3vw,2rem);line-height:1;letter-spacing:-.015em}
+.xset li::after{content:"";flex:none;align-self:center;width:.62em;height:.62em;margin:0 1.15em;background:currentColor;opacity:.55;
+  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.xset b{font-weight:800;letter-spacing:-.03em}
+.xset i{font-style:normal;font-family:var(--fu);font-size:max(9px,.34em);letter-spacing:.12em;text-transform:uppercase;
+  opacity:.62;align-self:center}
+@media (max-width:760px){
+  .cross{height:clamp(150px,44vw,210px)}
+  .xband{left:-30vw;width:160vw}
+  .xband--do{transform:translateY(-50%) rotate(-7deg)}
+  .xband--moved{transform:translateY(-50%) rotate(7deg)}
+}
+
+
+/* ---------- work: pinned collage ----------
+   Scroll and hover mechanics translated from alaris.studio (reference chosen by
+   Shrey, 17 Sep 2026), measured from the live site rather than its source:
+   - the section is 400vh and its shell sticks for 100vh;
+   - progress p runs 0..1 across the scroll; tile i lands over p = reveal..reveal+.13,
+     rising 16vh and scaling .9 to 1, tilted;
+   - ghost type slides along a curve, trailed by marks, drifting 5vh against the scroll;
+   - hover crossfades the poster out in .25s onto footage that plays, and rewinds on leave.
+   Differences on purpose: cream/deep/fluoro instead of black, our star as the trailing
+   mark, no drop shadow on hover (veto list), no transition on the tile transform (it
+   stacked a second ease on top of Lenis and made tiles lag the scroll), and below 760px
+   the collage pins as a deck instead of stacking. Only reduced motion stacks. */
+.work{--wk-ease:cubic-bezier(.2,.75,.2,1);background:var(--deep);color:var(--cream);position:relative;
+  padding:clamp(4.5rem,12vw,6rem) var(--pad) clamp(4rem,10vw,5.5rem)}
+.wk-shell{position:relative;max-width:var(--max);margin:0 auto}
+.wk-eyebrow,.wk-note,.wk-label{font-family:var(--fu);text-transform:uppercase}
+.wk-eyebrow{font-size:var(--xs);letter-spacing:.14em;opacity:.72;margin:0}
+.wk-title{font-family:var(--fd);font-weight:800;font-size:clamp(2.6rem,12vw,4rem);line-height:.92;
+  letter-spacing:-.04em;max-width:9ch;margin:.8rem 0 0;color:var(--cream)}
+.wk-sub{font-size:var(--base);line-height:1.5;opacity:.72;max-width:24em;margin:1.2rem 0 0}
+.wk-axis,.wk-cross,.wk-ghost{display:none}
+
+.wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
+.wk-tile{display:block;color:var(--cream);text-decoration:none;transform:rotate(var(--r,0deg))}
+.wk-tile:focus-visible{outline:3px solid var(--fluoro);outline-offset:8px}
+.wk-frame{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;contain:paint;container-type:size;
+  border:1px solid rgba(239,226,186,.22);background:var(--cream)}
+
+/* poster: the still face. Typographic until real imagery exists. */
+.wk-poster{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
+  padding:5cqw 5.5cqw;transition:opacity .25s var(--wk-ease)}
+.wk-kick{font-family:var(--fu);font-size:max(9px,2.3cqw);letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.wk-mark{font-family:var(--fd);font-weight:800;font-size:23cqw;line-height:.78;letter-spacing:-.05em;margin-left:-.04em}
+.wk-poster--vastr{background:var(--cream);color:var(--deep)}
+.wk-poster--voicedna{background:var(--fluoro);color:var(--cream)}
+.wk-poster--voicedna .wk-mark{font-size:17cqw}
+.wk-poster--vrl{background:var(--deep);color:var(--cream)}
+.wk-poster--vrl .wk-mark{font-size:38cqw}
+.wk-poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
+  background-image:radial-gradient(circle at 1px 1px,currentColor 1px,transparent 1.2px);background-size:5px 5px}
+
+/* inside: what the hover reveals. Scrolls once, like a recording of the page,
+   and snaps back to the top when the pointer leaves, like a video rewinding. */
+.wk-inside{position:absolute;inset:0;z-index:1;background:var(--cream);color:var(--deep);overflow:hidden}
+.wk-inside video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wk-scroll{display:flex;flex-direction:column;gap:9cqh;padding:9cqh 6cqw 14cqh;transform:translateY(0);transition:none}
+.wk-sec{display:flex;flex-direction:column;gap:2.2cqh;border-top:1px solid rgba(31,42,92,.3);padding-top:3cqh}
+.wk-k{font-family:var(--fu);font-size:max(8px,2.2cqw);letter-spacing:.14em;text-transform:uppercase;opacity:.62}
+.wk-h{font-family:var(--fd);font-weight:500;font-size:6.6cqw;line-height:1.02;letter-spacing:-.02em;max-width:18ch}
+.wk-tile.is-playing .wk-poster{opacity:0}
+.wk-tile.is-playing .wk-scroll{transform:translateY(calc(-100% + 100cqh));transition:transform 7.5s linear .25s}
+
+.wk-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px;
+  font-size:max(9px,.6875rem);letter-spacing:.14em;color:rgba(239,226,186,.72)}
+.wk-label span:first-child{color:var(--cream);font-weight:600}
+.wk-label span:last-child{text-align:right}
+
+.wk-note{display:block;font-size:var(--xs);letter-spacing:.22em;line-height:1.55;color:rgba(239,226,186,.55);margin:2.4rem 0 0}
+a.wk-note{display:inline-flex;align-items:center;gap:14px;color:var(--cream);text-decoration:none}
+a.wk-note:focus-visible{outline:3px solid var(--fluoro);outline-offset:6px}
+.wk-arrow{position:relative;display:inline-block;width:74px;height:1px;background:rgba(239,226,186,.45);
+  transition:width .3s var(--wk-ease)}
+.wk-arrow::after{content:"";position:absolute;right:0;top:50%;width:8px;height:8px;
+  border-top:1px solid rgba(239,226,186,.6);border-right:1px solid rgba(239,226,186,.6);transform:translateY(-50%) rotate(45deg)}
+a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
+.wk-note .gap{display:block;margin-top:.6rem;letter-spacing:.08em;text-transform:none;color:var(--fluoro)}
+
+/* stacked mode: fade up as each tile enters */
+.work.wk-live .wk-tile{opacity:0;transform:translateY(42px) rotate(var(--r,0deg));
+  transition:opacity .7s var(--wk-ease),transform .7s var(--wk-ease)}
+.work.wk-live .wk-tile.is-visible{opacity:1;transform:translateY(0) rotate(var(--r,0deg))}
+@media (min-width:640px) and (max-width:759px){.wk-stage{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* pinned mode */
+@media (min-width:760px) and (prefers-reduced-motion:no-preference){
+  .work{height:400vh;padding:0;overflow:clip}
+  .wk-shell{position:sticky;top:0;height:100vh;max-width:none;overflow:hidden}
+  .wk-copy{position:absolute;z-index:15;top:clamp(86px,11vh,118px);
+    --wk-left:max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));
+    left:var(--wk-left);max-width:calc(31vw - var(--wk-left) - 2rem)}
+  .wk-title{font-size:clamp(2rem,3.3vw,3.2rem);max-width:none}
+  .wk-sub{font-size:var(--sm)}
+  .wk-axis{display:block;position:absolute;z-index:1;pointer-events:none;background:rgba(239,226,186,.12)}
+  .wk-axis--h{left:5%;right:4%;top:76vh;height:1px}
+  .wk-axis--v{top:14vh;bottom:8vh;left:31%;width:1px}
+  .wk-cross{display:block;position:absolute;z-index:2;left:31%;top:76vh;width:28px;height:28px;translate:-50% -50%;pointer-events:none}
+  .wk-cross::before,.wk-cross::after{content:"";position:absolute;background:rgba(239,226,186,.5)}
+  .wk-cross::before{left:50%;top:0;bottom:0;width:1px;translate:-50% 0}
+  .wk-cross::after{top:50%;left:0;right:0;height:1px;translate:0 -50%}
+  .wk-ghost{display:block;position:absolute;z-index:0;inset:-8vh -7vw -12vh -9vw;width:116vw;height:122vh;
+    overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
+  .wk-ghost-text{font-family:var(--fd);font-weight:800;letter-spacing:-.05em;fill:rgba(239,226,186,.12);dominant-baseline:middle}
+  .wk-ghost [data-ghost-stars] path{fill:rgba(239,226,186,.12)}
+  .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
+  .work .wk-tile,.work.wk-live .wk-tile{position:absolute;left:var(--x);top:var(--y);width:var(--w);pointer-events:auto;
+    transform:translate3d(0,calc(16vh - var(--p,1) * 16vh),0) scale(calc(.9 + var(--p,1) * .1)) rotate(var(--r));
+    transition:opacity .42s var(--wk-ease)}
+  .work.wk-live .wk-tile{opacity:0}
+  .work.wk-live .wk-tile.is-visible{opacity:1;
+    transform:translate3d(0,calc(16vh - var(--p,1) * 16vh),0) scale(calc(.9 + var(--p,1) * .1)) rotate(var(--r))}
+  .wk-tile:hover,.wk-tile:focus-visible{z-index:12}
+  .wk-tile:hover .wk-poster{opacity:0}
+  .wk-note{position:absolute;z-index:7;bottom:4.5vh;margin:0}
+  .wk-note--left{left:max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)))}
+  .wk-note--right{left:40%;max-width:320px}
+}
+@media (min-width:760px) and (max-width:1200px) and (prefers-reduced-motion:no-preference){
+  .wk-label{flex-direction:column;align-items:flex-start;gap:3px}
+  .wk-label span:last-child{text-align:left}
+}
+/* pinned, narrow: the collage becomes a deck. Same scroll maths over 300vh,
+   each tile landing on the one before, offset enough that the pile reads. */
+@media (max-width:759px) and (prefers-reduced-motion:no-preference){
+  .work{height:300vh;padding:0;overflow:clip}
+  .wk-shell{position:sticky;top:0;height:100vh;height:100svh;max-width:none;overflow:hidden}
+  .wk-copy{position:absolute;z-index:15;top:clamp(72px,10vh,96px);left:var(--pad);right:var(--pad)}
+  .wk-title{font-size:clamp(2rem,9vw,2.6rem);max-width:12ch}
+  .wk-sub{font-size:var(--sm);margin-top:.7rem}
+  .wk-ghost{display:block;position:absolute;z-index:0;top:30vh;left:-30vw;width:170vw;height:60vh;
+    overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
+  .wk-ghost-text{font-family:var(--fd);font-weight:800;letter-spacing:-.05em;fill:rgba(239,226,186,.12);dominant-baseline:middle}
+  .wk-ghost [data-ghost-stars] path{fill:rgba(239,226,186,.12)}
+  .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
+  .work .wk-tile,.work.wk-live .wk-tile,.work.wk-live .wk-tile.is-visible{position:absolute;left:var(--dx);
+    top:calc(var(--deck-top,43vh) + var(--dy));width:var(--deck-w,min(80vw,440px));pointer-events:auto;
+    transform:translate3d(0,calc(16vh - var(--p,1) * 16vh),0) scale(calc(.9 + var(--p,1) * .1)) rotate(var(--r));
+    transition:opacity .42s var(--wk-ease)}
+  .work.wk-live .wk-tile{opacity:0}
+  .work.wk-live .wk-tile.is-visible{opacity:1}
+  .wk-label{opacity:0;transition:opacity .3s var(--wk-ease)}
+  .wk-tile.is-top .wk-label{opacity:1}
+  .wk-tile:nth-child(1){--dx:6vw;--dy:0vh}
+  .wk-tile:nth-child(2){--dx:13vw;--dy:3vh}
+  .wk-tile:nth-child(3){--dx:8vw;--dy:6vh}
+  .wk-note{position:absolute;z-index:7;left:var(--pad);right:calc(var(--pad) + 64px);margin:0} /* clear the vinyl button */
+  a.wk-note{right:auto}
+  .wk-note--left{top:var(--link-top,auto);bottom:auto}
+  .wk-note--right{bottom:4vh;letter-spacing:.14em}
+}
+@media (min-width:760px) and (prefers-reduced-motion:reduce){
+  .wk-stage{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){
+  .work.wk-live .wk-tile{opacity:1;transform:rotate(var(--r,0deg));transition:none}
+  .wk-tile.is-playing .wk-scroll{transform:none;transition:none}
+}
+
 .morebtn{font-family:var(--fu);font-size:var(--xs);letter-spacing:.14em;text-transform:uppercase;
   background:none;border:0;border-bottom:2px solid var(--fluoro);padding:0 0 4px;cursor:pointer;color:var(--deep)}
-@media(max-width:900px){.pile{grid-template-columns:minmax(0,1fr);gap:1.6rem}
-  .card,.card:nth-child(3n+1),.card:nth-child(3n+2),.card:nth-child(3n+3){transform:rotate(0);margin-top:0}}
 
 /* ---------- brain dump (dark) ---------- */
 .dump{background:var(--deep);color:var(--cream);padding:var(--sec) 0}
@@ -263,25 +600,84 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
   max-width:44em;font-family:var(--fu);font-size:var(--xs);letter-spacing:.02em;
   opacity:.65;line-height:1.8}
 
-.foot{margin-top:3.4rem;padding-top:1.2rem;border-top:1px solid rgba(31,42,92,.28);
-  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  font-family:var(--fu);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+/* footer signature. Replaces the "Built with Claude Code" line, which was
+   a tool credit in the one place the page should be signed by a person.
+   The SHREY cut-out is already the identity mark in the hero, so reusing
+   it here closes the page on the same artefact it opened with.
+   Old footer was 9px mono at .55 opacity, roughly 3.3 on cream and below
+   the AA floor. Metadata is now #535874, measured 5.39. */
+.foot{margin-top:3.4rem;padding-top:1.5rem;border-top:1px solid rgba(31,42,92,.28);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem 2rem;flex-wrap:wrap}
+.sign{margin:0;display:flex;align-items:baseline;gap:0;color:var(--deep);
+  font-family:var(--fd);font-weight:800;line-height:1;font-size:clamp(1rem,1.8vw,1.35rem)}
+.sign .sw{white-space:nowrap}
+.sign-mark{height:clamp(26px,4vw,46px);width:auto;margin:0 .12rem 0 .45rem;transform:translateY(.22em)}
+.sign-star{height:clamp(15px,1.9vw,22px);width:auto;margin:0 .1rem 0 0;transform:translateY(-.55em) rotate(-9deg);
+  transition:transform 220ms var(--ease)}
+.sign:hover .sign-star{transform:translateY(-.55em) rotate(21deg)}
+.foot-meta{margin:0;font-family:var(--fu);font-size:var(--xs);letter-spacing:.12em;
+  text-transform:uppercase;color:#535874}
+@media(prefers-reduced-motion:reduce){.sign .sign-star,.sign:hover .sign-star{transition:none}}
+@media(max-width:640px){.foot{align-items:flex-start}.sign-mark{margin-left:.34rem}}
 
-/* ---------- vinyl ---------- */
-.vinyl{position:fixed;right:1.1rem;bottom:1.1rem;z-index:70;display:flex;align-items:center;gap:.6rem}
-.vinyl button{width:56px;height:56px;border-radius:50%;border:3px solid var(--deep);background:var(--deep);
-  cursor:pointer;padding:0;position:relative;display:grid;place-items:center}
-.vinyl .disc{width:100%;height:100%;border-radius:50%;background:
-  repeating-radial-gradient(circle at 50% 50%, #14120f 0 2px, #23203a 2px 4px);display:grid;place-items:center}
-.vinyl .disc::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--fluoro)}
-.vinyl.playing .disc{animation:spin 4s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.vinyl .meta{font-family:var(--fu);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--cream);color:var(--deep);border:1px solid var(--deep);padding:4px 7px;max-width:0;
-  overflow:hidden;white-space:nowrap;opacity:0;transition:max-width 300ms var(--ease),opacity 300ms var(--ease)}
-.vinyl:hover .meta,.vinyl:focus-within .meta{max-width:220px;opacity:1}
-.vinyl iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
-@media(max-width:600px){.vinyl{right:.7rem;bottom:.7rem}.vinyl button{width:46px;height:46px}}
+/* ---------- vinyl ----------
+   Form from the riyadesign reference (chosen by Shrey, 17 Sep 2026): a record
+   parked bottom-right with its title above. Ours is a deep record, not black,
+   with the hero photograph on the label, a tonearm that drops when it plays,
+   and a fluoro ring that tracks the song's position. The ring is the one
+   informative use of the accent here. 33 1/3 rpm is 1.8s a turn. */
+.vinyl{--vd:112px;position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:70;
+  display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem;color:var(--deep)}
+.vinyl-cap{margin:0;text-align:right;line-height:1.15;padding:.4rem .6rem .45rem;background:var(--cream);
+  border:1px solid var(--deep)}
+.vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:.95rem;letter-spacing:-.01em}
+.vinyl-by{display:block;font-family:var(--fu);font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.72;margin-top:.25rem}
+.vinyl-by a{color:inherit;text-underline-offset:2px}
+.vinyl-by a:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
+.vinyl-deck{position:relative;width:var(--vd);height:var(--vd)}
+.vinyl-disc{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(239,226,186,.4);
+  background:repeating-radial-gradient(circle at 50% 50%,#18214b 0 1.4px,var(--deep) 1.4px 3px);
+  animation:vspin 1.8s linear infinite;animation-play-state:paused}
+.vinyl.playing .vinyl-disc{animation-play-state:running}
+@keyframes vspin{to{transform:rotate(360deg)}}
+.vinyl-label{position:absolute;inset:17%;border-radius:50%;overflow:hidden;background:var(--fluoro)}
+.vinyl-label img{display:block;width:100%;height:100%;object-fit:cover;object-position:40% 30%;
+  filter:grayscale(1) contrast(1.15);mix-blend-mode:multiply}
+.vinyl-label::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;
+  border-radius:50%;background:var(--cream)}
+.vinyl-ring{position:absolute;inset:-7px;width:calc(100% + 14px);height:calc(100% + 14px);transform:rotate(-90deg);
+  overflow:visible;pointer-events:none}
+.vinyl-ring circle{fill:none;stroke:var(--fluoro);stroke-width:1.8;stroke-dasharray:100;stroke-dashoffset:100;
+  transition:stroke-dashoffset .6s linear}
+.vinyl-arm{position:absolute;right:-12px;top:-16px;width:31%;height:auto;overflow:visible;pointer-events:none;
+  transform-origin:76% 9%;transform:rotate(-14deg);transition:transform .8s var(--ease)}
+.vinyl.playing .vinyl-arm{transform:rotate(0deg)}
+.arm-rod{fill:none;stroke:var(--cream);stroke-width:3;stroke-linecap:square}
+.arm-head,.arm-pivot{fill:var(--cream);stroke:var(--deep);stroke-width:1.6}
+.vinyl-btn{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:0;
+  padding:0;background:var(--cream);color:var(--deep);cursor:pointer;display:grid;place-items:center;
+  transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.vinyl-btn:hover{transform:scale(1.08)}
+.vinyl-btn:focus-visible{outline:3px solid var(--fluoro);outline-offset:3px}
+.vinyl.queued .vinyl-btn{opacity:.6}
+.vinyl-icon{display:block;width:11px;height:12px;margin-left:3px;background:currentColor;clip-path:polygon(0 0,100% 50%,0 100%)}
+.vinyl.playing .vinyl-icon{margin-left:0;width:10px;clip-path:none;
+  background:linear-gradient(90deg,currentColor 0 36%,transparent 36% 64%,currentColor 64% 100%)}
+/* the embed does the playing; it is rendered, never shown */
+.vinyl-host{position:absolute;right:0;bottom:0;width:var(--vd);height:80px;overflow:hidden;opacity:0;pointer-events:none}
+.vinyl-host iframe{width:100%;height:80px;border:0}
+@media (max-width:640px){
+  .vinyl{--vd:76px;gap:.5rem}
+  .vinyl-cap{display:none}
+  .vinyl.playing .vinyl-cap{display:block}
+  .vinyl-btn{width:26px;height:26px;margin:-13px 0 0 -13px}
+  .vinyl-icon{width:8px;height:9px}
+  .vinyl.playing .vinyl-icon{width:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .vinyl-disc{animation:none}
+  .vinyl-arm{transition:none}
+}
 
 /* star scroll indicator */
 .scrollstar{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);width:22px;z-index:60}
@@ -343,21 +739,6 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 .shead h2{grid-column:2;grid-row:1 / span 2}
 .shead .sub{grid-column:2;grid-row:3}
 
-/* ---------- scroll motion ---------- */
-.card{opacity:0}
-.card.landed{opacity:1;transition:opacity 520ms var(--ease),transform 620ms var(--ease),box-shadow 260ms var(--ease)}
-.pile .card:nth-child(3n+1){transform:translate(-70px,60px) rotate(-9deg)}
-.pile .card:nth-child(3n+2){transform:translate(0,90px) rotate(7deg)}
-.pile .card:nth-child(3n+3){transform:translate(70px,60px) rotate(-6deg)}
-.pile .card.landed:nth-child(3n+1){transform:rotate(-1.4deg)}
-.pile .card.landed:nth-child(3n+2){transform:rotate(.9deg)}
-.pile .card.landed:nth-child(3n+3){transform:rotate(-.5deg)}
-.card.landed:hover,.card.landed:focus-visible{transform:rotate(0) translateY(-8px);box-shadow:8px 10px 0 var(--fluoro)}
-@media(max-width:900px){
-  .pile .card,.pile .card.landed,.pile .card.landed:nth-child(n){transform:none!important}
-  .card{opacity:0;transform:translateY(18px)!important}
-  .card.landed{opacity:1;transform:none!important}}
-
 /* dealt-card brain dump */
 .step{opacity:0;transform:translateY(20px) rotate(4deg);transition:opacity 520ms var(--ease),transform 620ms var(--ease)}
 .step.dealt{opacity:1;transform:none}
@@ -373,7 +754,7 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 /* reveals */
 .rv{opacity:0;transform:translateY(14px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
 .rv.in{opacity:1;transform:none}
-.anim .tile,.anim .said,.anim .roll,.anim .value,.anim .badge,.anim .doors,.anim .cue,.anim .bg{opacity:0}
+.anim .tile,.anim .said,.anim .roll,.anim .value,.anim .roleline,.anim .doors,.anim .cue,.anim .bg{opacity:0}
 .snap{animation:snap 180ms var(--ease) forwards}
 @keyframes snap{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
 .rise{animation:rise 560ms var(--ease) forwards}
@@ -384,9 +765,8 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}
-  .anim .tile,.anim .said,.anim .roll,.anim .value,.anim .badge,.anim .doors,.anim .cue,.anim .bg{opacity:1}
+  .anim .tile,.anim .said,.anim .roll,.anim .value,.anim .roleline,.anim .doors,.anim .cue,.anim .bg{opacity:1}
   .rv{opacity:1;transform:none}
-  .band .track,.vinyl .disc{animation-play-state:paused!important}
   #trail{display:none}
 }
 

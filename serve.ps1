@@ -12,6 +12,7 @@ $mime = @{
   ".js"   = "application/javascript; charset=utf-8"
   ".svg"  = "image/svg+xml"
   ".png"  = "image/png"
+  ".webp" = "image/webp"
   ".jpg"  = "image/jpeg"
   ".ico"  = "image/x-icon"
   ".woff2"= "font/woff2"
@@ -20,6 +21,10 @@ $mime = @{
 
 while ($true) {
   $client = $listener.AcceptTcpClient()
+  # Browsers open speculative sockets and never send a request line. Without a
+  # timeout, ReadLine blocks on one of those forever and this single-threaded
+  # loop stops serving everything. The catch below closes the idle socket.
+  $client.ReceiveTimeout = 2000
   try {
     $stream = $client.GetStream()
     $reader = New-Object System.IO.StreamReader ($stream)

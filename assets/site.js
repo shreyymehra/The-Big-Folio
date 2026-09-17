@@ -1,4 +1,4 @@
-/* Shared behaviour for every page. Home keeps its own extra script
+/* Shared behaviour for every page. Home adds assets/home.js after this
    for the hero, ticker, loader and vinyl — those exist nowhere else. */
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
