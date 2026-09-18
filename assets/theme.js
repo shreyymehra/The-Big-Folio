@@ -5,21 +5,22 @@
    deliberately tiny and blocking; everything else stays deferred.
 
    Contract: the choice lives on <html data-theme="light|dark">. Every colour
-   system in the repo already keys off that attribute and falls back to
-   prefers-color-scheme when it is absent, so:
-     - no stored choice  -> no attribute -> the visitor's system setting wins;
-     - a stored choice   -> the attribute is set and overrides the system.
+   system in the repo keys off that attribute. It is always set:
+     - no stored choice -> light;
+     - a stored choice  -> that choice.
    The toggle is added to #nav by script. Without JS there is no toggle and
    the system setting still applies. */
 (function(){
   var KEY='sm-theme', root=document.documentElement;
-  var sysDark=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
 
   function stored(){ try{ var v=localStorage.getItem(KEY); return v==='light'||v==='dark'?v:null; }catch(e){ return null; } }
-  function effective(){ return stored()||(sysDark&&sysDark.matches?'dark':'light'); }
+  /* Always opens light (Shrey, 18 Sep 2026): cream is the identity a first-time
+     visitor should meet. The system setting no longer decides; a visitor who
+     picks dark keeps it on every page and every return visit. */
+  function effective(){ return stored()||'light'; }
   function apply(){
     var s=stored();
-    if(s) root.setAttribute('data-theme',s); else root.removeAttribute('data-theme');
+    root.setAttribute('data-theme',s||'light'); /* explicit, so dark-system CSS never engages */
     root.style.colorScheme=effective(); /* form controls and scrollbars follow the page */
   }
   apply();
@@ -74,11 +75,6 @@
       setTimeout(function(){ root.classList.remove('theme-switching'); },400);
     });
 
-    /* no stored choice: keep following the system if it changes mid-visit */
-    if(sysDark&&sysDark.addEventListener) sysDark.addEventListener('change',function(){
-      if(stored()) return;
-      apply(); root.setAttribute('data-theme-shown',effective()); label(btn);
-    });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
 })();

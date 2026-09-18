@@ -52,7 +52,7 @@ jobs:
       - name: Fail if a working document slipped through
         run: |
           leaked=0
-          for f in CLAUDE.md DIRECTION.md TASTE.md GAPS.md README.md portfolio-brief.zip _archive references serve.ps1 .claude; do
+          for f in CLAUDE.md DIRECTION.md TASTE.md GAPS.md RECRUITER-CHECK.md README.md portfolio-brief.zip _archive references serve.ps1 .claude; do
             if [ -e "_site/$f" ]; then echo "LEAKED: $f"; leaked=1; fi
           done
           [ "$leaked" -eq 0 ] || exit 1

@@ -194,7 +194,8 @@ ordinary artefact with strong reasoning.
 Shrey, 17 Sep 2026: "the two that shipped, and the one that goes deepest." Cut The Noise · AbsolutILY ·
 Duolingo · L'Oréal live on `/work` only.
 
-**Real vs spec.** VoiceDNA and Venus Roadlines are real and shipped. Everything else is spec, and
+**Real vs spec.** Venus Roadlines is real and shipped. VoiceDNA is real and in build, not live.
+Everything else is spec, and
 **spec is disclosed in the first line of the case study, every time.**
 
 **Verified facts** live in the master resume. iSelect/CTM engagement +46% MoM, vendor costs −78%.
@@ -310,6 +311,58 @@ wholesale and drags the design toward someone else's system. `TASTE.md` is writt
 
 *passionate · driven · storytelling · data-driven · growth.* If one appears, the line is doing
 nothing and needs rewriting.
+
+---
+
+## DECIDED BY SHREY, 18 SEP 2026 — these override anything older
+
+**Target roles.** Product Marketing, GTM, Brand Strategy. Sectors: AI, fashion, fintech, and
+other high-leverage companies. Every ordering and framing decision serves these.
+
+**Known for.** Shaping narratives, consumer journeys, and experiences that stay in memory.
+"Engineer the market, and market the taste" for industries that do not think linear.
+
+**Beliefs (his words, verbatim, typos fixed only):**
+- You can never market the same thing to two people.
+- A picky eater should not be trusted for taste advice.
+- A culture can never be built without understanding the weakest links.
+- Being perfect is overhyped. Imagination beats perfection every time.
+- I am too young to have dead set opinions.
+
+**System and rules**
+- Type scale: H1 64 · H2 40 · H3 28 · body 18 · small 14. Tokens in `assets/base.css`.
+- Spacing scale 4/8/12/16/24/32/48/64/96/128. No em dashes anywhere.
+- Build flow: structure, components, responsive UI, interactions, polish, deploy.
+- Flows: scroll (parallax, scrub, pin + transform), reveal (fade + lift, stagger, clip),
+  click (every CTA answers with a state change or spring). `assets/feel.js`.
+- Palette: cream / deep / fluoro everywhere, including case pages and /work. The grey
+  "quiet skin" is reverted. The v7 ink tone stays only where fluoro needs readable type.
+- Theme: always opens light. The toggle works and remembers the visitor's choice.
+- **Brief vs locked rules:** where a brief clashes with a rule here, mark the clash in one
+  line and pick. If unsure, pick by reachability first, then accessibility, then relevance to
+  the viewer. The end goal is easy to understand.
+
+**Content**
+- Hero tiles stay: "Hi my name is Shrey".
+- Quotes: names come later. Redesign as chat bubbles or similar; not decided.
+- Ideas: becomes a magazine, flip-page layout hosting projects, posts and other work.
+  Content added later.
+- Work covers: static designed covers. **No screen recordings.**
+- Duolingo: in development. L'Oréal: finished (material to be supplied).
+- Credits: every project is solo except Venus Roadlines and one AI app, where he was
+  Co-Designer and Lead.
+- **VoiceDNA is not live.** It is in build. Never call it shipped or live until it is.
+- Venus Roadlines: taglines, positioning and brand language shipped with the manual.
+- Deploy: Vercel with a custom domain later. Push to GitHub for now.
+- `RECRUITER-CHECK.md` is kept. Other stray docs were salvaged into this file and archived
+  to `_archive/salvaged/`. What survived from them, not yet built:
+  - Case pages: a **Role & constraints** card under the summary, and a **Key decisions**
+    block (choice, options, evidence, trade-off). Vastr's naming story is the first example.
+  - Cut the `/work` filters from six to three. Six filters over seven pieces advertises how
+    few pieces there are.
+  - One discipline list everywhere. The hero and loader now match; the X band still differs.
+  - Fluoro never carries type under 24px on cream (3.0:1). Ink on fluoro (4.8:1) or
+    `#C0301A` on light / `#FF6A4D` on dark for small accent type.
 
 ---
 

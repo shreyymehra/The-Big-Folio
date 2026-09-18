@@ -1,0 +1,111 @@
+/* ============================================================
+   BASE: the system every page shares, case pages included.
+   Loaded before site.css (and before the case pages' inline styles),
+   so it defines tokens and site-wide behaviour, and the page styles
+   build on it.
+
+   Three jobs, in the order Shrey set them (18 Sep 2026):
+   personality, hierarchy, readability.
+   ============================================================ */
+
+:root{
+  /* TYPE SCALE. Five sizes and nothing between them.
+     H1 hero headlines 64, H2 section headlines 40, H3 subheads 28,
+     body 18, small 14 (captions, metadata, footnotes). Headings step
+     down on narrow screens so a 64px line never wraps into a wall;
+     body and small never shrink. 14px is the floor for any text. */
+  --t-h1:clamp(2.5rem,5.2vw,4rem);        /* 40 -> 64 */
+  --t-h2:clamp(1.875rem,3.4vw,2.5rem);    /* 30 -> 40 */
+  --t-h3:clamp(1.375rem,2.3vw,1.75rem);   /* 22 -> 28 */
+  --t-body:1.125rem;                      /* 18 */
+  --t-small:.875rem;                      /* 14 */
+  --lh-tight:1.02; --lh-head:1.1; --lh-body:1.6;
+
+  /* SPACING SCALE. Every gap is one of these. */
+  --s-1:4px;  --s-2:8px;  --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+
+  /* MOTION. Three speeds, two curves. */
+  --d-press:90ms;  --d-1:180ms;  --d-2:420ms;  --d-3:700ms;
+  --e-out:cubic-bezier(.16,1,.3,1);
+  --e-spring:cubic-bezier(.34,1.56,.64,1);   /* the release overshoot */
+}
+
+/* ---------- navigation, every page ----------
+   Phones used to get no navigation at all: the links were hidden under
+   820px on ten of fifteen pages. The site is judged in under thirty
+   seconds, so every route stays one tap away. Two rows on phones: name
+   and theme toggle, then the four links at a full tap height. The html
+   body prefix outranks the page styles, which load after this file. */
+html body nav .links a{font-size:var(--t-small)}
+@media (max-width:820px){
+  html body nav{flex-wrap:wrap;row-gap:0;width:100%;max-width:100vw;box-sizing:border-box}
+  html body nav .nav-end{display:contents}
+  html body nav .theme-toggle{order:2}
+  html body nav .links{display:flex;order:3;flex-basis:100%;min-width:0;gap:var(--s-4);justify-content:flex-start;flex-wrap:wrap}
+  html body nav .links a{padding:var(--s-3) 0;letter-spacing:.02em}
+  /* pages clear the taller two-row nav */
+  html body .stage{padding-top:calc(var(--s-10) - var(--s-1))}
+}
+
+/* ---------- focus: always visible, never the browser default ---------- */
+:where(a,button,summary,[role="button"],[tabindex]):focus-visible{
+  outline:2px solid #F13C20;outline-offset:3px}
+
+/* ---------- press feedback ----------
+   Every click answers. assets/feel.js springs the target itself (it
+   composes with the transforms components already use); this handles
+   the colour side of the state change and kills the grey tap flash. */
+:where(a,button,summary,[role="button"]){-webkit-tap-highlight-color:transparent}
+.is-pressed{filter:brightness(.94)}
+
+/* the email address copies itself as well as opening mail, and says so */
+.copied-note{display:inline-block;margin-left:var(--s-3);font-family:'Martian Mono',monospace;
+  font-size:var(--t-small);letter-spacing:.04em;opacity:0;transform:translateY(4px);
+  transition:opacity var(--d-1) var(--e-out),transform var(--d-2) var(--e-spring);vertical-align:middle}
+.copied-note.on{opacity:.8;transform:none}
+
+/* ---------- clip reveal, for section headlines ----------
+   The line rises out of its own baseline. Added by script only (the
+   hiding class is never in the markup), and every path ends visible. */
+html.js-clip .clip{clip-path:inset(-10% -5% 100% -5%);transform:translateY(.35em);
+  transition:clip-path var(--d-3) var(--e-out),transform var(--d-3) var(--e-out)}
+html.js-clip .clip.in{clip-path:inset(-10% -5% -20% -5%);transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html.js-clip .clip{clip-path:none;transform:none;transition:none}
+  .copied-note{transition:none}
+}
+
+/* case pages: padding shorthands on .chead, .top and .cbody zeroed the side
+   padding .wrap gives them, so on phones all copy sat on the screen edge.
+   Restore the gutter. */
+html body .wrap:is(.chead,.top,.cbody){padding-left:var(--pad);padding-right:var(--pad)}
+/* the case columns were set as 61.8% + 38.2% plus a gap, which only fitted
+   with no padding. Same golden split, as fractions, so gutter and gap fit. */
+@media (min-width:901px){html body .cbody{grid-template-columns:minmax(0,1.618fr) minmax(0,1fr)}}
+
+/* ---------- case pages onto the scale ----------
+   The five case pages carry their own inline styles, which load after this
+   file, so these rules use the html body prefix to outrank them. Same five
+   sizes as everywhere else: the title is H1, section headlines H2, pull
+   quotes and the standfirst H3, reading copy 18, labels 14. */
+html body{font-size:var(--t-body);line-height:var(--lh-body)}
+html body .chead h1{font-size:var(--t-h1);line-height:var(--lh-tight)}
+html body .sec h2{font-size:var(--t-h2);line-height:var(--lh-head)}
+html body :is(.stand,.pull,.cfoot a,.pnav .tt,.exec .k){font-size:var(--t-h3);line-height:1.25}
+html body :is(.sec h3,.exec .t){font-size:var(--t-body)}
+html body :is(.mono,.tag,.sec > .eyebrow,.side li a,.gapbox,nav .sig,.pnav .lb,.cfoot .allwork,.cfoot .sigline){
+  font-size:var(--t-small);letter-spacing:.06em}
+html body .sec p{max-width:38em}
+
+/* ---------- small labels hold AA at 14px ----------
+   These were faded to .5-.6 opacity when they were 9-10px texture. At the
+   14px floor they are reading text, and .8 is the lowest that clears 4.5:1
+   on both cream and ink. The hero discipline line had a fixed colour that
+   did not follow the theme. */
+html body :is(.phead .no,.pfoot .sig,.lab,.fbtn,.pm,.side li a,.meta,.no){opacity:.82}
+html body .fbtn[aria-pressed="true"]{opacity:1}
+html body .roleline .dl{color:rgba(var(--deep-rgb),.82)}
+html body .proof .no{opacity:1}
+
