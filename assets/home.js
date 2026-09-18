@@ -383,6 +383,53 @@
       tiles.forEach(function(t){ pio.observe(t); });
     }
   })();
+  /* ---- ideas desk: the real magazine, lifted from /ideas/ ----
+     One source: the pages live in ideas/index.html. This fetches them,
+     re-points every relative link and image from /ideas/ to here, and binds
+     the copy with window.initMagazine. If the fetch fails (file://, offline)
+     the static cover link stays. Props drift at their own depth on scroll. */
+  (function(){
+    var slot=document.querySelector('[data-mag-home]'); if(!slot) return;
+    var base=new URL(slot.getAttribute('data-src')||'ideas/',location.href);
+    function mount(html){
+      var doc=new DOMParser().parseFromString(html,'text/html');
+      var mag=doc.querySelector('[data-mag]'); if(!mag) return;
+      [].forEach.call(mag.querySelectorAll('[src],[href]'),function(el){
+        ['src','href'].forEach(function(a){
+          var v=el.getAttribute(a);
+          if(!v||/^(#|mailto:|tel:|https?:|data:)/.test(v)) return;
+          el.setAttribute(a,new URL(v,base).href);
+        });
+      });
+      /* page ids must stay unique on this page */
+      [].forEach.call(mag.querySelectorAll('[id]'),function(el){ el.id='home-'+el.id; });
+      var node=document.importNode(mag,true);
+      slot.innerHTML=''; slot.appendChild(node); slot.classList.add('is-live');
+      if(window.initMagazine) window.initMagazine(node);
+    }
+    if(window.fetch&&location.protocol!=='file:'){
+      fetch(base.href,{credentials:'same-origin'}).then(function(r){ return r.ok?r.text():Promise.reject(); })
+        .then(mount).catch(function(){});
+    }
+
+    /* parallax: each prop moves by its depth times the desk's distance from
+       the viewport centre. Transform only, so nothing reflows. */
+    var props=[].slice.call(document.querySelectorAll('.desk [data-par]'));
+    var desk=document.querySelector('.desk-surface');
+    if(!props.length||!desk||reduce) return;
+    var ticking=false;
+    function place(){
+      ticking=false;
+      var r=desk.getBoundingClientRect();
+      var d=(r.top+r.height/2)-innerHeight/2;
+      props.forEach(function(p){ p.style.setProperty('--py',(d*+p.dataset.par).toFixed(1)+'px'); });
+    }
+    function req(){ if(!ticking){ ticking=true; requestAnimationFrame(place); setTimeout(function(){ if(ticking) place(); },120); } }
+    place();
+    addEventListener('scroll',req,{passive:true});
+    addEventListener('resize',req);
+    document.addEventListener('DOMContentLoaded',function(){ if(window.lenis&&window.lenis.on) window.lenis.on('scroll',place); });
+  })();
 })();
 
 /* ---------- PROOF figure roll ----------
@@ -418,4 +465,5 @@
   setTimeout(function () {
     figs.forEach(function (f, i) { if (!f.classList.contains('rolled')) roll(f, i); });
   }, 4000);
+
 })();

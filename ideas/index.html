@@ -11,94 +11,131 @@
 <nav id="nav"><a class="sig" href="../">Shrey Mehra</a>
   <span class="links"><a href="../work/">Work</a><a href="../ideas/" aria-current="page">Ideas</a><a href="../about/">About</a><a href="../contact/">Contact</a></span></nav>
 
-<header class="phead">
+<header class="phead mag-head">
   <div class="wrap">
-    <img class="star" src="../assets/star.webp" alt="">
-    <span class="no">05 / Ideas</span>
+    <span class="no">Ideas</span>
     <h1>Thinking out loud, on the record</h1>
-    <p class="stand">[GAP: one or two lines on what Ideas is for, why these exist and what a reader gets from them. This is the only copy on the page that has to be yours.]</p>
-    <div class="rule"></div>
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap mag-wrap">
+  <!-- The magazine. Eight pages in reading order. On wide screens assets/magazine.js
+       binds them into leaves that turn on a spine; on phones they sit in a swipe
+       track, one page at a time. Without JS they read top to bottom. Every page is
+       real content; posts have one honest gap, not five stubs. -->
+  <div class="mag" data-mag>
+    <div class="mag-book" data-book aria-roledescription="magazine" aria-label="Ideas, issue 01">
 
-  <a class="featured" href="../ideas/idea-1/" aria-disabled="true">
-    <span>
-      <span class="lb">Featured</span>
-      <h2>[GAP: featured idea title]</h2>
-      <p>[GAP: one paragraph on the argument this piece makes. The featured slot is the strongest thing you have written, not the newest.]</p>
-    </span>
-    <span class="lb">Not yet written</span>
-  </a>
+      <!-- 1. COVER: the hero, set as a magazine cover -->
+      <section class="mag-page pg-cover" data-page="1" aria-label="Cover">
+        <div class="cv-top mono"><span>Issue 01</span><span>Spring 2026</span></div>
+        <img class="cv-photo" src="../public/img/hero-photo-duo.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, printed in two inks." loading="eager">
+        <p class="cv-mast" aria-hidden="true">IDEAS</p>
+        <div class="cv-by"><span class="mono">by</span><img src="../assets/img/9989e0f6ed.webp" alt="Shrey"></div>
+        <ul class="cv-lines">
+          <li><span class="mono">p.03</span>Five things I believe</li>
+          <li><span class="mono">p.04</span>The briefs nobody asked me to write</li>
+          <li><span class="mono">p.05</span>How the work happens</li>
+        </ul>
+        <img class="cv-star" src="../assets/star.webp" alt="">
+      </section>
 
-  <div class="filter" role="group" aria-label="Filter ideas by theme">
-    <span class="lab">Filter</span>
-    <button class="fbtn" data-f="all" aria-pressed="true">All <span class="c">5</span></button>
-    <button class="fbtn" data-f="ai" aria-pressed="false">AI</button>
-    <button class="fbtn" data-f="marketing" aria-pressed="false">Marketing</button>
-    <button class="fbtn" data-f="strategy" aria-pressed="false">Strategy</button>
-    <button class="fbtn" data-f="culture" aria-pressed="false">Culture</button>
-    <button class="fbtn" data-f="observation" aria-pressed="false">Observation</button>
-    <button class="fbtn" data-f="experiment" aria-pressed="false">Experiment</button>
-  </div>
+      <!-- 2. CONTENTS: inverted -->
+      <section class="mag-page pg-contents" data-page="2" aria-label="Contents">
+        <p class="pg-kick mono">Contents</p>
+        <h2 class="pg-title">In this issue</h2>
+        <ol class="toc">
+          <li><a href="#p3" data-goto="3"><span class="toc-n mono">03</span><span class="toc-t">Five things I believe</span><span class="toc-k mono">Manifesto</span></a></li>
+          <li><a href="#p4" data-goto="4"><span class="toc-n mono">04</span><span class="toc-t">The briefs nobody asked me to write</span><span class="toc-k mono">Projects</span></a></li>
+          <li><a href="#p5" data-goto="5"><span class="toc-n mono">05</span><span class="toc-t">How the work happens</span><span class="toc-k mono">Process</span></a></li>
+          <li><a href="#p6" data-goto="6"><span class="toc-n mono">06</span><span class="toc-t">Coming next</span><span class="toc-k mono">Posts</span></a></li>
+          <li><a href="#p7" data-goto="7"><span class="toc-n mono">07</span><span class="toc-t">Letters</span><span class="toc-k mono">Contact</span></a></li>
+        </ol>
+        <span class="pg-folio mono">02</span>
+      </section>
 
-  <div class="ideas-list" id="ilist">
-    <a class="idea rv" href="../ideas/idea-1/" data-d="" aria-disabled="true">
-      <span class="n">01</span>
-      <span><h3>[GAP: idea 01 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-      <span class="when">Not written</span>
-    </a>
-    <a class="idea rv" href="../ideas/idea-2/" data-d="" aria-disabled="true">
-      <span class="n">02</span>
-      <span><h3>[GAP: idea 02 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-      <span class="when">Not written</span>
-    </a>
-    <a class="idea rv" href="../ideas/idea-3/" data-d="" aria-disabled="true">
-      <span class="n">03</span>
-      <span><h3>[GAP: idea 03 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-      <span class="when">Not written</span>
-    </a>
-    <a class="idea rv" href="../ideas/idea-4/" data-d="" aria-disabled="true">
-      <span class="n">04</span>
-      <span><h3>[GAP: idea 04 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-      <span class="when">Not written</span>
-    </a>
-    <a class="idea rv" href="../ideas/idea-5/" data-d="" aria-disabled="true">
-      <span class="n">05</span>
-      <span><h3>[GAP: idea 05 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-      <span class="when">Not written</span>
-    </a>
-  </div>
-  <p class="fempty" id="fempty" hidden>Nothing under that filter.</p>
+      <!-- 3. MANIFESTO: his words, verbatim -->
+      <section class="mag-page pg-beliefs" data-page="3" id="p3" aria-label="Five things I believe">
+        <p class="pg-kick mono">Manifesto</p>
+        <h2 class="pg-title">Five things I believe</h2>
+        <ol class="mani">
+          <li>You can never market the same thing to two people.</li>
+          <li>A picky eater should not be trusted for taste advice.</li>
+          <li>A culture can never be built without understanding the weakest links.</li>
+          <li>Being perfect is overhyped. Imagination beats perfection every time.</li>
+          <li>I am too young to have dead set opinions.</li>
+        </ol>
+        <span class="pg-folio mono">03</span>
+      </section>
 
-  <div class="gapbox">[GAP: Ideas has no content yet. Five routed shells exist at /ideas/idea-1 through /ideas/idea-5. Each becomes real by replacing the copy. The route, the nav and the prev/next chain already work. Tag each piece by adding data-d on its row here.]</div>
+      <!-- 4. PROJECTS: the full slate, linked only where a page exists -->
+      <section class="mag-page pg-work" data-page="4" id="p4" aria-label="Projects">
+        <p class="pg-kick mono">Projects</p>
+        <h2 class="pg-title">The briefs nobody asked me to write</h2>
+        <ul class="briefs">
+          <li><a href="../work/vastr/"><span class="bf-t">Vastr</span><span class="bf-m mono">Spec &middot; Brand + GTM</span></a></li>
+          <li><a href="../work/voicedna/"><span class="bf-t">VoiceDNA</span><span class="bf-m mono">In build &middot; AI tool</span></a></li>
+          <li><a href="../work/vrl/"><span class="bf-t">Venus Roadlines</span><span class="bf-m mono">Shipped &middot; Brand + Ops</span></a></li>
+          <li><a href="../work/cut-the-noise/"><span class="bf-t">Cut The Noise</span><span class="bf-m mono">Spec &middot; Campaign</span></a></li>
+          <li><a href="../work/absolutily/"><span class="bf-t">AbsolutILY</span><span class="bf-m mono">Spec &middot; Campaign</span></a></li>
+          <li class="bf-soon"><span class="bf-t">Making A Brand World From Scratch</span><span class="bf-m mono">L&rsquo;Or&eacute;al &middot; In development</span></li>
+          <li class="bf-soon"><span class="bf-t">The Bird That Flew Too Close the Sun</span><span class="bf-m mono">Duolingo &middot; In development</span></li>
+        </ul>
+        <span class="pg-folio mono">04</span>
+      </section>
 
-  <div class="pfoot">
-    <a href="../about/">About <span class="arw">&rarr;</span></a>
-    <span class="sig">Shrey Mehra &middot; shreyymehraa@gmail.com</span>
+      <!-- 5. PROCESS: the one fluoro plane, ink type -->
+      <section class="mag-page pg-process" data-page="5" id="p5" aria-label="How the work happens">
+        <p class="pg-kick mono">Process</p>
+        <h2 class="pg-title">Most of the result happens before the work starts</h2>
+        <ol class="steps5">
+          <li><span class="mono">01</span>Listen</li>
+          <li><span class="mono">02</span>Blank Canvas</li>
+          <li><span class="mono">03</span>Read, Research &amp; Relay</li>
+          <li><span class="mono">04</span>Time for Tango</li>
+          <li><span class="mono">05</span>Rinse &amp; Repeat</li>
+        </ol>
+        <a class="pg-link" href="../#dump">All five steps, in full <span aria-hidden="true">&rarr;</span></a>
+        <span class="pg-folio mono">05</span>
+      </section>
+
+      <!-- 6. POSTS: one honest gap -->
+      <section class="mag-page pg-posts" data-page="6" id="p6" aria-label="Coming next">
+        <p class="pg-kick mono">Posts</p>
+        <h2 class="pg-title">Coming next</h2>
+        <p class="pg-body">This issue hosts projects, posts and anything else worth making. The posts are being written.</p>
+        <p class="gap">[GAP: the first post. A title, the premise in one line, and the piece itself.]</p>
+        <span class="pg-folio mono">06</span>
+      </section>
+
+      <!-- 7. LETTERS: the locked contact line -->
+      <section class="mag-page pg-letters" data-page="7" id="p7" aria-label="Letters">
+        <p class="pg-kick mono">Letters</p>
+        <p class="lt-cta">Let's build something you will always be proud of.</p>
+        <a class="lt-mail" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
+        <a class="pg-link" href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">&nearr;</span></a>
+        <span class="pg-folio mono">07</span>
+      </section>
+
+      <!-- 8. BACK COVER -->
+      <section class="mag-page pg-back" data-page="8" aria-label="Back cover">
+        <img class="bk-star" src="../assets/star.webp" alt="">
+        <p class="bk-sign"><img src="../assets/img/9989e0f6ed.webp" alt="Shrey"></p>
+        <p class="bk-meta mono">Ideas &middot; Issue 01</p>
+      </section>
+
+    </div>
+
+    <div class="mag-bar">
+      <button class="mag-btn" type="button" data-prev aria-label="Previous page"><span aria-hidden="true">&larr;</span> Back</button>
+      <p class="mag-count mono" data-count aria-live="polite">Cover</p>
+      <button class="mag-btn" type="button" data-next aria-label="Next page">Turn <span aria-hidden="true">&rarr;</span></button>
+    </div>
   </div>
 </main>
 
 <script src="../assets/site.js"></script>
-<script>
-(function(){
-  var rows = [].slice.call(document.querySelectorAll('#ilist .idea'));
-  var empty = document.getElementById('fempty');
-  document.querySelectorAll('.fbtn').forEach(function(b){
-    b.addEventListener('click', function(){
-      var f = b.dataset.f, shown = 0;
-      document.querySelectorAll('.fbtn').forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
-      rows.forEach(function(r){
-        var hit = f === 'all' || (' ' + (r.dataset.d || '') + ' ').indexOf(' ' + f + ' ') > -1;
-        r.hidden = !hit;
-        if(hit){ shown++; r.classList.add('in'); }
-      });
-      empty.hidden = shown > 0;
-    });
-  });
-})();
-</script>
+<script src="../assets/magazine.js"></script>
 <script src="../assets/vendor/lenis.min.js" defer></script>
 <script src="../assets/scroll-feel.js" defer></script>
 </body></html>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><script src="assets/theme.js"></script><link rel="stylesheet" href="assets/base.css"><script src="assets/feel.js" defer></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="public/favicon.svg" type="image/svg+xml">
 <title>Shrey Mehra</title>
 <meta name="description" content="Shrey Mehra, creative strategist working in brand, culture and communications. Melbourne to global.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +68,6 @@
       </a>
     </div>
   </div>
-  <div class="cue" data-t="1260"><span class="ln"></span> Scroll</div>
 </section>
 
 <section class="ticker" aria-label="What colleagues say, where the work happened, and what it moved">
@@ -235,7 +235,6 @@
     </div>
 
     <a class="wk-note wk-note--left" href="work/">All seven projects <span class="wk-arrow" aria-hidden="true"></span></a>
-    <p class="wk-note wk-note--right">Three pieces held in one frame. Open one for the thinking behind it.</p>
   </div>
 </section>
 
@@ -249,28 +248,31 @@
      hero verb list. home.js adds .js-roll, so with no JS the numbers are
      simply there. -->
 
-<section class="ideas" id="ideas">
+<section class="ideas desk" id="ideas" aria-labelledby="ideas-title">
   <div class="wrap">
-    <div class="shead rv"><img class="smark" src="assets/img/4d7964f598.webp" alt=""><span class="no">03 / Ideas</span><h2>How I think,<br>before anyone asks</h2>
-      <p class="sub">[GAP: one line on what Ideas is for: curiosity, point of view, the arguments worth making in public.]</p></div>
-    <div class="ideas-list rv">
-      <a class="idea" href="ideas/idea-1/">
-        <span class="n">01</span>
-        <span><h3>[GAP: idea 01 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-        <span class="when">Not written</span>
-      </a>
-      <a class="idea" href="ideas/idea-2/">
-        <span class="n">02</span>
-        <span><h3>[GAP: idea 02 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-        <span class="when">Not written</span>
-      </a>
-      <a class="idea" href="ideas/idea-3/">
-        <span class="n">03</span>
-        <span><h3>[GAP: idea 03 title]</h3><p class="sub">[GAP: one line premise]</p></span>
-        <span class="when">Not written</span>
+    <div class="shead rv"><img class="smark" src="assets/img/4d7964f598.webp" alt=""><span class="no">03 / Ideas</span><h2 id="ideas-title">How I think,<br>before anyone asks</h2></div>
+  </div>
+  <!-- The desk: the real magazine, lifted from /ideas/ by home.js (one source),
+       with the hero's cut-outs scattered round it. Props move at their own
+       depth on scroll (data-par). If the pages cannot be fetched, the cover
+       below stays as a link to the issue. -->
+  <div class="desk-surface">
+    <div class="desk-props" aria-hidden="true">
+      <img class="prop p-hi"   data-par="-0.12" src="assets/img/6be05cdb12.webp" alt="">
+      <img class="prop p-is"   data-par="0.10"  src="assets/img/10c617bac6.webp" alt="">
+      <img class="prop p-star" data-par="-0.18" src="assets/star.webp" alt="">
+      <img class="prop p-mark" data-par="0.16"  src="assets/img/4d7964f598.webp" alt="">
+      <!-- sticker slots: tool icons drop in as <img src="assets/icons/<tool>.svg"> -->
+      <span class="prop sticker s1" data-par="-0.08"></span>
+      <span class="prop sticker s2" data-par="0.14"></span>
+      <span class="prop sticker s3" data-par="-0.1"></span>
+    </div>
+    <div class="desk-mag" data-mag-home data-src="ideas/">
+      <a class="desk-fallback" href="ideas/">
+        <img src="public/img/hero-photo-duo.webp" alt="Ideas, issue 01: the cover.">
+        <span>Ideas &middot; Issue 01</span>
       </a>
     </div>
-    <a class="more" href="ideas/">Explore ideas <span class="arw">&rarr;</span></a>
   </div>
 </section>
 
@@ -342,6 +344,7 @@
   </div>
 </div>
 <script src="assets/site.js"></script>
+<script src="assets/magazine.js"></script>
 <script src="assets/home.js"></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/scroll-feel.js" defer></script>
