@@ -17,3 +17,7 @@ references/
 # local tooling
 serve.ps1
 .claude/
+
+# Tailwind source and local tools; only the compiled assets/tw.css ships
+.tools/
+assets/tw/

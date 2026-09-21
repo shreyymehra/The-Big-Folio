@@ -12,8 +12,8 @@
    to its page. Pages that are not showing are inert, so keyboard and
    screen reader focus only ever lands on what is visible.
 
-   One source: /ideas/ holds the pages. The home page fetches them and calls
-   window.initMagazine on its copy, so the issue is never written twice. */
+   The issue lives on the home page only (21 Sep 2026); magazine.js binds it.
+   No second copy exists anywhere. */
 (function(){
 function initMagazine(mag){
   if(!mag||mag._magInit) return; mag._magInit=true;

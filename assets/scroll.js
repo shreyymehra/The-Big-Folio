@@ -1,12 +1,12 @@
 /* Scroll reveal for the Work index.
 
-   Design note — why this is inView + CSS and not scroll-linked:
+   Design note: why this is IntersectionObserver + CSS, not scroll-linked.
    the wipe uses clip-path, which HIDES content. Anything that hides
    content must be guaranteed to un-hide it. A scroll-linked animation
    depends on requestAnimationFrame, and rAF does not run in a
    backgrounded tab; a visitor who opens the page in a background tab
    and switches to it would find an index of blank rectangles.
-   inView is IntersectionObserver, and the wipe itself is a CSS
+   The observer does not need rAF, and the wipe itself is a CSS
    transition on the compositor, so neither depends on rAF.
 
    Lenis is scoped to scroll feel only, at a light lerp, and is not
@@ -26,20 +26,12 @@
     return;
   }
 
-  var M = window.Motion;
-
   function reveal(plate) {
     plate.classList.add('wiped');
   }
 
-  /* Preferred: Motion's inView. Falls back to IntersectionObserver,
-     then to showing everything. Every path ends with content visible. */
-  if (M && typeof M.inView === 'function') {
-    plates.forEach(function (plate, i) {
-      plate.style.transitionDelay = Math.min(i, 3) * 70 + 'ms';
-      M.inView(plate, function () { reveal(plate); }, { margin: '0px 0px -12% 0px' });
-    });
-  } else if ('IntersectionObserver' in window) {
+  /* IntersectionObserver, else show everything. Every path ends visible. */
+  if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); }

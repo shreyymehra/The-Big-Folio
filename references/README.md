@@ -19,6 +19,27 @@ Every image in this folder must have a filled slot in its section brief. Three l
 
 ---
 
+## WHERE THINGS GO
+
+Two places, and the difference matters: `references/` never ships, `assets/` always does.
+
+| You have | Put it in | Ships? |
+|---|---|---|
+| A font, lettering or type-scale screenshot | `references/type/` | no |
+| A grid, spacing or composition screenshot | `references/layout/` | no |
+| A scroll, hover or transition recording | `references/motion/` | no |
+| A palette, texture, riso or dither sample | `references/colour/` | no |
+| A whole site whose feel you want | `references/tone/` | no |
+| A finished project cover or detail crop | `assets/work/<slug>/` | **yes** |
+| A company logo for Worked with | `assets/logos/` | **yes** |
+| A tool icon for the Ideas desk stickers | `assets/icons/` | **yes** |
+| A magazine page or sticker PNG for Ideas | `assets/ideas/` | **yes** |
+| A licensed .woff2 font file | `assets/fonts/` | **yes** |
+
+Each folder has its own README with the exact filenames it expects.
+
+---
+
 ## NAMING
 
 `ref_[section]_[property].png`

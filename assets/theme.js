@@ -43,7 +43,7 @@
       '.theme-toggle circle{fill:none;stroke:currentColor;stroke-width:1.6}'+
       '.theme-toggle path{fill:currentColor}'+
       'html[data-theme-shown="dark"] .theme-toggle svg{transform:rotate(180deg)}'+
-      '.theme-toggle:focus-visible{outline:2px solid #F13C20;outline-offset:3px}'+
+      '.theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}'+
       /* colours ease across only at the moment of switching, never on load */
       'html.theme-switching,html.theme-switching *,html.theme-switching *::before,html.theme-switching *::after{'+
         'transition:background-color .35s ease,color .35s ease,border-color .35s ease,fill .35s ease,stroke .35s ease!important}'+

@@ -6,8 +6,7 @@ Do not re-derive, re-propose, or "improve" anything marked LOCKED.
 **Also read, before touching design or copy:**
 - `DIRECTION.md` — the governing art direction. Hierarchy, grid, colour, veto list.
 - `TASTE.md` — what the reference set is for. Take / leave / why.
-- `POSTMORTEM.md` — why two earlier builds were rejected. Read before proposing anything.
-- `taste-skill/SKILL.md` — the working method: reconcile sources, audit assets, verify claims, look at output.
+- `POSTMORTEM.md` and `taste-skill/` are named in older versions of this file. **Neither exists in the repo** (checked 21 Sep 2026: repo root, `_archive/`, `_archive/salvaged/`). Ask Shrey before assuming their content.
 
 ---
 
@@ -57,19 +56,22 @@ The site is now routed, hand-authored HTML with a shared stylesheet and no build
 |---|---|
 | `index.html` | **`/home`.** The narrative journey: hero, selected work, ideas, brain dump, about, contact. |
 | `/work/index.html` | **`/work`.** The complete index, tag-filtered, one row per project. |
-| `/work/<slug>/` | Five case pages: vastr, cut-the-noise, voicedna, vrl, absolutily. |
-| `/ideas/`, `/ideas/idea-N/` | Index plus five routed shells. **No content yet — every line is a `[GAP]`.** |
-| `/about/`, `/contact/` | One page each. About carries the long version plus the FAQ. |
-| `assets/site.css` | **THE stylesheet.** Every page links it. Edit here, never per page. |
+| `/work/<slug>/` | Five case pages: vastr, cut-the-noise, voicedna, vrl, absolutily. Styled with Tailwind utilities on `base.css` tokens; they do not load site.css. |
+| Ideas | **Home page only** (`#ideas`), Shrey, 21 Sep 2026. `/ideas/` and the five idea shells were deleted; the magazine markup lives in `index.html` and `magazine.js` binds it. Nav "Ideas" links to `#ideas`. Pages for it arrive as PNGs from Shrey. |
+| `/about/`, `/contact/` | One page each. About carries the long version plus the FAQ. **Labelled "Me" in the nav and eyebrows since 21 Sep 2026**; the URL stays `/about/` so links already sent keep working. |
+| `assets/site.css` | **THE stylesheet** for home, /work, /ideas, /about, /contact. Edit here, never per page. |
+| `assets/base.css` | Tokens (palette, families, type scale, spacing, motion) and site-wide rules: the island, dither, skip link, view transitions. **Every page links it**, case pages included. |
+| `assets/tw.css` | **Tailwind v4, compiled.** Source is `assets/tw/input.css`; never edit tw.css. Linked by the five case pages, which are now written in utilities (their duplicated inline `<style>` blocks are gone). Build: see COMMANDS and `assets/tw/README.md`. |
 | `assets/site.js` | Shared behaviour: nav, reveals, rail, year stamp, card landing, FAQ, CTA lines. **Every page with shared behaviour loads it, home included.** |
 | `assets/home.js` | Home-only behaviour: hero assembly, tiles, ticker, vinyl, loader, parallax, trail. Loads after `site.js`. Never add a shared behaviour here. |
 | `assets/scroll-feel.js` | Lenis, site-wide, on all 11 routes after `vendor/lenis.min.js`. Owns scrolling and nothing else. |
-| `assets/scroll.js` | Work-index plate wipe only. Uses Motion's `inView`, not scroll-linked — see the note in the file. No longer touches scrolling. |
-| `assets/vendor/` | Vendored `lenis.min.js` and `motion.min.js`. Prebuilt dists, committed on purpose. |
+| `assets/scroll.js` | Work-index plate wipe only. IntersectionObserver + CSS, not scroll-linked; see the note in the file. No longer touches scrolling. |
+| `assets/vendor/` | Vendored `lenis.min.js`, prebuilt, committed on purpose. `motion.min.js` (81KB) was removed 21 Sep 2026: its only use was one `inView` call. |
 | `assets/img/` | Page imagery, content-hashed. Extracted from inline data URIs (index.html was 1.81MB). |
 | `_archive/v6-prototype/v6.html` | The v6 ink/paper prototype. **Not adopted** — see the palette note below. |
-| `_archive/pre-routing-cases/` | The case pages before routing. Superseded by `/work/<slug>/`. |
-| `_archive/flat-routes/` | The flat root-level pages before routing. Superseded. |
+| `_archive/` | Pruned 21 Sep 2026: the pre-routing and flat-route page copies, the hero demos and the riso tokens were deleted (all in git history before that date). Keeps the v6 prototype, the system notes, `salvaged/` and `portfolio-brief.zip`. |
+| `references/` | Visual references, **never deployed**. Sorted by layer: `type/ layout/ motion/ colour/ tone/`. The map of what goes where is in `references/README.md`. |
+| `assets/work/<slug>/`, `assets/logos/`, `assets/icons/`, `assets/fonts/` | Upload slots that **do deploy**: project covers and crops, Worked-with marks, tool stickers, licensed fonts. Each has a README naming the files it expects. |
 | Branch | `v5-blocks`, pushed, tracking `origin/v5-blocks`. |
 
 ---
@@ -86,7 +88,7 @@ A second copy of a live page is the bug, not the backup.
 
 **Shared, not self-contained.** CSS and JS are shared files; images are files under `assets/img/`.
 Inlining a stylesheet or an image back into a page is a regression — it is how the duplication
-started last time. There is still no framework, no bundler and no `npm install`.
+started last time. There is still no framework, no bundler and no `npm install`. **One exception, 21 Sep 2026, at Shrey's instruction:** Tailwind v4 via its standalone CLI (a single git-ignored binary in `.tools/`, no Node). Its output `assets/tw.css` is committed, so the deployed site still has no build step. Scope: case pages and new page-level work; base.css and site.css are not being rewritten into classes.
 
 **Links are depth-relative, never root-relative.** A page at `/work/vastr/` links the stylesheet as
 `../../assets/site.css`; the home page links it as `assets/site.css`. This is not a style
@@ -113,9 +115,14 @@ Full rationale in `DIRECTION.md`. The operative values, declared at `:root` in `
 
 ```css
 --cream:#EFE2BA;   /* ground */
---deep:#1F2A5C;    /* all body type and line work. 10.53 on cream. */
---fluoro:#F13C20;  /* accent. Countable per page — if you cannot count them, there are too many. */
+--deep:#173CA8;    /* cape blue. All body type and line work. 7.23 on cream. */
+--fluoro:#E8251F;  /* cape red. Planes and bold type >=24px only (3.45 on cream). */
+--yellow:#FFC21A;  /* shield yellow. Rare highlight planes; ink on it is 10.6. */
 ```
+
+**Changed 21 Sep 2026, at Shrey's instruction** ("a bit like Superman's colour palette, a hint of retro"): the
+navy/fluoro pair became comic primaries aged to newsprint. Token names are unchanged, so every
+rule followed. Small red type uses `--accent-type` #B8141A (5.30). Rationale in `assets/base.css`.
 
 Text is never pure black.
 
@@ -125,7 +132,19 @@ never adopted. The five case studies and the whole live site are built on cream/
 `d5aa99b` locked it. Do not reintroduce ink/paper — it would mean recolouring every page to match
 a prototype that lost.
 
-**Type.** Bricolage Grotesque (display), Instrument Sans (body), Martian Mono (metadata).
+**Type.** **Set 21 Sep 2026 by Shrey, from files he supplied:** headings **Milligram Macro
+ExtraBold**, body **Geist** (OFL, Google Fonts; identified from his reference, slidez.social),
+annotation (every label, caption and nav item) **Milligram Light**. Martian Mono is retired.
+**Shrey holds a Milligram licence (22 Sep 2026); the footer credit was removed at his instruction.**
+The files in assets/fonts/ are still the trial cuts until he supplies the licensed ones. The trial
+stamps every digit "TRIAL ONLY", so both faces carry a unicode-range that skips 0-9 and numbers
+fall through to Geist. Files: `assets/fonts/*.woff`, converted from his TTFs. Geist has no
+italic, so emphasis is weight or colour, never a faked slant.
+
+Retired, in order: Bricolage Grotesque (the v6 lock), Instrument Serif (20 Sep), Familjen
+Grotesk, Schibsted Grotesk stand-in, Instrument Sans, Martian Mono (all 21 Sep).
+
+The retired lock read: Bricolage Grotesque (display), Instrument Sans (body), Martian Mono (metadata).
 Weight 500 does the work. 700 is a rare emphasis. Wide gaps in the scale, no intermediate steps
 added to smooth it: flatness is the failure mode the scale exists to prevent.
 
@@ -143,6 +162,22 @@ is cut. `prefers-reduced-motion` collapses everything, but note: collapsing dura
 an infinite animation. Loops must be paused explicitly in their own components.
 
 ---
+
+## HOME SECTIONS HAVE DIFFERENT PERSONALITIES (Shrey, 21 Sep 2026)
+
+Each home section gets its own device, so no two read the same. Do not unify them.
+Hero: cut-outs assemble over a halftone print. Quotes: a hand-drawn tape across the seam below the hero (placeholder; Shrey is deciding the final form).
+Tickers (quote tape and the two crossing bands) scroll themselves and speed up with the page scroll; each has a "Pause tickers" button (WCAG 2.2.2), they hold while hovered or focused, and never move under reduced motion. Proof: yellow comic panel on Ben-Day dots.
+Work: pinned collage scrubbed by scroll. Ideas: a magazine whose pages turn. Me: the paragraph
+inks in word by word as you read (the same fill runs on the five /about/ paragraphs, from site.js). Contact: a highlighter pulls under "always".
+Dithered type was removed at his request; do not bring it back.
+
+**Pace (22 Sep 2026, on "too much scroll" feedback).** Home order is hero > quote tape > proof >
+worked-with + bands > work > ideas > me > contact: numbers land on the second screen. The work pin is
+240vh desktop / 200vh phone (was 400/300, 41% of the page for three projects); home went from
+9.8 to 8.0 screens. Do not lengthen a section without cutting another. The loader plays on every
+full load (restored at his request) and hands off to the hero assembly; reduced motion skips it.
+Dark mode swaps --cream and --deep in base.css, so every rule built on them flips.
 
 ## THE VETO LIST — do not ship these
 
@@ -416,7 +451,7 @@ all exist. What remains, in order:
    Adding personality then becomes additive rather than re-argued.
 4. Section-level art direction, one section per request, four passes each. Loader and Work are done.
    Ticker, Brain Dump, About, FAQ, Contact remain.
-5. Case-study CSS still lives inline in the five pages, because `.face`, `.tag`, `.stand`, `.sec`
+5. **Done 21 Sep 2026 with Tailwind.** Case-study CSS no longer lives inline. (Was: `.face`, `.tag`, `.stand`, `.sec`
    and `.pull` mean different things there than in `site.css`. Merge under a scoped `.case` block.
 6. Responsive pass at 390 / 768 / 1024.
 7. Accessibility pass. 404 page. Portfolio schema.
@@ -429,6 +464,9 @@ all exist. What remains, in order:
 ```bash
 # preview server, from repo root. No Node, no npm, no install.
 powershell -ExecutionPolicy Bypass -File serve.ps1
+
+# rebuild Tailwind after changing assets/tw/input.css or any utility class in HTML
+.tools/tailwindcss.exe -i assets/tw/input.css -o assets/tw.css --minify
 
 # check every internal link still resolves after adding or moving a page
 node -e "const f=require('fs'),p=require('path');(function w(d,a=[]){for(const e of f.readdirSync(d,{withFileTypes:true})){if(['.git','_archive','node_modules'].includes(e.name))continue;const q=p.join(d,e.name);e.isDirectory()?w(q,a):e.name.endsWith('.html')&&a.push(q)}return a})('.').forEach(x=>{for(const m of f.readFileSync(x,'utf8').matchAll(/(?:href|src)=\"(\/[^\"]+)\"/g)){const t=m[1].split('#')[0];if(!f.existsSync('.'+t)&&!f.existsSync('.'+t+'/index.html'))console.log('BROKEN',x,'->',t)}})"

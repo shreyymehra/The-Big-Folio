@@ -1,5 +1,5 @@
 /* Home-only behaviour: hero assembly, rolling verticals, cut-out drift and
-   drag, the ticker cross, vinyl, loader, hero parallax, pixel trail. None of
+   drag, the tickers, vinyl, the loader. None of
    these exist on any other page.
 
    Everything shared (year stamp, nav, star fill, scroll reveals, card landing,
@@ -22,13 +22,13 @@
     els.forEach(function(e){setTimeout(function(){e.style.animation='';
       e.classList.add(e.classList.contains('tile')||e.classList.contains('roll')?'snap':(e.classList.contains('cue')?'fade':'rise'))},+e.dataset.t)});
   }
-  assemble();
+  if(!document.getElementById('loader')||reduce) assemble(); /* otherwise the loader calls it */
 
   /* rolling verticals */
   var ul=document.getElementById('rollul'),n=ul.children.length-1,i=0;
-  if(!reduce) setInterval(function(){i++;ul.style.transition='transform 420ms var(--ease)';
-    ul.style.transform='translateY(-'+(i*1.3)+'em)';
-    if(i===n)setTimeout(function(){ul.style.transition='none';ul.style.transform='translateY(0)';i=0},440)},1900);
+  if(!reduce){ var rollT=setInterval(function(){i++;ul.style.transition='transform 420ms var(--ease)';
+    ul.style.transform='translateY(-'+(i*1.25)+'em)';
+    if(i===n-1) clearInterval(rollT); /* one pass, then it rests on the last word */ },1900); }
 
   /* cut-out drift + drag */
   var tiles=[].slice.call(document.querySelectorAll('.tile'));
@@ -49,38 +49,52 @@
       el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up)}
     el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)})});
 
-  /* ---- the cross: two bands, driven by time and by the scroll ----
-     Each band drifts at a base speed in its own direction. Scroll velocity,
-     read from Lenis when it is running, is added on top, signed, so scrolling
-     down pushes the bands along and scrolling back reverses them. Pointing at
-     a band eases it to a stop. The loop only runs while the cross is on
-     screen, and under reduced motion it never starts: the bands sit still. */
-  (function(){
-    var cross=document.querySelector('[data-cross]'); if(!cross||reduce) return;
-    var bands=[].slice.call(cross.querySelectorAll('[data-xband]')).map(function(el){
-      var b={el:el,track:el.querySelector('.xtrack'),dir:+el.getAttribute('data-dir')||1,x:0,half:0,hold:0,holdTarget:0};
+  /* ---- tickers: the quote tape and the two crossing bands ----
+     They scroll themselves (Shrey, 21 Sep 2026), and scrolling the page pushes
+     them along on top. Clash, marked: WCAG 2.2.2 wants a way to stop anything
+     that moves on its own for more than five seconds. So: each one eases to a
+     stop while pointed at or focused, a "Pause tickers" button beside each
+     stops all of them (remembered across visits), and under reduced motion
+     they never move. Each loop only runs while it is on screen. */
+  var PAUSE_KEY='sm-tickers';
+  var paused=false; try{ paused=localStorage.getItem(PAUSE_KEY)==='paused'; }catch(e){}
+  var toggles=[].slice.call(document.querySelectorAll('[data-tick-toggle]'));
+  function syncToggles(){ toggles.forEach(function(b){
+    b.setAttribute('aria-pressed',paused?'true':'false');
+    b.querySelector('span').textContent=paused?'Play tickers':'Pause tickers'; }); }
+  toggles.forEach(function(b){ b.addEventListener('click',function(){
+    paused=!paused; try{ localStorage.setItem(PAUSE_KEY,paused?'paused':'playing'); }catch(e){} syncToggles(); }); });
+  syncToggles();
+  if(reduce) toggles.forEach(function(b){ b.hidden=true; }); /* nothing moves, nothing to pause */
+
+  if(!reduce) [].forEach.call(document.querySelectorAll('[data-cross],[data-tape]'),function(box){
+    var BASE=+box.getAttribute('data-speed')||40, PUSH=+box.getAttribute('data-push')||.5; /* px per second; scroll push */
+    var bands=[].slice.call(box.querySelectorAll('[data-xband]')).map(function(el){
+      var track=el.querySelector('.xtrack');
+      var b={el:el,track:track,dir:+el.getAttribute('data-dir')||-1,x:0,span:0,hold:0,holdTarget:0};
       el.addEventListener('pointerenter',function(){ b.holdTarget=1; });
       el.addEventListener('pointerleave',function(){ b.holdTarget=0; });
       return b;
     });
-    function measure(){ bands.forEach(function(b){ b.half=b.track.scrollWidth/2; }); }
-    measure();
-    addEventListener('resize',measure);
+    box.addEventListener('focusin',function(){ bands.forEach(function(b){ b.holdTarget=1; }); });
+    box.addEventListener('focusout',function(){ bands.forEach(function(b){ b.holdTarget=0; }); });
+    /* the track holds identical copies; one copy's width is the loop length */
+    function measure(){ bands.forEach(function(b){ b.span=b.track.scrollWidth/b.track.children.length; }); }
+    measure(); addEventListener('resize',measure);
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
 
-    var BASE=38, PUSH=.7, vel=0, lastY=scrollY, lastT=0, running=false, raf=0;
+    var vel=0,lastY=scrollY,lastT=0,running=false,raf=0,go=0;
     function frame(t){
       if(!running){ raf=0; return; }
       var dt=lastT?Math.min(.05,(t-lastT)/1000):0; lastT=t;
-      /* px per frame from Lenis, or from the raw scroll delta without it */
       var v=window.lenis&&typeof window.lenis.velocity==='number'?window.lenis.velocity:(scrollY-lastY);
-      lastY=scrollY;
-      vel+=(v-vel)*.12;
+      lastY=scrollY; vel+=(v-vel)*.12;
+      go+=((paused?0:1)-go)*.08; /* pause eases out rather than snapping */
       bands.forEach(function(b){
         b.hold+=(b.holdTarget-b.hold)*.08;
-        var speed=(BASE+vel*PUSH*60)*(1-b.hold);
+        var speed=(BASE*go+Math.abs(vel)*PUSH*60)*(1-b.hold);
         b.x+=b.dir*speed*dt;
-        if(b.half){ b.x%=b.half; if(b.x>0) b.x-=b.half; }
+        if(b.span){ b.x%=b.span; if(b.x>0) b.x-=b.span; }
         b.track.style.transform='translate3d('+b.x.toFixed(2)+'px,0,0)';
       });
       raf=requestAnimationFrame(frame);
@@ -88,9 +102,9 @@
     function start(){ if(running) return; running=true; lastT=0; lastY=scrollY; if(!raf) raf=requestAnimationFrame(frame); }
     function stop(){ running=false; }
     if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); },{rootMargin:'120px 0px'}).observe(cross);
+      new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); },{rootMargin:'120px 0px'}).observe(box);
     } else start();
-  })();
+  });
 
   /* ---- vinyl: Spotify's embed behind a record ----
      Never autoplays. The Spotify iframe API is not requested on page load; it
@@ -146,13 +160,12 @@
     });
   })();
 
-  /* ---- loading sequence: S -> M -> star, 1400ms hard cap, session-capped ---- */
+  /* ---- loading sequence: rule, letterbox, star, wipe. Every full load. ---- */
   var loader=document.getElementById('loader');
   (function(){
     if(!loader) return;
-    var seen=false; try{seen=sessionStorage.getItem('sm_seen')==='1'}catch(e){}
-    if(reduce||seen||innerWidth<1024){ loader.remove(); return; }
-    try{sessionStorage.setItem('sm_seen','1')}catch(e){}
+    if(reduce){ loader.remove(); return; }
+    hero.classList.add('anim'); /* hold the hero back until the wipe */
     var st  = document.getElementById('lstar'),
         band= document.getElementById('lband'),
         rule= document.getElementById('lrule'),
@@ -167,6 +180,7 @@
       st.classList.add('blow');
       loader.classList.add('gone');
       setTimeout(function(){ loader.remove(); }, 660);
+      assemble(); /* the hero builds itself as the loader wipes away */
     }
 
     /* the count is the honest part: it tracks the hero art actually
@@ -209,29 +223,6 @@
       addEventListener(ev, finish, {once:true, passive:true});
     });
   })();
-
-  /* ---- hero photo parallax on scroll ---- */
-  (function(){
-    var fr=document.querySelector('.hero .frame'); if(!fr||reduce) return;
-    addEventListener('scroll',function(){
-      var y=scrollY; if(y>innerHeight) return;
-      fr.style.transform='translateY('+(y*0.14).toFixed(1)+'px)';
-    },{passive:true});
-  })();
-
-  /* pixel trail — hero only, desktop only */
-  var cv=document.getElementById('trail');
-  if(cv&&!reduce&&innerWidth>1024){
-    var ctx=cv.getContext('2d'),pts=[],G=14,A=250;
-    function sz(){cv.width=hero.clientWidth;cv.height=hero.clientHeight}sz();addEventListener('resize',sz);
-    hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();
-      pts.push({x:Math.round((e.clientX-r.left)/G)*G,y:Math.round((e.clientY-r.top)/G)*G,t:performance.now()});
-      if(pts.length>140)pts.shift()});
-    (function l(now){ctx.clearRect(0,0,cv.width,cv.height);
-      for(var i=0;i<pts.length;i++){var a=now-pts[i].t;if(a>A)continue;
-        ctx.globalAlpha=(1-a/A)*.40;ctx.fillStyle='#F13C20';ctx.fillRect(pts[i].x,pts[i].y,G,G)}
-      ctx.globalAlpha=1;requestAnimationFrame(l)})(performance.now());
-  }
 
   /* ---- selected work: pinned collage ----
      Mechanics translated from alaris.studio and measured from the live site.
@@ -359,13 +350,9 @@
     function play(t){
       if(reduce) return;
       t.classList.add('is-playing');
-      var v=t.querySelector('video');
-      if(v){ v.muted=true; v.playsInline=true; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }
     }
     function rewind(t){
       t.classList.remove('is-playing');
-      var v=t.querySelector('video');
-      if(v){ try{ v.pause(); v.currentTime=0; }catch(e){} }
     }
     tiles.forEach(function(t){
       if(fine){
@@ -383,35 +370,9 @@
       tiles.forEach(function(t){ pio.observe(t); });
     }
   })();
-  /* ---- ideas desk: the real magazine, lifted from /ideas/ ----
-     One source: the pages live in ideas/index.html. This fetches them,
-     re-points every relative link and image from /ideas/ to here, and binds
-     the copy with window.initMagazine. If the fetch fails (file://, offline)
-     the static cover link stays. Props drift at their own depth on scroll. */
+  /* ---- ideas desk: the magazine is in the page; magazine.js binds it.
+     Props drift at their own depth on scroll. ---- */
   (function(){
-    var slot=document.querySelector('[data-mag-home]'); if(!slot) return;
-    var base=new URL(slot.getAttribute('data-src')||'ideas/',location.href);
-    function mount(html){
-      var doc=new DOMParser().parseFromString(html,'text/html');
-      var mag=doc.querySelector('[data-mag]'); if(!mag) return;
-      [].forEach.call(mag.querySelectorAll('[src],[href]'),function(el){
-        ['src','href'].forEach(function(a){
-          var v=el.getAttribute(a);
-          if(!v||/^(#|mailto:|tel:|https?:|data:)/.test(v)) return;
-          el.setAttribute(a,new URL(v,base).href);
-        });
-      });
-      /* page ids must stay unique on this page */
-      [].forEach.call(mag.querySelectorAll('[id]'),function(el){ el.id='home-'+el.id; });
-      var node=document.importNode(mag,true);
-      slot.innerHTML=''; slot.appendChild(node); slot.classList.add('is-live');
-      if(window.initMagazine) window.initMagazine(node);
-    }
-    if(window.fetch&&location.protocol!=='file:'){
-      fetch(base.href,{credentials:'same-origin'}).then(function(r){ return r.ok?r.text():Promise.reject(); })
-        .then(mount).catch(function(){});
-    }
-
     /* parallax: each prop moves by its depth times the desk's distance from
        the viewport centre. Transform only, so nothing reflows. */
     var props=[].slice.call(document.querySelectorAll('.desk [data-par]'));
@@ -432,38 +393,54 @@
   })();
 })();
 
-/* ---------- PROOF figure roll ----------
-   Each number rolls up into a clipped frame as the section enters, staggered.
-   Follows the same contract as the work-index wipe: the hiding class is added
-   by script, every path ends with the numbers visible, and a timeout backstop
-   catches the case where the observer never fires. Reduced motion is handled
-   in CSS, so the class is still added and the transition is simply none. */
+/* ---------- PROOF figures count up with the scroll (22 Sep 2026) ----------
+   Replaced the one-shot roll, which hid each number until an observer fired
+   and could leave one hidden. Now every figure is always visible: it counts
+   from zero to its value as the panel moves up the screen, scrubbed by the
+   scroll, and runs back down if you scroll back. The real value is the
+   element's accessible name, so screen readers never hear the count. With no
+   JS the markup already holds the finals; reduced motion shows the finals. */
 (function () {
-  var figs = [].slice.call(document.querySelectorAll('.proof .fig'));
-  if (!figs.length) return;
-  if (!('IntersectionObserver' in window)) return;
-
-  document.documentElement.classList.add('js-roll');
-
-  function roll(fig, i) {
-    fig.style.transitionDelay = '';
-    fig.querySelector('.n i').style.transitionDelay = Math.min(i, 8) * 55 + 'ms';
-    fig.classList.add('rolled');
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      roll(e.target, figs.indexOf(e.target));
-      io.unobserve(e.target);
+  var figs = [].slice.call(document.querySelectorAll('.proof .fig .n i'));
+  var panel = document.querySelector('.proof');
+  if (!figs.length || !panel) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = figs.map(function (el) {
+    var txt = el.textContent.trim();
+    var m = txt.match(/^([^\d]*)([\d.]+)(.*)$/);
+    if (!m) return null;
+    var dec = (m[2].split('.')[1] || '').length;
+    el.setAttribute('aria-label', txt);
+    var shown = document.createElement('span'); shown.setAttribute('aria-hidden', 'true');
+    el.textContent = ''; el.appendChild(shown);
+    return { el: shown, pre: m[1], val: parseFloat(m[2]), dec: dec, post: m[3], final: txt };
+  }).filter(Boolean);
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function paint() {
+    tick = false;
+    var r = panel.getBoundingClientRect(), vh = innerHeight;
+    /* 0 when the panel's top enters at the bottom, 1 once it is 45% up */
+    var p = reduce ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * .55)));
+    items.forEach(function (it, i) {
+      var local = Math.min(1, Math.max(0, p * 1.25 - i * .04)); /* a slight stagger */
+      var v = it.val * ease(local);
+      it.el.textContent = local >= 1 ? it.final : it.pre + v.toFixed(it.dec) + it.post;
     });
-  }, { rootMargin: '0px 0px -15% 0px' });
+  }
+  var tick = false;
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(paint); setTimeout(function () { if (tick) paint(); }, 120); } }, { passive: true });
+  addEventListener('resize', paint);
+  paint();
+})();
 
-  figs.forEach(function (f) { io.observe(f); });
-
-  /* Backstop. Whatever happened above, no number stays hidden. */
-  setTimeout(function () {
-    figs.forEach(function (f, i) { if (!f.classList.contains('rolled')) roll(f, i); });
-  }, 4000);
+/* ---- section personalities (21 Sep 2026): each home section its own device ---- */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* contact: the highlighter pulls under "always" when the ask arrives */
+  (function(){
+    var c=document.querySelector('.contact .cta'); if(!c) return;
+    if(reduce||!('IntersectionObserver' in window)){ c.classList.add('lit'); return; }
+    new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ c.classList.add('lit'); o.disconnect(); } },{threshold:.5}).observe(c);
+  })();
 
 })();

@@ -1,0 +1,136 @@
+/* ============================================================
+   TAILWIND (21 Sep 2026, at Shrey's instruction). Source file.
+   Compiled to assets/tw.css, which is what pages link. Never edit tw.css.
+
+     .tools/tailwindcss.exe -i assets/tw/input.css -o assets/tw.css --minify
+
+   Scope: the five case pages, which used to carry the same 9.4KB inline
+   <style> block each. New page-level work is written in these utilities.
+   base.css and site.css stay: the hero, island, magazine and work collage
+   are hand-tuned and are not being rewritten into classes.
+
+   No preflight. The site already has its own base, and Tailwind's reset
+   would restyle every page that links this file.
+
+   The theme is the design system, not Tailwind's. Its default palette,
+   fonts and type sizes are cleared, so bg-blue-500 or text-3xl simply do
+   not exist and cannot drift in. Colours point at the live CSS variables,
+   so the light/dark switch keeps working with no dark: variants.
+   ============================================================ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "../../index.html";
+@source "../../*/index.html";
+@source "../../*/*/index.html";
+@source "../*.js";
+
+@theme inline {
+  --color-*: initial;
+  --color-cream: var(--cream);
+  --color-deep: var(--deep);
+  --color-fluoro: var(--fluoro);
+  --color-accent-type: var(--accent-type);
+  --color-ink: var(--ink);
+  --color-riso: var(--riso);
+  /* case-page skin: ground and type are paired so dark mode flips both */
+  --color-ground: var(--g);
+  --color-type: var(--t);
+  --color-plane: var(--g2);
+  --color-on-plane: var(--t2);
+  --color-accent-plane: var(--g3);
+  --color-on-accent: var(--t3);
+
+  --font-*: initial;
+  --font-display: var(--fd);
+  --font-body: var(--fb);
+  --font-mono: var(--fu);
+
+  /* the five sizes, and nothing between them */
+  --text-*: initial;
+  --text-h1: var(--t-h1);
+  --text-h1--line-height: var(--lh-tight);
+  --text-h2: var(--t-h2);
+  --text-h2--line-height: var(--lh-head);
+  --text-h3: var(--t-h3);
+  --text-h3--line-height: 1.25;
+  --text-body: var(--t-body);
+  --text-body--line-height: var(--lh-body);
+  --text-small: var(--t-small);
+  --text-small--line-height: 1.6;
+
+  /* the site's three widths: phones to 640, tablets to 900, desktop above */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 641px;
+  --breakpoint-md: 901px;
+
+  --ease-out: var(--e-out);
+  --ease-spring: var(--e-spring);
+}
+/* spacing stays Tailwind's 4px step, which is the site scale:
+   1 2 3 4 6 8 12 16 24 32 = 4 8 12 16 24 32 48 64 96 128 */
+
+/* ---------- case pages ---------- */
+@layer base {
+  .case{
+    --g:#EFE2BA; --t:#173CA8;  /* reading ground */
+    --g2:#173CA8; --t2:#EFE2BA; /* inverted blocks */
+    --g3:#E8251F; --t3:#0D1633; /* accent plane: ink on fluoro is 4.8:1, cream fails */
+    --pad:clamp(1.2rem,4vw,3rem);
+  }
+  /* dark: grounds re-anchor to ink; the accent plane is untouched, so the
+     one loud moment survives the switch */
+  html[data-theme="dark"] .case{
+    --g:#0D1633; --t:#E6E0D2; --g2:#173CA8; --t2:#E6E0D2;
+    --cream:#173CA8; --deep:#E6E0D2; --fluoro:#FF6B5E;
+  }
+  /* the little of a reset these pages need, since preflight is off */
+  .case{margin:0}
+  .case,.case *,.case *::before,.case *::after{box-sizing:border-box}
+  .case a{color:inherit}
+  .case :focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
+  .case .font-display{letter-spacing:var(--fd-track)}
+}
+
+/* paper grain over the whole page, under the island */
+@utility grain {
+  &::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+}
+/* the print screen on the project face */
+@utility dotscreen {
+  &::after{content:"";position:absolute;inset:0;opacity:.07;
+    background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 1.15px);background-size:5px 5px}
+}
+/* small uppercase metadata, one definition */
+@utility label {
+  @apply font-mono text-small uppercase tracking-[.06em];
+}
+/* The reading column. Set once on <main> rather than on every paragraph,
+   because the case copy is long-form and written as plain HTML. */
+@utility case-prose {
+  & .sec{ @apply mb-12 scroll-mt-24; }
+  & .eyebrow{ @apply label mb-2 block opacity-82; }
+  & h2{ @apply mt-0 mb-4 font-display text-h2 font-extrabold; }
+  & h3{ @apply mt-7 mb-2.5 font-display text-body font-extrabold; }
+  & p{ @apply mt-0 mb-4 max-w-[38em]; }
+  & ul{ @apply mt-0 mb-4 max-w-[34em] pl-[1.1rem]; }
+  & li{ @apply mb-2; }
+}
+/* the contents rail; .on is set by the page's scroll spy */
+@utility case-toc {
+  & ol{ @apply m-0 list-none border-t-2 border-deep p-0; }
+  & a{ @apply label block border-b border-deep/25 py-2 no-underline opacity-82 transition-[opacity,padding] duration-200 ease-out motion-reduce:transition-none; }
+  & a:hover, & a.on{ @apply pl-2 opacity-100; }
+  & a.on{ @apply border-fluoro; }
+}
+
+/* reveal on scroll, used by the case pages' own observer */
+@layer components {
+  .case .rv{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--e-out),transform 600ms var(--e-out)}
+  .case .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .case .rv{opacity:1;transform:none;transition:none}
+  }
+}

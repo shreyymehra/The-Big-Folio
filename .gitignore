@@ -9,3 +9,6 @@
 .DS_Store
 Thumbs.db
 .idea/
+
+# local build tools (Tailwind standalone CLI, 112MB, re-download per assets/tw/README.md)
+.tools/

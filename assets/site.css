@@ -7,7 +7,7 @@
    The fault this fixes: the old set had three tones but two usable
    pairings. Everything involving fluoro measured 3.0-3.5 in every
    direction, so fluoro could never carry type and became flat planes of
-   low-contrast mush. Near-black ink #0E1223 unlocks it. Ink on fluoro is
+   low-contrast mush. Near-black ink #0D1633 unlocks it. Ink on fluoro is
    4.79, so fluoro is now a ground that holds copy.
 
    LIGHT ladder   paper -> deep -> fluoro -> paper -> ink -> paper -> cream
@@ -20,9 +20,9 @@
    ============================================================ */
 :root{
   /* palette — fixed values, never used directly in a rule */
-  --p-paper:#F7F1E3; --p-cream:#E8D6A4; --p-fluoro:#F13C20;
-  --p-deep:#1F2A5C;  --p-ink:#0E1223;   --p-fluoro-deep:#C0301A;
-  --p-fluoro-lift:#FF6A4D; --p-paper-dim:#E6E0D2;
+  --p-paper:#F7F1E3; --p-cream:#E8D6A4; --p-fluoro:#E8251F;
+  --p-deep:#173CA8;  --p-ink:#0D1633;   --p-fluoro-deep:var(--accent-type);
+  --p-fluoro-lift:var(--accent-type); --p-paper-dim:#E6E0D2;
 
   /* semantic — what a rule may reference */
   --g:var(--p-paper);        /* section ground            */
@@ -31,17 +31,13 @@
                                 ground must change its type with it, or a
                                 card silently renders ink on ink. */
   --t:var(--p-deep);         /* primary type   12.08 on paper */
-  --t-mute:#535874;          /* metadata        6.18 on paper */
+  --t-mute:#4A5578;          /* metadata        6.18 on paper */
   --t-accent:var(--p-fluoro-deep); /* small accent type 5.07 */
   --mark:var(--p-fluoro);    /* rules, marks, display type only */
-  --rule:rgba(31,42,92,.22);
+  --rule:rgba(23,60,168,.22);
 }
 /* ground contexts. Put one of these on a section and the type follows. */
-.on-paper { --g:var(--p-paper);  --g-inset:var(--p-cream); --t-inset:var(--p-deep); --t:var(--p-deep);  --t-mute:#535874; --t-accent:var(--p-fluoro-deep); --rule:rgba(31,42,92,.22) }
-.on-cream { --g:var(--p-cream);  --g-inset:var(--p-paper); --t-inset:var(--p-deep); --t:var(--p-deep);  --t-mute:#4C5170; --t-accent:var(--p-deep);        --rule:rgba(31,42,92,.26) }
-.on-deep  { --g:var(--p-deep);   --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-paper); --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.24) }
-.on-ink   { --g:var(--p-ink);    --g-inset:var(--p-deep);  --t-inset:var(--p-paper-dim);  --t:var(--p-paper); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.20) }
-.on-fluoro{ --g:var(--p-fluoro); --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-ink);   --t-mute:#3A1008; --t-accent:var(--p-ink);         --rule:rgba(14,18,35,.30) }
+.on-fluoro{ --g:var(--p-fluoro); --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-ink);   --t-mute:#3A1008; --t-accent:var(--p-ink);         --rule:rgba(13,22,51,.30) }
 [class*="on-"]{background:var(--g);color:var(--t)}
 
 /* DARK. Grounds re-anchor to ink; the two light grounds fold into the two
@@ -54,93 +50,14 @@
     --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
     --rule:rgba(247,241,227,.18);
   }
-  :root:not([data-theme="light"]) .on-paper,
-  :root:not([data-theme="light"]) .on-ink{
-    --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
-    --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.18) }
-  :root:not([data-theme="light"]) .on-cream,
-  :root:not([data-theme="light"]) .on-deep{
-    --g:var(--p-deep); --g-inset:var(--p-ink); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
-    --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.22) }
   /* .on-fluoro deliberately unchanged */
 }
 /* manual override hook, so a toggle can be added later without a rewrite */
 :root[data-theme="dark"]{ --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim);
   --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
-  --rule:rgba(247,241,227,.18) }
-:root[data-theme="dark"] .on-paper, :root[data-theme="dark"] .on-ink{
-  --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
-  --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.18) }
-:root[data-theme="dark"] .on-cream, :root[data-theme="dark"] .on-deep{
-  --g:var(--p-deep); --g-inset:var(--p-ink); --t-inset:var(--p-paper-dim); --t:var(--p-paper-dim);
-  --t-mute:#A9B0CC; --t-accent:var(--p-fluoro-lift); --rule:rgba(247,241,227,.22) }
-
-/* ============================================================
-   SKIN: QUIET  (scheme 02)
-   Put .skin-quiet on <html>. Homepage stays scheme 01, where the job is to
-   stop a sceptic in ten seconds. Case pages run quiet, where the job is to
-   be read end to end without fatigue.
-
-   Measured, on white #FCFAF6 / paper #F4F1EA:
-     slate 12.00 / 11.09   clay 5.67 / 5.24   mute 5.99 / 5.54
-   The win over scheme 01 is structural, not cosmetic: clay carries small
-   type on a light ground, which fluoro can never do at 3.45. One accent,
-   no fallback.
-
-   WHITE is a reading inset, never a ground step. White to paper is 1.08,
-   so as adjacent sections they would look like a rendering fault. As a
-   column of body copy lifted off a warm page, the lift is the point.
-
-   This class also remaps the legacy literals, so the unmigrated case pages
-   re-skin whole. Hard-coded rgba() hairlines are not remapped and stay
-   faintly navy; low enough alpha that it reads as warmth, not error. Worth
-   fixing when the case template moves to the semantic layer.
-   ============================================================ */
-.skin-quiet{
-  --p-white:#FCFAF6; --p-paper:#F4F1EA; --p-cream:#E4DED0;
-  --p-fluoro:#A8452B; --p-deep:#2A3446; --p-ink:#14161C;
-  --p-fluoro-deep:#8F3A24; --p-fluoro-lift:#E07A5F; --p-paper-dim:#E9E5DC;
-  --g:#FCFAF6; --g-inset:#F4F1EA; --t-inset:#2A3446;
-  --t:#2A3446; --t-mute:#5C6070; --t-accent:#A8452B; --rule:rgba(42,52,70,.20);
-  /* legacy literals, so unmigrated pages follow */
-  --cream:#F4F1EA; --deep:#2A3446; --fluoro:#A8452B;
-}
-.skin-quiet .on-paper{ --g:#FCFAF6; --g-inset:#F4F1EA; --t-inset:#2A3446; --t:#2A3446; --t-mute:#5C6070; --t-accent:#A8452B; --rule:rgba(42,52,70,.20) }
-.skin-quiet .on-cream{ --g:#E4DED0; --g-inset:#FCFAF6; --t-inset:#2A3446; --t:#2A3446; --t-mute:#55596A; --t-accent:#8F3A24; --rule:rgba(42,52,70,.24) }
-.skin-quiet .on-deep { --g:#2A3446; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#B3BCCB; --t-accent:#E07A5F; --rule:rgba(252,250,246,.22) }
-.skin-quiet .on-ink  { --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F; --rule:rgba(252,250,246,.18) }
-.skin-quiet .on-fluoro{--g:#A8452B; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#FCFAF6; --t-mute:#F0DCD5; --t-accent:#FCFAF6; --rule:rgba(252,250,246,.28) }
-.skin-quiet body{background:var(--g);color:var(--t)}
-
-@media (prefers-color-scheme: dark){
-  .skin-quiet:not([data-theme="light"]){
-    --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC;
-    --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F; --rule:rgba(252,250,246,.18);
-    --cream:#2A3446; --deep:#E9E5DC; --fluoro:#E07A5F;
-  }
-  .skin-quiet:not([data-theme="light"]) .on-paper,
-  .skin-quiet:not([data-theme="light"]) .on-ink{
-    --g:#14161C; --g-inset:#2A3446; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#A2A8B8; --t-accent:#E07A5F }
-  .skin-quiet:not([data-theme="light"]) .on-cream,
-  .skin-quiet:not([data-theme="light"]) .on-deep{
-    --g:#2A3446; --g-inset:#14161C; --t-inset:#E9E5DC; --t:#E9E5DC; --t-mute:#B3BCCB; --t-accent:#E07A5F }
-}
-
-/* Reading inset. The near-white column that body copy sits on. */
+  --rule:rgba(247,241,227,.18) }/* Reading inset. The near-white column that body copy sits on. */
 .reading{background:var(--p-white,#FCFAF6);box-shadow:0 0 0 1px var(--rule)}
 
-/* ---------- CROSS-PAGE TRANSITION ----------
-   The two skins meet at a navigation, so the switch must not snap.
-   View Transitions cross-fades document to document where supported and
-   is inert everywhere else, which is the right kind of enhancement: the
-   site is not relying on it to be usable. 260ms, matching the enter
-   timing used everywhere else. */
-@view-transition{navigation:auto}
-::view-transition-old(root),::view-transition-new(root){animation-duration:260ms;
-  animation-timing-function:cubic-bezier(.16,1,.3,1)}
-@media(prefers-reduced-motion:reduce){
-  @view-transition{navigation:none}
-}
 
 /* ---------- PROOF ----------
    The one fluoro plane. Fluoro carries no small type anywhere; on this ground
@@ -160,41 +77,27 @@
 .stint .who{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;color:var(--t-mute);margin:0 0 1rem}
 .figs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:1.1rem 2rem}
-.fig .n{display:block;font-family:var(--fd);font-weight:800;
-  font-size:var(--t-h2);line-height:.92;letter-spacing:-.02em}
-.fig .n i{display:block;font-style:normal}
+.fig .n{display:block;font-family:var(--fd);font-weight:700;
+  font-size:var(--t-h2);line-height:.92;letter-spacing:var(--fd-track)}
+.fig .n i{display:block;font-style:normal;font-variant-numeric:tabular-nums}
 .fig .l{display:block;margin-top:.3rem;font-size:var(--t-small);line-height:1.35}
 .proofgap{margin:clamp(1.6rem,3vw,2.4rem) 0 0;padding:.75rem .9rem;max-width:46em;
-  border:1px dashed rgba(14,18,35,.45);font-family:var(--fu);font-size:var(--t-small);
+  border:1px dashed rgba(13,22,51,.45);font-family:var(--fu);font-size:var(--t-small);
   line-height:1.8;color:var(--t)}
 
-/* The roll. A clipped frame per figure; the number arrives from below on
-   entry, staggered. Same device as the hero verb list, so it reads as part
-   of the system rather than an effect.
-   .js-roll is added by home.js, never in the markup: with no JS, or if the
-   observer never fires, the numbers are simply present. Anything that hides
-   content has to guarantee un-hiding it. */
-.js-roll .fig .n{overflow:hidden;padding-bottom:.06em}
-.js-roll .fig .n i{transform:translateY(112%);transition:transform 520ms var(--ease)}
-.js-roll .fig.rolled .n i{transform:none}
-@media(prefers-reduced-motion:reduce){
-  .js-roll .fig .n i{transform:none;transition:none}
-}
+/* The figures count up with the scroll: see PROOF figures in home.js. They are
+   never hidden; with no JS the markup already holds the final values. */
 @media(max-width:1024px){.stints{grid-template-columns:repeat(2,minmax(0,1fr))}
   .proof-head{grid-template-columns:1fr;align-items:start}}
 @media(max-width:640px){.stints{grid-template-columns:1fr;gap:1.4rem}
   .figs{gap:1rem 1.8rem}}
 
 :root{
-  --cream:#EFE2BA; --deep:#1F2A5C; --fluoro:#F13C20;
-  --cream-rgb:239,226,186; --deep-rgb:31,42,92;
+  /* palette, families, --pad and --max are defined in base.css */
   --ground:var(--cream); --text:var(--deep);
-  --fd:'Bricolage Grotesque','Archivo Black',sans-serif;
-  --fb:'Instrument Sans',system-ui,sans-serif;
-  --fu:'Martian Mono','Courier New',monospace;
   --xs:var(--t-small); --sm:var(--t-small); --base:var(--t-body); --md:var(--t-h3);
   --lg:var(--t-h3); --xl:var(--t-h2); --xxl:var(--t-h1);
-  --ease:cubic-bezier(.16,1,.3,1); --pad:clamp(1.2rem,4vw,3rem); --max:1240px;
+  --ease:cubic-bezier(.16,1,.3,1);
   --sec:clamp(var(--s-8),10vw,var(--s-10));
 }
 *{box-sizing:border-box}
@@ -204,7 +107,7 @@ body{background:var(--ground);color:var(--text);font-family:var(--fb);font-size:
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-h1,h2,h3{font-family:var(--fd);font-weight:800;margin:0;line-height:.95;letter-spacing:-.01em}
+h1,h2,h3{font-family:var(--fd);font-weight:700;margin:0;line-height:.95;letter-spacing:var(--fd-track)}
 p{margin:0 0 1rem}
 a{color:inherit}
 .mono{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
@@ -214,75 +117,91 @@ a{color:inherit}
 /* section head — a rule and a number in the margin, not a box */
 .shead{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:baseline;
   border-top:3px solid var(--deep);padding-top:1rem;margin-bottom:2.6rem}
-.shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.6}
+.shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82}
 .shead h2{font-size:var(--xl)}
-.shead .sub{grid-column:2;font-size:var(--base);opacity:.78;max-width:34em;margin-top:.7rem}
+.shead .sub{grid-column:2;font-size:var(--base);opacity:.82;max-width:34em;margin-top:.7rem}
 .dark .shead{border-color:var(--cream)}
 
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;
   padding:1.1rem var(--pad);font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
   transition:transform 320ms var(--ease),background 320ms var(--ease)}
-nav.hide{transform:translateY(-115%)}
-nav.solid{background:var(--cream);border-bottom:1px solid var(--deep)}
 nav .sig{font-weight:600}
 nav .links{display:flex;gap:1.5rem}
 nav a{text-decoration:none;position:relative;padding:3px 0}
-nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--fluoro);transition:right 220ms var(--ease)}
-nav a:hover::after,nav a:focus-visible::after{right:0}
-nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
+nav .sig{background:none;border:0;padding:0;box-shadow:none}
 @media(max-width:820px){nav .links{display:none}}
 
-/* ---------- hero ---------- */
-.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;display:flex;align-items:center}
-.hero .bg{position:absolute;inset:0;z-index:0;pointer-events:none}
-.hero .frame{position:absolute;right:0;top:0;bottom:0;width:56%}
-.hero .frame img{width:100%;height:100%;object-fit:cover;object-position:52% 32%;display:block}
-@media(max-width:900px){.hero .frame{width:100%;opacity:.42}.hero .frame img{object-position:56% 26%}}
-.stage{position:relative;z-index:4;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-.l1{display:flex;align-items:flex-end;gap:.9rem;flex-wrap:wrap;margin-bottom:.35rem}
-.l2{display:block;margin-bottom:.9rem}
-/* the name tiles are the page h1: reset heading type so only the images show */
-.hero-name{margin:0;font-size:inherit;line-height:normal;letter-spacing:normal}
-.l3{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:1.2rem}
+/* ============================================================
+   HERO (rebuilt 21 Sep 2026). One block; it replaces three stacked
+   patches that each re-set the same properties.
+
+   A side-by-side split, after a reference Shrey chose.
+     Take only: the colour field against the photograph, the photograph
+     as a halftone print, one small caption.
+     Ignore: the top/bottom stack (it broke the reading), their red, their
+     handwriting and scribble. The cut-out name does the scribble's job,
+     stuck across the foot of the print.
+   Left, the artefact on a fluoro field. Right, the words in one column
+   that reads straight down: category, the line, the idea, the sign-off,
+   the two actions, the proof.
+   ============================================================ */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100vh;min-height:100svh}
+
+/* ---------- the artefact ---------- */
+.hero-art{background:var(--fluoro);display:grid;place-items:center;overflow:hidden;
+  padding:calc(var(--s-10) - var(--s-2)) var(--s-8) var(--s-8)}
+/* sized so print, name and caption fit one screen: the stack is ~1.5x the width */
+.art-print{margin:0;position:relative;width:min(100%,calc((100svh - 210px) * .66),480px);min-width:240px;container-type:inline-size}
+/* a real halftone, rendered once from the photograph (dot size follows
+   how dark the photo is) and printed in deep ink on cream paper */
+.art-face{display:block;width:100%;height:auto;aspect-ratio:4/5}
+.art-cap{margin-top:24cqw;display:inline-block;padding:var(--s-1) var(--s-2);background:#EFE2BA;transform:rotate(-1deg);
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.02em;color:var(--ink);line-height:1.4} /* a label on the print: small type never sits on red */
+
+/* the name: cut-outs stuck across the foot of the print */
+.hero-name{position:absolute;left:-7cqw;right:-5cqw;top:calc(125cqw - 26cqw);
+  margin:0;font-size:inherit;line-height:normal;letter-spacing:normal}
+.hero-name .l1{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:2.5cqw}
+.hero-name .l2{display:block;margin-top:1.5cqw}
 .tile{display:block;will-change:transform;cursor:grab;user-select:none}
-.tile img{display:block;height:auto;pointer-events:none;filter:drop-shadow(4px 5px 0 rgba(var(--deep-rgb),.42))}
-.t-hi img{width:clamp(62px,6.4vw,98px)} .t-my img{width:clamp(74px,7.6vw,116px)}
-.t-name img{width:clamp(112px,12vw,182px)} .t-is img{width:clamp(42px,4.4vw,68px)}
-.t-shrey img{width:clamp(230px,32vw,520px)}
-.said{font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:1.05}
-.roll{display:inline-block;font-size:var(--t-h3);height:1.3em;overflow:hidden;position:relative;min-width:6.6em;
-  vertical-align:bottom;background:var(--deep);color:var(--cream);padding:.12em .42em;transform:rotate(-1.2deg);
-  box-shadow:5px 5px 0 var(--fluoro)}
+.tile img{display:block;width:100%;height:auto;pointer-events:none;filter:drop-shadow(3px 4px 0 rgba(13,22,51,.45))}
+.t-hi{width:17cqw} .t-my{width:19cqw} .t-name{width:34cqw} .t-is{width:12cqw} .t-shrey{width:78cqw}
+
+/* ---------- the words ---------- */
+.hero-k{margin:0;font-family:var(--fu);font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.8)}
+.hero-k b{font-weight:600;color:var(--deep)}
+.said{margin-top:var(--s-5);font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:1.1;
+  letter-spacing:var(--fd-track);color:var(--deep)}
+.roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;margin-top:var(--s-1);
+  background:var(--deep);color:var(--cream);padding:0 .3em;transform:rotate(-1.2deg)}
 .roll ul{list-style:none;margin:0;padding:0;transition:transform 420ms var(--ease)}
-.roll li{height:1.3em;line-height:1.3em;white-space:nowrap;font-family:var(--fd);font-weight:800}
-.value{font-weight:500;font-size:var(--t-h3);line-height:1.3;max-width:22em;margin:0}
-.value b{font-weight:700}
-/* discipline clause. Replaces the vetoed MELBOURNE -> GLOBAL badge.
-   Job: give a scanning recruiter a category to route him to, then undercut
-   the tidiness of the list so the range reads as deliberate rather than
-   scattered. The list is metadata and sits muted; the punchline is the
-   loudest thing in the block, which is the whole point. Tints measured
-   against cream #EFE2BA: #535874 = 5.39, deep = 10.53, fluoro = 3.01 and
-   therefore never carries this type. */
-.roleline{margin:1.3rem 0 0;font-family:var(--fu);font-size:var(--sm);line-height:1.7;
-  letter-spacing:.005em;max-width:32em}
-.roleline .dl{color:#535874}
-.roleline b{display:block;width:fit-content;margin-top:.5rem;line-height:1.35;font-weight:600;color:var(--deep);
-  background:linear-gradient(rgba(241,60,32,.26),rgba(241,60,32,.26)) 0 76% / 100% .52em no-repeat}
-.roleline .dw{display:block;margin-top:.9rem;font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;color:rgba(var(--deep-rgb),.78)}
-@media(max-width:900px){.roleline{font-size:var(--xs);line-height:1.9;letter-spacing:.02em}}
-.cue{position:absolute;left:var(--pad);bottom:1.8rem;z-index:5;font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
-.cue .ln{display:block;width:52px;height:1px;background:var(--deep);position:relative;overflow:hidden}
-.cue .ln::after{content:"";position:absolute;inset:0;background:var(--fluoro);transform:translateX(-100%);animation:sweep 2.4s var(--ease) infinite}
-@keyframes sweep{0%{transform:translateX(-100%)}55%{transform:translateX(0)}100%{transform:translateX(100%)}}
-#trail{position:absolute;inset:0;z-index:3;pointer-events:none}
-@media(max-width:1024px){#trail{display:none}}
-@media(max-width:900px){
-  .stage{padding-top:4.5rem}.l1{gap:.5rem}.l3{row-gap:.85rem;align-items:center}
-  .value{background:var(--cream);padding:.75rem .9rem;border-left:4px solid var(--fluoro);max-width:none}
+.roll li{height:1.25em;line-height:1.25em;white-space:nowrap}
+.value{margin:var(--s-6) 0 0;font-size:var(--t-h3);font-weight:400;line-height:1.3;max-width:22em}
+.value b{font-weight:600}
+.signoff{margin:var(--s-4) 0 0;font-size:var(--t-body);line-height:1.4;color:rgba(var(--deep-rgb),.8)}
+.signoff span{font-weight:600;color:var(--deep)}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-6);margin-top:var(--s-7)}
+.hbtn{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s-5);background:var(--deep);color:var(--cream);
+  font-size:var(--t-body);font-weight:600;text-decoration:none;transition:background-color var(--d-1) ease,color var(--d-1) ease}
+.hbtn:hover,.hbtn:focus-visible{background:var(--fluoro);color:#0D1633}
+.hmail{font-size:var(--t-body);color:var(--deep);text-decoration:none;
+  border-bottom:2px solid var(--fluoro);padding:var(--s-2) 0 2px;overflow-wrap:anywhere}
+.hmail:hover,.hmail:focus-visible{color:var(--accent-type)}
+.creds{margin:var(--s-5) 0 0;font-size:var(--t-small);line-height:1.5;color:rgba(var(--deep-rgb),.8)}
+
+
+/* the words: one column, centred on the screen's height */
+.hero-copy{align-self:center;max-width:38rem;padding:calc(var(--s-10) - var(--s-2)) max(var(--pad),env(safe-area-inset-right,0px)) var(--s-8) var(--s-9)}
+
+/* tablets and phones: the artefact on top, full width, then the words */
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0}
+  .hero-art{padding:calc(var(--s-10) - var(--s-1)) var(--pad) var(--s-8)}
+  .art-print{width:min(86%,440px)}
+  /* the name stays on the screen: it overhangs the print, never the edge */
+  .hero-name{left:-4cqw;right:auto}
+  .hero-copy{max-width:none;padding:var(--s-8) max(var(--pad),env(safe-area-inset-right,0px)) var(--s-8) max(var(--pad),env(safe-area-inset-left,0px))}
 }
 
 /* ---------- ticker ----------
@@ -292,51 +211,31 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
    so they are the thing that moves. The disciplines are metadata and sit
    still and small. Previously all three were identical marquees, which made
    the only third-party validation on the site the least legible thing on it. */
-.ticker{padding:var(--sec) 0 0;overflow:hidden}
-.ticker .head{opacity:.6;margin:0 0 2.2rem}
-
-/* the quotes — composed, not equal. One leads, the rest answer it. */
-.says{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:1.5rem 1.4rem;margin:0 0 3.2rem;align-items:start}
-.say{margin:0;font-family:var(--fd);font-weight:800;line-height:1.04;
-  letter-spacing:-.015em;padding-left:.85rem;border-left:2px solid var(--deep)}
-.say cite{display:block;font-family:var(--fu);font-style:normal;font-size:var(--t-small);
-  letter-spacing:.08em;text-transform:uppercase;opacity:.5;margin-top:.6rem;font-weight:400}
-.say.lead{grid-column:1 / span 7;font-size:var(--t-h2);
-  border-left-color:var(--fluoro);border-left-width:4px;padding-left:1.1rem}
-.say.b{grid-column:8 / span 5;font-size:var(--t-body);align-self:end}
-.say.c{grid-column:1 / span 4;font-size:var(--t-body)}
-.say.d{grid-column:5 / span 4;font-size:var(--t-body)}
-.say.e{grid-column:9 / span 4;font-size:var(--t-body)}
-.say.f{grid-column:1 / span 5;font-size:var(--t-h3)}
-@media(max-width:820px){
-  .says{gap:1.1rem}
-  .say.lead{grid-column:1 / -1;font-size:var(--t-h2)}
-  .say.b,.say.c,.say.d,.say.e,.say.f{grid-column:1 / -1;font-size:var(--t-body);align-self:auto}
-}
+.ticker{padding:var(--s-7) 0 0;overflow:hidden} /* the tape above is the divider; --sec here was dead air */
+.ticker .head{opacity:.82;margin:0 0 2.2rem}
 
 /* metadata. Smallest, mono, muted — the bottom of the hierarchy. */
 .saygap{border:2px dashed rgba(var(--deep-rgb),.4);padding:.7rem .9rem;margin:0 0 3rem;
-  max-width:44em;opacity:.65;line-height:1.8;text-transform:none;letter-spacing:.02em}
+  max-width:44em;opacity:.82;line-height:1.8;text-transform:none;letter-spacing:.02em}
 /* ---------- worked with ----------
    A credits line, not a logo wall. Six equal cells ruled like a table, names
    muted until pointed at, when the cell inverts. Only real employers, events and
    projects sit here, with context where it was not a job; spec brands never do. */
-.worked{margin:0 0 clamp(3.5rem,7vw,5.5rem)}
-.worked-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin:0 0 1rem}
+.worked{margin:0 0 var(--s-7)}
+.worked-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 1rem}
 .worked-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
   gap:1px;background:rgba(var(--deep-rgb),.28);border-top:1px solid var(--deep);border-bottom:1px solid var(--deep)}
 .worked-list li{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.4rem;
   min-height:clamp(4.2rem,7vw,5.6rem);padding:.6rem 1rem;background:var(--cream);
   transition:background .3s var(--ease),color .3s var(--ease)}
-.worked-name{font-family:var(--fd);font-weight:800;font-size:var(--t-body);line-height:1;
-  letter-spacing:-.02em;opacity:.8;transition:opacity .3s var(--ease)}
+.worked-name{font-family:var(--fd);font-weight:700;font-size:var(--t-body);line-height:1;
+  letter-spacing:var(--fd-track);opacity:.82;transition:opacity .3s var(--ease)}
 /* context where the relationship was not employment. Honest beats impressive. */
-.worked-ctx{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.worked-ctx{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .worked-list .mark{display:block;max-width:100%;max-height:1.9rem;width:auto}
 .worked-list li:hover{background:var(--deep);color:var(--cream)}
 .worked-list li:hover .worked-name{opacity:1}
-.worked-gap{font-size:var(--xs);letter-spacing:.04em;opacity:.6;margin:.8rem 0 0;max-width:52em}
+.worked-gap{font-size:var(--xs);letter-spacing:.04em;opacity:.82;margin:.8rem 0 0;max-width:52em}
 @media (max-width:1100px){.worked-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:560px){.worked-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
@@ -346,7 +245,7 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
    other way on cream, ruled so it reads where it crosses. Speed follows the
    scroll through Lenis: scrolling pushes the bands, scrolling back reverses
    them, pointing at a band slows it to a stop. The riso star is the separator. */
-.cross{position:relative;height:clamp(190px,19vw,290px);overflow:hidden;margin:clamp(-1.5rem,-2vw,-.5rem) 0 var(--sec)}
+.cross{position:relative;height:clamp(190px,19vw,290px);overflow:hidden;margin:clamp(-1.5rem,-2vw,-.5rem) 0 var(--s-8)}
 .xband{position:absolute;left:-10vw;width:120vw;top:50%;overflow:hidden}
 .xband--do{background:var(--deep);color:var(--cream);transform:translateY(-50%) rotate(-6deg);z-index:1}
 .xband--moved{background:var(--cream);color:var(--deep);border-top:2px solid var(--deep);border-bottom:2px solid var(--deep);
@@ -354,12 +253,12 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 .xtrack{display:flex;width:max-content;will-change:transform}
 .xset{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
 .xset li{display:flex;align-items:baseline;gap:.45em;white-space:nowrap;padding:clamp(.8rem,1.5vw,1.2rem) 0;
-  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1;letter-spacing:-.015em}
+  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1;letter-spacing:var(--fd-track)}
 .xset li::after{content:"";flex:none;align-self:center;width:.62em;height:.62em;margin:0 1.15em;background:currentColor;opacity:.55;
   clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
-.xset b{font-weight:800;letter-spacing:-.03em}
+.xset b{font-weight:700;letter-spacing:0}
 .xset i{font-style:normal;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;
-  opacity:.62;align-self:center}
+  opacity:.82;align-self:center}
 @media (max-width:760px){
   .cross{height:clamp(150px,44vw,210px)}
   .xband{left:-30vw;width:160vw}
@@ -371,7 +270,7 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
    Shrey, 17 Sep 2026), measured from the live site rather than its source:
-   - the section is 400vh and its shell sticks for 100vh;
+   - the section is 240vh (was 400vh; cut 22 Sep 2026 on "too much scroll") and its shell sticks for 100vh;
    - progress p runs 0..1 across the scroll; tile i lands over p = reveal..reveal+.13,
      rising 16vh and scaling .9 to 1, tilted;
    - ghost type slides along a curve, trailed by marks, drifting 5vh against the scroll;
@@ -384,10 +283,10 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
   padding:clamp(4.5rem,12vw,6rem) var(--pad) clamp(4rem,10vw,5.5rem)}
 .wk-shell{position:relative;max-width:var(--max);margin:0 auto}
 .wk-eyebrow,.wk-note,.wk-label{font-family:var(--fu);text-transform:uppercase}
-.wk-eyebrow{font-size:var(--xs);letter-spacing:.08em;opacity:.72;margin:0}
-.wk-title{font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:.92;
-  letter-spacing:-.04em;max-width:9ch;margin:.8rem 0 0;color:var(--cream)}
-.wk-sub{font-size:var(--base);line-height:1.5;opacity:.72;max-width:24em;margin:1.2rem 0 0}
+.wk-eyebrow{font-size:var(--xs);letter-spacing:.08em;opacity:.82;margin:0}
+.wk-title{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:.92;
+  letter-spacing:var(--fd-track);max-width:9ch;margin:.8rem 0 0;color:var(--cream)}
+.wk-sub{font-size:var(--base);line-height:1.5;opacity:.82;max-width:24em;margin:1.2rem 0 0}
 .wk-axis,.wk-cross,.wk-ghost{display:none}
 
 .wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
@@ -399,8 +298,8 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 /* poster: the still face. Typographic until real imagery exists. */
 .wk-poster{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:5cqw 5.5cqw;transition:opacity .25s var(--wk-ease)}
-.wk-kick{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.75}
-.wk-mark{font-family:var(--fd);font-weight:800;font-size:23cqw;line-height:.78;letter-spacing:-.05em;margin-left:-.04em}
+.wk-kick{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
+.wk-mark{font-family:var(--fd);font-weight:700;font-size:23cqw;line-height:.78;letter-spacing:var(--fd-track);margin-left:-.04em}
 .wk-poster--vastr{background:var(--cream);color:var(--deep)}
 .wk-poster--voicedna{background:var(--fluoro);color:var(--cream)}
 .wk-poster--voicedna .wk-mark{font-size:17cqw}
@@ -411,12 +310,6 @@ nav .sig,nav.solid .links{background:none;border:0;padding:0;box-shadow:none}
 
 /* inside: what the hover reveals. Scrolls once, like a recording of the page,
    and snaps back to the top when the pointer leaves, like a video rewinding. */
-.wk-inside{position:absolute;inset:0;z-index:1;background:var(--cream);color:var(--deep);overflow:hidden}
-.wk-inside video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.wk-scroll{display:flex;flex-direction:column;gap:9cqh;padding:9cqh 6cqw 14cqh;transform:translateY(0);transition:none}
-.wk-sec{display:flex;flex-direction:column;gap:2.2cqh;border-top:1px solid rgba(var(--deep-rgb),.3);padding-top:3cqh}
-.wk-k{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.62}
-.wk-h{font-family:var(--fd);font-weight:500;font-size:6.6cqw;line-height:1.02;letter-spacing:-.02em;max-width:18ch}
 
 .wk-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px;
   font-size:var(--t-small);letter-spacing:.08em;color:rgba(var(--cream-rgb),.72)}
@@ -441,7 +334,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 
 /* pinned mode */
 @media (min-width:760px) and (prefers-reduced-motion:no-preference){
-  .work{height:400vh;padding:0;overflow:clip}
+  .work{height:240vh;padding:0;overflow:clip} /* was 400vh: 41% of the page for three projects (22 Sep 2026) */
   .wk-shell{position:sticky;top:0;height:100vh;max-width:none;overflow:hidden}
   .wk-copy{position:absolute;z-index:15;top:clamp(86px,11vh,118px);
     --wk-left:max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));
@@ -457,7 +350,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   .wk-cross::after{top:50%;left:0;right:0;height:1px;translate:0 -50%}
   .wk-ghost{display:block;position:absolute;z-index:0;inset:-8vh -7vw -12vh -9vw;width:116vw;height:122vh;
     overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
-  .wk-ghost-text{font-family:var(--fd);font-weight:800;letter-spacing:-.05em;fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
+  .wk-ghost-text{font-family:var(--fd);font-weight:700;letter-spacing:var(--fd-track);fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
   .wk-ghost [data-ghost-stars] path{fill:rgba(var(--cream-rgb),.12)}
   .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
   .work .wk-tile,.work.wk-live .wk-tile{position:absolute;left:var(--x);top:var(--y);width:var(--w);pointer-events:auto;
@@ -478,14 +371,14 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* pinned, narrow: the collage becomes a deck. Same scroll maths over 300vh,
    each tile landing on the one before, offset enough that the pile reads. */
 @media (max-width:759px) and (prefers-reduced-motion:no-preference){
-  .work{height:300vh;padding:0;overflow:clip}
+  .work{height:200vh;padding:0;overflow:clip} /* was 300vh */
   .wk-shell{position:sticky;top:0;height:100vh;height:100svh;max-width:none;overflow:hidden}
   .wk-copy{position:absolute;z-index:15;top:clamp(72px,10vh,96px);left:var(--pad);right:var(--pad)}
   .wk-title{font-size:var(--t-h2);max-width:12ch}
   .wk-sub{font-size:var(--sm);margin-top:.7rem}
   .wk-ghost{display:block;position:absolute;z-index:0;top:30vh;left:-30vw;width:170vw;height:60vh;
     overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
-  .wk-ghost-text{font-family:var(--fd);font-weight:800;letter-spacing:-.05em;fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
+  .wk-ghost-text{font-family:var(--fd);font-weight:700;letter-spacing:var(--fd-track);fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
   .wk-ghost [data-ghost-stars] path{fill:rgba(var(--cream-rgb),.12)}
   .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
   .work .wk-tile,.work.wk-live .wk-tile,.work.wk-live .wk-tile.is-visible{position:absolute;left:var(--dx);
@@ -511,14 +404,11 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   .work.wk-live .wk-tile{opacity:1;transform:rotate(var(--r,0deg));transition:none}
 }
 
-.morebtn{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  background:none;border:0;border-bottom:2px solid var(--fluoro);padding:0 0 4px;cursor:pointer;color:var(--deep)}
-
 /* ---------- brain dump (dark) ---------- */
 .dump{background:var(--deep);color:var(--cream);padding:var(--sec) 0}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-7) var(--s-6);margin-top:var(--s-4)}
 .step{border-left:2px solid var(--fluoro);padding:0 0 0 1rem}
-.step .n{font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:1;opacity:.35;display:block;margin-bottom:.5rem}
+.step .n{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:1;opacity:.82;display:block;margin-bottom:.5rem;letter-spacing:var(--fd-track)}
 .step h3{font-size:var(--t-body);margin-bottom:.5rem}
 .step p{font-size:var(--sm);line-height:1.5;opacity:.85;margin:0}
 .step:hover .n{opacity:1;color:var(--fluoro)}
@@ -527,20 +417,18 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 
 /* ---------- about ---------- */
 .about{padding:var(--sec) 0}
-.abody{display:grid;grid-template-columns:61.8% 38.2%;gap:3rem;align-items:start}
+.abody{display:grid;grid-template-columns:minmax(0,1.618fr) minmax(0,1fr);gap:3rem;align-items:start}
 .abody .prose p:first-child{font-size:var(--md);line-height:1.3;font-weight:500}
 .abody .prose p{max-width:32em}
 .skills h4{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
   margin:0 0 .8rem;padding-bottom:.4rem;border-bottom:2px solid var(--deep)}
 .skills .grp{margin-bottom:1.8rem}
-.skills .cat{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin:0 0 .4rem}
+.skills .cat{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 .4rem}
 .skills ul{list-style:none;margin:0 0 .9rem;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
 .skills li{font-size:var(--sm);border-bottom:1px solid rgba(var(--deep-rgb),.35);padding:1px 0}
 .skills li::after{content:"·";margin-left:.4rem;opacity:.4;border:0}
 .skills li:last-child::after{content:""}
-.skills .work-k li{opacity:.62}
-.playlist{display:inline-block;margin-top:.6rem;font-size:var(--sm);border-bottom:2px solid var(--fluoro);
-  padding-bottom:2px;text-decoration:none}
+.skills .work-k li{opacity:.82}
 @media(max-width:900px){.abody{grid-template-columns:1fr;gap:2.4rem}}
 
 /* ---------- faq bento ---------- */
@@ -555,9 +443,9 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .tile-q:nth-child(5){grid-column:span 4}
 .tile-q:nth-child(8){grid-column:span 4}
 .tile-q:nth-child(9){grid-column:span 2}
-.tile-q .qn{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.55;display:block;margin-bottom:.4rem}
+.tile-q .qn{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.82;display:block;margin-bottom:.4rem}
 .tile-q .qt{font-family:var(--fb);font-weight:700;font-size:var(--t-body);line-height:1.25;display:flex;justify-content:space-between;gap:1rem}
-.tile-q .pm{font-family:var(--fd);font-weight:800;flex:none;transition:transform 220ms var(--ease)}
+.tile-q .pm{font-family:var(--fd);font-weight:700;flex:none;transition:transform 220ms var(--ease);letter-spacing:var(--fd-track)}
 .tile-q[aria-expanded="true"]{background:var(--deep);color:var(--cream)}
 .tile-q[aria-expanded="true"] .pm{transform:rotate(45deg)}
 .tile-q .ans{display:block;max-height:0;overflow:hidden;transition:max-height 350ms var(--ease),margin 350ms var(--ease);
@@ -576,14 +464,14 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .contact{background:var(--cream);color:var(--deep);
   padding:var(--sec) 0 3rem;position:relative;border-top:3px solid var(--deep)}
 .contact .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;opacity:.55;display:block;margin-bottom:2.4rem}
-.cta{font-family:var(--fd);font-weight:800;font-size:var(--t-h1);line-height:.98;
-  margin:0 0 2.8rem;max-width:13em;letter-spacing:-.015em}
+  text-transform:uppercase;opacity:.82;display:block;margin-bottom:2.4rem}
+.cta{font-family:var(--fd);font-weight:700;font-size:var(--t-h1);line-height:.98;
+  margin:0 0 2.8rem;max-width:13em;letter-spacing:var(--fd-track)}
 .cta em{font-style:normal;color:var(--fluoro)}
 
 /* the action. Typographic, and the largest interactive thing on the page. */
-.reach{display:inline-block;text-decoration:none;font-family:var(--fd);font-weight:800;
-  font-size:var(--t-h2);line-height:1.05;letter-spacing:-.01em;
+.reach{display:inline-block;text-decoration:none;font-family:var(--fd);font-weight:700;
+  font-size:var(--t-h2);line-height:1.05;letter-spacing:var(--fd-track);
   border-bottom:4px solid var(--fluoro);padding-bottom:.2rem;
   transition:border-color 220ms var(--ease)}
 .reach:hover,.reach:focus-visible{border-bottom-color:var(--deep)}
@@ -591,33 +479,31 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* everything else here is secondary and looks it */
 .second{display:flex;flex-wrap:wrap;gap:1.6rem;margin:2rem 0 0;
   font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
-.second a{text-decoration:none;opacity:.62;border-bottom:1px solid currentColor;
+.second a{text-decoration:none;opacity:.82;border-bottom:1px solid currentColor;
   padding-bottom:2px;transition:opacity 200ms var(--ease)}
 .second a:hover,.second a:focus-visible{opacity:1}
 
 .recgap{border:2px dashed rgba(var(--deep-rgb),.4);padding:.7rem .9rem;margin:3.2rem 0 0;
   max-width:44em;font-family:var(--fu);font-size:var(--xs);letter-spacing:.02em;
-  opacity:.65;line-height:1.8}
+  opacity:.82;line-height:1.8}
 
-/* footer signature. Replaces the "Built with Claude Code" line, which was
-   a tool credit in the one place the page should be signed by a person.
-   The SHREY cut-out is already the identity mark in the hero, so reusing
-   it here closes the page on the same artefact it opened with.
-   Old footer was 9px mono at .55 opacity, roughly 3.3 on cream and below
-   the AA floor. Metadata is now #535874, measured 5.39. */
+/* footer: the Made by Shrey mark (see its own block) and one line of
+   metadata. Metadata is #4A5578-weight deep, measured above AA. */
 .foot{margin-top:3.4rem;padding-top:1.5rem;border-top:1px solid rgba(var(--deep-rgb),.28);
   display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem 2rem;flex-wrap:wrap}
 .sign{margin:0;display:flex;align-items:baseline;gap:0;color:var(--deep);
-  font-family:var(--fd);font-weight:800;line-height:1;font-size:var(--t-body)}
+  font-family:var(--fd);font-weight:800;line-height:1;font-size:var(--t-body);letter-spacing:var(--fd-track)}
 .sign .sw{white-space:nowrap}
 .sign-mark{height:clamp(26px,4vw,46px);width:auto;margin:0 .12rem 0 .45rem;transform:translateY(.22em)}
 .sign-star{height:clamp(15px,1.9vw,22px);width:auto;margin:0 .1rem 0 0;transform:translateY(-.55em) rotate(-9deg);
   transition:transform 220ms var(--ease)}
 .sign:hover .sign-star{transform:translateY(-.55em) rotate(21deg)}
+@media(prefers-reduced-motion:reduce){.sign .sign-star,.sign:hover .sign-star{transition:none}}
+@media(max-width:640px){.sign-mark{margin-left:.34rem}}
 .foot-meta{margin:0;font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;color:rgba(var(--deep-rgb),.78)}
-@media(prefers-reduced-motion:reduce){.sign .sign-star,.sign:hover .sign-star{transition:none}}
-@media(max-width:640px){.foot{align-items:flex-start}.sign-mark{margin-left:.34rem}}
+
+@media(max-width:640px){.foot{align-items:flex-start}}
 
 /* ---------- vinyl ----------
    Form from the riyadesign reference (chosen by Shrey, 17 Sep 2026): a record
@@ -628,14 +514,19 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .vinyl{--vd:112px;position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:70;
   display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem;color:var(--deep)}
 .vinyl-cap{margin:0;text-align:right;line-height:1.15;padding:.4rem .6rem .45rem;background:var(--cream);
-  border:1px solid var(--deep)}
-.vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:var(--t-small);letter-spacing:-.01em}
-.vinyl-by{display:block;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.72;margin-top:.25rem}
+  border:1px solid var(--deep);
+  /* at rest the record is the only thing floating over the page; the card
+     says what it is when pointed at, tabbed to, or playing */
+  opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity var(--d-1) ease,transform var(--d-2) var(--e-out)}
+.vinyl:is(:hover,:focus-within,.playing) .vinyl-cap{opacity:1;transform:none;pointer-events:auto}
+@media (prefers-reduced-motion:reduce){.vinyl-cap{transition:none}}
+.vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:var(--t-small);letter-spacing:var(--fd-track)}
+.vinyl-by{display:block;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin-top:.25rem}
 .vinyl-by a{color:inherit;text-underline-offset:2px}
 .vinyl-by a:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
 .vinyl-deck{position:relative;width:var(--vd);height:var(--vd)}
 .vinyl-disc{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(var(--cream-rgb),.4);
-  background:repeating-radial-gradient(circle at 50% 50%,#18214b 0 1.4px,var(--deep) 1.4px 3px);
+  background:repeating-radial-gradient(circle at 50% 50%,#142C6B 0 1.4px,var(--deep) 1.4px 3px);
   animation:vspin 1.8s linear infinite;animation-play-state:paused}
 .vinyl.playing .vinyl-disc{animation-play-state:running}
 @keyframes vspin{to{transform:rotate(360deg)}}
@@ -667,8 +558,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .vinyl-host iframe{width:100%;height:80px;border:0}
 @media (max-width:640px){
   .vinyl{--vd:76px;gap:.5rem}
-  .vinyl-cap{display:none}
-  .vinyl.playing .vinyl-cap{display:block}
   .vinyl-btn{width:26px;height:26px;margin:-13px 0 0 -13px}
   .vinyl-icon{width:8px;height:9px}
   .vinyl.playing .vinyl-icon{width:8px}
@@ -683,53 +572,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .scrollstar svg{display:block;width:100%}
 @media(max-width:900px){.scrollstar{display:none}}
 
-
-/* ---------- loader ----------
-   A cold open, not a spinner. Mono leader in the corners, the artefact
-   revealed through a widening letterbox, then the star punches and the
-   whole thing wipes up into the hero. It also covers the hero image
-   decode, so it is doing work as well as setting a tone. */
-.loader{position:fixed;inset:0;z-index:120;background:var(--cream);
-  display:grid;place-items:center;transition:clip-path 620ms var(--ease)}
-.loader.gone{clip-path:inset(0 0 100% 0);pointer-events:none}
-
-.lgrid{position:relative;width:min(88vw,var(--max));height:min(72vh,620px);
-  display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:1rem}
-.lmeta{font-family:var(--fu);font-size:var(--xs);letter-spacing:.16em;text-transform:uppercase;
-  color:var(--deep);opacity:0;transition:opacity 420ms var(--ease)}
-.lmeta.in{opacity:.62}
-.lmeta.tl{grid-row:1;grid-column:1}
-.lmeta.tr{grid-row:1;grid-column:2;text-align:right}
-.lmeta.bl{grid-row:3;grid-column:1;align-self:end}
-.lmeta.br{grid-row:3;grid-column:2;align-self:end;text-align:right}
-
-/* the letterbox: a slit that opens to reveal the photograph.
-   shares the centre cell with the rule, so the rule appears to part */
-.lband{grid-row:2;grid-column:1/-1;position:relative;overflow:hidden;align-self:center;
-  height:0;transition:height 900ms var(--ease)}
-.lband.open{height:100%}
-.lband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:52% 34%;transform:scale(1.14);transition:transform 1400ms var(--ease)}
-.lband.open img{transform:scale(1)}
-.lband::after{content:"";position:absolute;inset:0;background:var(--fluoro);
-  mix-blend-mode:multiply;opacity:.42;transition:opacity 700ms var(--ease)}
-.lband.warm::after{opacity:0}
-
-/* a hairline that draws across before the band opens */
-.lrule{grid-row:2;grid-column:1/-1;align-self:center;height:2px;background:var(--deep);
-  width:0;transition:width 620ms var(--ease);position:relative;z-index:2;justify-self:start}
-.lrule.draw{width:100%}
-.lrule.part{opacity:0;transition:opacity 300ms var(--ease)}
-
-.lstar{position:absolute;width:clamp(90px,12vw,150px);opacity:0;
-  transition:opacity 220ms var(--ease),transform 620ms var(--ease);z-index:3}
-.lstar.show{opacity:1}
-.lstar.blow{transform:scale(5) rotate(24deg);opacity:0}
-
-.lcount{font-variant-numeric:tabular-nums}
-
-@media(max-width:900px){.lgrid{height:60vh}}
-@media (prefers-reduced-motion:reduce){.loader{display:none}}
 
 /* ---------- star marks ---------- */
 .smark{grid-column:1;grid-row:1;justify-self:start;align-self:start;width:28px;height:28px;object-fit:contain}
@@ -752,8 +594,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 
 /* reveals */
 .rv{opacity:0;transform:translateY(14px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
-.rv.in{opacity:1;transform:none}
-.anim .tile,.anim .said,.anim .roll,.anim .value,.anim .roleline,.anim .doors,.anim .cue,.anim .bg{opacity:0}
+.rv.in{opacity:1;transform:none}.anim [data-t],.anim .bg{opacity:0}
 .snap{animation:snap 180ms var(--ease) forwards}
 @keyframes snap{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
 .rise{animation:rise 560ms var(--ease) forwards}
@@ -763,10 +604,9 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}
-  .anim .tile,.anim .said,.anim .roll,.anim .value,.anim .roleline,.anim .doors,.anim .cue,.anim .bg{opacity:1}
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}.anim [data-t],.anim .bg{opacity:1}
   .rv{opacity:1;transform:none}
-  #trail{display:none}
+  
 }
 
 /* ============================================================
@@ -779,7 +619,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    above it so it clears the fixed nav */
 .phead{padding:calc(var(--sec) + 3.2rem) 0 0}
 .phead .wrap{display:block}
-.phead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.6;display:block;margin-bottom:.9rem}
+.phead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82;display:block;margin-bottom:.9rem}
 .phead h1{font-size:var(--xxl);max-width:13em;margin:0 0 1.1rem}
 .phead .stand{font-size:var(--md);line-height:1.3;font-weight:500;max-width:24em;margin:0}
 .phead .rule{margin-top:2.4rem;border-top:3px solid var(--deep)}
@@ -794,34 +634,28 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .pfoot{border-top:1px solid rgba(var(--deep-rgb),.3);margin-top:var(--sec);padding:1.4rem 0 3.5rem;
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
 .dark .pfoot{border-color:rgba(var(--cream-rgb),.25)}
-.pfoot a{text-decoration:none;font-family:var(--fd);font-weight:800;font-size:var(--lg);line-height:1}
+.pfoot a{text-decoration:none;font-family:var(--fd);font-weight:700;font-size:var(--lg);line-height:1;letter-spacing:var(--fd-track)}
 .pfoot a .arw{color:var(--fluoro)}
-.pfoot .sig{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.pfoot .sig{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 
 /* home hub — section teaser that points at a full page */
-.teaser-sec{padding:var(--sec) 0}
-.teaser-sec.dark{background:var(--deep);color:var(--cream)}
 .more{display:inline-flex;align-items:center;gap:.5rem;margin-top:2.4rem;text-decoration:none;
   font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
   border-bottom:2px solid var(--fluoro);padding-bottom:4px}
 .more .arw{transition:transform 220ms var(--ease)}
 .more:hover .arw{transform:translateX(4px)}
 
-/* short-form about block on the hub */
-.acols{display:grid;grid-template-columns:61.8% 38.2%;gap:3rem;align-items:start}
-@media(max-width:900px){.acols{grid-template-columns:1fr;gap:2rem}}
 .lede{font-size:var(--md);line-height:1.3;font-weight:500;max-width:20em;margin:0 0 1rem}
 
 /* ideas — index list and the scrolling piece */
-.ideas-list{border-top:3px solid var(--deep);margin-top:.5rem}
 .idea{display:grid;grid-template-columns:auto 1fr auto;gap:1.6rem;align-items:baseline;
   border-bottom:1px solid rgba(var(--deep-rgb),.3);padding:1.6rem 0;text-decoration:none;
   transition:padding 240ms var(--ease),background 240ms var(--ease)}
 .idea:hover,.idea:focus-visible{padding-left:1rem;padding-right:1rem;background:rgba(var(--deep-rgb),.05)}
-.idea .n{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.55}
+.idea .n{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.82}
 .idea h3{font-size:var(--t-h3);line-height:1.05;margin:0 0 .45rem}
-.idea .sub{font-size:var(--sm);opacity:.78;margin:0;max-width:38em}
-.idea .when{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.55;white-space:nowrap}
+.idea .sub{font-size:var(--sm);opacity:.82;margin:0;max-width:38em}
+.idea .when{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.82;white-space:nowrap}
 .idea[aria-disabled="true"]{opacity:.5;pointer-events:none}
 @media(max-width:700px){.idea{grid-template-columns:1fr;gap:.5rem}.idea .when{display:none}}
 
@@ -829,13 +663,13 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .reading{max-width:38em;margin:0 auto}
 .reading .sec{padding:0 0 var(--sec)}
 .reading .eyebrow{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  opacity:.6;display:block;margin-bottom:.8rem}
+  opacity:.82;display:block;margin-bottom:.8rem}
 .reading h2{font-size:var(--lg);margin:0 0 1rem;max-width:16em}
 .reading p{font-size:var(--t-body);line-height:1.62}
-.reading .pull{font-family:var(--fd);font-weight:800;font-size:var(--lg);line-height:1.1;
-  border-left:4px solid var(--fluoro);padding:.2rem 0 .2rem 1.2rem;margin:2rem 0}
+.reading .pull{font-family:var(--fd);font-weight:700;font-size:var(--lg);line-height:1.1;
+  border-left:4px solid var(--fluoro);padding:.2rem 0 .2rem 1.2rem;margin:2rem 0;letter-spacing:var(--fd-track)}
 .gapbox{border:2px dashed var(--fluoro);padding:1rem 1.1rem;font-family:var(--fu);font-size:var(--xs);
-  letter-spacing:.06em;text-transform:uppercase;opacity:.8;margin:1.5rem 0}
+  letter-spacing:.06em;text-transform:uppercase;opacity:.82;margin:1.5rem 0}
 
 /* progress rail for a long read */
 .rail{position:fixed;left:0;top:0;height:3px;background:var(--fluoro);width:0;z-index:65}
@@ -849,15 +683,15 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* filter — text toggles, ruled not boxed */
 .filter{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:baseline;padding:1.6rem 0 0;
   border-bottom:1px solid rgba(var(--deep-rgb),.25)}
-.filter .lab{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.5}
+.filter .lab{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .fbtn{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;background:none;
-  border:0;color:inherit;cursor:pointer;padding:0 0 .55rem;border-bottom:2px solid transparent;opacity:.55;
+  border:0;color:inherit;cursor:pointer;padding:0 0 .55rem;border-bottom:2px solid transparent;opacity:.82;
   transition:opacity 200ms var(--ease),border-color 200ms var(--ease)}
 .fbtn:hover{opacity:1}
 .fbtn[aria-pressed="true"]{opacity:1;border-bottom-color:var(--fluoro)}
 .fbtn .c{opacity:.5;margin-left:.35em}
 .fempty{padding:2.5rem 0;font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;opacity:.55}
+  text-transform:uppercase;opacity:.82}
 
 /* work index — an editorial contents page, one row per project */
 .windex{border-top:3px solid var(--deep);margin-top:.5rem}
@@ -868,78 +702,49 @@ a.wrow:hover,a.wrow:focus-visible{padding-left:.7rem}
 a.wrow::before{content:"";position:absolute;left:0;top:0;bottom:-1px;width:3px;background:var(--fluoro);
   transform:scaleY(0);transform-origin:top;transition:transform 260ms var(--ease)}
 a.wrow:hover::before,a.wrow:focus-visible::before{transform:scaleY(1)}
-.wrow .n{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.5;padding-top:.45rem}
-.wrow h2{font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:1;
-  margin:0 0 .5rem;letter-spacing:-.01em}
-.wrow .teaser{margin:0 0 .7rem;max-width:34em;opacity:.8;font-size:var(--t-small);line-height:1.45}
+.wrow .n{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82;padding-top:.45rem}
+.wrow h2{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:1;
+  margin:0 0 .5rem;letter-spacing:var(--fd-track)}
+.wrow .teaser{margin:0 0 .7rem;max-width:34em;opacity:.82;font-size:var(--t-small);line-height:1.45}
 .wrow .tags{display:flex;gap:.4rem;flex-wrap:wrap}
 .wrow .tags span{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
   border:1px solid var(--deep);padding:2px 6px}
 .wrow .tags span.on{background:var(--deep);color:var(--cream)}
-.wrow .tags span.dev{border-style:dashed;opacity:.6}
+.wrow .tags span.dev{border-style:dashed;opacity:.82}
 .wrow .aside{display:grid;gap:.35rem;justify-items:end;text-align:right;padding-top:.4rem}
 .wrow .aside .t{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
-.wrow .go{font-family:var(--fd);font-weight:800;font-size:var(--t-body)}
+.wrow .go{font-family:var(--fd);font-weight:700;font-size:var(--t-body);letter-spacing:var(--fd-track)}
 a.wrow .go::after{content:" \2192";transition:padding-left 260ms var(--ease)}
 a.wrow:hover .go::after{padding-left:.25em}
 .wrow.soon .go{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;font-weight:400}
 .wrow[hidden]{display:none}
 .wrow.rv:not(.in){opacity:0}
-.wrow.soon.rv.in{opacity:.62}
+.wrow.soon.rv.in{opacity:.82}
 @media(max-width:760px){
   .wrow{grid-template-columns:3rem minmax(0,1fr);gap:.9rem}
   .wrow .aside{grid-column:2;justify-items:start;text-align:left;padding-top:.6rem;
     grid-auto-flow:column;justify-content:start;gap:1.2rem;align-items:baseline}
 }
 
-/* featured idea — the one piece the ideas index leads with */
-.featured{display:grid;grid-template-columns:61.8% 38.2%;gap:3rem;align-items:end;
-  border-bottom:3px solid var(--deep);padding-bottom:2.2rem;margin-bottom:.5rem;text-decoration:none}
-.featured .lb{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  opacity:.55;display:block;margin-bottom:.9rem}
-.featured h2{font-size:var(--xl);line-height:.98;margin:0 0 .9rem;max-width:11em}
-.featured p{font-size:var(--sm);opacity:.8;margin:0;max-width:32em}
-@media(max-width:900px){.featured{grid-template-columns:1fr;gap:1.2rem;align-items:start}}
-
 /* contact page */
-.cblock{display:grid;grid-template-columns:61.8% 38.2%;gap:3rem;align-items:start;padding:0 0 var(--sec)}
+.cblock{display:grid;grid-template-columns:minmax(0,1.618fr) minmax(0,1fr);gap:3rem;align-items:start;padding:0 0 var(--sec)}
 @media(max-width:900px){.cblock{grid-template-columns:1fr;gap:2rem}}
 .creach{display:grid;gap:0;border-top:2px solid var(--deep)}
 .creach a{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;
   border-bottom:1px solid rgba(var(--deep-rgb),.3);text-decoration:none;transition:padding 240ms var(--ease)}
 .creach a:hover,.creach a:focus-visible{padding-left:.7rem}
-.creach .k{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
-.creach .v{font-family:var(--fd);font-weight:800;font-size:var(--t-h3);line-height:1}
+.creach .k{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
+.creach .v{font-family:var(--fd);font-weight:700;font-size:var(--t-h3);line-height:1;letter-spacing:var(--fd-track)}
 
 /* project / idea cross-navigation on a light page */
 .pnav{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:var(--sec) 0 0}
 .pnav a{display:grid;gap:.35rem;text-decoration:none;border-top:1px solid rgba(var(--deep-rgb),.3);padding-top:.8rem}
 .pnav a.nx{text-align:right}
-.pnav .lb{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
-.pnav .tt{font-family:var(--fd);font-weight:800;font-size:var(--t-h3);line-height:1.05}
+.pnav .lb{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
+.pnav .tt{font-family:var(--fd);font-weight:700;font-size:var(--t-h3);line-height:1.05;letter-spacing:var(--fd-track)}
 .pnav a:hover .tt,.pnav a:focus-visible .tt{color:var(--fluoro)}
 .pnav span.empty{border-top:1px solid rgba(var(--deep-rgb),.12)}
 @media(max-width:640px){.pnav{grid-template-columns:1fr}.pnav a.nx{text-align:left}}
-
-/* hero doors — the deep routes, named in the hero itself */
-.doors{margin-top:1.7rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:clamp(.75rem,1.5vw,1.15rem);max-width:30em}
-.door{display:grid;align-content:start;gap:.28rem;text-decoration:none;
-  padding-top:.65rem;border-top:1px solid var(--deep)}
-.door .dn{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
-.door .dl{font-family:var(--fd);font-weight:700;font-size:var(--t-body);line-height:1.06}
-.door .dd{font-size:var(--xs);font-family:var(--fb);letter-spacing:0;text-transform:none;line-height:1.4;opacity:.72}
-.door .dn::after{content:"";display:block;width:0;height:2px;background:var(--fluoro);
-  margin-top:.35rem;transition:width 300ms var(--ease)}
-.door:hover .dn::after,.door:focus-visible .dn::after{width:100%}
-@media(max-width:900px){
-  .doors{grid-template-columns:1fr;gap:0;max-width:none;margin-top:1.1rem;
-    background:var(--cream);padding:.2rem .9rem .5rem;border-left:4px solid var(--deep)}
-  .door{padding:.6rem 0}
-}
-.morebtn.hub{text-decoration:none;border-bottom-color:var(--deep);white-space:nowrap;
-  transition:border-bottom-color 200ms var(--ease)}
-.morebtn.hub:hover{border-bottom-color:var(--fluoro)}
 
 /* ============================================================
    WORK PLATES — the visual slot for each project.
@@ -951,11 +756,11 @@ a.wrow:hover .go::after{padding-left:.25em}
 .plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--deep);
   border:2px solid var(--deep);display:grid;isolation:isolate}
 .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.plate .pw{font-family:var(--fd);font-weight:800;text-transform:uppercase;
-  color:var(--cream);line-height:.8;letter-spacing:-.035em;margin:0;z-index:1;
+.plate .pw{font-family:var(--fd);font-weight:700;text-transform:uppercase;
+  color:var(--cream);line-height:.8;letter-spacing:var(--fd-track);margin:0;z-index:1;
   font-size:var(--t-h2)}
 .plate .pm{position:absolute;z-index:2;font-family:var(--fu);font-size:var(--t-small);
-  letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+  letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 /* the halftone the rest of the system already uses */
 .plate::after{content:"";position:absolute;inset:0;z-index:2;opacity:.09;pointer-events:none;
   background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 1.15px);background-size:5px 5px}
@@ -963,7 +768,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* 01 — the V is the hanger rail. Centred, oversized initial. */
 .p-vastr{background:var(--deep)}
 .p-vastr .pw{align-self:center;justify-self:center;text-align:center}
-.p-vastr .pw b{font-size:2.1em;line-height:.7;display:block;font-weight:800}
+.p-vastr .pw b{font-size:2.1em;line-height:.7;display:block;font-weight:700}
 .p-vastr .pm{left:.6rem;bottom:.5rem;color:var(--cream)}
 
 /* 02 — the campaign is about leaving the feed, so the words walk off it. */
@@ -996,7 +801,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 
 /* 06/07 — not built yet. The plate says so rather than pretending. */
 .p-soon{background:transparent;border:2px dashed rgba(var(--deep-rgb),.4);place-items:center}
-.p-soon .pw{color:var(--deep);opacity:.35;font-size:var(--t-body);
+.p-soon .pw{color:var(--deep);opacity:.82;font-size:var(--t-body);
   letter-spacing:.06em;font-family:var(--fu);font-weight:400;text-align:center;padding:0 .8rem}
 .p-soon::after{display:none}
 
@@ -1006,6 +811,7 @@ a.wrow:hover .go::after{padding-left:.25em}
   .wrow .aside{grid-column:3;justify-items:start;text-align:left;padding-top:.6rem;
     grid-auto-flow:column;justify-content:start;gap:1.2rem;align-items:baseline}}
 @media(max-width:760px){.wrow{grid-template-columns:3rem minmax(0,1fr)}
+  .wrow > :not(.n){grid-column:2} /* everything but the number in the wide column */
   .wrow .plate{grid-column:2;margin-bottom:.9rem}
   .wrow .aside{grid-column:2}}
 
@@ -1034,24 +840,6 @@ a.wrow:hover .go::after{padding-left:.25em}
    keep their light-mode values, so dark mode still has two grounds and a
    rhythm instead of one flat night. Fluoro does not change. Ink and the
    type tone are the v7 values, so Proof and these sections agree. */
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]):not(.skin-quiet){
-    --cream:#0E1223; --deep:#E6E0D2; --cream-rgb:14,18,35; --deep-rgb:230,224,210;
-    --ground:var(--cream); --text:var(--deep);
-  }
-  :root:not([data-theme="light"]):not(.skin-quiet) :is(.work,.dump,.teaser-sec.dark,.vinyl-deck){
-    --cream:#EFE2BA; --deep:#1F2A5C; --cream-rgb:239,226,186; --deep-rgb:31,42,92;
-  }
-}
-:root[data-theme="dark"]:not(.skin-quiet){
-  --cream:#0E1223; --deep:#E6E0D2; --cream-rgb:14,18,35; --deep-rgb:230,224,210;
-  --ground:var(--cream); --text:var(--deep);
-}
-:root[data-theme="dark"]:not(.skin-quiet) :is(.work,.dump,.teaser-sec.dark,.vinyl-deck){
-  --cream:#EFE2BA; --deep:#1F2A5C; --cream-rgb:239,226,186; --deep-rgb:31,42,92;
-}
-
-
 /* ---------- phones: headers stack, nothing outgrows the screen ----------
    Section labels grew from 10px to the 14px floor, so the side-label column
    squeezed long headlines past the edge. Under 640px the label sits above
@@ -1085,11 +873,10 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */
-.ticker .head,.saygap,.worked-k,.worked-ctx,.worked-gap,.xset i,.recgap,.contact .no,.shead .no,.door .dn{opacity:.8}
+   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.worked-ctx,.worked-gap,.xset i,.recgap,.contact .no,.shead .no{opacity:.82}
 .proof .no,.proof .who{color:var(--p-ink);opacity:1}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
-.wk-note .gap{color:#FF6A4D}
+.wk-note .gap{color:var(--accent-type)}
 
 /* ---------- work covers: static, with a state change on hover ----------
    Decided 18 Sep 2026: no screen recordings. The cover stays; a bar rises
@@ -1106,7 +893,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 .wk-tile:is(:hover,:focus-visible) .wk-poster{transform:translateY(-2.9rem)}
 .wk-tile:is(:hover,:focus-visible) .wk-open span{transform:translateX(4px)}
 .wk-label span{transition:color var(--d-1) ease}
-.wk-tile:is(:hover,:focus-visible) .wk-label span:first-child{color:#FF6A4D}
+.wk-tile:is(:hover,:focus-visible) .wk-label span:first-child{color:var(--accent-type)}
 
 @media (prefers-reduced-motion:reduce){.wk-open,.wk-open span,.wk-poster{transition:none}}
 /* labels: name and status each stay on one line; status drops below if short of room */
@@ -1121,17 +908,17 @@ a.wrow:hover .go::after{padding-left:.25em}
 .stance{padding:var(--sec) 0 0}
 .stance-body{display:grid;gap:var(--s-5);max-width:40em;margin:var(--s-6) 0 0}
 .stance-body p{margin:0;font-size:var(--t-body);line-height:var(--lh-body)}
-.stance-body .stance-lede{font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.25}
+.stance-body .stance-lede{font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.25;letter-spacing:var(--fd-track)}
 .beliefs{margin:var(--s-8) 0 0;border-top:1px solid var(--deep);padding-top:var(--s-5)}
-.beliefs-k{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.8;margin:0 0 var(--s-5)}
+.beliefs-k{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
 .beliefs-list{list-style:none;margin:0;padding:0;counter-reset:b}
 .beliefs-list li{counter-increment:b;display:grid;grid-template-columns:3.2rem minmax(0,1fr);align-items:baseline;
   padding:var(--s-4) 0;border-bottom:1px solid rgba(var(--deep-rgb),.25);
-  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.2;letter-spacing:-.01em}
+  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
 .beliefs-list li::before{content:counter(b,decimal-leading-zero);font-family:var(--fu);font-size:var(--t-small);
   font-weight:400;letter-spacing:.04em;opacity:.8}
-.beliefs-list li:last-child{color:var(--fluoro-deep,#C0301A)}
-html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
+.beliefs-list li:last-child{color:var(--fluoro-deep,var(--accent-type))}
+
 
 /* ============================================================
    IDEAS: the magazine (built 18 Sep 2026)
@@ -1143,7 +930,6 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
    Phones: a swipe track, one page at a time. No JS: pages stack.
    ============================================================ */
 .mag-head .h1,.mag-head h1{max-width:14em}
-.mag-how{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;opacity:.82;margin:var(--s-4) 0 0}
 .mag-wrap{padding-bottom:var(--sec)}
 .mag{position:relative;margin:var(--s-6) auto 0}
 .mag-book{position:relative;display:grid;gap:var(--s-6)}
@@ -1152,8 +938,8 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
 .mag-page{position:relative;container-type:inline-size;overflow:hidden;background:var(--cream);color:var(--deep);
   aspect-ratio:3/4;padding:var(--s-7) var(--s-7) var(--s-8);display:flex;flex-direction:column;border:1px solid var(--deep)}
 .pg-kick{font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-3)}
-.pg-title{font-family:var(--fd);font-weight:800;font-size:clamp(1.75rem,8.4cqw,var(--t-h2));line-height:1.02;
-  letter-spacing:-.025em;margin:0 0 var(--s-5);max-width:14ch}
+.pg-title{font-family:var(--fd);font-weight:700;font-size:clamp(1.75rem,8.4cqw,var(--t-h2));line-height:1.02;
+  letter-spacing:var(--fd-track);margin:0 0 var(--s-5);max-width:14ch}
 .pg-body{font-size:var(--t-body);line-height:var(--lh-body);max-width:24em;margin:0 0 var(--s-5)}
 .pg-folio{position:absolute;bottom:var(--s-5);right:var(--s-7);font-size:var(--t-small);opacity:.82}
 .pg-link{margin-top:auto;align-self:flex-start;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
@@ -1167,16 +953,22 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
 .pg-cover{padding:0;background:var(--cream)}
 .cv-top{position:relative;z-index:3;display:flex;justify-content:space-between;padding:4cqw 5.5cqw 0;
   font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase}
-.cv-photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:cover;object-position:50% 30%}
-.cv-mast{position:relative;z-index:2;margin:0;padding:0 3cqw;font-family:var(--fd);font-weight:800;
-  font-size:31cqw;line-height:.78;letter-spacing:-.06em;color:var(--deep)}
+.cv-photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:cover;object-position:50% 30%;
+  filter:grayscale(1) contrast(1.05) brightness(1.4)}
+.pg-cover .cv-by{color:var(--cream)}
+/* the orange duotone predates the retro palette: set it back to one ink and
+   print it red, the way a two-colour newsstand cover would */
+.pg-cover{isolation:isolate}
+.pg-cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;background:var(--fluoro);mix-blend-mode:multiply;pointer-events:none;z-index:1}
+.cv-mast{position:relative;z-index:2;margin:0;padding:0 3cqw;font-family:var(--fd);font-weight:700;
+  font-size:31cqw;line-height:.78;letter-spacing:var(--fd-track);color:var(--deep)}
 .cv-by{position:relative;z-index:3;display:flex;align-items:center;gap:var(--s-2);margin:2cqw 0 0 5.5cqw;
   font-size:var(--t-small)}
 .cv-by img{height:9cqw;width:auto}
 .cv-lines{position:absolute;z-index:3;left:5.5cqw;bottom:5.5cqw;list-style:none;margin:0;padding:0;display:grid;gap:var(--s-2)}
 .cv-lines li{display:flex;align-items:baseline;gap:var(--s-3);background:var(--cream);color:var(--deep);
-  padding:var(--s-1) var(--s-3);font-family:var(--fd);font-weight:800;font-size:clamp(.95rem,4.4cqw,1.375rem);
-  line-height:1.15;width:fit-content;max-width:78cqw}
+  padding:var(--s-1) var(--s-3);font-family:var(--fd);font-weight:700;font-size:clamp(.95rem,4.4cqw,1.375rem);
+  line-height:1.15;width:fit-content;max-width:78cqw;letter-spacing:var(--fd-track)}
 .cv-lines .mono{font-size:var(--t-small);font-weight:400;opacity:.82;flex:none}
 .cv-star{position:absolute;z-index:3;right:5cqw;top:27cqw;width:17cqw;height:auto;transform:rotate(12deg)}
 
@@ -1187,17 +979,17 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
   padding:var(--s-3) 0;border-bottom:1px solid rgba(var(--cream-rgb),.4);color:inherit;text-decoration:none;
   transition:padding var(--d-2) var(--e-out),background var(--d-1) ease}
 .toc-n{grid-area:n;font-size:var(--t-small);opacity:.82;padding-top:.3em}
-.toc-t{grid-area:t;font-family:var(--fd);font-weight:800;font-size:clamp(1rem,4.6cqw,1.375rem);line-height:1.15}
+.toc-t{grid-area:t;font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.6cqw,1.375rem);line-height:1.15;letter-spacing:var(--fd-track)}
 .toc-k{grid-area:k;font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;opacity:.82}
 .toc a:hover,.toc a:focus-visible{padding-left:var(--s-3);background:rgba(var(--cream-rgb),.08)}
 
 /* 3. manifesto */
 .mani{list-style:none;margin:0;padding:0;counter-reset:m;display:grid;gap:var(--s-3)}
 .mani li{counter-increment:m;display:grid;grid-template-columns:2.6rem minmax(0,1fr);align-items:baseline;
-  font-family:var(--fd);font-weight:800;font-size:clamp(1rem,4.7cqw,1.5rem);line-height:1.12;letter-spacing:-.015em;
+  font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.7cqw,1.5rem);line-height:1.12;letter-spacing:var(--fd-track);
   padding-bottom:var(--s-3);border-bottom:1px solid rgba(var(--deep-rgb),.25)}
 .mani li::before{content:counter(m,decimal-leading-zero);font-family:var(--fu);font-weight:400;font-size:var(--t-small);opacity:.82}
-.mani li:last-child{color:#C0301A;border-bottom:0}
+.mani li:last-child{color:var(--accent-type);border-bottom:0}
 
 /* 4. projects */
 .briefs{list-style:none;margin:0;padding:0;border-top:1px solid var(--deep)}
@@ -1205,25 +997,25 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
 .briefs a,.briefs .bf-soon{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);flex-wrap:wrap;
   padding:var(--s-2) 0;color:inherit;text-decoration:none}
 .briefs .bf-soon{padding:var(--s-2) 0}
-.bf-t{font-family:var(--fd);font-weight:800;font-size:clamp(.95rem,4cqw,1.25rem);line-height:1.15}
+.bf-t{font-family:var(--fd);font-weight:700;font-size:clamp(.95rem,4cqw,1.25rem);line-height:1.15;letter-spacing:var(--fd-track)}
 .bf-m{font-size:var(--t-small);opacity:.82;white-space:nowrap}
 .briefs a{transition:color var(--d-1) ease,padding var(--d-2) var(--e-out)}
-.briefs a:hover,.briefs a:focus-visible{color:#C0301A;padding-left:var(--s-2)}
-.briefs .bf-soon .bf-t{opacity:.7}
+.briefs a:hover,.briefs a:focus-visible{color:var(--accent-type);padding-left:var(--s-2)}
+.briefs .bf-soon .bf-t{opacity:.82}
 
 /* 5. process: the accent plane, ink type (4.8:1; cream would be 3.0:1) */
-.pg-process{background:var(--fluoro);color:#0E1223;border-color:#0E1223}
+.pg-process{background:var(--fluoro);color:#0D1633;border-color:#0D1633}
 .pg-process .pg-kick,.pg-process .pg-folio{opacity:1}
 .steps5{list-style:none;margin:0 0 var(--s-5);padding:0;display:grid;gap:var(--s-1)}
-.steps5 li{display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--fd);font-weight:800;
-  font-size:clamp(1.1rem,5.6cqw,1.75rem);line-height:1.1;letter-spacing:-.02em}
+.steps5 li{display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--fd);font-weight:700;
+  font-size:clamp(1.1rem,5.6cqw,1.75rem);line-height:1.1;letter-spacing:var(--fd-track)}
 .steps5 .mono{font-size:var(--t-small);font-weight:400}
 
 /* 7. letters: deep, the locked CTA at display size */
 .pg-letters{background:var(--deep);color:var(--cream);border-color:var(--deep)}
-.lt-cta{font-family:var(--fd);font-weight:800;font-size:clamp(1.8rem,10cqw,3.4rem);line-height:.98;letter-spacing:-.03em;margin:0 0 var(--s-6)}
-.lt-mail{font-family:var(--fd);font-weight:800;font-size:clamp(1rem,4.8cqw,1.5rem);color:inherit;
-  text-decoration:none;border-bottom:3px solid var(--fluoro);align-self:flex-start;overflow-wrap:anywhere}
+.lt-cta{font-family:var(--fd);font-weight:700;font-size:clamp(1.8rem,10cqw,3.4rem);line-height:.98;letter-spacing:var(--fd-track);margin:0 0 var(--s-6)}
+.lt-mail{font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.8cqw,1.5rem);color:inherit;
+  text-decoration:none;border-bottom:3px solid var(--fluoro);align-self:flex-start;overflow-wrap:anywhere;letter-spacing:var(--fd-track)}
 .pg-letters .pg-link{margin-top:auto}
 
 /* 8. back cover */
@@ -1264,14 +1056,14 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6A4D}
 @media (prefers-reduced-motion:reduce){
   .mag-leaf,.mag.is-bound .mag-book,.toc a,.briefs a,.pg-link span{transition:none}
 }
-html[data-theme="dark"] .mani li:last-child{color:#FF6A4D}
-html[data-theme="dark"] .briefs a:hover,html[data-theme="dark"] .briefs a:focus-visible{color:#FF6A4D}
+
+
 
 @media (max-width:899px){.mag-page{padding:var(--s-6) var(--s-5) var(--s-8)}.pg-folio{right:var(--s-5)}}
 
 /* ============================================================
    HOME IDEAS: the desk (18 Sep 2026)
-   The real issue, fetched from /ideas/ by home.js, lying on the same
+   The real issue, set in the home page itself, lying on the same
    cream as the hero with the hero's cut-outs scattered round it. Props
    sit at their own parallax depth (--py from home.js) and never take
    pointer events. Sticker slots stay hidden until tool icons arrive.
@@ -1305,3 +1097,198 @@ html[data-theme="dark"] .briefs a:hover,html[data-theme="dark"] .briefs a:focus-
 }
 @media (prefers-reduced-motion:reduce){.prop{transform:rotate(var(--rot,0deg))}}
 .mag-count{white-space:nowrap}
+
+
+
+
+
+/* ---------- the magazine, as a magazine (21 Sep 2026) ----------
+   Newsstand furniture, all of it doing a job a real cover does: the volume
+   line and cover price say "periodical", the starburst says "new", the
+   barcode says "printed". Inside, a running head and a shade at the spine.
+   Clash, marked: the veto list bans badges. The burst is a cover convention,
+   not a UI chip; picked on relevance to a magazine, and it appears once. */
+.cv-burst{position:absolute;z-index:4;right:5cqw;top:24cqw;width:21cqw;aspect-ratio:1;display:grid;place-items:center;
+  background:var(--yellow);color:var(--ink);transform:rotate(12deg);
+  clip-path:polygon(50% 0,61% 16%,79% 9%,79% 28%,97% 32%,86% 48%,100% 62%,81% 69%,84% 88%,65% 84%,50% 100%,39% 84%,20% 91%,19% 72%,0 66%,13% 50%,3% 33%,21% 28%,22% 9%,39% 16%)}
+.cv-burst span{font-family:var(--fd);font-weight:800;font-size:3.3cqw;line-height:.95;text-align:center;text-transform:uppercase;letter-spacing:var(--fd-track)}
+.cv-code{position:absolute;z-index:4;right:5.5cqw;bottom:5.5cqw;display:grid;gap:.6cqw;padding:1.6cqw 1.8cqw 1.2cqw;background:#fff;color:var(--ink)}
+.cv-code i{display:block;width:17cqw;height:8cqw;
+  background:repeating-linear-gradient(90deg,var(--ink) 0 .35cqw,transparent .35cqw .7cqw,var(--ink) .7cqw 1.4cqw,transparent 1.4cqw 1.7cqw,var(--ink) 1.7cqw 1.9cqw,transparent 1.9cqw 2.6cqw)}
+.cv-code .mono{font-size:1.9cqw;letter-spacing:.08em;text-align:center}
+/* running head on every inside page */
+.mag-page:not(.pg-cover):not(.pg-back)::before{content:"Ideas \00B7  Issue 01";position:absolute;top:var(--s-5);right:var(--s-7);
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;opacity:.7;pointer-events:none}
+/* the spine: each page darkens a touch toward the binding */
+.mag.is-bound .mag-leaf > .mag-page:not(.is-back){box-shadow:inset 22px 0 26px -20px rgba(13,22,51,.35)}
+.mag.is-bound .mag-leaf > .mag-page.is-back{box-shadow:inset -22px 0 26px -20px rgba(13,22,51,.35)}
+@media (max-width:899px){.mag-page:not(.pg-cover):not(.pg-back)::before{right:var(--s-5)}}
+
+/* ============================================================
+   HOME: EVERY SECTION ITS OWN PERSONALITY (21 Sep 2026)
+   Shrey: "the homepage sections should differ by personality". Each one
+   gets a different device, so scrolling reads as turning to a new page
+   rather than more of the same:
+     hero      assembly: the cut-outs snap on, the print sits still
+     quotes    a hand-drawn tape between the hero and the page, scroll-driven
+     bands     scroll velocity drives the crossing tapes
+     proof     a blue comic panel on Ben-Day dots, figures roll up in yellow
+     work      pinned collage, scrubbed by scroll
+     ideas     the magazine: pages turn on a spine
+     me        the paragraph inks in word by word as you read it
+     contact   the ask, with a highlighter pulled under "always"
+   ============================================================ */
+
+/* ---------- proof: the comic panel ----------
+   Yellow, not blue: the work section below is already a blue ground, and two
+   blue panels in a row would read as one. Blue Ben-Day dots, ink type (10.6),
+   blue figures (6.2). Figures are set wholly in Geist: the trial heading
+   face has no digits, and mixing faces inside a number misaligns it. */
+section.proof.comic{background-color:var(--yellow);color:var(--ink);border-color:var(--ink);
+  background-image:radial-gradient(rgba(23,60,168,.2) 1.3px,transparent 1.8px);background-size:11px 11px}
+.proof.comic h2{color:var(--ink)}
+.proof.comic .no,.proof.comic .stint .who{color:var(--ink);opacity:1}
+.proof.comic .lede,.proof.comic .fig .l{color:var(--ink)}
+.proof.comic .fig .n{color:#173CA8;font-family:var(--fb);font-weight:700;letter-spacing:-.01em}
+.proof.comic .stint{border-top:3px solid var(--ink)}
+.proof.comic .proofgap{border-color:rgba(13,22,51,.5);color:var(--ink)}
+
+/* ---------- me: the paragraph inks in as you read ---------- */
+[data-scrub] .w{opacity:.42;transition:opacity 160ms linear}
+[data-scrub] .w.on{opacity:1}
+@media (prefers-reduced-motion:reduce){[data-scrub] .w{opacity:1}}
+
+/* ---------- contact: a highlighter under "always" ---------- */
+.contact .cta em,.contact .cta .hl{font-style:normal;background:linear-gradient(var(--yellow),var(--yellow)) 0 88% / 0% 34% no-repeat;
+  transition:background-size 900ms var(--e-out) 400ms}
+.contact .cta.lit em,.contact .cta.lit .hl{background-size:100% 34%}
+
+/* icons: Phosphor (MIT, phosphoricons.com), bold weight, inlined so they take
+   the text colour. Sources in assets/icons/. They sit on the text baseline at
+   the text's own size, and only where they add meaning: direction, medium. */
+.ico{display:inline-block;width:1em;height:1em;vertical-align:-.14em;flex:none}
+.hbtn .ico{margin-left:var(--s-2);transition:transform var(--d-1) var(--e-out)}
+.hbtn:hover .ico,.hbtn:focus-visible .ico{transform:translate(2px,2px)}
+.hmail .ico{margin-right:var(--s-1)}
+@media (prefers-reduced-motion:reduce){.hbtn .ico{transition:none}}
+/* the cover furniture must never crowd the cover lines: the barcode sits
+   top-left under the masthead on small covers, and the dateline stays on one row */
+.cv-top{white-space:nowrap;gap:var(--s-4)}
+@container (max-width:520px){
+  .cv-top{font-size:2.6cqw}
+  .cv-code{bottom:auto;top:58cqw;right:auto;left:5.5cqw;transform:rotate(-3deg)}
+  .cv-code i{width:15cqw;height:6cqw}
+  .cv-code .mono{font-size:2.4cqw}
+  .cv-burst{top:30cqw;width:24cqw}
+  .cv-burst span{font-size:3.8cqw}
+}
+
+/* ---------- the quote tape (21 Sep 2026) ----------
+   A strip of yellow tape, cut by hand and stuck on at an angle across the
+   seam between the hero and the rest of the page. Its edges are drawn, not
+   ruled: a wobbly ink line top and bottom. Quotes are set in the display face
+   in ink (11.0 on yellow), separated by hand-drawn stars. */
+.handtape{position:relative;z-index:5;margin-top:calc(-1 * var(--s-8));padding:var(--s-6) 0 var(--s-5);overflow:hidden} /* straddles the hero's bottom edge: the seam between landing and scroll */
+.ht-band{transform:rotate(-2deg);margin:0 -2vw}
+.ht-tape{position:relative;overflow:hidden;background:var(--yellow);color:var(--ink);padding:var(--s-4) 0}
+.ht-tape::before,.ht-tape::after{content:"";position:absolute;left:0;right:0;height:10px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='10' viewBox='0 0 240 10'%3E%3Cpath d='M0 5c14-3 26 2 40 0s24-4 38-1 30 3 44 0 22-3 36-1 26 4 42 1 26-2 40 1' fill='none' stroke='%230D1633' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 50%/240px 10px}
+.ht-tape::before{top:1px}
+.ht-tape::after{bottom:1px;transform:scaleX(-1)}
+.ht-tape .xtrack{display:flex;width:max-content;will-change:transform}
+.ht-set{display:flex;align-items:center;gap:var(--s-5);margin:0;padding:0 var(--s-5) 0 0;list-style:none}
+.ht-set li{white-space:nowrap;font-family:var(--fd);font-weight:800;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
+.ht-set q{quotes:"\201C" "\201D"}
+.ht-mark{display:block;width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round;transform:rotate(-8deg)}
+.ht-sep:nth-child(4n) .ht-mark{transform:rotate(14deg) scale(.85)}
+
+@media (max-width:640px){.ht-set li{font-size:var(--t-body)}.ht-mark{width:22px;height:22px}}
+
+/* ---------- readability pass (21 Sep 2026) ----------
+   Muted text is now opacity .82 everywhere, the lowest that holds 4.5:1 on
+   cream and on ink; nothing smaller than 14px; no small type straight on a
+   photograph or on red. */
+.cv-top{font-size:max(14px,2.6cqw)}
+@container (max-width:520px){.cv-top{font-size:max(12px,2.6cqw)}}
+.pg-cover .cv-by{color:var(--deep);background:var(--cream);width:fit-content;padding:.4cqw 1.6cqw .4cqw 1.2cqw}
+.pg-cover .cv-by .mono{font-size:max(14px,2.4cqw)}
+/* the dateline wraps on small covers rather than shrinking below 14px */
+
+@container (max-width:520px){.cv-top{font-size:14px;white-space:normal;flex-wrap:wrap;row-gap:0}}
+/* an in-development row is marked by its dashed tag and "Writing", not by
+   fading the whole row: fading twice put its text at 3.6:1 */
+.wrow.soon.rv.in{opacity:1}
+/* plate labels sit on a cream tab, never straight on red or blue */
+.plate .pm{opacity:1;background:var(--cream);color:var(--ink);padding:2px 6px}
+/* the last belief is the red one; on ink it takes the lifted red (6.4) */
+html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
+
+/* ticker pause: small, plain, next to the thing it stops */
+.tick-toggle{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;padding:0 var(--s-3);margin:0;
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
+  background:none;color:var(--deep);border:1px solid currentColor;cursor:pointer}
+.tick-toggle:hover,.tick-toggle:focus-visible{background:var(--deep);color:var(--cream)}
+.tick-toggle[aria-pressed="true"]{background:var(--deep);color:var(--cream)}
+.ht-foot{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--s-4) var(--s-6);margin-top:var(--s-5)}
+.ht-foot .saygap{margin:0;flex:1 1 30em}
+.tick-bar{display:flex;justify-content:flex-end;margin-bottom:var(--s-4)}
+
+/* ---------- loader ----------
+   A cold open, not a spinner. Mono leader in the corners, the artefact
+   revealed through a widening letterbox, then the star punches and the
+   whole thing wipes up into the hero. It also covers the hero image
+   decode, so it is doing work as well as setting a tone.
+   Restored 22 Sep 2026 at Shrey's request; now plays on every load. */
+.loader{position:fixed;inset:0;z-index:120;background:var(--cream);
+  display:grid;place-items:center;transition:clip-path 620ms var(--ease)}
+.loader.gone{clip-path:inset(0 0 100% 0);pointer-events:none}
+
+.lgrid{position:relative;width:min(88vw,var(--max));height:min(72vh,620px);
+  display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:1rem}
+.lmeta{font-family:var(--fu);font-size:var(--xs);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--deep);opacity:0;transition:opacity 420ms var(--ease)}
+.lmeta.in{opacity:.82}
+.lmeta.tl{grid-row:1;grid-column:1}
+.lmeta.tr{grid-row:1;grid-column:2;text-align:right}
+.lmeta.bl{grid-row:3;grid-column:1;align-self:end}
+.lmeta.br{grid-row:3;grid-column:2;align-self:end;text-align:right}
+
+/* the letterbox: a slit that opens to reveal the photograph.
+   shares the centre cell with the rule, so the rule appears to part */
+.lband{grid-row:2;grid-column:1/-1;position:relative;overflow:hidden;align-self:center;
+  height:0;transition:height 900ms var(--ease)}
+.lband.open{height:100%}
+.lband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:52% 34%;transform:scale(1.14);transition:transform 1400ms var(--ease)}
+.lband.open img{transform:scale(1)}
+.lband::after{content:"";position:absolute;inset:0;background:var(--fluoro);
+  mix-blend-mode:multiply;opacity:.42;transition:opacity 700ms var(--ease)}
+.lband.warm::after{opacity:0}
+
+/* a hairline that draws across before the band opens */
+.lrule{grid-row:2;grid-column:1/-1;align-self:center;height:2px;background:var(--deep);
+  width:0;transition:width 620ms var(--ease);position:relative;z-index:2;justify-self:start}
+.lrule.draw{width:100%}
+.lrule.part{opacity:0;transition:opacity 300ms var(--ease)}
+
+.lstar{position:absolute;width:clamp(90px,12vw,150px);opacity:0;
+  transition:opacity 220ms var(--ease),transform 620ms var(--ease);z-index:3}
+.lstar.show{opacity:1}
+.lstar.blow{transform:scale(5) rotate(24deg);opacity:0}
+
+.lcount{font-variant-numeric:tabular-nums}
+
+@media(max-width:900px){.lgrid{height:60vh}}
+@media (prefers-reduced-motion:reduce){.loader{display:none}}
+
+/* ---------- recruiter hooks (22 Sep 2026) ----------
+   Copy written by Claude, flagged for Shrey's review (HARD RULE 6): a fast
+   lane in the hero, a one-line value claim over each proof stint, and the
+   roles he wants, stated once, above the ask. Every claim sits on a verified
+   figure; nothing here adds a number. */
+.fastlane{margin:var(--s-3) 0 0;font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.85)}
+.fastlane a{color:var(--deep);font-weight:600;text-decoration:underline;text-decoration-color:var(--fluoro);text-underline-offset:3px;text-decoration-thickness:2px}
+.fastlane a:hover,.fastlane a:focus-visible{text-decoration-color:var(--deep)}
+.proof .hook{margin:0 0 var(--s-4);font-family:var(--fd);font-weight:800;font-size:var(--t-body);line-height:1.25;letter-spacing:var(--fd-track);color:var(--ink);max-width:18em}
+.lookingfor{margin:var(--s-5) 0 var(--s-6);max-width:36em;font-size:var(--t-body);line-height:1.5;color:var(--deep)}
+.lookingfor b{font-weight:600}

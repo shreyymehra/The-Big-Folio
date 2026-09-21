@@ -25,10 +25,55 @@
   --s-1:4px;  --s-2:8px;  --s-3:12px; --s-4:16px; --s-5:24px;
   --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
 
+  /* PALETTE AND FAMILIES. The locked three colours and the three faces.
+     Defined here, not in site.css, because the case pages load only this
+     file and tw.css. */
+  --cream:#EFE2BA; --deep:#173CA8; --fluoro:#E8251F;
+  --cream-rgb:239,226,186; --deep-rgb:23,60,168;
+  --fd:'Milligram Macro','Geist',system-ui,sans-serif;
+  --fd-track:.018em; /* Macro is spaced for logos; at heading sizes it needs air */
+  --fb:'Geist',system-ui,sans-serif;
+  --fu:'Milligram Light','Geist',system-ui,sans-serif;
+  --pad:clamp(1.2rem,4vw,3rem); --max:1240px;
+
   /* MOTION. Three speeds, two curves. */
   --d-press:90ms;  --d-1:180ms;  --d-2:420ms;  --d-3:700ms;
   --e-out:cubic-bezier(.16,1,.3,1);
   --e-spring:cubic-bezier(.34,1.56,.64,1);   /* the release overshoot */
+}
+
+
+/* ---------- PALETTE, RETRO (21 Sep 2026, Shrey: "a bit like Superman's") ----------
+   The comic-book primaries, aged to newsprint so they sit on cream paper
+   rather than shouting on white. Blue carries the type, red is the surface,
+   yellow is the rare highlight. Measured on cream #EFE2BA:
+     --deep  #173CA8  cape blue      7.23  body type, rules, planes
+     --accent #E8251F cape red       3.45  planes and type 24px and over ONLY
+     --accent-type #B8141A           5.16  red as SMALL type
+     --yellow #FFC21A shield yellow        highlight planes; ink on it 10.6
+     --ink   #0D1633  print black         type on red or yellow planes
+     --riso  #E00080  the star artefact's own ink; the star and nothing else
+   Small type never sits directly on red (ink 3.55, cream 3.88 both fail):
+   it gets a cream label under it. */
+:root{
+  --accent:#E8251F;
+  --accent-type:#B8141A;
+  --yellow:#FFC21A;
+  --ink:#0D1633;
+  --riso:#E00080;
+}
+/* DARK (rebuilt 22 Sep 2026). The toggle used to flip a set of variables the
+   home, work, me and contact pages never read, so it only recoloured the nav.
+   Now the two base tokens swap: the cream ground becomes night blue and the
+   blue type becomes paper, so every rule built on them follows. Red and
+   yellow are unchanged. Measured on #101830: paper 13.71, red 3.94 (large
+   type only, as in light), lifted red 6.29 for small accent type, yellow 10.86.
+   Case pages keep their own scoped dark set in assets/tw/input.css. */
+html[data-theme="dark"]{
+  --accent-type:#FF6B5E;
+  --cream:#101830; --deep:#EDE3C4;
+  --cream-rgb:16,24,48; --deep-rgb:237,227,196;
+  color-scheme:dark;
 }
 
 /* ---------- navigation, every page ----------
@@ -44,13 +89,11 @@ html body nav .links a{font-size:var(--t-small)}
   html body nav .theme-toggle{order:2}
   html body nav .links{display:flex;order:3;flex-basis:100%;min-width:0;gap:var(--s-4);justify-content:flex-start;flex-wrap:wrap}
   html body nav .links a{padding:var(--s-3) 0;letter-spacing:.02em}
-  /* pages clear the taller two-row nav */
-  html body .stage{padding-top:calc(var(--s-10) - var(--s-1))}
 }
 
 /* ---------- focus: always visible, never the browser default ---------- */
 :where(a,button,summary,[role="button"],[tabindex]):focus-visible{
-  outline:2px solid #F13C20;outline-offset:3px}
+  outline:2px solid var(--accent);outline-offset:3px}
 
 /* ---------- press feedback ----------
    Every click answers. assets/feel.js springs the target itself (it
@@ -60,7 +103,7 @@ html body nav .links a{font-size:var(--t-small)}
 .is-pressed{filter:brightness(.94)}
 
 /* the email address copies itself as well as opening mail, and says so */
-.copied-note{display:inline-block;margin-left:var(--s-3);font-family:'Martian Mono',monospace;
+.copied-note{display:inline-block;margin-left:var(--s-3);font-family:var(--fu);
   font-size:var(--t-small);letter-spacing:.04em;opacity:0;transform:translateY(4px);
   transition:opacity var(--d-1) var(--e-out),transform var(--d-2) var(--e-spring);vertical-align:middle}
 .copied-note.on{opacity:.8;transform:none}
@@ -77,35 +120,140 @@ html.js-clip .clip.in{clip-path:inset(-10% -5% -20% -5%);transform:none}
   .copied-note{transition:none}
 }
 
-/* case pages: padding shorthands on .chead, .top and .cbody zeroed the side
-   padding .wrap gives them, so on phones all copy sat on the screen edge.
-   Restore the gutter. */
-html body .wrap:is(.chead,.top,.cbody){padding-left:var(--pad);padding-right:var(--pad)}
-/* the case columns were set as 61.8% + 38.2% plus a gap, which only fitted
-   with no padding. Same golden split, as fractions, so gutter and gap fit. */
-@media (min-width:901px){html body .cbody{grid-template-columns:minmax(0,1.618fr) minmax(0,1fr)}}
-
-/* ---------- case pages onto the scale ----------
-   The five case pages carry their own inline styles, which load after this
-   file, so these rules use the html body prefix to outrank them. Same five
-   sizes as everywhere else: the title is H1, section headlines H2, pull
-   quotes and the standfirst H3, reading copy 18, labels 14. */
-html body{font-size:var(--t-body);line-height:var(--lh-body)}
-html body .chead h1{font-size:var(--t-h1);line-height:var(--lh-tight)}
-html body .sec h2{font-size:var(--t-h2);line-height:var(--lh-head)}
-html body :is(.stand,.pull,.cfoot a,.pnav .tt,.exec .k){font-size:var(--t-h3);line-height:1.25}
-html body :is(.sec h3,.exec .t){font-size:var(--t-body)}
-html body :is(.mono,.tag,.sec > .eyebrow,.side li a,.gapbox,nav .sig,.pnav .lb,.cfoot .allwork,.cfoot .sigline){
-  font-size:var(--t-small);letter-spacing:.06em}
-html body .sec p{max-width:38em}
-
 /* ---------- small labels hold AA at 14px ----------
    These were faded to .5-.6 opacity when they were 9-10px texture. At the
    14px floor they are reading text, and .8 is the lowest that clears 4.5:1
    on both cream and ink. The hero discipline line had a fixed colour that
    did not follow the theme. */
-html body :is(.phead .no,.pfoot .sig,.lab,.fbtn,.pm,.side li a,.meta,.no){opacity:.82}
+html body :is(.phead .no,.pfoot .sig,.lab,.fbtn,.pm,.no){opacity:.82}
 html body .fbtn[aria-pressed="true"]{opacity:1}
-html body .roleline .dl{color:rgba(var(--deep-rgb),.82)}
 html body .proof .no{opacity:1}
 
+
+/* ---------- interface guidelines pass (20 Sep 2026) ---------- */
+.skip{position:fixed;left:var(--s-3);top:var(--s-3);z-index:200;padding:var(--s-3) var(--s-4);
+  background:#0D1633;color:#EFE2BA;font-family:var(--fu);font-size:var(--t-small);
+  text-decoration:none;transform:translateY(-160%);transition:transform var(--d-1) var(--e-out)}
+.skip:focus-visible{transform:none}
+:where(h1,h2,h3,.cta,.wk-title,.pg-title,.lt-cta){text-wrap:balance}
+:where(p,li){text-wrap:pretty}
+:where(a,button,summary,[role="button"]){touch-action:manipulation}
+:where([id]){scroll-margin-top:96px}
+:where(.fig .n,.mag-count,.vinyl-by,.toc-n,.pg-folio){font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   THE ISLAND (20 Sep 2026)
+   One object at the top of every page. Expanded: name, links, theme. As the
+   reader scrolls down it contracts to the name and a live readout (the
+   section they are in, the song playing, the address just copied); scrolling
+   up, hovering, tapping or tabbing into it opens it again. Navigation never
+   leaves the screen, which is the point: the old bar hid itself on the way
+   down, exactly when a visitor was deciding whether to get in touch.
+   Clashes, marked: the veto list bans centred layouts and pills. The island
+   is both by definition; picked on reachability. The page stays asymmetric.
+   ============================================================ */
+html body nav#nav{position:fixed;top:var(--s-3);left:50%;right:auto;bottom:auto;transform:translateX(-50%);
+  display:grid;grid-template-columns:max-content max-content;align-items:center;gap:var(--s-4);width:var(--island-w,max-content);max-width:calc(100vw - var(--s-5));
+  min-height:48px;box-sizing:border-box;padding:var(--s-1) var(--s-2) var(--s-1) var(--s-5);margin:0;
+  background:#0D1633;color:#EFE2BA;border:1px solid rgba(239,226,186,.18);border-radius:999px;z-index:90;
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;
+  overflow:hidden;
+  transition:width 620ms var(--e-spring),padding 620ms var(--e-spring),background-color var(--d-1) ease}
+html[data-theme="dark"] body nav#nav{background:#173CA8}
+html body nav#nav a{color:#EFE2BA;text-decoration:none}
+html body nav#nav .sig{grid-area:1/1;font-family:var(--fu);font-size:var(--t-small);font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap;padding:var(--s-3) 0}
+html body nav#nav .nav-end{grid-area:1/2;display:flex;align-items:center;white-space:nowrap;
+  transition:opacity 260ms ease,transform 420ms var(--e-spring)}
+html body nav#nav .links{display:flex;gap:var(--s-5)}
+html body nav#nav .links a{padding:var(--s-3) 0;white-space:nowrap}
+html body nav#nav .theme-toggle{width:40px;height:40px;margin-left:var(--s-3)}
+.island-now{grid-area:1/2;display:flex;align-items:center;gap:var(--s-2);opacity:0;white-space:nowrap;pointer-events:none;
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
+  transition:opacity 260ms ease,transform 420ms var(--e-spring);transform:translateY(4px)}
+.inow-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent-type)}
+nav#nav.is-live .inow-dot{animation:inow 1.2s ease-in-out infinite}
+@keyframes inow{50%{opacity:.35}}
+html body nav#nav.is-compact .nav-end{opacity:0;transform:translateY(-6px);pointer-events:none}
+html body nav#nav.is-compact .island-now{opacity:1;transform:none;pointer-events:auto}
+html body nav#nav.is-compact{cursor:pointer;padding-right:var(--s-5)}
+html body nav#nav.is-compact:is(:hover,:focus-within) .nav-end{opacity:1;transform:none;pointer-events:auto}
+html body nav#nav.is-compact:is(:hover,:focus-within) .island-now{opacity:0;transform:translateY(4px)}
+html body nav#nav.is-compact:is(:hover,:focus-within){padding-right:var(--s-2)}
+@media (max-width:820px){
+  html body nav#nav{display:flex;left:var(--s-3);right:var(--s-3);width:auto;max-width:none;transform:none;flex-wrap:wrap;
+    row-gap:0;border-radius:24px;padding:var(--s-1) var(--s-2) var(--s-1) var(--s-4)}
+  html body nav#nav .nav-end{display:contents}
+  html body nav#nav .island-now{order:1;flex:1;min-width:0}
+  html body nav#nav .theme-toggle{order:2;margin-left:auto}
+  html body nav#nav .links{order:3;flex-basis:100%;gap:var(--s-4);max-height:56px;overflow:hidden;
+    transition:max-height var(--d-2) var(--e-spring),opacity var(--d-1) ease}
+  html body nav#nav.is-compact .links{max-height:0;opacity:0;margin:0}
+  html body nav#nav.is-compact:focus-within .links{max-height:56px;opacity:1}
+  html body nav#nav.is-compact .island-now{max-width:none}
+  html body nav#nav.is-compact .theme-toggle{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html body nav#nav,html body nav#nav .nav-end,.island-now,html body nav#nav .links{transition:none}
+  html body nav#nav{width:auto}
+  nav#nav.is-live .inow-dot{animation:none}
+}
+
+/* ---------- safe gutters (21 Sep 2026) ----------
+   Copy was reaching the window edge. Every page container now keeps a gutter
+   that also clears a notched phone's curved corners, and the fixed furniture
+   (island, record) sits inside the same safe area. */
+html body .wrap,html body .mag-wrap,html body .desk-surface{
+  padding-left:max(var(--pad),env(safe-area-inset-left,0px));
+  padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+@media (max-width:820px){
+  html body nav#nav{left:max(var(--s-3),env(safe-area-inset-left,0px));
+    right:max(var(--s-3),env(safe-area-inset-right,0px))}
+}
+html body .vinyl{right:max(clamp(.8rem,2vw,1.6rem),env(safe-area-inset-right,0px));
+  bottom:max(clamp(.8rem,2vw,1.6rem),env(safe-area-inset-bottom,0px))}
+
+/* ============================================================
+   TYPE (21 Sep 2026, at Shrey's instruction, from the files he supplied)
+   Headings    Milligram Macro ExtraBold
+   Body        Geist (Vercel, OFL, via Google Fonts), variable 300 to 700.
+               Identified from a reference Shrey supplied (slidez.social sets
+               its UI in Geist). Geist has no italic: emphasis is weight or
+               colour, never a faked slant.
+   Annotation  Milligram Light, one weight for every label and caption
+   (Body went Milligram, then Inter, then Geist, all 21 Sep, at his call.)
+   Shrey holds a licence for Milligram (22 Sep 2026); the footer credit the
+   trial licence required was removed at his instruction. The files served
+   are still the trial cuts until he supplies the licensed ones.
+   WOFF files converted from the supplied TTFs; sources are not in the repo.
+   The trial files stamp every digit "TRIAL ONLY", so both faces skip 0-9
+   (unicode-range) and numbers fall through to Geist. The full licence has
+   real figures; drop the unicode-range when those files arrive.
+   ============================================================ */
+@font-face{font-family:'Milligram Macro';font-weight:700 900;font-style:normal;font-display:swap;src:url(fonts/milligram-macro-extrabold.woff) format('woff');unicode-range:U+0000-002F,U+003A-10FFFF}
+/* annotation is one face at every weight, so a bold label never fakes a bold */
+@font-face{font-family:'Milligram Light';font-weight:100 900;font-style:normal;font-display:swap;src:url(fonts/milligram-light.woff) format('woff');unicode-range:U+0000-002F,U+003A-10FFFF}
+
+/* headings get the display tracking; the dither that used to sit here was
+   removed 21 Sep 2026 at Shrey's instruction */
+:where(main,.mag,footer) :is(h1,h2):not(.hero-name),.wk-title{letter-spacing:var(--fd-track)}
+
+/* ---------- shared across every page (moved here 21 Sep 2026 so the case
+   pages, which do not load site.css, get the same) ---------- */
+/* ---------- CROSS-PAGE TRANSITION ----------
+   The two skins meet at a navigation, so the switch must not snap.
+   View Transitions cross-fades document to document where supported and
+   is inert everywhere else, which is the right kind of enhancement: the
+   site is not relying on it to be usable. 260ms, matching the enter
+   timing used everywhere else. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:260ms;
+  animation-timing-function:cubic-bezier(.16,1,.3,1)}
+@media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+}
+/* island links: a rule draws under the one you are on or over */
+html body nav#nav .links a{position:relative;text-decoration:none}
+html body nav#nav .links a::after{content:"";position:absolute;left:0;right:100%;bottom:var(--s-2);height:2px;background:var(--accent);transition:right 220ms var(--e-out)}
+html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::after{right:0}
+@media (prefers-reduced-motion:reduce){html body nav#nav .links a::after{transition:none}}

@@ -1,22 +1,27 @@
 /* Shared behaviour for every page. Home adds assets/home.js after this
-   for the hero, ticker, loader and vinyl — those exist nowhere else. */
+   for the hero, ticker and vinyl, which exist nowhere else. */
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Melbourne local time in the home footer. The zone name comes from the
+     browser's time-zone data, so it reads AEST in winter and AEDT once
+     daylight saving starts (first Sunday in October). Updates each minute. */
+  (function(){
+    var el=document.getElementById('mel-time'); if(!el||!window.Intl) return;
+    var fmt=new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Melbourne',hour:'numeric',minute:'2-digit',hour12:true,timeZoneName:'short'});
+    function tick(){ var d=new Date(); el.textContent=fmt.format(d).replace(/\s?(am|pm)/i,function(m,x){ return ' '+x.toLowerCase(); }); el.setAttribute('datetime',d.toISOString()); }
+    tick(); setInterval(tick,60000);
+  })();
 
   /* year stamp */
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* nav: solid once scrolled, hides on the way down */
-  var nav = document.getElementById('nav'), last = 0;
+  /* reading progress: the star fills on home, the rail grows on essays.
+     The nav is the island now, driven by feel.js. */
   var rail = document.querySelector('.rail');
   addEventListener('scroll', function(){
     var y = scrollY;
-    if (nav){
-      nav.classList.toggle('solid', y > 40);
-      nav.classList.toggle('hide', y > last && y > 240);
-    }
-    last = y;
     var m = document.body.scrollHeight - innerHeight, p = m > 0 ? Math.min(1, y/m) : 0;
     var fill = document.getElementById('starfill');
     if (fill) fill.style.clipPath = 'inset(' + ((1-p)*100).toFixed(1) + '% 0 0 0)';
@@ -51,31 +56,6 @@
   stagger('.tile-q', 'in', 70);
   stagger('.prose p', 'in', 80);
 
-  /* work cards land one at a time */
-  (function(){
-    var cards = [].slice.call(document.querySelectorAll('[data-card]'));
-    if (!cards.length) return;
-    if (!('IntersectionObserver' in window)){ cards.forEach(function(c){ c.classList.add('landed'); }); return; }
-    var o = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(!e.isIntersecting) return;
-        var vis = cards.filter(function(c){ return c.offsetParent !== null; });
-        var i = vis.indexOf(e.target); if (i < 0) i = 0;
-        setTimeout(function(){ e.target.classList.add('landed'); }, reduce ? 0 : i*110);
-        o.unobserve(e.target); });
-    }, {threshold:.15, rootMargin:'0px 0px -6% 0px'});
-    cards.forEach(function(c){ o.observe(c); });
-
-    var mb = document.getElementById('moreBtn');
-    if (mb) mb.addEventListener('click', function(){
-      setTimeout(function(){
-        cards.forEach(function(c,i){
-          if (!c.classList.contains('landed'))
-            setTimeout(function(){ c.classList.add('landed'); }, reduce ? 0 : i*70);
-        });
-      }, 20);
-    });
-  })();
-
   /* brain dump steps deal in */
   (function(){
     var steps = [].slice.call(document.querySelectorAll('.step'));
@@ -88,18 +68,6 @@
         o.unobserve(e.target); });
     }, {threshold:.25});
     steps.forEach(function(s){ o.observe(s); });
-  })();
-
-  /* "all projects" toggle */
-  (function(){
-    var pile = document.getElementById('pile'), mb = document.getElementById('moreBtn');
-    if (!pile || !mb) return;
-    var total = pile.querySelectorAll('[data-card]').length;
-    mb.addEventListener('click', function(){
-      var open = pile.classList.toggle('open');
-      mb.setAttribute('aria-expanded', open ? 'true' : 'false');
-      mb.textContent = open ? 'Show fewer' : 'All projects (' + total + ')';
-    });
   })();
 
   /* FAQ accordion */
@@ -120,5 +88,39 @@
         sp.forEach(function(s,i){ setTimeout(function(){ s.classList.add('in'); }, reduce ? 0 : i*110); });
         o.disconnect(); });
     }, {threshold:.3}).observe(cta);
+  })();
+
+  /* word-by-word fill: any [data-scrub] paragraph inks in as it is read,
+     scrubbed by scroll. Home (the short Me) and /about/ (the long version).
+     Each paragraph is fully inked by the time it reaches mid-screen. */
+  (function(){
+    var ps=[].slice.call(document.querySelectorAll('[data-scrub]')); if(!ps.length) return;
+    var groups=ps.map(function(p){
+      var walker=document.createTreeWalker(p,NodeFilter.SHOW_TEXT), nodes=[], n;
+      while((n=walker.nextNode())) nodes.push(n);
+      nodes.forEach(function(t){
+        var frag=document.createDocumentFragment();
+        t.textContent.split(/(\s+)/).forEach(function(part){
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+          var s=document.createElement('span'); s.className='w'; s.textContent=part; frag.appendChild(s);
+        });
+        t.parentNode.replaceChild(frag,t);
+      });
+      return {p:p,words:[].slice.call(p.querySelectorAll('.w'))};
+    });
+    if(reduce){ groups.forEach(function(g){ g.words.forEach(function(w){ w.classList.add('on'); }); }); return; }
+    var tick=false;
+    function paint(){ tick=false; var vh=innerHeight;
+      groups.forEach(function(g){
+        var r=g.p.getBoundingClientRect();
+        var prog=Math.min(1,Math.max(0,(vh*.95-r.top)/(r.height*.55+vh*.2)));
+        var k=Math.round(prog*g.words.length);
+        for(var i=0;i<g.words.length;i++) g.words[i].classList.toggle('on',i<k);
+      });
+    }
+    addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(paint); setTimeout(function(){ if(tick) paint(); },120); } },{passive:true});
+    addEventListener('resize',paint);
+    paint();
   })();
 })();
