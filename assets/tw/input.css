@@ -74,8 +74,8 @@
 /* ---------- case pages ---------- */
 @layer base {
   .case{
-    --g:#EFE2BA; --t:#173CA8;  /* reading ground */
-    --g2:#173CA8; --t2:#EFE2BA; /* inverted blocks */
+    --g:#F7F4EC; --t:#173CA8;  /* reading ground */
+    --g2:#173CA8; --t2:#F7F4EC; /* inverted blocks */
     --g3:#E8251F; --t3:#0D1633; /* accent plane: ink on fluoro is 4.8:1, cream fails */
     --pad:clamp(1.2rem,4vw,3rem);
   }
@@ -85,8 +85,24 @@
     --g:#0D1633; --t:#E6E0D2; --g2:#173CA8; --t2:#E6E0D2;
     --cream:#173CA8; --deep:#E6E0D2; --fluoro:#FF6B5E;
   }
+  /* ----------------------------------------------------------------
+     VoiceDNA runs on the inverse of the rest of the site (Shrey, 24 Sep
+     2026). It is the only page that is a product rather than a piece of
+     writing, so it is the only page that is a screen rather than paper.
+     The values are the ones the dark theme already uses, so nothing new is
+     introduced and both directions are already contrast-checked. It also
+     flips the other way in dark mode: this page is always the opposite of
+     wherever the visitor is. On ink, shield yellow finally clears AA as
+     type, so the eyebrows take it. On cream it never could.
+     ---------------------------------------------------------------- */
+  .case.vd-skin{--g:#0D1633;--t:#E6E0D2;--g2:#F7F4EC;--t2:#173CA8;
+    --cream:#0D1633;--deep:#E6E0D2;--fluoro:#FF6B5E;--accent-type:#FFED10}
+  html[data-theme="dark"] .case.vd-skin{--g:#F7F4EC;--t:#173CA8;--g2:#173CA8;--t2:#F7F4EC;
+    --cream:#F7F4EC;--deep:#173CA8;--fluoro:#E8251F;--accent-type:#B8141A}
+
   /* the little of a reset these pages need, since preflight is off */
-  .case{margin:0}
+  /* the same printed screen the rest of the site is on */
+  .case{margin:0;background-image:var(--paper);background-size:var(--paper-size);background-attachment:fixed}
   .case,.case *,.case *::before,.case *::after{box-sizing:border-box}
   .case a{color:inherit}
   .case :focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
@@ -112,8 +128,9 @@
 @utility case-prose {
   & .sec{ @apply mb-12 scroll-mt-24; }
   & .eyebrow{ @apply label mb-2 block opacity-82; }
-  & h2{ @apply mt-0 mb-4 font-display text-h2 font-extrabold; }
-  & h3{ @apply mt-7 mb-2.5 font-display text-body font-extrabold; }
+  .case.vd-skin & .eyebrow{ color:var(--accent-type); opacity:1; }
+  & h2{ @apply mt-0 mb-4 font-display text-h2 font-black; }
+  & h3{ @apply mt-7 mb-2.5 font-display text-body font-black; }
   & p{ @apply mt-0 mb-4 max-w-[38em]; }
   & ul{ @apply mt-0 mb-4 max-w-[34em] pl-[1.1rem]; }
   & li{ @apply mb-2; }
@@ -130,7 +147,74 @@
 @layer components {
   .case .rv{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--e-out),transform 600ms var(--e-out)}
   .case .rv.in{opacity:1;transform:none}
+  /* a decision deals in, then its trade-off rule draws down the side. The
+     rule is the only motion on these pages that carries meaning: it marks
+     what the choice cost. Nothing here runs under reduced motion. */
+  .case .dec{opacity:0;transform:translateY(14px);transition:opacity 520ms var(--e-out),transform 520ms var(--e-out)}
+  .case .dec.in{opacity:1;transform:none}
+  .case .cost{position:relative}
+  .case .cost::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--fluoro);
+    transform:scaleY(0);transform-origin:top;transition:transform 420ms var(--e-out) 160ms}
+  .case .dec.in .cost::before{transform:scaleY(1)}
+
+  /* ----------------------------------------------------------------
+     VoiceDNA: the gap map, shown at the size it is read.
+     The point of the product is that the distance between what a brand
+     says it sounds like and what it actually sounds like IS the brief,
+     so the gap band is the loud element and the two markers are quiet.
+     Illustrative data, labelled as such in the artefact.
+     ---------------------------------------------------------------- */
+  /* the delivered poster, framed whole at the top of a case (1 Oct 2025 assets).
+     It is the hero artefact the Medium reference asks every case to carry, so
+     it is never cropped: the frame takes the poster's own portrait ratio and
+     caps its height so it cannot push the body off the first screen. */
+  .case .casefig{display:grid;place-items:center;background:var(--g);overflow:hidden}
+  .case .casefig img{display:block;width:auto;max-width:100%;height:auto;max-height:min(78vh,760px)}
+  @media (max-width:640px){ .case .casefig img{max-height:70vh} }
+  .case .vd{margin-inline:0;background:color-mix(in srgb,var(--g) 92%,#fff 8%)}
+  .case .vd-bar{display:flex;flex-wrap:wrap;gap:.25rem 1.5rem;justify-content:space-between;align-items:baseline;
+    border-bottom:2px solid var(--deep);padding:.65rem .9rem}
+  .case .vd-body{padding:1.1rem .9rem 1.3rem}
+  .case .vd-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.1rem}
+  .case .vd-tab{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;text-align:left;
+    padding:.5rem .7rem;min-height:44px;background:none;color:var(--deep);border:1.5px solid var(--deep);cursor:pointer;
+    transition:background var(--d-1) ease,color var(--d-1) ease}
+  .case .vd-tab[aria-selected="true"]{background:var(--deep);color:var(--cream)}
+  .case .vd-panel[hidden]{display:none}
+  .case .vd-io{display:grid;gap:1rem;margin-bottom:1.3rem}
+  @media (min-width:720px){ .case .vd-io{grid-template-columns:1fr 1fr;gap:1.6rem} }
+  .case .vd-said{margin:.35rem 0 0;max-width:34em}
+  .case .vd-sample{margin:.35rem 0 0;padding-left:.8rem;border-left:2px solid var(--deep);max-width:34em;opacity:.9}
+  .case .vd-map{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+  .case .vd-row{display:grid;grid-template-columns:minmax(0,1fr);gap:.2rem;align-items:center}
+  @media (min-width:640px){ .case .vd-row{grid-template-columns:7.5rem minmax(0,1fr) 11rem;gap:.9rem} }
+  .case .vd-name{opacity:.82}
+  .case .vd-track{position:relative;display:block;height:26px;border-bottom:1.5px solid color-mix(in srgb,var(--deep) 35%,transparent)}
+  .case .vd-gap{position:absolute;left:var(--l);width:var(--w);top:6px;bottom:6px;background:var(--fluoro);opacity:.9;
+    transform:scaleX(0);transform-origin:left;transition:transform 520ms var(--e-out) 120ms}
+  .case .vd-panel.is-on .vd-gap{transform:scaleX(1)}
+  .case .vd-stated,.case .vd-actual{position:absolute;left:var(--x);top:2px;bottom:2px;width:3px;margin-left:-1.5px;background:var(--deep)}
+  .case .vd-actual{background:color-mix(in srgb,var(--deep) 55%,transparent)}
+  .case .vd-stated::after,.case .vd-actual::after{content:"";position:absolute;left:50%;width:9px;height:9px;margin-left:-4.5px;
+    background:var(--deep);transform:rotate(45deg)}
+  .case .vd-stated::after{top:-4px}
+  .case .vd-actual::after{bottom:-4px;background:var(--g);border:2px solid var(--deep);width:10px;height:10px;margin-left:-5px}
+  .case .vd-poles{opacity:.7;white-space:nowrap}
+  .case .vd-poles i{font-style:normal;opacity:.5;padding:0 .15em}
+  .case .vd-key{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;margin:.9rem 0 0;opacity:.82}
+  .case .vd-key span{display:inline-flex;align-items:center;gap:.4rem}
+  .case .vd-key span::before{content:"";width:12px;height:12px;flex:none}
+  .case .k-stated::before{background:var(--deep);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+  .case .k-actual::before{background:none;border:2px solid var(--deep);transform:rotate(45deg);width:9px;height:9px}
+  .case .k-gap::before{background:var(--fluoro)}
+  .case .vd-note{margin:1.1rem 0 0;max-width:40em}
+  .case .vd-note .label{display:block;margin-bottom:.2rem}
   @media (prefers-reduced-motion:reduce){
-    .case .rv{opacity:1;transform:none;transition:none}
+    .case .vd-gap{transform:scaleX(1);transition:none}
+    .case .vd-tab{transition:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .case .rv,.case .dec{opacity:1;transform:none;transition:none}
+    .case .cost::before{transform:scaleY(1);transition:none}
   }
 }

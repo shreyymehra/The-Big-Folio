@@ -28,14 +28,24 @@
   /* PALETTE AND FAMILIES. The locked three colours and the three faces.
      Defined here, not in site.css, because the case pages load only this
      file and tw.css. */
-  --cream:#EFE2BA; --deep:#173CA8; --fluoro:#E8251F;
-  --cream-rgb:239,226,186; --deep-rgb:23,60,168;
-  --fd:'Milligram Macro','Geist',system-ui,sans-serif;
-  --fd-track:.018em; /* Macro is spaced for logos; at heading sizes it needs air */
-  --fb:'Geist',system-ui,sans-serif;
-  --fu:'Milligram Light','Geist',system-ui,sans-serif;
+  --cream:#F7F4EC; --deep:#173CA8; --fluoro:#E8251F;
+  --cream-rgb:247,244,236; --deep-rgb:23,60,168;
+  --fd:'Geist',system-ui,sans-serif;
+  --fd-track:-.025em; /* Geist Black sets tight at display sizes */
+  --fb:'Inter','Geist',system-ui,sans-serif;
+  --fu:'Geist Light','Geist',system-ui,sans-serif;
   --pad:clamp(1.2rem,4vw,3rem); --max:1240px;
 
+  /* PAPER. A hand-drawn grid, not a ruled one (Shrey, 2 Oct 2026, with a
+     reference image): 90px cells, lines that wobble between the crossings and
+     are pinned at the tile edges so the 270px tile repeats without a seam.
+     Two of every three lines sit lighter, the way a drawn grid does.
+     Opacity is carried on the layer, not baked into the colour, so one number
+     tunes the whole site. Keep it at or under .30: the test is that body copy
+     over it reads exactly as it does on plain paper. */
+  --paper:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22270%22%20height%3D%22270%22%20viewBox%3D%220%200%20270%20270%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23173CA8%22%20stroke-width%3D%221.15%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M0.0%200.0%20Q-1.5%2022.5%20-1.1%2045.0%20Q-0.6%2067.5%200.1%2090.0%20Q-0.2%20112.5%20-0.5%20135.0%20Q0.3%20157.5%201.2%20180.0%20Q0.0%20202.5%200.5%20225.0%20Q0.6%20247.5%200.0%20270.0%22%20stroke-opacity%3D%220.30%22%2F%3E%3Cpath%20d%3D%22M90.0%200.0%20Q91.1%2022.5%2090.2%2045.0%20Q89.8%2067.5%2090.5%2090.0%20Q89.3%20112.5%2089.2%20135.0%20Q89.1%20157.5%2089.7%20180.0%20Q90.0%20202.5%2090.4%20225.0%20Q90.7%20247.5%2090.0%20270.0%22%20stroke-opacity%3D%220.22%22%2F%3E%3Cpath%20d%3D%22M180.0%200.0%20Q179.3%2022.5%20179.3%2045.0%20Q179.7%2067.5%20180.0%2090.0%20Q178.4%20112.5%20178.6%20135.0%20Q179.4%20157.5%20178.5%20180.0%20Q179.7%20202.5%20179.5%20225.0%20Q179.2%20247.5%20180.0%20270.0%22%20stroke-opacity%3D%220.30%22%2F%3E%3Cpath%20d%3D%22M0.0%200.0%20Q22.5%20-0.6%2045.0%20-0.7%20Q67.5%20-1.5%2090.0%20-0.3%20Q112.5%20-0.3%20135.0%201.9%20Q157.5%201.7%20180.0%201.8%20Q202.5%200.7%20225.0%20-0.6%20Q247.5%200.2%20270.0%200.0%22%20stroke-opacity%3D%220.30%22%2F%3E%3Cpath%20d%3D%22M0.0%2090.0%20Q22.5%2090.9%2045.0%2090.0%20Q67.5%2089.6%2090.0%2089.6%20Q112.5%2091.3%20135.0%2091.5%20Q157.5%2089.1%20180.0%2088.7%20Q202.5%2087.8%20225.0%2088.2%20Q247.5%2088.9%20270.0%2090.0%22%20stroke-opacity%3D%220.22%22%2F%3E%3Cpath%20d%3D%22M0.0%20180.0%20Q22.5%20180.0%2045.0%20181.5%20Q67.5%20180.4%2090.0%20179.8%20Q112.5%20180.7%20135.0%20181.0%20Q157.5%20179.2%20180.0%20178.6%20Q202.5%20180.6%20225.0%20181.6%20Q247.5%20181.1%20270.0%20180.0%22%20stroke-opacity%3D%220.30%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --paper-size:270px 270px;
+  /* the alpha is baked into the tile: keep the strongest line at or under .30 */
   /* MOTION. Three speeds, two curves. */
   --d-press:90ms;  --d-1:180ms;  --d-2:420ms;  --d-3:700ms;
   --e-out:cubic-bezier(.16,1,.3,1);
@@ -46,11 +56,13 @@
 /* ---------- PALETTE, RETRO (21 Sep 2026, Shrey: "a bit like Superman's") ----------
    The comic-book primaries, aged to newsprint so they sit on cream paper
    rather than shouting on white. Blue carries the type, red is the surface,
-   yellow is the rare highlight. Measured on cream #EFE2BA:
-     --deep  #173CA8  cape blue      7.23  body type, rules, planes
-     --accent #E8251F cape red       3.45  planes and type 24px and over ONLY
-     --accent-type #B8141A           5.16  red as SMALL type
-     --yellow #FFC21A shield yellow        highlight planes; ink on it 10.6
+   yellow is the rare highlight. The ground was lifted from #EFE2BA to #F7F4EC on
+   24 Sep 2026 at Shrey’s instruction: the same cream, taken towards white.
+   Every pairing below improved, none regressed. Measured on #F7F4EC:
+     --deep  #173CA8  cape blue      7.72  body type, rules, planes
+     --accent #E8251F cape red       3.69  planes and type 24px and over ONLY
+     --accent-type #B8141A           5.52  red as SMALL type
+     --yellow #FFED10 Superman "Broom" yellow, trued to the source palette 23 Sep        ACCENT ONLY: marks, highlights, stars. Never a plane.
      --ink   #0D1633  print black         type on red or yellow planes
      --riso  #E00080  the star artefact's own ink; the star and nothing else
    Small type never sits directly on red (ink 3.55, cream 3.88 both fail):
@@ -58,7 +70,7 @@
 :root{
   --accent:#E8251F;
   --accent-type:#B8141A;
-  --yellow:#FFC21A;
+  --yellow:#FFED10;
   --ink:#0D1633;
   --riso:#E00080;
 }
@@ -71,6 +83,7 @@
    Case pages keep their own scoped dark set in assets/tw/input.css. */
 html[data-theme="dark"]{
   --accent-type:#FF6B5E;
+  --paper:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22270%22%20height%3D%22270%22%20viewBox%3D%220%200%20270%20270%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23EDE3C4%22%20stroke-width%3D%221.15%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M0.0%200.0%20Q-0.2%2022.5%20-1.7%2045.0%20Q-1.3%2067.5%200.9%2090.0%20Q0.3%20112.5%201.8%20135.0%20Q1.3%20157.5%201.9%20180.0%20Q0.8%20202.5%20-1.9%20225.0%20Q-1.4%20247.5%200.0%20270.0%22%20stroke-opacity%3D%220.18%22%2F%3E%3Cpath%20d%3D%22M90.0%200.0%20Q89.0%2022.5%2089.7%2045.0%20Q90.0%2067.5%2091.8%2090.0%20Q91.3%20112.5%2090.2%20135.0%20Q88.8%20157.5%2088.6%20180.0%20Q88.4%20202.5%2090.0%20225.0%20Q90.3%20247.5%2090.0%20270.0%22%20stroke-opacity%3D%220.13%22%2F%3E%3Cpath%20d%3D%22M180.0%200.0%20Q179.4%2022.5%20180.1%2045.0%20Q181.7%2067.5%20181.4%2090.0%20Q180.5%20112.5%20180.5%20135.0%20Q178.9%20157.5%20178.2%20180.0%20Q179.0%20202.5%20179.8%20225.0%20Q178.9%20247.5%20180.0%20270.0%22%20stroke-opacity%3D%220.18%22%2F%3E%3Cpath%20d%3D%22M0.0%200.0%20Q22.5%20-1.2%2045.0%20-1.5%20Q67.5%20-0.2%2090.0%201.1%20Q112.5%20-0.6%20135.0%20-1.5%20Q157.5%200.3%20180.0%201.3%20Q202.5%202.0%20225.0%200.6%20Q247.5%20-0.3%20270.0%200.0%22%20stroke-opacity%3D%220.18%22%2F%3E%3Cpath%20d%3D%22M0.0%2090.0%20Q22.5%2090.0%2045.0%2091.8%20Q67.5%2090.6%2090.0%2091.0%20Q112.5%2090.5%20135.0%2089.1%20Q157.5%2089.6%20180.0%2088.5%20Q202.5%2089.2%20225.0%2089.7%20Q247.5%2089.9%20270.0%2090.0%22%20stroke-opacity%3D%220.13%22%2F%3E%3Cpath%20d%3D%22M0.0%20180.0%20Q22.5%20181.4%2045.0%20181.1%20Q67.5%20180.2%2090.0%20179.8%20Q112.5%20181.6%20135.0%20181.8%20Q157.5%20180.9%20180.0%20181.7%20Q202.5%20180.3%20225.0%20179.6%20Q247.5%20180.3%20270.0%20180.0%22%20stroke-opacity%3D%220.18%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   --cream:#101830; --deep:#EDE3C4;
   --cream-rgb:16,24,48; --deep-rgb:237,227,196;
   color-scheme:dark;
@@ -132,14 +145,13 @@ html body .proof .no{opacity:1}
 
 /* ---------- interface guidelines pass (20 Sep 2026) ---------- */
 .skip{position:fixed;left:var(--s-3);top:var(--s-3);z-index:200;padding:var(--s-3) var(--s-4);
-  background:#0D1633;color:#EFE2BA;font-family:var(--fu);font-size:var(--t-small);
+  background:#0D1633;color:#F7F4EC;font-family:var(--fu);font-size:var(--t-small);
   text-decoration:none;transform:translateY(-160%);transition:transform var(--d-1) var(--e-out)}
 .skip:focus-visible{transform:none}
 :where(h1,h2,h3,.cta,.wk-title,.pg-title,.lt-cta){text-wrap:balance}
 :where(p,li){text-wrap:pretty}
 :where(a,button,summary,[role="button"]){touch-action:manipulation}
 :where([id]){scroll-margin-top:96px}
-:where(.fig .n,.mag-count,.vinyl-by,.toc-n,.pg-folio){font-variant-numeric:tabular-nums}
 
 /* ============================================================
    THE ISLAND (20 Sep 2026)
@@ -155,18 +167,23 @@ html body .proof .no{opacity:1}
 html body nav#nav{position:fixed;top:var(--s-3);left:50%;right:auto;bottom:auto;transform:translateX(-50%);
   display:grid;grid-template-columns:max-content max-content;align-items:center;gap:var(--s-4);width:var(--island-w,max-content);max-width:calc(100vw - var(--s-5));
   min-height:48px;box-sizing:border-box;padding:var(--s-1) var(--s-2) var(--s-1) var(--s-5);margin:0;
-  background:#0D1633;color:#EFE2BA;border:1px solid rgba(239,226,186,.18);border-radius:999px;z-index:90;
+  background:#0D1633;color:#F7F4EC;border:1px solid rgba(247,244,236,.18);border-radius:999px;z-index:90;
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;
   overflow:hidden;
   transition:width 620ms var(--e-spring),padding 620ms var(--e-spring),background-color var(--d-1) ease}
 html[data-theme="dark"] body nav#nav{background:#173CA8}
-html body nav#nav a{color:#EFE2BA;text-decoration:none}
+html body nav#nav a{color:#F7F4EC;text-decoration:none}
+/* The sm monogram, cropped from the three directions on the supplied
+   artboard (2 Oct). It lives here, not in site.css, because the case pages
+   load base.css and tw.css only: in site.css it rendered at its natural
+   881px on those pages and ran off a phone screen. */
+html body nav#nav .sig-logo{display:block;width:auto;height:23px;object-fit:contain}
 html body nav#nav .sig{grid-area:1/1;font-family:var(--fu);font-size:var(--t-small);font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;white-space:nowrap;padding:var(--s-3) 0}
 html body nav#nav .nav-end{grid-area:1/2;display:flex;align-items:center;white-space:nowrap;
   transition:opacity 260ms ease,transform 420ms var(--e-spring)}
 html body nav#nav .links{display:flex;gap:var(--s-5)}
-html body nav#nav .links a{padding:var(--s-3) 0;white-space:nowrap}
+html body nav#nav .links a{padding:var(--s-3) 0;white-space:nowrap;min-width:24px;text-align:center}
 html body nav#nav .theme-toggle{width:40px;height:40px;margin-left:var(--s-3)}
 .island-now{grid-area:1/2;display:flex;align-items:center;gap:var(--s-2);opacity:0;white-space:nowrap;pointer-events:none;
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
@@ -180,6 +197,9 @@ html body nav#nav.is-compact{cursor:pointer;padding-right:var(--s-5)}
 html body nav#nav.is-compact:is(:hover,:focus-within) .nav-end{opacity:1;transform:none;pointer-events:auto}
 html body nav#nav.is-compact:is(:hover,:focus-within) .island-now{opacity:0;transform:translateY(4px)}
 html body nav#nav.is-compact:is(:hover,:focus-within){padding-right:var(--s-2)}
+/* the way down tightens to the logo alone; the way up names the section again */
+html body nav#nav.is-tight:not(:hover):not(:focus-within) .island-now{opacity:0;transform:translateY(4px)}
+html body nav#nav.is-tight:not(:hover):not(:focus-within){padding-right:var(--s-5)}
 @media (max-width:820px){
   html body nav#nav{display:flex;left:var(--s-3);right:var(--s-3);width:auto;max-width:none;transform:none;flex-wrap:wrap;
     row-gap:0;border-radius:24px;padding:var(--s-1) var(--s-2) var(--s-1) var(--s-4)}
@@ -202,8 +222,7 @@ html body nav#nav.is-compact:is(:hover,:focus-within){padding-right:var(--s-2)}
 /* ---------- safe gutters (21 Sep 2026) ----------
    Copy was reaching the window edge. Every page container now keeps a gutter
    that also clears a notched phone's curved corners, and the fixed furniture
-   (island, record) sits inside the same safe area. */
-html body .wrap,html body .mag-wrap,html body .desk-surface{
+   (island, record) sits inside the same safe area. */html body .wrap,html body .desk-surface{
   padding-left:max(var(--pad),env(safe-area-inset-left,0px));
   padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
 @media (max-width:820px){
@@ -214,25 +233,17 @@ html body .vinyl{right:max(clamp(.8rem,2vw,1.6rem),env(safe-area-inset-right,0px
   bottom:max(clamp(.8rem,2vw,1.6rem),env(safe-area-inset-bottom,0px))}
 
 /* ============================================================
-   TYPE (21 Sep 2026, at Shrey's instruction, from the files he supplied)
-   Headings    Milligram Macro ExtraBold
-   Body        Geist (Vercel, OFL, via Google Fonts), variable 300 to 700.
-               Identified from a reference Shrey supplied (slidez.social sets
-               its UI in Geist). Geist has no italic: emphasis is weight or
-               colour, never a faked slant.
-   Annotation  Milligram Light, one weight for every label and caption
-   (Body went Milligram, then Inter, then Geist, all 21 Sep, at his call.)
-   Shrey holds a licence for Milligram (22 Sep 2026); the footer credit the
-   trial licence required was removed at his instruction. The files served
-   are still the trial cuts until he supplies the licensed ones.
-   WOFF files converted from the supplied TTFs; sources are not in the repo.
-   The trial files stamp every digit "TRIAL ONLY", so both faces skip 0-9
-   (unicode-range) and numbers fall through to Geist. The full licence has
-   real figures; drop the unicode-range when those files arrive.
+   TYPE (23 Sep 2026, Reference Book row 07, marked Take)
+   Headings    Geist Black (900), with a pressed-ink edge (see INK below)
+   Body        Inter
+   Annotation  Geist Light, one weight for every label, caption and nav item
+   All three are OFL via Google Fonts, so the Milligram trial licence problem
+   is gone. 'Geist Light' is an alias of the same Geist file pinned to 300, so
+   every rule that sets a label's family gets the light cut without a weight.
    ============================================================ */
-@font-face{font-family:'Milligram Macro';font-weight:700 900;font-style:normal;font-display:swap;src:url(fonts/milligram-macro-extrabold.woff) format('woff');unicode-range:U+0000-002F,U+003A-10FFFF}
-/* annotation is one face at every weight, so a bold label never fakes a bold */
-@font-face{font-family:'Milligram Light';font-weight:100 900;font-style:normal;font-display:swap;src:url(fonts/milligram-light.woff) format('woff');unicode-range:U+0000-002F,U+003A-10FFFF}
+@font-face{font-family:'Geist Light';font-style:normal;font-weight:300;font-display:swap;
+  src:url(https://fonts.gstatic.com/s/geist/v5/gyByhwUxId8gMEwcGFU.woff2) format('woff2')}
+body{font-synthesis:none}
 
 /* headings get the display tracking; the dither that used to sit here was
    removed 21 Sep 2026 at Shrey's instruction */
@@ -257,3 +268,21 @@ html body nav#nav .links a{position:relative;text-decoration:none}
 html body nav#nav .links a::after{content:"";position:absolute;left:0;right:100%;bottom:var(--s-2);height:2px;background:var(--accent);transition:right 220ms var(--e-out)}
 html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::after{right:0}
 @media (prefers-reduced-motion:reduce){html body nav#nav .links a::after{transition:none}}
+
+/* ---------- INK (Reference Book row 07) ----------
+   Display headings read hard-pressed: a faint roughened edge and a hair of
+   ink spread, from an SVG filter site.js adds to every page. Subtle on
+   purpose; the words stay crisp at reading distance. */
+:where(h1:not(.hero-name),h2,.said,.cta){filter:url(#ink)}
+@media (forced-colors:active){:where(h1,h2,.said,.cta){filter:none}}
+
+/* ---------- ASSET PLACEHOLDERS (Reference Book rule 2) ----------
+   Every missing icon, logo or image holds its exact slot as a labelled box,
+   named to match Shrey's provisions (Hero1, Work1, Me1 ...). The real file
+   drops straight in; see the asset manifest in CLAUDE.md. */
+.ph{display:grid;place-content:center;gap:2px;box-sizing:border-box;padding:6px;text-align:center;
+  background:repeating-linear-gradient(135deg,#FCFAF4 0 8px,#F7F4EC 8px 16px);color:#0D1633;
+  border:2px dashed #0D1633;font-family:var(--fu);font-size:11px;line-height:1.25;letter-spacing:.04em;text-transform:uppercase}
+.ph b{font-family:var(--fd);font-weight:900;font-size:14px;letter-spacing:0;text-transform:none}
+.ph i{font-style:normal;opacity:.82;font-size:10px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

@@ -1,23 +1,42 @@
 # The Big Folio
 
-Personal portfolio for **Shrey Mehra** — brand, marketing, product and GTM.
+Personal portfolio for **Shrey Mehra** — product marketing, GTM and brand strategy.
 
-## Structure
+## What this is
 
-`index.html` is the site. One self-contained file — inline CSS, inline JS, images as
-data URIs. No build step, no dependencies, no framework. The five case studies sit
-beside it and link back to `index.html#work`.
+Hand-authored HTML with a shared stylesheet. **No framework, no bundler, no `npm install`, and
+nothing to run before it works.** Open `index.html` and it is the site.
 
-```
-index.html            the site — source of truth
-absolutily.html       case studies
-cut-the-noise.html
-vastr.html
-voicedna.html
-vrl.html
-```
+The only build step is Tailwind's standalone CLI, used for the five case pages. Its output
+(`assets/tw.css`) is committed, so the deployed site still has no build step.
 
-Network requests are Google Fonts and one Spotify embed. Everything else is in the file.
+> An earlier version of this file described a single self-contained page with inline CSS, inline
+> JS and images as data URIs. That architecture was deliberately dismantled in `d5aa99b` and this
+> file was left behind. Corrected 29 Sep 2026.
+
+## Routes
+
+| Path | What it is |
+|---|---|
+| `/` | Home: hero, quote tape, worked with, selected work, ideas, me, contact |
+| `/work/` | The complete index, one row per project, filtered by discipline |
+| `/work/<slug>/` | Five case studies: vastr, voicedna, vrl, cut-the-noise, absolutily |
+| `/about/` | The long version, plus the FAQ. Labelled "Me" in the navigation |
+| `/contact/` | One page |
+| `/404.html` | Served for anything else |
+
+## Files that matter
+
+| File | Owns |
+|---|---|
+| `assets/base.css` | Tokens: palette, type, scale, motion. Every page loads it |
+| `assets/site.css` | The stylesheet for every page except the five case studies |
+| `assets/tw.css` | Compiled Tailwind, for the case pages only. Never edit by hand |
+| `assets/site.js` | Shared behaviour |
+| `assets/home.js` | Home only |
+| `assets/case.js` | The five case pages only |
+| `assets/feel.js` | The island, press states, copy-to-clipboard |
+| `assets/theme.js` | Light and dark, blocking, in `<head>` |
 
 ## Running it
 
@@ -25,17 +44,20 @@ Network requests are Google Fonts and one Spotify embed. Everything else is in t
 powershell -ExecutionPolicy Bypass -File serve.ps1
 ```
 
-Serves the folder at http://localhost:4321 (set `$env:PORT` to change).
-Nothing to install — no Node, no npm, no Python.
+Serves the folder at http://localhost:4321 and resolves `/work/` to `work/index.html`.
+Rebuild Tailwind after touching `assets/tw/input.css` or any utility class in a case page:
 
-Opening `index.html` directly also works, though the Spotify embed prefers http://.
+```
+.tools/tailwindcss.exe -i assets/tw/input.css -o assets/tw.css --minify
+```
 
-## Governing docs
+## Two rules that have broken this site before
 
-| File | What it decides |
-|---|---|
-| `CLAUDE.md` | Global constraints. Read first, every session. |
-| `DIRECTION.md` | Positioning, hierarchy, grid, type, colour, motion, the veto list. |
-| `TASTE.md` | What to take and what to leave from each reference. |
-| `references/` | Annotated screenshots only. See its README. |
-| `_archive/` | Superseded prototypes. Never build from these. |
+1. **Links are depth-relative, never root-relative.** The site is served from a subpath on GitHub
+   Pages, so `/assets/site.css` resolves above the site root and 404s. `404.html` is the one
+   deliberate exception and explains itself in a comment.
+2. **One page per route, edited in place.** Six versions of this site existed because each change
+   shipped as a new file. Versions live in git history, not in filenames.
+
+The full brief, the locked decisions and the reasoning behind them are in `CLAUDE.md`.
+Where anything disagrees with that file, that file wins.

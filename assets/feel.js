@@ -143,7 +143,7 @@
        the pill's own width (rather than squeezing its contents) is what makes
        the morph read as one object changing shape. Re-measured on resize and
        whenever the readout text changes length. */
-    var wOpen=0,wShut=0,measuring=false;
+    var wOpen=0,wShut=0,wTight=0,measuring=false;
     function measureIsland(){
       if(measuring||innerWidth<=820) return; measuring=true;
       var wasCompact=nav.classList.contains('is-compact');
@@ -157,6 +157,10 @@
       if(end) end.style.display='none';
       now.style.opacity='1';
       wShut=nav.offsetWidth;
+      /* and the tight shape: the logo on its own, which is what the way down leaves */
+      nav.classList.add('is-tight'); now.style.display='none';
+      wTight=nav.offsetWidth;
+      now.style.display=''; nav.classList.remove('is-tight');
       if(end) end.style.display='';
       now.style.opacity='';
       nav.classList.toggle('is-compact',wasCompact);
@@ -166,9 +170,10 @@
     }
     function sizeIsland(){
       if(innerWidth<=820){ nav.style.removeProperty('--island-w'); return; }
-      if(!wOpen||!wShut) measureIsland();
+      if(!wOpen||!wShut||!wTight) measureIsland();
       var open=!nav.classList.contains('is-compact')||nav.matches(':hover,:focus-within');
-      nav.style.setProperty('--island-w',(open?wOpen:wShut)+'px');
+      var w=open?wOpen:(nav.classList.contains('is-tight')?wTight:wShut);
+      nav.style.setProperty('--island-w',w+'px');
     }
     addEventListener('resize',function(){ wOpen=wShut=0; sizeIsland(); });
     nav.addEventListener('pointerenter',sizeIsland);
@@ -181,11 +186,15 @@
     var last=scrollY, tick=false;
     function onScroll(){
       tick=false; var y=scrollY, dy=y-last;
-      var was=nav.classList.contains('is-compact');
-      if(y<140) nav.classList.remove('is-compact');
-      else if(dy>6) nav.classList.add('is-compact');
-      else if(dy<-6) nav.classList.remove('is-compact');
-      if(nav.classList.contains('is-compact')!==was) sizeIsland();
+      /* Three shapes, per the reference: the way down tightens it to the logo,
+         the way up brings back the section you are in, and only a hover opens
+         the full slate. The top of the page has no section to name, so it
+         shows the slate. */
+      var shape=nav.className;
+      if(y<140){ nav.classList.remove('is-compact'); nav.classList.remove('is-tight'); }
+      else if(dy>6){ nav.classList.add('is-compact'); nav.classList.add('is-tight'); }
+      else if(dy<-6){ nav.classList.add('is-compact'); nav.classList.remove('is-tight'); }
+      if(nav.className!==shape) sizeIsland();
       last=y;
     }
     addEventListener('scroll',function(){
@@ -194,7 +203,7 @@
     },{passive:true});
     /* a tap on the compact island, anywhere but a link, opens it */
     nav.addEventListener('click',function(e){
-      if(nav.classList.contains('is-compact')&&!(e.target.closest&&e.target.closest('a,button'))){ nav.classList.remove('is-compact'); sizeIsland(); }
+      if(nav.classList.contains('is-compact')&&!(e.target.closest&&e.target.closest('a,button'))){ nav.classList.remove('is-compact'); nav.classList.remove('is-tight'); sizeIsland(); }
     });
     render();
     sizeIsland();

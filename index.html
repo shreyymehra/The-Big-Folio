@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><script src="assets/theme.js"></script><link rel="stylesheet" href="assets/base.css"><script src="assets/feel.js" defer></script>
-<meta name="theme-color" content="#EFE2BA">
+<meta name="theme-color" content="#F7F4EC">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
 <title>Shrey Mehra</title>
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -20,22 +20,19 @@
 
 
 
-<!-- The loader: a cold open, every full load. The rule draws, the letterbox
-     opens on the print, the star punches, and it wipes up into the hero, which
-     then assembles. Any click, key or scroll skips it; reduced motion never sees it. -->
+<!-- The loader: under a second, first visit only. A rule draws under the
+     name, then it wipes into the hero. Click, key or scroll skips it; repeat
+     visits and reduced motion never see it. -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="lgrid">
     <span class="lmeta tl" data-b="1">Shrey Mehra</span>
     <span class="lmeta tr" data-b="1">Portfolio</span>
     <div class="lrule" id="lrule"></div>
-    <div class="lband" id="lband"><img src="assets/img/352bc34c15.webp" alt=""></div>
     <span class="lmeta bl" data-b="2">Product marketing &middot; GTM &middot; Brand strategy</span>
-    <span class="lmeta br" data-b="2"><span class="lcount" id="lcount">00</span></span>
   </div>
-  <img class="lstar" id="lstar" src="assets/img/4d7964f598.webp" alt="">
 </div>
 
-<nav id="nav"><a class="sig" href="./">Shrey Mehra</a>
+<nav id="nav"><a class="sig" href="./" aria-label="Shrey Mehra, home"><img class="sig-logo" src="assets/logos/sm-mark-light.svg" alt="Shrey Mehra" width="881" height="371"></a>
   <span class="links"><a href="work/">Work</a><a href="#ideas">Ideas</a><a href="about/">Me</a><a href="contact/">Contact</a></span></nav>
 
 <div class="scrollstar" aria-hidden="true"><svg viewBox="0 0 100 100">
@@ -43,34 +40,49 @@
   <path id="starfill" d="M50 2 L59 30 L88 22 L70 46 L96 62 L66 65 L72 94 L50 74 L28 94 L34 65 L4 62 L30 46 L12 22 L41 30 Z" fill="#E8251F" style="clip-path:inset(100% 0 0 0)"/></svg></div>
 
 <main id="main">
-<section class="hero anim" id="hero">
-  <!-- Left, the artefact: a fluoro field holding the photograph as a halftone
-       print, with the cut-out name stuck across its foot. Right, the words,
-       one column that reads straight down. -->
-  <div class="bg hero-art">
-    <figure class="art-print">
-      <img class="art-face" src="assets/img/352bc34c15.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, 1998, printed as a halftone." width="880" height="1100">
-      <h1 class="hero-name"><span class="l1">
+<section class="hero stage-hero anim" id="hero" aria-labelledby="hero-title">
+  <!-- The hero is one centre-piece with six objects floating around it
+       (Reference Book rows 00-02; Balint Horvath). The photograph is the
+       centre-piece: it does not move. The objects are the navigation:
+       always labelled, click to land, drag to rearrange. Cream ground,
+       blue type and line work, red the one accent, yellow on hover only. -->
+  <div class="bg stage-ground" aria-hidden="true"></div>
+  <div class="ripples" id="ripples" aria-hidden="true"></div>
+
+  <div class="stage">
+    <div class="stage-centre">
+      <figure class="print">
+        <span class="print-mount"><img src="assets/img/352bc34c15.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, Delhi, 2003." width="880" height="1100" draggable="false"><span class="print-stamp" aria-hidden="true">2003</span></span>
+        <figcaption><b>Delhi, 2003</b>First machine I was allowed to break.</figcaption>
+      </figure>
+
+      <div class="stage-copy">
+        <h1 class="hero-name" id="hero-title"><span class="l1">
         <span class="tile t-hi"   data-t="380" data-depth="1.6"><img src="assets/img/6be05cdb12.webp" alt="Hi"></span>
         <span class="tile t-my"   data-t="440" data-depth="1.3"><img src="assets/img/73fb7f40e3.webp" alt="my"></span>
         <span class="tile t-name" data-t="500" data-depth="1.0"><img src="assets/img/f5ced9a8cd.webp" alt="name"></span>
         <span class="tile t-is"   data-t="560" data-depth="1.5"><img src="assets/img/10c617bac6.webp" alt="is"></span>
       </span>
       <span class="l2"><span class="tile t-shrey" data-t="640" data-depth="0.7"><img src="assets/img/9989e0f6ed.webp" alt="Shrey"></span></span></h1>
-      <figcaption class="art-cap">Delhi, 1998. First machine I was allowed to break.</figcaption>
-    </figure>
-  </div>
-
-  <div class="hero-copy">
-
-      <p class="hero-k" data-t="760">Product marketing · GTM · Brand strategy. <b>Rarely in that order.</b></p>
-      <div class="said" data-t="820">and I have always wanted to build <span class="roll"><ul id="rollul">
+        <p class="claim" data-t="760">I build brands people want to belong to.</p>
+        <div class="said" data-t="840">and I have always wanted to build <span class="roll"><ul id="rollul">
         <li>brands</li><li>experiences</li><li>campaigns</li><li>launches</li><li>communities</li><li>worlds</li><li>brands</li></ul></span></div>
-      <p class="value" data-t="920">I find the idea, write the words, and <b>build the case for why it moves a number.</b></p>
-      <p class="signoff" data-t="1000">With love, <span>your personality hire.</span></p>
-      <div class="hero-cta" data-t="1080"><a class="hbtn" href="#work">See the work <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,88V192a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h75L55.51,72.48a12,12,0,0,1,17-17L180,163V88a12,12,0,0,1,24,0Z"/></svg></a><a class="hmail" href="mailto:shreyymehraa@gmail.com"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg> shreyymehraa@gmail.com</a></div>
-      <p class="creds" data-t="1140">Worked with iSelect, Compare the Market, Tickertape and Amazon.</p>
-      <p class="fastlane" data-t="1200">Hiring in a hurry? <a href="#proof">The numbers</a>, <a href="#work">three projects</a>, <a href="about/#faq">the screening-call answers</a>.</p>
+        <p class="hero-k" data-t="900">Product marketing &middot; GTM &middot; Brand strategy</p>
+        <p class="hero-cred" data-t="930">Worked with iSelect &middot; Compare the Market &middot; Tickertape &middot; Amazon &middot; TEDxVIPS</p>
+        <div class="hero-cta" data-t="960"><a class="hbtn" href="#work">See the work <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,88V192a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h75L55.51,72.48a12,12,0,0,1,17-17L180,163V88a12,12,0,0,1,24,0Z"/></svg></a><a class="hmail" href="mailto:shreyymehraa@gmail.com"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg> shreyymehraa@gmail.com</a></div>
+      </div>
+    </div>
+
+    <ul class="floats" aria-label="Where to go">
+      <li class="fl fl-work"><a href="#work" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Work</span></a></li>
+      <li class="fl fl-ideas"><a href="#ideas" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Ideas</span></a></li>
+      <li class="fl fl-me"><a href="about/" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Me</span></a></li>
+      <li class="fl fl-faq"><a href="about/#faq" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/faq.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">FAQ</span></a></li>
+      <li class="fl fl-contact"><a href="#contact" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Contact</span></a></li>
+      <li class="fl fl-listen"><a href="#vinyl" data-file data-listen draggable="false"><span class="fl-icon"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Listening</span></a></li>
+    </ul>
+
+    <p class="stage-hint">Drag them around. Click one to land.</p>
   </div>
 </section>
 
@@ -88,50 +100,9 @@
       </div>
     </div>
   </div>
-  <div class="wrap ht-foot"><button class="tick-toggle" type="button" data-tick-toggle aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z"/></svg><span>Pause tickers</span></button><p class="saygap mono">[GAP: who said these. Six real quotes with no names attached read as invented. A first name, role and company against even two of them would carry the whole section.]</p></div>
+  <div class="wrap ht-foot"><button class="tick-toggle" type="button" data-tick-toggle aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z"/></svg><span>Pause motion</span></button><p class="saygap mono">[GAP: who said these. Six real quotes with no names attached read as invented. A first name, role and company against even two of them would carry the whole section.]</p></div>
 </section>
 
-<section class="proof comic" id="proof" aria-labelledby="proof-title">
-  <div class="wrap">
-    <div class="proof-head">
-      <div>
-        <span class="no">01 / Proof</span>
-        <h2 id="proof-title">What actually moved</h2>
-      </div>
-      <p class="lede">Five of the seven briefs below are self&#8209;set. These three are not.</p>
-    </div>
-
-    <div class="stints">
-      <div class="stint">
-        <p class="who">iSelect &middot; Compare The Market</p>
-        <p class="hook">Cut the cost of reach, not the reach.</p>
-        <ul class="figs">
-          <li class="fig"><span class="n"><i>+46%</i></span><span class="l">Engagement,<br>month on month</span></li>
-          <li class="fig"><span class="n"><i>&minus;78%</i></span><span class="l">Vendor<br>costs</span></li>
-        </ul>
-      </div>
-      <div class="stint">
-        <p class="who">Tickertape</p>
-        <p class="hook">Made a fintech feed worth clicking.</p>
-        <ul class="figs">
-          <li class="fig"><span class="n"><i>+310%</i></span><span class="l">Click&#8209;through<br>rate</span></li>
-          <li class="fig"><span class="n"><i>160k</i></span><span class="l">Customers</span></li>
-          <li class="fig"><span class="n"><i>&minus;16%</i></span><span class="l">Churn</span></li>
-        </ul>
-      </div>
-      <div class="stint">
-        <p class="who">TEDxVIPS</p>
-        <p class="hook">Ran a crowd, not just a campaign.</p>
-        <ul class="figs">
-          <li class="fig"><span class="n"><i>1.2M</i></span><span class="l">Views</span></li>
-          <li class="fig"><span class="n"><i>130</i></span><span class="l">Volunteers<br>led</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="proofgap">[GAP: one line under each figure saying what I changed to move it. A number with no mechanism is a number the reader has to take on trust, and this is the section that is supposed to end the trust problem.]</p>
-  </div>
-</section>
 
 <section class="ticker" aria-label="Where the work happened, and what I do">
   <!-- Where the work happened. Names are set in type until the real marks
@@ -139,24 +110,14 @@
   <div class="wrap">
     <div class="worked">
       <p class="worked-k mono">Worked with</p>
-      <ul class="worked-list">
-        <li><span class="worked-name">iSelect</span></li>
-        <li><span class="worked-name">Compare the Market</span></li>
-        <li><span class="worked-name">Tickertape</span></li>
-        <li><span class="worked-name">TEDxVIPS</span></li>
-        <li><span class="worked-name">Bliss &amp; Birch</span></li>
-        <li><span class="worked-name">Amazon</span></li>
-        <li><span class="worked-name">UN Youth</span><span class="worked-ctx">College project</span></li>
-        <li><span class="worked-name">BCG</span><span class="worked-ctx">College project</span></li>
-      </ul>
-      <p class="worked-gap mono">[GAP: official logo files (SVG, one colour) for all eight. Until then the names are set in type.]</p>
+      <ul class="worked-list"><li><img class="worked-mark" src="assets/img/logos/iselect.webp" alt="iSelect" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/ctm.webp" alt="Compare the Market" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/tickertape.webp" alt="Tickertape" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/tedx.webp" alt="TEDxVIPS" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch.webp" alt="Bliss and Birch" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/amazon.webp" alt="Amazon" loading="lazy"></li><li><img class="worked-mark" src="assets/img/logos/unyouth.webp" alt="UN Youth" loading="lazy"><span class="worked-ctx">College project</span></li><li><img class="worked-mark" src="assets/img/logos/bcg.webp" alt="BCG" loading="lazy"><span class="worked-ctx">College project</span></li></ul>
     </div>
   </div>
 
   <!-- The cross. Two bands meet in an X: what he does, and where. The numbers live in Proof, once.
        Each track holds its content twice so the loop has no seam; the second
        copy is hidden from assistive tech. Numbers are the verified set only. -->
-  <div class="wrap tick-bar"><button class="tick-toggle" type="button" data-tick-toggle aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z"/></svg><span>Pause tickers</span></button></div>
+  <div class="wrap tick-bar"><button class="tick-toggle" type="button" data-tick-toggle aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z"/></svg><span>Pause motion</span></button></div>
   <div class="cross" data-cross>
     <div class="xband xband--do" data-xband data-dir="-1">
       <div class="xtrack">
@@ -176,17 +137,17 @@
     </div>
     <div class="xband xband--moved" data-xband data-dir="1">
       <div class="xtrack">
-        <ul class="xset" aria-label="Where I want to do it">
-          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li>
+        <ul class="xset" aria-label="Where I want to do it, and what moved">
+          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li><li>+310% CTR, Tickertape</li><li>&minus;16% churn, Tickertape</li><li>160k customers, Tickertape</li><li>+46% engagement MoM, iSelect / CTM</li><li>&minus;78% vendor costs, iSelect / CTM</li><li>1.2M views, TEDxVIPS</li><li>130 volunteers led, TEDxVIPS</li>
         </ul>
         <ul class="xset" aria-hidden="true">
-          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li>
+          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li><li>+310% CTR, Tickertape</li><li>&minus;16% churn, Tickertape</li><li>160k customers, Tickertape</li><li>+46% engagement MoM, iSelect / CTM</li><li>&minus;78% vendor costs, iSelect / CTM</li><li>1.2M views, TEDxVIPS</li><li>130 volunteers led, TEDxVIPS</li>
         </ul>
         <ul class="xset" aria-hidden="true">
-          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li>
+          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li><li>+310% CTR, Tickertape</li><li>&minus;16% churn, Tickertape</li><li>160k customers, Tickertape</li><li>+46% engagement MoM, iSelect / CTM</li><li>&minus;78% vendor costs, iSelect / CTM</li><li>1.2M views, TEDxVIPS</li><li>130 volunteers led, TEDxVIPS</li>
         </ul>
         <ul class="xset" aria-hidden="true">
-          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li>
+          <li>For AI</li><li>For fashion</li><li>For fintech</li><li>For companies that do not think in straight lines</li><li>+310% CTR, Tickertape</li><li>&minus;16% churn, Tickertape</li><li>160k customers, Tickertape</li><li>+46% engagement MoM, iSelect / CTM</li><li>&minus;78% vendor costs, iSelect / CTM</li><li>1.2M views, TEDxVIPS</li><li>130 volunteers led, TEDxVIPS</li>
         </ul>
       </div>
     </div>
@@ -218,27 +179,27 @@
     </svg>
 
     <div class="wk-stage">
-      <a class="wk-tile" href="work/vastr/" data-tile data-reveal="0.06" style="--x:36vw;--y:13vh;--r:-4deg;--w:min(28vw,430px)">
+      <a class="wk-tile" href="work/voicedna/" data-tile data-reveal="0.06" style="--x:32vw;--y:6vh;--r:-4deg;--w:min(21vw,310px)">
         <span class="wk-frame">
-          <span class="wk-poster wk-poster--vastr" aria-hidden="true"><span class="wk-kick">AI wardrobe companion</span><span class="wk-mark">VASTR</span></span>
+          <span class="wk-poster"><img src="assets/img/work/voicedna.webp" alt="" width="900" height="1274" loading="lazy"></span>
+          <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
+          </span></span>
+        </span>
+        <span class="wk-label"><span>VoiceDNA</span><span>In build &middot; Built on the Claude API</span></span>
+      </a>
+
+      <a class="wk-tile" href="work/vastr/" data-tile data-reveal="0.27" style="--x:60vw;--y:12vh;--r:3deg;--w:min(19vw,285px)">
+        <span class="wk-frame">
+          <span class="wk-poster"><img src="assets/img/work/vastr.webp" alt="" width="900" height="1274" loading="lazy"></span>
           <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
           </span></span>
         </span>
         <span class="wk-label"><span>Vastr</span><span>Spec &middot; Brand + GTM</span></span>
       </a>
 
-      <a class="wk-tile" href="work/voicedna/" data-tile data-reveal="0.27" style="--x:66vw;--y:17vh;--r:3deg;--w:min(26vw,400px)">
+      <a class="wk-tile" href="work/vrl/" data-tile data-reveal="0.48" style="--x:48vw;--y:44vh;--r:-2deg;--w:min(19vw,285px)">
         <span class="wk-frame">
-          <span class="wk-poster wk-poster--voicedna" aria-hidden="true"><span class="wk-kick">React &middot; Claude API &middot; Vercel</span><span class="wk-mark">VOICEDNA</span></span>
-          <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
-          </span></span>
-        </span>
-        <span class="wk-label"><span>VoiceDNA</span><span>In build &middot; AI tool</span></span>
-      </a>
-
-      <a class="wk-tile" href="work/vrl/" data-tile data-reveal="0.48" style="--x:42vw;--y:47vh;--r:-2deg;--w:min(26vw,400px)">
-        <span class="wk-frame">
-          <span class="wk-poster wk-poster--vrl" aria-hidden="true"><span class="wk-kick">106 pages &middot; English + Hindi</span><span class="wk-mark">VRL</span></span>
+          <span class="wk-poster"><img src="assets/img/work/vrl.webp" alt="" width="900" height="1274" loading="lazy"></span>
           <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
           </span></span>
         </span>
@@ -273,12 +234,13 @@
       <img class="prop p-is"   data-par="0.10"  src="assets/img/10c617bac6.webp" alt="">
       <img class="prop p-star" data-par="-0.18" src="assets/star.webp" alt="">
       <img class="prop p-mark" data-par="0.16"  src="assets/img/4d7964f598.webp" alt="">
-      <!-- sticker slots: tool icons drop in as <img src="assets/icons/<tool>.svg"> -->
+      <!-- sticker slots: tool icons from assets/icons/ drop in here -->
       <span class="prop sticker s1" data-par="-0.08"></span>
       <span class="prop sticker s2" data-par="0.14"></span>
       <span class="prop sticker s3" data-par="-0.1"></span>
     </div>
     <div class="desk-mag">
+      <span class="ph ph-clip" aria-hidden="true"><b>Ideas1</b><span>clipboard or hands holding the magazine</span><i>[ASSET: provided by Shrey]</i></span>
     <div class="mag" data-mag>
       <div class="mag-book" data-book aria-roledescription="magazine" aria-label="Ideas, issue 01">
   
@@ -371,6 +333,7 @@
           <p class="lt-cta">Let's build something you will always be proud of.</p>
           <a class="lt-mail" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
           <a class="pg-link" href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">&nearr;</span></a>
+          <p class="gap">[GAP: links to my photographs, paintings and Medium posts.]</p>
           <span class="pg-folio mono">07</span>
         </section>
   
@@ -414,7 +377,7 @@
     <h2 class="cta rv">Let&#39;s build something<br>you will <em>always</em><br>be proud of.</h2>
     <p class="lookingfor rv"><b>Looking for:</b> Product Marketing, GTM or Brand Strategy roles in AI, fashion and fintech. Melbourne, working globally.</p>
 
-    <a class="reach rv" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
+    <span class="reach-wrap"><a class="reach rv" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a><svg class="scribble" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 14C64 6 108 18 168 11 228 4 268 17 330 9 356 6 378 10 396 15"/><path class="s2" d="M10 19C70 12 118 21 176 16 238 11 276 20 340 14"/></svg><span class="ph ph-reveal" aria-hidden="true"><b>Contact1</b><span>dark graphic revealed on hover</span><i>[ASSET: provided by Shrey]</i></span></span>
 
     <div class="second rv">
       <a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,20H40A20,20,0,0,0,20,40V216a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V40A20,20,0,0,0,216,20Zm-4,192H44V44H212ZM112,176V120a12,12,0,0,1,21.43-7.41A40,40,0,0,1,192,148v28a12,12,0,0,1-24,0V148a16,16,0,0,0-32,0v28a12,12,0,0,1-24,0ZM96,120v56a12,12,0,0,1-24,0V120a12,12,0,0,1,24,0ZM68,80A16,16,0,1,1,84,96,16,16,0,0,1,68,80Z"/></svg> LinkedIn <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg></a>
@@ -428,6 +391,7 @@
       <p class="foot-meta">Melbourne &middot; <time id="mel-time">local time</time></p>
     </div>
   </div>
+  <span class="ph ph-ground" aria-hidden="true"><b>Contact2</b><span>the hill the contact section stands on, full width</span><i>[ASSET: provided by Shrey]</i></span>
 </section>
 </main>
 
@@ -453,6 +417,7 @@
 </div>
 <script src="assets/site.js"></script>
 <script src="assets/magazine.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/home.js"></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/scroll-feel.js" defer></script>

@@ -3,6 +3,19 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* the pressed-ink filter the display headings use (base.css, INK) */
+  (function(){
+    if(document.getElementById('ink')) return;
+    var d=document.createElement('div'); d.setAttribute('aria-hidden','true');
+    d.style.cssText='position:absolute;width:0;height:0;overflow:hidden';
+    d.innerHTML='<svg width="0" height="0"><filter id="ink" x="-2%" y="-5%" width="104%" height="110%">'+
+      '<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n"/>'+
+      '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.5" xChannelSelector="R" yChannelSelector="G" result="d"/>'+
+      '<feMorphology in="d" operator="dilate" radius="0.22" result="m"/>'+
+      '<feGaussianBlur in="m" stdDeviation="0.18"/></filter></svg>';
+    (document.body||document.documentElement).appendChild(d);
+  })();
+
   /* Melbourne local time in the home footer. The zone name comes from the
      browser's time-zone data, so it reads AEST in winter and AEDT once
      daylight saving starts (first Sunday in October). Updates each minute. */

@@ -37,7 +37,6 @@
   --rule:rgba(23,60,168,.22);
 }
 /* ground contexts. Put one of these on a section and the type follows. */
-.on-fluoro{ --g:var(--p-fluoro); --g-inset:var(--p-ink);   --t-inset:var(--p-paper-dim);   --t:var(--p-ink);   --t-mute:#3A1008; --t-accent:var(--p-ink);         --rule:rgba(13,22,51,.30) }
 [class*="on-"]{background:var(--g);color:var(--t)}
 
 /* DARK. Grounds re-anchor to ink; the two light grounds fold into the two
@@ -65,32 +64,15 @@
    Kept deliberately short. Evidence read on the way past, not a destination. */
 .proof{padding:clamp(2.6rem,5vw,4.4rem) 0 clamp(2.2rem,4vw,3.4rem);
   border-top:3px solid var(--p-ink);border-bottom:3px solid var(--p-ink)}
-.proof-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
-  gap:1.2rem 3rem;align-items:end}
 .proof .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;color:var(--t-mute);display:block;margin-bottom:.9rem}
 .proof h2{font-size:var(--t-h2);max-width:11em}
 .proof .lede{margin:0;font-size:var(--sm);line-height:1.55;max-width:26em;color:var(--t)}
-.stints{margin-top:clamp(1.8rem,3.4vw,2.8rem);display:grid;gap:1.6rem 2.4rem;
-  grid-template-columns:repeat(3,minmax(0,1fr))}
-.stint{border-top:2px solid var(--p-ink);padding-top:.85rem}
-.stint .who{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--t-mute);margin:0 0 1rem}
-.figs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:1.1rem 2rem}
-.fig .n{display:block;font-family:var(--fd);font-weight:700;
-  font-size:var(--t-h2);line-height:.92;letter-spacing:var(--fd-track)}
-.fig .n i{display:block;font-style:normal;font-variant-numeric:tabular-nums}
-.fig .l{display:block;margin-top:.3rem;font-size:var(--t-small);line-height:1.35}
-.proofgap{margin:clamp(1.6rem,3vw,2.4rem) 0 0;padding:.75rem .9rem;max-width:46em;
-  border:1px dashed rgba(13,22,51,.45);font-family:var(--fu);font-size:var(--t-small);
-  line-height:1.8;color:var(--t)}
 
 /* The figures count up with the scroll: see PROOF figures in home.js. They are
    never hidden; with no JS the markup already holds the final values. */
-@media(max-width:1024px){.stints{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .proof-head{grid-template-columns:1fr;align-items:start}}
-@media(max-width:640px){.stints{grid-template-columns:1fr;gap:1.4rem}
-  .figs{gap:1rem 1.8rem}}
+
+
 
 :root{
   /* palette, families, --pad and --max are defined in base.css */
@@ -103,7 +85,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0}
-body{background:var(--ground);color:var(--text);font-family:var(--fb);font-size:var(--t-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--ground);color:var(--text);font-family:var(--fb);font-size:var(--t-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;background-image:var(--paper);background-size:var(--paper-size);background-attachment:fixed}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
@@ -117,7 +99,7 @@ a{color:inherit}
 /* section head — a rule and a number in the margin, not a box */
 .shead{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:baseline;
   border-top:3px solid var(--deep);padding-top:1rem;margin-bottom:2.6rem}
-.shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82}
+.shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82;margin:0;font-weight:inherit}
 .shead h2{font-size:var(--xl)}
 .shead .sub{grid-column:2;font-size:var(--base);opacity:.82;max-width:34em;margin-top:.7rem}
 .dark .shead{border-color:var(--cream)}
@@ -127,6 +109,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:
   padding:1.1rem var(--pad);font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
   transition:transform 320ms var(--ease),background 320ms var(--ease)}
 nav .sig{font-weight:600}
+/* the logo in the island (Nav1, delivered 1 Oct). It is a single-colour mark,
+   so it is inverted to the island's cream rather than recoloured per theme. */
+nav#nav .sig{display:flex;align-items:center}
 nav .links{display:flex;gap:1.5rem}
 nav a{text-decoration:none;position:relative;padding:3px 0}
 nav .sig{background:none;border:0;padding:0;box-shadow:none}
@@ -149,15 +134,9 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100vh;min-height:100svh}
 
 /* ---------- the artefact ---------- */
-.hero-art{background:var(--fluoro);display:grid;place-items:center;overflow:hidden;
-  padding:calc(var(--s-10) - var(--s-2)) var(--s-8) var(--s-8)}
 /* sized so print, name and caption fit one screen: the stack is ~1.5x the width */
-.art-print{margin:0;position:relative;width:min(100%,calc((100svh - 210px) * .66),480px);min-width:240px;container-type:inline-size}
 /* a real halftone, rendered once from the photograph (dot size follows
-   how dark the photo is) and printed in deep ink on cream paper */
-.art-face{display:block;width:100%;height:auto;aspect-ratio:4/5}
-.art-cap{margin-top:24cqw;display:inline-block;padding:var(--s-1) var(--s-2);background:#EFE2BA;transform:rotate(-1deg);
-  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.02em;color:var(--ink);line-height:1.4} /* a label on the print: small type never sits on red */
+   how dark the photo is) and printed in deep ink on cream paper */ /* a label on the print: small type never sits on red */
 
 /* the name: cut-outs stuck across the foot of the print */
 .hero-name{position:absolute;left:-7cqw;right:-5cqw;top:calc(125cqw - 26cqw);
@@ -171,7 +150,7 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* ---------- the words ---------- */
 .hero-k{margin:0;font-family:var(--fu);font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.8)}
 .hero-k b{font-weight:600;color:var(--deep)}
-.said{margin-top:var(--s-5);font-family:var(--fd);font-weight:800;font-size:var(--t-h2);line-height:1.1;
+.said{margin-top:var(--s-5);font-family:var(--fd);font-weight:900;font-size:var(--t-h2);line-height:1.1;
   letter-spacing:var(--fd-track);color:var(--deep)}
 .roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;margin-top:var(--s-1);
   background:var(--deep);color:var(--cream);padding:0 .3em;transform:rotate(-1.2deg)}
@@ -179,29 +158,22 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .roll li{height:1.25em;line-height:1.25em;white-space:nowrap}
 .value{margin:var(--s-6) 0 0;font-size:var(--t-h3);font-weight:400;line-height:1.3;max-width:22em}
 .value b{font-weight:600}
-.signoff{margin:var(--s-4) 0 0;font-size:var(--t-body);line-height:1.4;color:rgba(var(--deep-rgb),.8)}
-.signoff span{font-weight:600;color:var(--deep)}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-6);margin-top:var(--s-7)}
 .hbtn{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s-5);background:var(--deep);color:var(--cream);
   font-size:var(--t-body);font-weight:600;text-decoration:none;transition:background-color var(--d-1) ease,color var(--d-1) ease}
-.hbtn:hover,.hbtn:focus-visible{background:var(--fluoro);color:#0D1633}
+.hbtn:hover,.hbtn:focus-visible{background:var(--deep);color:var(--cream)}
 .hmail{font-size:var(--t-body);color:var(--deep);text-decoration:none;
   border-bottom:2px solid var(--fluoro);padding:var(--s-2) 0 2px;overflow-wrap:anywhere}
 .hmail:hover,.hmail:focus-visible{color:var(--accent-type)}
-.creds{margin:var(--s-5) 0 0;font-size:var(--t-small);line-height:1.5;color:rgba(var(--deep-rgb),.8)}
 
 
 /* the words: one column, centred on the screen's height */
-.hero-copy{align-self:center;max-width:38rem;padding:calc(var(--s-10) - var(--s-2)) max(var(--pad),env(safe-area-inset-right,0px)) var(--s-8) var(--s-9)}
 
 /* tablets and phones: the artefact on top, full width, then the words */
 @media (max-width:900px){
   .hero{grid-template-columns:minmax(0,1fr);min-height:0}
-  .hero-art{padding:calc(var(--s-10) - var(--s-1)) var(--pad) var(--s-8)}
-  .art-print{width:min(86%,440px)}
   /* the name stays on the screen: it overhangs the print, never the edge */
   .hero-name{left:-4cqw;right:auto}
-  .hero-copy{max-width:none;padding:var(--s-8) max(var(--pad),env(safe-area-inset-right,0px)) var(--s-8) max(var(--pad),env(safe-area-inset-left,0px))}
 }
 
 /* ---------- ticker ----------
@@ -223,6 +195,13 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
    projects sit here, with context where it was not a job; spec brands never do. */
 .worked{margin:0 0 var(--s-7)}
 .worked-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 1rem}
+/* The eight marks, cut from the board Shrey supplied (2 Oct). They are
+   mixed lockups: two sit on their own dark or orange plate, the rest are
+   free-standing, so each one is capped by height rather than width and the
+   row aligns on the optical centre instead of the box. UN Youth and BCG keep
+   their college-project line, per CONTENT. */
+.worked-mark{display:block;width:auto;height:clamp(26px,3.2vw,38px);max-width:100%;object-fit:contain}
+.worked-list li{display:grid;gap:6px;justify-items:start;align-content:center}
 .worked-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
   gap:1px;background:rgba(var(--deep-rgb),.28);border-top:1px solid var(--deep);border-bottom:1px solid var(--deep)}
 .worked-list li{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.4rem;
@@ -292,19 +271,13 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
 .wk-tile{display:block;color:var(--cream);text-decoration:none;transform:rotate(var(--r,0deg))}
 .wk-tile:focus-visible{outline:3px solid var(--fluoro);outline-offset:8px}
-.wk-frame{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;contain:paint;container-type:size;
+.wk-frame{position:relative;display:block;aspect-ratio:1/1.414;overflow:hidden;contain:paint;container-type:size;
   border:1px solid rgba(var(--cream-rgb),.22);background:var(--cream)}
 
 /* poster: the still face. Typographic until real imagery exists. */
+.wk-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
 .wk-poster{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:5cqw 5.5cqw;transition:opacity .25s var(--wk-ease)}
-.wk-kick{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
-.wk-mark{font-family:var(--fd);font-weight:700;font-size:23cqw;line-height:.78;letter-spacing:var(--fd-track);margin-left:-.04em}
-.wk-poster--vastr{background:var(--cream);color:var(--deep)}
-.wk-poster--voicedna{background:var(--fluoro);color:var(--cream)}
-.wk-poster--voicedna .wk-mark{font-size:17cqw}
-.wk-poster--vrl{background:var(--deep);color:var(--cream)}
-.wk-poster--vrl .wk-mark{font-size:38cqw}
 .wk-poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
   background-image:radial-gradient(circle at 1px 1px,currentColor 1px,transparent 1.2px);background-size:5px 5px}
 
@@ -317,7 +290,7 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .wk-label span:last-child{text-align:right}
 
 .wk-note{display:block;font-size:var(--xs);letter-spacing:.08em;line-height:1.55;color:rgba(var(--cream-rgb),.55);margin:2.4rem 0 0}
-a.wk-note{display:inline-flex;align-items:center;gap:14px;color:var(--cream);text-decoration:none}
+a.wk-note{display:inline-flex;align-items:center;gap:14px;padding:6px 0;color:var(--cream);text-decoration:none}
 a.wk-note:focus-visible{outline:3px solid var(--fluoro);outline-offset:6px}
 .wk-arrow{position:relative;display:inline-block;width:74px;height:1px;background:rgba(var(--cream-rgb),.45);
   transition:width .3s var(--wk-ease)}
@@ -420,7 +393,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .abody{display:grid;grid-template-columns:minmax(0,1.618fr) minmax(0,1fr);gap:3rem;align-items:start}
 .abody .prose p:first-child{font-size:var(--md);line-height:1.3;font-weight:500}
 .abody .prose p{max-width:32em}
-.skills h4{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
+.skills h3{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
   margin:0 0 .8rem;padding-bottom:.4rem;border-bottom:2px solid var(--deep)}
 .skills .grp{margin-bottom:1.8rem}
 .skills .cat{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 .4rem}
@@ -461,7 +434,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    one of two. Was: dark ground, --xxl headline, a decorative star and three
    links competing at the same weight. One accent appears here, on the one
    action that matters. */
-.contact{background:var(--cream);color:var(--deep);
+.contact{background:var(--cream);background-image:var(--paper);background-size:var(--paper-size);color:var(--deep);
   padding:var(--sec) 0 3rem;position:relative;border-top:3px solid var(--deep)}
 .contact .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;opacity:.82;display:block;margin-bottom:2.4rem}
@@ -483,16 +456,12 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   padding-bottom:2px;transition:opacity 200ms var(--ease)}
 .second a:hover,.second a:focus-visible{opacity:1}
 
-.recgap{border:2px dashed rgba(var(--deep-rgb),.4);padding:.7rem .9rem;margin:3.2rem 0 0;
-  max-width:44em;font-family:var(--fu);font-size:var(--xs);letter-spacing:.02em;
-  opacity:.82;line-height:1.8}
-
 /* footer: the Made by Shrey mark (see its own block) and one line of
    metadata. Metadata is #4A5578-weight deep, measured above AA. */
 .foot{margin-top:3.4rem;padding-top:1.5rem;border-top:1px solid rgba(var(--deep-rgb),.28);
   display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem 2rem;flex-wrap:wrap}
 .sign{margin:0;display:flex;align-items:baseline;gap:0;color:var(--deep);
-  font-family:var(--fd);font-weight:800;line-height:1;font-size:var(--t-body);letter-spacing:var(--fd-track)}
+  font-family:var(--fd);font-weight:900;line-height:1;font-size:var(--t-body);letter-spacing:var(--fd-track)}
 .sign .sw{white-space:nowrap}
 .sign-mark{height:clamp(26px,4vw,46px);width:auto;margin:0 .12rem 0 .45rem;transform:translateY(.22em)}
 .sign-star{height:clamp(15px,1.9vw,22px);width:auto;margin:0 .1rem 0 0;transform:translateY(-.55em) rotate(-9deg);
@@ -522,7 +491,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 @media (prefers-reduced-motion:reduce){.vinyl-cap{transition:none}}
 .vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:var(--t-small);letter-spacing:var(--fd-track)}
 .vinyl-by{display:block;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin-top:.25rem}
-.vinyl-by a{color:inherit;text-underline-offset:2px}
+.vinyl-by a{color:inherit;text-underline-offset:2px;display:inline-block;padding:5px 0}
 .vinyl-by a:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
 .vinyl-deck{position:relative;width:var(--vd);height:var(--vd)}
 .vinyl-disc{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(var(--cream-rgb),.4);
@@ -709,6 +678,8 @@ a.wrow:hover::before,a.wrow:focus-visible::before{transform:scaleY(1)}
 .wrow .tags{display:flex;gap:.4rem;flex-wrap:wrap}
 .wrow .tags span{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
   border:1px solid var(--deep);padding:2px 6px}
+/* audience reads first, the way the market sorts case studies */
+.tags .aud{background:var(--deep);color:var(--cream);border-color:var(--deep);font-weight:600}
 .wrow .tags span.on{background:var(--deep);color:var(--cream)}
 .wrow .tags span.dev{border-style:dashed;opacity:.82}
 .wrow .aside{display:grid;gap:.35rem;justify-items:end;text-align:right;padding-top:.4rem}
@@ -737,14 +708,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 .creach .v{font-family:var(--fd);font-weight:700;font-size:var(--t-h3);line-height:1;letter-spacing:var(--fd-track)}
 
 /* project / idea cross-navigation on a light page */
-.pnav{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:var(--sec) 0 0}
-.pnav a{display:grid;gap:.35rem;text-decoration:none;border-top:1px solid rgba(var(--deep-rgb),.3);padding-top:.8rem}
-.pnav a.nx{text-align:right}
-.pnav .lb{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
-.pnav .tt{font-family:var(--fd);font-weight:700;font-size:var(--t-h3);line-height:1.05;letter-spacing:var(--fd-track)}
-.pnav a:hover .tt,.pnav a:focus-visible .tt{color:var(--fluoro)}
-.pnav span.empty{border-top:1px solid rgba(var(--deep-rgb),.12)}
-@media(max-width:640px){.pnav{grid-template-columns:1fr}.pnav a.nx{text-align:left}}
+
 
 /* ============================================================
    WORK PLATES — the visual slot for each project.
@@ -755,14 +719,16 @@ a.wrow:hover .go::after{padding-left:.25em}
    ============================================================ */
 .plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--deep);
   border:2px solid var(--deep);display:grid;isolation:isolate}
-.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;z-index:1}
 .plate .pw{font-family:var(--fd);font-weight:700;text-transform:uppercase;
   color:var(--cream);line-height:.8;letter-spacing:var(--fd-track);margin:0;z-index:1;
   font-size:var(--t-h2)}
 .plate .pm{position:absolute;z-index:2;font-family:var(--fu);font-size:var(--t-small);
   letter-spacing:.08em;text-transform:uppercase;opacity:.82}
-/* the halftone the rest of the system already uses */
-.plate::after{content:"";position:absolute;inset:0;z-index:2;opacity:.09;pointer-events:none;
+/* The halftone belonged to the typographic stand-ins. Real artwork is the
+   evidence, so nothing is screened over it: the dots now only dress a plate
+   that has no image in it (1 Oct 2025, when the posters arrived). */
+.plate:not(:has(img))::after{content:"";position:absolute;inset:0;z-index:2;opacity:.09;pointer-events:none;
   background-image:radial-gradient(circle at 1px 1px,#000 1px,transparent 1.15px);background-size:5px 5px}
 
 /* 01 — the V is the hanger rail. Centred, oversized initial. */
@@ -790,7 +756,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* 04 — a shipping plate. Small mark, big rule, industrial. */
 .p-vrl{background:var(--deep);grid-template-rows:1fr auto}
 .p-vrl .pw{align-self:end;padding:0 .7rem;font-size:var(--t-h1)}
-.p-vrl .prule{height:10px;background:var(--fluoro);margin:.6rem .7rem .9rem;z-index:1}
 .p-vrl .pm{left:.7rem;top:.5rem;color:var(--cream)}
 
 /* 05 — one word, broken where the name breaks. */
@@ -860,7 +825,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .vinyl-by{font-size:var(--t-small);text-transform:none;letter-spacing:.02em}
 /* work tiles: names in sentence case so 14px labels fit the tile, not the page */
 .wk-label{text-transform:none;letter-spacing:.02em}
-.wk-kick{letter-spacing:.04em}
 .wk-note{letter-spacing:.04em}
 .work .wk-tile[href*="vrl"]{--y:44vh}
 @media (min-width:760px){.wk-note--right{max-width:26rem}}
@@ -873,7 +837,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.worked-ctx,.worked-gap,.xset i,.recgap,.contact .no,.shead .no{opacity:.82}
+   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.worked-ctx,.worked-gap,.xset i,.contact .no,.shead .no{opacity:.82}
 .proof .no,.proof .who{color:var(--p-ink);opacity:1}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
 .wk-note .gap{color:var(--accent-type)}
@@ -887,7 +851,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
   transition:color var(--d-1) ease}
 .wk-open span{transition:transform var(--d-2) var(--e-spring)}
-.wk-poster--vrl ~ .wk-open{background:var(--cream);color:var(--deep)}
 /* the cover lifts to uncover the bar beneath it, so nothing on the cover is hidden */
 .wk-poster{transition:opacity .25s var(--wk-ease),transform var(--d-2) var(--e-out)}
 .wk-tile:is(:hover,:focus-visible) .wk-poster{transform:translateY(-2.9rem)}
@@ -929,8 +892,6 @@ a.wrow:hover .go::after{padding-left:.25em}
    Wide screens: magazine.js binds the pages into leaves on a spine.
    Phones: a swipe track, one page at a time. No JS: pages stack.
    ============================================================ */
-.mag-head .h1,.mag-head h1{max-width:14em}
-.mag-wrap{padding-bottom:var(--sec)}
 .mag{position:relative;margin:var(--s-6) auto 0}
 .mag-book{position:relative;display:grid;gap:var(--s-6)}
 
@@ -970,7 +931,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   padding:var(--s-1) var(--s-3);font-family:var(--fd);font-weight:700;font-size:clamp(.95rem,4.4cqw,1.375rem);
   line-height:1.15;width:fit-content;max-width:78cqw;letter-spacing:var(--fd-track)}
 .cv-lines .mono{font-size:var(--t-small);font-weight:400;opacity:.82;flex:none}
-.cv-star{position:absolute;z-index:3;right:5cqw;top:27cqw;width:17cqw;height:auto;transform:rotate(12deg)}
 
 /* 2. contents: the inversion */
 .pg-contents{background:var(--deep);color:var(--cream);border-color:var(--deep)}
@@ -1031,7 +991,8 @@ a.wrow:hover .go::after{padding-left:.25em}
   border:1px solid var(--deep);padding:var(--s-3) var(--s-4);min-height:44px;cursor:pointer;
   transition:background var(--d-1) ease,color var(--d-1) ease,opacity var(--d-1) ease}
 .mag-btn:hover:not(:disabled),.mag-btn:focus-visible{background:var(--deep);color:var(--cream)}
-.mag-btn:disabled{opacity:.35;cursor:default}
+.mag-btn:disabled{color:color-mix(in srgb,var(--deep) 88%,var(--cream));border-style:dashed;
+  border-color:color-mix(in srgb,var(--deep) 45%,var(--cream));cursor:default}
 .mag-count{margin:0;font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;opacity:.82;text-align:center}
 
 /* ---------- bound: leaves on a spine ---------- */
@@ -1085,10 +1046,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .desk-mag .mag{margin-top:0}
 @media (min-width:900px){.desk-mag .mag.is-bound{width:min(78%,1000px,calc((100svh - 230px) * 1.5))}}
 /* before the issue arrives, and if it never does: the cover as a link */
-.desk-fallback{display:block;width:min(360px,72%);margin:0 auto;color:var(--deep);text-decoration:none;
-  border:1px solid var(--deep);background:var(--cream)}
-.desk-fallback img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
-.desk-fallback span{display:block;padding:var(--s-3) var(--s-4);font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase}
 @media (max-width:899px){
   .desk-surface{padding:var(--s-5) var(--pad) var(--sec)}
   .p-is,.p-mark,.sticker{display:none}
@@ -1111,7 +1068,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 .cv-burst{position:absolute;z-index:4;right:5cqw;top:24cqw;width:21cqw;aspect-ratio:1;display:grid;place-items:center;
   background:var(--yellow);color:var(--ink);transform:rotate(12deg);
   clip-path:polygon(50% 0,61% 16%,79% 9%,79% 28%,97% 32%,86% 48%,100% 62%,81% 69%,84% 88%,65% 84%,50% 100%,39% 84%,20% 91%,19% 72%,0 66%,13% 50%,3% 33%,21% 28%,22% 9%,39% 16%)}
-.cv-burst span{font-family:var(--fd);font-weight:800;font-size:3.3cqw;line-height:.95;text-align:center;text-transform:uppercase;letter-spacing:var(--fd-track)}
+.cv-burst span{font-family:var(--fd);font-weight:900;font-size:3.3cqw;line-height:.95;text-align:center;text-transform:uppercase;letter-spacing:var(--fd-track)}
 .cv-code{position:absolute;z-index:4;right:5.5cqw;bottom:5.5cqw;display:grid;gap:.6cqw;padding:1.6cqw 1.8cqw 1.2cqw;background:#fff;color:var(--ink)}
 .cv-code i{display:block;width:17cqw;height:8cqw;
   background:repeating-linear-gradient(90deg,var(--ink) 0 .35cqw,transparent .35cqw .7cqw,var(--ink) .7cqw 1.4cqw,transparent 1.4cqw 1.7cqw,var(--ink) 1.7cqw 1.9cqw,transparent 1.9cqw 2.6cqw)}
@@ -1146,22 +1103,15 @@ a.wrow:hover .go::after{padding-left:.25em}
    face has no digits, and mixing faces inside a number misaligns it. */
 section.proof.comic{background-color:var(--yellow);color:var(--ink);border-color:var(--ink);
   background-image:radial-gradient(rgba(23,60,168,.2) 1.3px,transparent 1.8px);background-size:11px 11px}
-.proof.comic h2{color:var(--ink)}
-.proof.comic .no,.proof.comic .stint .who{color:var(--ink);opacity:1}
-.proof.comic .lede,.proof.comic .fig .l{color:var(--ink)}
-.proof.comic .fig .n{color:#173CA8;font-family:var(--fb);font-weight:700;letter-spacing:-.01em}
-.proof.comic .stint{border-top:3px solid var(--ink)}
-.proof.comic .proofgap{border-color:rgba(13,22,51,.5);color:var(--ink)}
+.proof.comic h2{color:var(--ink)}.proof.comic .no{color:var(--ink);opacity:1}.proof.comic .lede{color:var(--ink)}
 
 /* ---------- me: the paragraph inks in as you read ---------- */
 [data-scrub] .w{opacity:.42;transition:opacity 160ms linear}
 [data-scrub] .w.on{opacity:1}
 @media (prefers-reduced-motion:reduce){[data-scrub] .w{opacity:1}}
 
-/* ---------- contact: a highlighter under "always" ---------- */
-.contact .cta em,.contact .cta .hl{font-style:normal;background:linear-gradient(var(--yellow),var(--yellow)) 0 88% / 0% 34% no-repeat;
-  transition:background-size 900ms var(--e-out) 400ms}
-.contact .cta.lit em,.contact .cta.lit .hl{background-size:100% 34%}
+/* ---------- contact: a highlighter under "always" ---------- */.contact .cta em{font-style:normal;background:linear-gradient(var(--yellow),var(--yellow)) 0 88% / 0% 34% no-repeat;
+  transition:background-size 900ms var(--e-out) 400ms}.contact .cta.lit em{background-size:100% 34%}
 
 /* icons: Phosphor (MIT, phosphoricons.com), bold weight, inlined so they take
    the text colour. Sources in assets/icons/. They sit on the text baseline at
@@ -1197,7 +1147,7 @@ section.proof.comic{background-color:var(--yellow);color:var(--ink);border-color
 .ht-tape::after{bottom:1px;transform:scaleX(-1)}
 .ht-tape .xtrack{display:flex;width:max-content;will-change:transform}
 .ht-set{display:flex;align-items:center;gap:var(--s-5);margin:0;padding:0 var(--s-5) 0 0;list-style:none}
-.ht-set li{white-space:nowrap;font-family:var(--fd);font-weight:800;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
+.ht-set li{white-space:nowrap;font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
 .ht-set q{quotes:"\201C" "\201D"}
 .ht-mark{display:block;width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round;transform:rotate(-8deg)}
 .ht-sep:nth-child(4n) .ht-mark{transform:rotate(14deg) scale(.85)}
@@ -1255,28 +1205,12 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
 
 /* the letterbox: a slit that opens to reveal the photograph.
    shares the centre cell with the rule, so the rule appears to part */
-.lband{grid-row:2;grid-column:1/-1;position:relative;overflow:hidden;align-self:center;
-  height:0;transition:height 900ms var(--ease)}
-.lband.open{height:100%}
-.lband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:52% 34%;transform:scale(1.14);transition:transform 1400ms var(--ease)}
-.lband.open img{transform:scale(1)}
-.lband::after{content:"";position:absolute;inset:0;background:var(--fluoro);
-  mix-blend-mode:multiply;opacity:.42;transition:opacity 700ms var(--ease)}
-.lband.warm::after{opacity:0}
 
 /* a hairline that draws across before the band opens */
 .lrule{grid-row:2;grid-column:1/-1;align-self:center;height:2px;background:var(--deep);
   width:0;transition:width 620ms var(--ease);position:relative;z-index:2;justify-self:start}
 .lrule.draw{width:100%}
 .lrule.part{opacity:0;transition:opacity 300ms var(--ease)}
-
-.lstar{position:absolute;width:clamp(90px,12vw,150px);opacity:0;
-  transition:opacity 220ms var(--ease),transform 620ms var(--ease);z-index:3}
-.lstar.show{opacity:1}
-.lstar.blow{transform:scale(5) rotate(24deg);opacity:0}
-
-.lcount{font-variant-numeric:tabular-nums}
 
 @media(max-width:900px){.lgrid{height:60vh}}
 @media (prefers-reduced-motion:reduce){.loader{display:none}}
@@ -1286,9 +1220,249 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
    lane in the hero, a one-line value claim over each proof stint, and the
    roles he wants, stated once, above the ask. Every claim sits on a verified
    figure; nothing here adds a number. */
-.fastlane{margin:var(--s-3) 0 0;font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.85)}
-.fastlane a{color:var(--deep);font-weight:600;text-decoration:underline;text-decoration-color:var(--fluoro);text-underline-offset:3px;text-decoration-thickness:2px}
-.fastlane a:hover,.fastlane a:focus-visible{text-decoration-color:var(--deep)}
-.proof .hook{margin:0 0 var(--s-4);font-family:var(--fd);font-weight:800;font-size:var(--t-body);line-height:1.25;letter-spacing:var(--fd-track);color:var(--ink);max-width:18em}
 .lookingfor{margin:var(--s-5) 0 var(--s-6);max-width:36em;font-size:var(--t-body);line-height:1.5;color:var(--deep)}
 .lookingfor b{font-weight:600}
+
+/* ============================================================
+   FLOATING NAVIGATION MARKS, head start (22 Sep 2026)
+   Five floating cut-out marks are the primary navigation, drifting in the
+   hero; a label snaps in on hover or focus; the island nav stays as the
+   always-visible text menu. Phones hide the marks.
+   Clash, marked: the veto list bans offset shadows. The brief asks for a
+   hard 3px offset on the cut-out marks, the same surface as the name tiles;
+   picked on relevance. It stays on these marks and their labels only.
+   ============================================================ */
+.hero{position:relative}
+/* where each one floats: the red panel's free edges and the cream margin, never over the copy */
+/* the marks: paper, ink, one colour each. Fixed colours, so they stay paper in dark mode */
+/* the label: a cut-out word that snaps in on intent */
+
+
+/* the camera date stamp, printed on the picture */
+
+ /* no drift, no hover on touch: the island menu is the navigation */
+
+/* the loader, shortened: a fast rule, a fast wipe */
+.loader{transition:clip-path 380ms var(--e-out)}
+.lrule{transition:width 340ms var(--e-out)}
+.lmeta{transition:opacity 200ms ease}
+
+/* ---------- yellow is an accent, never a plane (Shrey, 22 Sep 2026) ----------
+   It marks things (the highlighter, the stars on the tape, the cover
+   starburst); it no longer fills a band. The quote tape is paper now. */
+.ht-tape{background:#FCFAF4;color:#0D1633}
+.ht-mark{fill:#FFED10}
+/* positions for the full hero: the red panel's free strips either side of the
+   print, and the cream corner above the copy */
+/* below 1180px the strips beside the print are too narrow to hold the marks
+   clear of it; the island nav carries navigation there, as on phones */
+
+
+
+/* ============================================================
+   REFERENCE BOOK BUILD (23 Sep 2026). Rows marked Take, built here.
+   ============================================================ */
+/* 01 Hero: the icon slots hold the marks' size and drift; Hero6 is new */
+
+/* 03 Work: covers wait in their frames; cards pick up on hover */
+.plate{transition:transform 260ms var(--e-spring),box-shadow 260ms var(--e-out)}
+/* the pick-up: lift, a small turn, and the hard 3px offset the cut-outs use
+   (veto-list clash, marked: kept to this one hover) */
+a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6deg);box-shadow:3px 3px 0 #0D1633}
+.wk-tile .wk-frame{transition:transform 260ms var(--e-spring)}
+.wk-tile:is(:hover,:focus-visible) .wk-frame{transform:translateY(-8px) rotate(-1.2deg)}
+@media (prefers-reduced-motion:reduce){.plate,.wk-tile .wk-frame{transition:none}a.wrow:is(:hover,:focus-visible) .plate,.wk-tile:is(:hover,:focus-visible) .wk-frame{transform:none}}
+
+/* 05 Ideas: the magazine sits on its clipboard */
+.desk-mag{position:relative}
+.ph-clip{position:absolute;z-index:0;left:50%;top:50%;width:min(94%,760px);height:calc(100% + 96px);transform:translate(-50%,-50%) rotate(-2deg);pointer-events:none}
+.desk-mag > .mag{position:relative;z-index:1}
+
+/* ============================================================
+   CONTACT, the references replicated in full (24 Sep 2026)
+   Row 02, up.com.au: the hover that reveals a dark graphic. Row 00, Riya:
+   the connect section's double hover, and the scribble. Row 09, the sky pin:
+   the section stands on a hill rather than sitting above a band of one.
+   One hover, three answers: the address inverts into a plane, the scribble
+   draws under it, and the graphic comes up beside it. That is the "double
+   hover" take, held to the letter, and it is all one gesture so it does not
+   read as three effects competing.
+   ============================================================ */
+.reach-wrap{position:relative;display:inline-block}
+.reach{position:relative;z-index:1;padding:.05em .16em .2rem}
+.reach-wrap:is(:hover,:focus-within) .reach{background:var(--deep);color:var(--cream);border-bottom-color:transparent}
+.reach{transition:border-color 220ms var(--ease),background 220ms var(--ease),color 220ms var(--ease)}
+
+/* the scribble: drawn, not decorative. It underlines the one thing on the
+   page a visitor is meant to do. */
+.scribble{position:absolute;left:-.1em;right:-.1em;bottom:-.95rem;width:auto;height:clamp(14px,1.6vw,22px);
+  overflow:visible;pointer-events:none;z-index:2}
+.scribble path{fill:none;stroke:var(--fluoro);stroke-width:3.5;stroke-linecap:round;
+  stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 620ms var(--e-out)}
+.scribble .s2{stroke-width:2.5;opacity:.75;transition-delay:90ms}
+.reach-wrap:is(:hover,:focus-within) .scribble path{stroke-dashoffset:0}
+
+/* the dark graphic, row 02. It comes up beside the address, not over it. */
+.ph-reveal{position:absolute;left:calc(100% + var(--s-5));top:50%;width:260px;height:180px;background:#0D1633;color:#F7F4EC;
+  border-color:#F7F4EC;transform:translateY(-50%) rotate(3deg) scale(.6);opacity:0;pointer-events:none;
+  transition:opacity 200ms ease,transform 320ms var(--e-spring)}
+.reach-wrap:is(:hover,:focus-within) .ph-reveal{opacity:1;transform:translateY(-50%) rotate(3deg) scale(1)}
+
+/* the hill, row 09: the section stands on it, full bleed and behind the
+   content, with the footer line sitting on it rather than after it. */
+.contact{overflow:hidden;padding-bottom:clamp(110px,15vw,190px)}
+.contact .wrap{position:relative;z-index:1}
+.ph-ground{position:absolute;z-index:0;left:50%;bottom:0;transform:translateX(-50%);display:grid;width:100vw;
+  height:clamp(180px,26vw,320px);border-left:0;border-right:0;border-bottom:0}
+/* the /contact/ list: the same gesture, one step quieter. No second copy of
+   the Contact1 graphic, because one idea per surface. */
+.creach .reach-row{position:relative}
+.creach .reach-row .v{position:relative;display:inline-block;padding:.02em .14em;transition:background 220ms var(--ease),color 220ms var(--ease)}
+.creach .reach-row:is(:hover,:focus-visible) .v{background:var(--deep);color:var(--cream)}
+.creach .reach-row .scribble{bottom:-.5rem;height:14px}
+.creach .reach-row:is(:hover,:focus-visible) .scribble path{stroke-dashoffset:0}
+@media (max-width:900px){.ph-reveal{display:none}}
+@media (prefers-reduced-motion:reduce){.ph-reveal,.reach,.scribble path{transition:none}.scribble path{stroke-dashoffset:0}}
+
+
+
+/* 06 Me: the floating head, and the globe at the end of the story */
+.phead{position:relative}
+.me-head{position:absolute;right:max(var(--pad),4vw);top:var(--s-6);width:clamp(140px,18vw,240px);aspect-ratio:1;
+  animation:mebob 1.4s var(--e-out) 3 alternate}
+.me-head .ph{width:100%;height:100%;border-radius:0}
+@keyframes mebob{to{transform:translateY(-10px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.me-head{animation:none}}
+@media (max-width:900px){.me-head{position:relative;right:auto;top:auto;margin:var(--s-5) 0 0}}
+.places{padding:var(--sec) 0}
+.ph-globe{width:min(100%,520px);aspect-ratio:1;margin:var(--s-6) 0 var(--s-4)}
+/* ============================================================
+   THE HERO STAGE (23 Sep 2026, Reference Book rows 00-02)
+   Taken: Balint Horvath's centre-piece with labelled objects floating
+   around it, draggable, each one a place to go. Left: his sky wallpaper
+   and the XP desktop language (taskbar, system-message window, .exe file
+   names) - it reads as someone else's site, and it buried the photograph.
+   The ground is cream, blue does the type and line work, red is the one
+   accent plane, yellow only marks a hover. The photograph is the
+   centre-piece and does not move.
+   ============================================================ */
+/* The hero ground is lifted towards white (Shrey, 24 Sep 2026): the same
+   cream, mixed with paper, so the token relationship holds and dark mode
+   still flips. Everything else on the page stays on --cream. */
+.stage-hero{--card:color-mix(in srgb,var(--cream) 58%,#fff 42%);position:relative;display:block;min-height:100vh;min-height:100svh;overflow:hidden;
+  padding:calc(var(--s-10) + var(--s-4)) 0 var(--s-9);background:var(--cream);color:var(--deep);isolation:isolate}
+/* on the dark ground the mount has to go darker, not grey: mixing the dark
+   cream towards white lands in the middle and takes the caption with it */
+html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#fff 10%)}
+.stage-ground{position:absolute;inset:0;z-index:0;background-image:var(--paper);background-size:var(--paper-size)}
+/* ============================================================
+   THE RIPPLE (24 Sep 2026, Shrey)
+   Touching the photograph or the copy sends rings out in the three
+   colours: cape blue, cape red, shield yellow. They step rather than
+   glide, so it reads as stop motion rather than a water effect: each
+   ring is a 7-frame animation on steps(7), which is the same idiom the
+   ransom tiles already animate on. Rings are drawn under the content and
+   never take the pointer. Reduced motion, and the Pause motion control,
+   stop them being made at all.
+   ============================================================ */
+.ripples{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.rip{position:absolute;left:var(--x);top:var(--y);width:var(--d,120px);height:var(--d,120px);
+  margin:calc(var(--d,120px) / -2) 0 0 calc(var(--d,120px) / -2);
+  border:var(--w,6px) solid var(--c,var(--deep));border-radius:50%;
+  opacity:0;transform:scale(.18);
+  animation:rip-out var(--t,760ms) steps(7,end) var(--delay,0ms) 1 both}
+@keyframes rip-out{
+  0%{opacity:.95;transform:scale(.12)}
+  55%{opacity:.62}
+  100%{opacity:0;transform:scale(1)}
+}
+/* the second and third rings are thinner, so the front of the wave leads */
+@media (prefers-reduced-motion:reduce){ .ripples{display:none} }
+.stage{position:relative;z-index:2;min-height:calc(100svh - var(--s-10) - var(--s-9));display:grid;place-items:center}
+
+/* the centre-piece: the photograph, then the name and the one value line */
+.stage-centre{--fl-w:clamp(132px,19vh,212px);position:relative;z-index:3;display:grid;align-items:center;gap:var(--s-6) var(--s-7);
+  grid-template-columns:auto minmax(0,1fr);width:min(830px,calc(100% - 2 * (var(--fl-w) + 40px + 2vw)));margin:0 auto}
+.print{margin:0;width:clamp(210px,21vw,290px);transform:rotate(-2.4deg)}
+.print-mount{display:block;position:relative;background:var(--card);border:2px solid var(--deep);padding:10px 10px 0}
+.print-mount img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.12)}
+.print-stamp{position:absolute;right:-14px;top:-14px;display:grid;place-items:center;width:52px;height:52px;
+  background:var(--card);border:2px solid var(--fluoro);color:var(--accent-type);border-radius:50%;font-family:var(--fd);font-weight:900;font-size:15px;
+  letter-spacing:.02em;transform:rotate(9deg)}
+.print figcaption{padding:var(--s-2) 10px var(--s-3);background:var(--card);border:2px solid var(--deep);border-top:0;
+  font-family:var(--fu);font-size:13px;line-height:1.38;color:var(--deep)}
+.print figcaption b{display:block;font-family:var(--fu);font-weight:400;text-transform:uppercase;letter-spacing:.08em;font-size:12px;opacity:.82}
+
+.stage-copy{display:grid;justify-items:start}
+.stage-copy .hero-name{position:static;left:auto;right:auto;top:auto;width:100%;margin:0 0 var(--s-4)}
+.stage-copy .hero-name .l1{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:9px}
+.stage-copy .hero-name .l2{margin-top:6px;display:block}
+.stage-copy .t-hi{width:54px}.stage-copy .t-my{width:62px}.stage-copy .t-name{width:110px}
+.stage-copy .t-is{width:38px}.stage-copy .t-shrey{width:248px}
+.stage-copy .claim{margin:0;font-family:var(--fd);font-weight:900;font-size:clamp(1.75rem,2.9vw,2.4rem);line-height:1.04;
+  letter-spacing:var(--fd-track);color:var(--deep);max-width:13em;text-wrap:balance}
+.stage-copy .said{margin:var(--s-3) 0 0;font-family:var(--fb);font-weight:500;font-size:var(--t-body);line-height:1.5;color:var(--deep)}
+.stage-copy .roll{font-family:var(--fd);font-weight:900;font-size:var(--t-body);background:var(--deep);color:var(--cream)}
+.stage-copy .hero-k{margin:var(--s-3) 0 0;font-family:var(--fu);font-size:var(--t-small);color:var(--deep);opacity:.82}
+/* the fastest credibility on the site, moved above the fold 29 Sep 2026 */
+.stage-copy .hero-cred{margin:var(--s-2) 0 0;font-family:var(--fu);font-size:var(--t-small);
+  color:var(--deep);opacity:.82;max-width:34em;border-top:1.5px solid color-mix(in srgb,var(--deep) 30%,transparent);padding-top:var(--s-2)}
+.stage-copy .hero-cta{margin-top:var(--s-5)}
+
+/* the objects around it: six places to go, labelled, click to land, drag to move */
+.floats{--fl-w:clamp(132px,19vh,212px);list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:4}
+.fl{position:absolute;width:calc(var(--fl-w) + 28px);touch-action:none}
+.fl a{display:grid;justify-items:center;gap:var(--s-2);text-decoration:none;color:var(--deep);cursor:grab}
+.fl-icon{display:block;width:var(--fl-w);height:var(--fl-w)}
+/* the delivered marks are 360px patches: they fill the slot, never the page */
+.fl-icon img{display:block;width:100%;height:100%;object-fit:contain}
+.fl-icon .ph{width:100%;height:100%;padding:4px;font-size:9px;gap:2px;background:var(--card)}
+.fl-icon .ph b{font-size:14px}.fl-icon .ph i{display:none}
+.fl-name{margin-top:-18px;position:relative;z-index:2;padding:3px 8px;background:var(--card);border:1.5px solid var(--deep);font-family:var(--fu);font-size:var(--t-small);
+  line-height:1.25;text-align:center;color:var(--deep);overflow-wrap:anywhere}
+.fl a:hover .fl-name,.fl a:focus-visible .fl-name{background:var(--yellow);color:#0D1633}
+.fl a:hover .fl-icon,.fl a:focus-visible .fl-icon{transform:rotate(-2deg) scale(1.04)}
+.fl-icon{transition:transform 220ms var(--e-spring)}
+.fl a:focus-visible{outline:none}
+.fl a:focus-visible .fl-icon{outline:3px solid var(--fluoro);outline-offset:3px}
+.fl.is-dragging{z-index:9}.fl.is-dragging a{cursor:grabbing}
+/* The six sit in the two side bands. Their size follows the height of the
+   screen, so three still stack clear of each other on a laptop, and the
+   bottom right one stays above the record player. Checked 1920/1600/1440/1280. */
+/* Spread by calculation, not by percentage: the marks grew (2 Oct) and a
+   fixed percentage stopped clearing them on a 800px-tall window. --fl-h is
+   the mark plus its label, so three always sit clear of each other whatever
+   the screen height. The two columns are offset so the pair never lines up. */
+.floats{--fl-h:calc(var(--fl-w) + 16px)}
+.fl-work{left:1.5%;top:0}
+.fl-ideas{left:2.5%;top:calc(50% - var(--fl-h) / 2)}
+.fl-me{left:1%;top:calc(100% - var(--fl-h))}
+.fl-faq{right:1.5%;top:0}
+.fl-contact{right:2.5%;top:calc(50% - var(--fl-h) / 2)}
+.fl-listen{right:1%;top:calc(100% - var(--fl-h))}
+/* while the hero owns the screen the record player stands down: the
+   Listening mark is the way into it, and two players in one corner is clutter */
+html.at-hero .vinyl{opacity:0;transform:translateY(10px);pointer-events:none}
+.vinyl{transition:opacity 260ms ease,transform 320ms var(--e-out)}
+.stage-hint{position:absolute;z-index:4;left:50%;bottom:0;transform:translateX(-50%);margin:0;
+  font-family:var(--fu);font-size:var(--t-small);color:var(--deep);opacity:.78}
+
+/* under 1180 there is no room to float: the objects become a row under the
+   centre-piece, and the photograph stays the centre-piece. */
+@media (max-width:1180px){
+  .stage-hero{padding:calc(var(--s-9) + var(--s-4)) var(--pad) var(--s-8)}
+  .stage{display:block}
+  .stage-centre{width:100%;max-width:820px}
+  .floats{position:relative;inset:auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:var(--s-4) var(--s-3);margin:var(--s-8) auto 0;max-width:820px;padding-right:132px}
+  .fl,.fl-work,.fl-ideas,.fl-me,.fl-faq,.fl-contact,.fl-listen{position:static;width:auto;left:auto;right:auto;top:auto}
+  .fl-icon{width:100%;height:auto;aspect-ratio:1}
+  .stage-hint{display:none}
+}
+@media (max-width:780px){
+  .stage-centre{grid-template-columns:minmax(0,1fr);justify-items:start}
+  .print{width:min(260px,62%)}
+  .floats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stage-copy .hero-name .l1{flex-wrap:wrap}
+  .stage-copy .t-shrey{width:min(248px,72%)}
+}

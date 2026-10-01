@@ -22,7 +22,7 @@
     els.forEach(function(e){setTimeout(function(){e.style.animation='';
       e.classList.add(e.classList.contains('tile')||e.classList.contains('roll')?'snap':(e.classList.contains('cue')?'fade':'rise'))},+e.dataset.t)});
   }
-  if(!document.getElementById('loader')||reduce) assemble(); /* otherwise the loader calls it */
+  if(!document.getElementById('loader')) assemble(); /* otherwise the loader calls it */
 
   /* rolling verticals */
   var ul=document.getElementById('rollul'),n=ul.children.length-1,i=0;
@@ -61,7 +61,7 @@
   var toggles=[].slice.call(document.querySelectorAll('[data-tick-toggle]'));
   function syncToggles(){ toggles.forEach(function(b){
     b.setAttribute('aria-pressed',paused?'true':'false');
-    b.querySelector('span').textContent=paused?'Play tickers':'Pause tickers'; }); }
+    b.querySelector('span').textContent=paused?'Play motion':'Pause motion'; }); window.__smPaused=paused; }
   toggles.forEach(function(b){ b.addEventListener('click',function(){
     paused=!paused; try{ localStorage.setItem(PAUSE_KEY,paused?'paused':'playing'); }catch(e){} syncToggles(); }); });
   syncToggles();
@@ -160,68 +160,29 @@
     });
   })();
 
-  /* ---- loading sequence: rule, letterbox, star, wipe. Every full load. ---- */
+  /* ---- loader: under a second, first visit only (brief, 22 Sep 2026) ----
+     A rule draws under the name, then the loader wipes into the hero and the
+     hero assembles. Repeat visits (a stored flag) and reduced motion skip it
+     entirely; any click, key, scroll or touch skips it at once. */
   var loader=document.getElementById('loader');
   (function(){
     if(!loader) return;
-    if(reduce){ loader.remove(); return; }
-    hero.classList.add('anim'); /* hold the hero back until the wipe */
-    var st  = document.getElementById('lstar'),
-        band= document.getElementById('lband'),
-        rule= document.getElementById('lrule'),
-        cnt = document.getElementById('lcount'),
-        done= false, timers = [];
-
-    function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
-
+    var seen=false; try{ seen=localStorage.getItem('sm-seen')==='1'; }catch(e){}
+    if(reduce||seen){ loader.remove(); assemble(); return; }
+    try{ localStorage.setItem('sm-seen','1'); }catch(e){}
+    hero.classList.add('anim');
+    var done=false, timers=[];
     function finish(){
-      if(done) return; done = true;
+      if(done) return; done=true;
       timers.forEach(clearTimeout);
-      st.classList.add('blow');
       loader.classList.add('gone');
-      setTimeout(function(){ loader.remove(); }, 660);
-      assemble(); /* the hero builds itself as the loader wipes away */
+      setTimeout(function(){ loader.remove(); },660);
+      assemble();
     }
-
-    /* the count is the honest part: it tracks the hero art actually
-       decoding, so the loader ends when the page is genuinely ready */
-    var heroImgs = [].slice.call(document.querySelectorAll('.hero img, .hero source'))
-                     .map(function(n){ return n.currentSrc || n.src || n.srcset; })
-                     .filter(Boolean);
-    var total = heroImgs.length || 1, loaded = 0, ready = false;
-
-    function tick(){
-      loaded++;
-      var pct = Math.round((loaded / total) * 100);
-      if(cnt) cnt.textContent = pct < 10 ? '0' + pct : String(pct);
-      if(loaded >= total) ready = true;
-    }
-    heroImgs.forEach(function(src){
-      var i = new Image();
-      i.onload = i.onerror = tick;
-      i.src = src;
-    });
-
-    /* beat 1 — corners set the frame */
-    at(120, function(){ document.querySelectorAll('.lmeta[data-b="1"]').forEach(function(e){ e.classList.add('in'); }); });
-    /* beat 2 — a rule draws across the empty frame */
-    at(520, function(){ rule.classList.add('draw'); });
-    at(900, function(){ document.querySelectorAll('.lmeta[data-b="2"]').forEach(function(e){ e.classList.add('in'); }); });
-    /* beat 3 — the rule becomes the opening of the letterbox */
-    at(1150, function(){ rule.classList.add('part'); band.classList.add('open'); });
-    /* beat 4 — the fluoro wash clears off the photograph */
-    at(1900, function(){ band.classList.add('warm'); });
-    /* beat 5 — the star punches, then hand off to the hero */
-    at(2400, function(){ st.classList.add('show'); });
-    at(2850, function(){
-      if(ready) return finish();
-      var wait = setInterval(function(){ if(ready){ clearInterval(wait); finish(); } }, 80);
-      setTimeout(function(){ clearInterval(wait); finish(); }, 1800); /* hard cap */
-    });
-
-    ['click','keydown','wheel','touchstart'].forEach(function(ev){
-      addEventListener(ev, finish, {once:true, passive:true});
-    });
+    timers.push(setTimeout(function(){ [].forEach.call(loader.querySelectorAll('.lmeta'),function(e){ e.classList.add('in'); }); },60));
+    timers.push(setTimeout(function(){ var r=document.getElementById('lrule'); if(r) r.classList.add('draw'); },140));
+    timers.push(setTimeout(finish,760));
+    ['click','keydown','wheel','touchstart'].forEach(function(ev){ addEventListener(ev,finish,{once:true,passive:true}); });
   })();
 
   /* ---- selected work: pinned collage ----
@@ -393,45 +354,6 @@
   })();
 })();
 
-/* ---------- PROOF figures count up with the scroll (22 Sep 2026) ----------
-   Replaced the one-shot roll, which hid each number until an observer fired
-   and could leave one hidden. Now every figure is always visible: it counts
-   from zero to its value as the panel moves up the screen, scrubbed by the
-   scroll, and runs back down if you scroll back. The real value is the
-   element's accessible name, so screen readers never hear the count. With no
-   JS the markup already holds the finals; reduced motion shows the finals. */
-(function () {
-  var figs = [].slice.call(document.querySelectorAll('.proof .fig .n i'));
-  var panel = document.querySelector('.proof');
-  if (!figs.length || !panel) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = figs.map(function (el) {
-    var txt = el.textContent.trim();
-    var m = txt.match(/^([^\d]*)([\d.]+)(.*)$/);
-    if (!m) return null;
-    var dec = (m[2].split('.')[1] || '').length;
-    el.setAttribute('aria-label', txt);
-    var shown = document.createElement('span'); shown.setAttribute('aria-hidden', 'true');
-    el.textContent = ''; el.appendChild(shown);
-    return { el: shown, pre: m[1], val: parseFloat(m[2]), dec: dec, post: m[3], final: txt };
-  }).filter(Boolean);
-  function ease(t) { return 1 - Math.pow(1 - t, 3); }
-  function paint() {
-    tick = false;
-    var r = panel.getBoundingClientRect(), vh = innerHeight;
-    /* 0 when the panel's top enters at the bottom, 1 once it is 45% up */
-    var p = reduce ? 1 : Math.min(1, Math.max(0, (vh - r.top) / (vh * .55)));
-    items.forEach(function (it, i) {
-      var local = Math.min(1, Math.max(0, p * 1.25 - i * .04)); /* a slight stagger */
-      var v = it.val * ease(local);
-      it.el.textContent = local >= 1 ? it.final : it.pre + v.toFixed(it.dec) + it.post;
-    });
-  }
-  var tick = false;
-  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(paint); setTimeout(function () { if (tick) paint(); }, 120); } }, { passive: true });
-  addEventListener('resize', paint);
-  paint();
-})();
 
 /* ---- section personalities (21 Sep 2026): each home section its own device ---- */
 (function(){
@@ -443,4 +365,177 @@
     new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ c.classList.add('lit'); o.disconnect(); } },{threshold:.5}).observe(c);
   })();
 
+})();
+
+/* ---- floating navigation marks ---- */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, hero=document.getElementById('hero'); if(!hero) return;
+  /* ---- floating navigation marks (Phase 1, 22 Sep 2026) ----
+     Each mark drifts on two slow sine waves around its home spot, and the
+     pointer pushes it away a little on a damped spring, so the set feels
+     loose rather than looped. A mark holds still while pointed at or focused,
+     so it is easy to read and click. Only on a desktop with a fine pointer;
+     never under reduced motion; stops with the Pause motion button; only runs
+     while the hero is on screen. */
+  (function(){
+    var layer=document.querySelector('[data-float]'); if(!layer) return;
+    var fine=matchMedia('(hover:hover) and (pointer:fine) and (min-width:901px)');
+    if(reduce||!fine.matches) return;
+    var marks=[].slice.call(layer.querySelectorAll('[data-fi]')).map(function(el,i){
+      var m={el:el,ph:i*1.9,ax:9+(i%3)*4,ay:7+(i%2)*5,wx:.00042+i*.00005,wy:.00033+i*.00004,
+        r:parseFloat(getComputedStyle(el).getPropertyValue('--fi-r'))||0,dx:0,dy:0,vx:0,vy:0,hold:0,holdT:0};
+      el.addEventListener('pointerenter',function(){ m.holdT=1; });
+      el.addEventListener('pointerleave',function(){ m.holdT=0; });
+      el.addEventListener('focus',function(){ m.holdT=1; });
+      el.addEventListener('blur',function(){ m.holdT=0; });
+      return m;
+    });
+    var px=-1e4,py=-1e4;
+    hero.addEventListener('pointermove',function(e){ px=e.clientX; py=e.clientY; });
+    hero.addEventListener('pointerleave',function(){ px=py=-1e4; });
+    var running=false,raf=0,t0=performance.now(),go=1;
+    function frame(now){
+      if(!running){ raf=0; return; }
+      go+=((window.__smPaused?0:1)-go)*.08;
+      marks.forEach(function(m){
+        m.hold+=(m.holdT-m.hold)*.15;
+        var k=go*(1-m.hold), t=now-t0;
+        var sx=(Math.sin(t*m.wx+m.ph)*m.ax+Math.sin(t*m.wx*2.3+m.ph*1.7)*m.ax*.35)*k;
+        var sy=(Math.cos(t*m.wy+m.ph)*m.ay+Math.sin(t*m.wy*1.9+m.ph)*m.ay*.4)*k;
+        /* spring toward rest, pushed by the pointer when it comes close */
+        var r=m.el.getBoundingClientRect(), cx=r.left+r.width/2-m.dx, cy=r.top+r.height/2-m.dy;
+        var ex=cx-px, ey=cy-py, d=Math.hypot(ex,ey), push=0;
+        if(d<150&&m.holdT===0){ push=(150-d)/150*1.6; m.vx+=ex/d*push; m.vy+=ey/d*push; }
+        m.vx+=-m.dx*.04; m.vy+=-m.dy*.04; m.vx*=.86; m.vy*=.86; m.dx+=m.vx; m.dy+=m.vy;
+        var rot=m.r+Math.sin(t*m.wx*1.3+m.ph)*2.2*k;
+        m.el.style.transform='translate3d('+(sx+m.dx).toFixed(2)+'px,'+(sy+m.dy).toFixed(2)+'px,0) rotate('+rot.toFixed(2)+'deg)';
+      });
+      raf=requestAnimationFrame(frame);
+    }
+    function start(){ if(running) return; running=true; if(!raf) raf=requestAnimationFrame(frame); }
+    function stop(){ running=false; }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); }).observe(hero);
+    } else start();
+  })();
+})();
+
+/* ---- 01 Hero, Reference Book: the ransom letters move like a comic panel ----
+   Spider-Verse style: the cut-outs jitter on twos (stepped, 12 frames a
+   second, not smooth), and every few seconds one of them spins a full turn
+   on its own frame count. GSAP drives the inner image so the scroll and
+   pointer drift on the tile stay separate. Stops with Pause motion; never
+   runs under reduced motion. */
+(function(){
+  if(!window.gsap) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce) return;
+  var imgs=[].slice.call(document.querySelectorAll('.hero-name .tile img')); if(!imgs.length) return;
+  var tl=[];
+  imgs.forEach(function(img,i){
+    tl.push(gsap.to(img,{rotation:'random(-5,5)',x:'random(-2.5,2.5)',y:'random(-3,3)',duration:1/6,ease:'steps(1)',
+      repeat:-1,repeatRefresh:true,delay:i*.04}));
+  });
+  function spin(){ if(window.__smPaused) return;
+    var img=imgs[Math.floor(Math.random()*imgs.length)];
+    gsap.fromTo(img,{rotationY:0},{rotationY:360,duration:.75,ease:'steps(9)',overwrite:false});
+  }
+  var every=setInterval(spin,3200);
+  setInterval(function(){ tl.forEach(function(t){ window.__smPaused?t.pause():t.resume(); }); },300);
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(every); else every=setInterval(spin,3200); });
+})();
+
+/* ---- Hero6, "what I listen to": the mark plays the record ---- */
+(function(){
+  var a=document.querySelector('[data-listen]'), btn=document.querySelector('#vinyl .vinyl-btn'); if(!a||!btn) return;
+  a.addEventListener('click',function(e){ e.preventDefault(); btn.focus(); btn.click(); });
+})();
+
+/* ---- the ripple (24 Sep 2026, Shrey) ----
+   Touching the photograph or the copy throws three rings, one per colour,
+   from the pointer. They step instead of gliding, so the wave reads as
+   stop motion. A ring is made at most every 140ms, and never under reduced
+   motion or while the Pause motion control is on. */
+(function(){
+  var layer=document.getElementById('ripples'); if(!layer) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce) return;
+  var hero=document.querySelector('.stage-hero'); if(!hero) return;
+  var colours=['var(--yellow)','var(--fluoro)','var(--deep)'], last=0, live=0;
+
+  function throwRings(x,y){
+    if(window.__smPaused) return;
+    var now=performance.now(); if(now-last<140||live>18) return; last=now;
+    var r=layer.getBoundingClientRect();
+    colours.forEach(function(col,i){
+      var el=document.createElement('span');
+      el.className='rip rip-'+(i+1);
+      el.style.setProperty('--x',(x-r.left)+'px');
+      el.style.setProperty('--y',(y-r.top)+'px');
+      el.style.setProperty('--c',col);
+      el.style.setProperty('--d',(300+i*160)+'px');
+      el.style.setProperty('--t',(700+i*140)+'ms');
+      el.style.setProperty('--delay',(i*90)+'ms');
+      layer.appendChild(el); live++;
+      el.addEventListener('animationend',function(){ el.remove(); live--; });
+    });
+  }
+
+  /* Listen on the hero and match upward, so the rings keep working if the
+     centre-piece is ever re-rendered, and so a pointer crossing from one
+     target to the other never loses the wave. */
+  function inTarget(e){ return e.target && e.target.closest && e.target.closest('.print, .stage-copy'); }
+  hero.addEventListener('pointermove',function(e){ if(inTarget(e)) throwRings(e.clientX,e.clientY); });
+  hero.addEventListener('pointerover',function(e){ if(inTarget(e)) throwRings(e.clientX,e.clientY); });
+  /* keyboard: focusing anything in the copy throws one from the middle of it */
+  hero.addEventListener('focusin',function(e){
+    var t=inTarget(e); if(!t) return;
+    var b=(e.target||t).getBoundingClientRect();
+    throwRings(b.left+b.width/2,b.top+b.height/2);
+  });
+})();
+
+/* ---- the hero stage (Reference Book rows 01-02, 23 Sep 2026) ----
+   The six objects around the photograph: click to open, drag to move.
+   A press that travels more than 6px is a drag and never navigates; a clean
+   click does. Each one drifts a little on its own so the stage reads as
+   alive (stopped by Pause motion, off under reduced motion). The photograph
+   is the centre-piece and is deliberately not draggable. */
+(function(){
+  var hero=document.querySelector('.stage-hero'); if(!hero) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wide=matchMedia('(min-width:1181px)');
+  /* The record player stands down while the hero holds the screen. Measured
+     as how much of the SCREEN the hero covers, not how much of the hero is
+     visible: a hero taller than the viewport still owns the view. */
+  if('IntersectionObserver' in window){
+    var th=[]; for(var s=0;s<=20;s++) th.push(s/20);
+    new IntersectionObserver(function(es){
+      var e=es[0], covers=e.intersectionRect.height/(innerHeight||1);
+      document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
+    },{threshold:th}).observe(hero);
+  }
+  var files=[].slice.call(hero.querySelectorAll('.fl'));
+  files.forEach(function(li,i){
+    var dx=0,dy=0,sx=0,sy=0,down=false,moved=false,bx=0,by=0;
+    function place(){ li.style.transform='translate('+(dx+(li._fx||0)).toFixed(1)+'px,'+(dy+(li._fy||0)).toFixed(1)+'px)'; }
+    li.addEventListener('pointerdown',function(e){ if(!wide.matches||e.button!==0) return; e.preventDefault(); /* no native image drag or text select */
+      down=true; moved=false; sx=e.clientX; sy=e.clientY; bx=dx; by=dy; li._pid=e.pointerId; });
+    li.addEventListener('pointermove',function(e){ if(!down) return;
+      var mx=e.clientX-sx,my=e.clientY-sy;
+      /* capture only once past the threshold, or a clean click never reaches the link */
+      if(!moved&&Math.hypot(mx,my)>6){ moved=true; li.classList.add('is-dragging'); try{ li.setPointerCapture(li._pid); }catch(x){} }
+      if(moved){ dx=bx+mx; dy=by+my; place(); } });
+    function up(){ if(!down) return; down=false; li.classList.remove('is-dragging'); if(moved) li._justDragged=true; }
+    li.addEventListener('pointerup',up); li.addEventListener('pointercancel',up);
+    li.addEventListener('click',function(e){ if(li._justDragged){ e.preventDefault(); e.stopPropagation(); li._justDragged=false; } },true);
+    li._place=place;
+  });
+  if(reduce) return;
+  var t0=performance.now();
+  (function loop(now){
+    var go=!window.__smPaused&&wide.matches;
+    files.forEach(function(li,i){ if(li.classList.contains('is-dragging')) return;
+      var t=(now-t0)/1000;
+      li._fx=go?Math.sin(t*.42+i*1.7)*5:0; li._fy=go?Math.cos(t*.35+i*1.3)*6:0; li._place(); });
+    requestAnimationFrame(loop);
+  })(t0);
 })();

@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page not found &middot; Shrey Mehra</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<!--
+  The 404 is the one page that cannot use depth-relative links: the server
+  serves this file for a URL at any depth, so "assets/site.css" would resolve
+  against whatever the visitor typed. So the styles are inline, the font comes
+  from an absolute URL, and the links are written by the script at the bottom
+  from the site root it works out. Without JS the links still point at "/",
+  which is right everywhere except the GitHub Pages subpath.
+-->
+<style>
+  :root{--cream:#F7F4EC;--deep:#173CA8;--fluoro:#E8251F;--ink:#0D1633;--yellow:#FFED10}
+  /* the site always opens light and only honours a stored choice (theme.js) */
+  :root[data-theme="dark"]{--cream:#0D1633;--deep:#F7F4EC;color-scheme:dark}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100svh;display:grid;align-content:center;gap:1.4rem;
+    padding:clamp(1.5rem,6vw,5rem);background:var(--cream);color:var(--deep);
+    font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.5;
+    background-image:radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--deep) 14%,transparent) 1px,transparent 1.6px);
+    background-size:22px 22px}
+  .mark{display:inline-grid;place-items:center;width:104px;height:104px;border-radius:50%;
+    background:var(--fluoro);color:#FBF6E6;font-family:Geist,sans-serif;font-weight:900;font-size:30px;
+    transform:rotate(-6deg)}
+  h1{margin:0;max-width:14em;font-family:Geist,sans-serif;font-weight:900;line-height:1.02;
+    letter-spacing:-.025em;font-size:clamp(2.2rem,6vw,4rem)}
+  p{margin:0;max-width:34em}
+  .links{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.6rem}
+  .links a{display:inline-block;min-height:44px;padding:.7rem 1.1rem;border:2px solid var(--deep);
+    color:var(--deep);text-decoration:none;font-family:Geist,sans-serif;font-weight:900;letter-spacing:-.01em}
+  .links a:first-child{background:var(--deep);color:var(--cream)}
+  .links a:hover,.links a:focus-visible{background:var(--yellow);color:var(--ink);border-color:var(--ink)}
+  .links a:focus-visible{outline:3px solid var(--fluoro);outline-offset:3px}
+  .foot{font-size:14px;opacity:.82}
+</style></head>
+<body>
+  <span class="mark" aria-hidden="true">404</span>
+  <h1>This page does not exist. Most of the good ones do.</h1>
+  <p>You have found a link that points at nothing. That is my fault, not yours. The work is one
+     click away and it is the better thing to be looking at anyway.</p>
+  <nav class="links" aria-label="Where to go instead">
+    <a id="l-work" href="/work/">See the work</a>
+    <a id="l-home" href="/">Home</a>
+    <a id="l-contact" href="/contact/">Contact</a>
+  </nav>
+  <p class="foot">Shrey Mehra &middot; <a href="mailto:shreyymehraa@gmail.com" style="color:inherit">shreyymehraa@gmail.com</a></p>
+<script>
+/* Work out the site root, so this page works at an apex domain and on the
+   GitHub Pages subpath without a build step or per-host config. */
+(function(){
+  var p=location.pathname, base='/';
+  var seg=p.split('/').filter(Boolean);
+  if(location.hostname.indexOf('github.io')>-1 && seg.length) base='/'+seg[0]+'/';
+  var set=function(id,path){ var a=document.getElementById(id); if(a) a.setAttribute('href',base+path); };
+  set('l-work','work/'); set('l-home',''); set('l-contact','contact/');
+  try{ var t=localStorage.getItem('sm-theme'); if(t) document.documentElement.setAttribute('data-theme',t); }catch(e){}
+})();
+</script>
+</body></html>
