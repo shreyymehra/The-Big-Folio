@@ -799,3 +799,40 @@ in, and keep their College project line**, at his instruction and per CONTENT.
 `--fl-h` is `--fl-w + 16px`. The centre column gave back 30px (830px cap) and the photograph is a
 little narrower (clamp 210 to 290px). Collision-free at all nine widths; the CTA and the email stay
 on one line, which 790px broke.
+
+## THE CAROUSEL, ONE-INK LOGOS, THE ZINE COVER (2 Oct 2026, later)
+
+**The marks ride a carousel.** At his instruction ("a merry go round around the centrepiece") the
+six marks now orbit an ellipse instead of sitting in two side bands. Built on an animated custom
+property (`@property --spin`) with CSS `cos()`/`sin()`, so one declaration drives six marks and
+nothing is computed per frame in JavaScript. They do not rotate with the ring: a carousel turns,
+the horses stay upright, so only the position animates. It pauses on hover and focus, stops on
+Pause motion (the toggle now sets `html.sm-paused` as well as `window.__smPaused`, because CSS
+cannot read a variable), and never starts under reduced motion.
+
+**The geometry is measured, not guessed.** Clearing the 760x498 centre-piece needs a 337px vertical
+radius and the stage only has 290, so a full orbit around the copy does not fit on one screen. The
+ring therefore passes **behind** the centre-piece, which is what a carousel does anyway, and the
+copy carries a soft radial paper halo (a gradient, not a card, so the grid still shows and there is
+no panel edge). The radii follow the room actually available:
+`--rx:min(600px,calc(50vw - var(--fl-w)/2 - 40px))`, `--ry:min(272px,calc(44svh - var(--fl-w)/2 - 16px))`.
+Checked through a full 360-degree turn at 1920/1600/1440/1280/1181/1024: no mark leaves the hero,
+touches a screen edge or overlaps another. Under 1180px the ring becomes a row again, with the
+animation and the translate switched off. The drag behaviour is gone with the side bands; a click
+still lands.
+
+**The marks are bigger again:** `clamp(128px,20vh,224px)`.
+
+**The client logos are one ink.** He asked for them to stop reading as eight different brands.
+`scratchpad/mono2.mjs` keys each mark out of its own plate (by the plate's modal colour, so
+iSelect's orange and tickertape's black both knock out cleanly), tints everything `--deep`, and
+redraws each into the same 560x200 box **scaled by ink area rather than bounding box**, so a wide
+wordmark and a square badge carry the same optical weight. One CSS height is then correct for all
+eight. Bliss and Birch still reads slightly light; it is the one mark with very little ink.
+
+**The zine cover is his artwork.** The composed cover page (photo, masthead, contents, starburst)
+is replaced by the delivered cover, and the 29 CSS rules that drew it are deleted.
+
+**Cleanup:** 37 lines of dead CSS and a 53-line dead block in `home.js` that drove `[data-fi]`,
+which no page has had since the Phase 1 hero was reverted. Verified before deleting: the carousel
+marks use `data-file`, which is why a careless grep matches six of them.

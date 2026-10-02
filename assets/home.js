@@ -61,7 +61,9 @@
   var toggles=[].slice.call(document.querySelectorAll('[data-tick-toggle]'));
   function syncToggles(){ toggles.forEach(function(b){
     b.setAttribute('aria-pressed',paused?'true':'false');
-    b.querySelector('span').textContent=paused?'Play motion':'Pause motion'; }); window.__smPaused=paused; }
+    b.querySelector('span').textContent=paused?'Play motion':'Pause motion'; }); window.__smPaused=paused;
+    /* CSS loops (the carousel) read this class, since they cannot read a variable */
+    document.documentElement.classList.toggle('sm-paused',paused); }
   toggles.forEach(function(b){ b.addEventListener('click',function(){
     paused=!paused; try{ localStorage.setItem(PAUSE_KEY,paused?'paused':'playing'); }catch(e){} syncToggles(); }); });
   syncToggles();
@@ -367,59 +369,6 @@
 
 })();
 
-/* ---- floating navigation marks ---- */
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, hero=document.getElementById('hero'); if(!hero) return;
-  /* ---- floating navigation marks (Phase 1, 22 Sep 2026) ----
-     Each mark drifts on two slow sine waves around its home spot, and the
-     pointer pushes it away a little on a damped spring, so the set feels
-     loose rather than looped. A mark holds still while pointed at or focused,
-     so it is easy to read and click. Only on a desktop with a fine pointer;
-     never under reduced motion; stops with the Pause motion button; only runs
-     while the hero is on screen. */
-  (function(){
-    var layer=document.querySelector('[data-float]'); if(!layer) return;
-    var fine=matchMedia('(hover:hover) and (pointer:fine) and (min-width:901px)');
-    if(reduce||!fine.matches) return;
-    var marks=[].slice.call(layer.querySelectorAll('[data-fi]')).map(function(el,i){
-      var m={el:el,ph:i*1.9,ax:9+(i%3)*4,ay:7+(i%2)*5,wx:.00042+i*.00005,wy:.00033+i*.00004,
-        r:parseFloat(getComputedStyle(el).getPropertyValue('--fi-r'))||0,dx:0,dy:0,vx:0,vy:0,hold:0,holdT:0};
-      el.addEventListener('pointerenter',function(){ m.holdT=1; });
-      el.addEventListener('pointerleave',function(){ m.holdT=0; });
-      el.addEventListener('focus',function(){ m.holdT=1; });
-      el.addEventListener('blur',function(){ m.holdT=0; });
-      return m;
-    });
-    var px=-1e4,py=-1e4;
-    hero.addEventListener('pointermove',function(e){ px=e.clientX; py=e.clientY; });
-    hero.addEventListener('pointerleave',function(){ px=py=-1e4; });
-    var running=false,raf=0,t0=performance.now(),go=1;
-    function frame(now){
-      if(!running){ raf=0; return; }
-      go+=((window.__smPaused?0:1)-go)*.08;
-      marks.forEach(function(m){
-        m.hold+=(m.holdT-m.hold)*.15;
-        var k=go*(1-m.hold), t=now-t0;
-        var sx=(Math.sin(t*m.wx+m.ph)*m.ax+Math.sin(t*m.wx*2.3+m.ph*1.7)*m.ax*.35)*k;
-        var sy=(Math.cos(t*m.wy+m.ph)*m.ay+Math.sin(t*m.wy*1.9+m.ph)*m.ay*.4)*k;
-        /* spring toward rest, pushed by the pointer when it comes close */
-        var r=m.el.getBoundingClientRect(), cx=r.left+r.width/2-m.dx, cy=r.top+r.height/2-m.dy;
-        var ex=cx-px, ey=cy-py, d=Math.hypot(ex,ey), push=0;
-        if(d<150&&m.holdT===0){ push=(150-d)/150*1.6; m.vx+=ex/d*push; m.vy+=ey/d*push; }
-        m.vx+=-m.dx*.04; m.vy+=-m.dy*.04; m.vx*=.86; m.vy*=.86; m.dx+=m.vx; m.dy+=m.vy;
-        var rot=m.r+Math.sin(t*m.wx*1.3+m.ph)*2.2*k;
-        m.el.style.transform='translate3d('+(sx+m.dx).toFixed(2)+'px,'+(sy+m.dy).toFixed(2)+'px,0) rotate('+rot.toFixed(2)+'deg)';
-      });
-      raf=requestAnimationFrame(frame);
-    }
-    function start(){ if(running) return; running=true; if(!raf) raf=requestAnimationFrame(frame); }
-    function stop(){ running=false; }
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); }).observe(hero);
-    } else start();
-  })();
-})();
-
 /* ---- 01 Hero, Reference Book: the ransom letters move like a comic panel ----
    Spider-Verse style: the cut-outs jitter on twos (stepped, 12 frames a
    second, not smooth), and every few seconds one of them spins a full turn
@@ -493,49 +442,18 @@
   });
 })();
 
-/* ---- the hero stage (Reference Book rows 01-02, 23 Sep 2026) ----
-   The six objects around the photograph: click to open, drag to move.
-   A press that travels more than 6px is a drag and never navigates; a clean
-   click does. Each one drifts a little on its own so the stage reads as
-   alive (stopped by Pause motion, off under reduced motion). The photograph
-   is the centre-piece and is deliberately not draggable. */
+/* ---- the hero stage ----
+   The marks ride the carousel now (site.css, THE CAROUSEL), so there is no
+   per-frame work here and nothing to drag: the orbit is one CSS animation
+   and a click lands on the section. All this does is stand the record
+   player down while the hero holds the screen, because the Listening mark
+   is the way into it. */
 (function(){
   var hero=document.querySelector('.stage-hero'); if(!hero) return;
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var wide=matchMedia('(min-width:1181px)');
-  /* The record player stands down while the hero holds the screen. Measured
-     as how much of the SCREEN the hero covers, not how much of the hero is
-     visible: a hero taller than the viewport still owns the view. */
-  if('IntersectionObserver' in window){
-    var th=[]; for(var s=0;s<=20;s++) th.push(s/20);
-    new IntersectionObserver(function(es){
-      var e=es[0], covers=e.intersectionRect.height/(innerHeight||1);
-      document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
-    },{threshold:th}).observe(hero);
-  }
-  var files=[].slice.call(hero.querySelectorAll('.fl'));
-  files.forEach(function(li,i){
-    var dx=0,dy=0,sx=0,sy=0,down=false,moved=false,bx=0,by=0;
-    function place(){ li.style.transform='translate('+(dx+(li._fx||0)).toFixed(1)+'px,'+(dy+(li._fy||0)).toFixed(1)+'px)'; }
-    li.addEventListener('pointerdown',function(e){ if(!wide.matches||e.button!==0) return; e.preventDefault(); /* no native image drag or text select */
-      down=true; moved=false; sx=e.clientX; sy=e.clientY; bx=dx; by=dy; li._pid=e.pointerId; });
-    li.addEventListener('pointermove',function(e){ if(!down) return;
-      var mx=e.clientX-sx,my=e.clientY-sy;
-      /* capture only once past the threshold, or a clean click never reaches the link */
-      if(!moved&&Math.hypot(mx,my)>6){ moved=true; li.classList.add('is-dragging'); try{ li.setPointerCapture(li._pid); }catch(x){} }
-      if(moved){ dx=bx+mx; dy=by+my; place(); } });
-    function up(){ if(!down) return; down=false; li.classList.remove('is-dragging'); if(moved) li._justDragged=true; }
-    li.addEventListener('pointerup',up); li.addEventListener('pointercancel',up);
-    li.addEventListener('click',function(e){ if(li._justDragged){ e.preventDefault(); e.stopPropagation(); li._justDragged=false; } },true);
-    li._place=place;
-  });
-  if(reduce) return;
-  var t0=performance.now();
-  (function loop(now){
-    var go=!window.__smPaused&&wide.matches;
-    files.forEach(function(li,i){ if(li.classList.contains('is-dragging')) return;
-      var t=(now-t0)/1000;
-      li._fx=go?Math.sin(t*.42+i*1.7)*5:0; li._fy=go?Math.cos(t*.35+i*1.3)*6:0; li._place(); });
-    requestAnimationFrame(loop);
-  })(t0);
+  if(!('IntersectionObserver' in window)) return;
+  var th=[]; for(var s=0;s<=20;s++) th.push(s/20);
+  new IntersectionObserver(function(es){
+    var e=es[0], covers=e.intersectionRect.height/(innerHeight||1);
+    document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
+  },{threshold:th}).observe(hero);
 })();
