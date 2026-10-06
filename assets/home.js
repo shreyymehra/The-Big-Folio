@@ -399,47 +399,38 @@
   a.addEventListener('click',function(e){ e.preventDefault(); btn.focus(); btn.click(); });
 })();
 
-/* ---- the ripple (24 Sep 2026, Shrey) ----
-   Touching the photograph or the copy throws three rings, one per colour,
-   from the pointer. They step instead of gliding, so the wave reads as
-   stop motion. A ring is made at most every 140ms, and never under reduced
-   motion or while the Pause motion control is on. */
+/* ---- the brush (6 Oct 2026, Shrey, after Up bank's reveal cursor) ----
+   The photograph is printed black and white and the pointer paints the
+   colour back in. Nothing animates per frame: the pointer writes two custom
+   properties and CSS moves the mask. The brush grows a little while the
+   pointer is over the print and shrinks away when it leaves, so the edge of
+   the effect is never a hard switch. Keyboard focus reveals the whole frame,
+   because there is no pointer to paint with. */
 (function(){
-  var layer=document.getElementById('ripples'); if(!layer) return;
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce) return;
-  var hero=document.querySelector('.stage-hero'); if(!hero) return;
-  var colours=['var(--yellow)','var(--fluoro)','var(--deep)'], last=0, live=0;
-
-  function throwRings(x,y){
-    if(window.__smPaused) return;
-    var now=performance.now(); if(now-last<140||live>18) return; last=now;
-    var r=layer.getBoundingClientRect();
-    colours.forEach(function(col,i){
-      var el=document.createElement('span');
-      el.className='rip rip-'+(i+1);
-      el.style.setProperty('--x',(x-r.left)+'px');
-      el.style.setProperty('--y',(y-r.top)+'px');
-      el.style.setProperty('--c',col);
-      el.style.setProperty('--d',(300+i*160)+'px');
-      el.style.setProperty('--t',(700+i*140)+'ms');
-      el.style.setProperty('--delay',(i*90)+'ms');
-      layer.appendChild(el); live++;
-      el.addEventListener('animationend',function(){ el.remove(); live--; });
-    });
+  var mount=document.querySelector('[data-reveal]'); if(!mount) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var raf=0, px=0, py=0;
+  function paint(){ raf=0;
+    mount.style.setProperty('--bx',px+'px');
+    mount.style.setProperty('--by',py+'px');
   }
-
-  /* Listen on the hero and match upward, so the rings keep working if the
-     centre-piece is ever re-rendered, and so a pointer crossing from one
-     target to the other never loses the wave. */
-  function inTarget(e){ return e.target && e.target.closest && e.target.closest('.print, .stage-copy'); }
-  hero.addEventListener('pointermove',function(e){ if(inTarget(e)) throwRings(e.clientX,e.clientY); });
-  hero.addEventListener('pointerover',function(e){ if(inTarget(e)) throwRings(e.clientX,e.clientY); });
-  /* keyboard: focusing anything in the copy throws one from the middle of it */
-  hero.addEventListener('focusin',function(e){
-    var t=inTarget(e); if(!t) return;
-    var b=(e.target||t).getBoundingClientRect();
-    throwRings(b.left+b.width/2,b.top+b.height/2);
+  function move(e){
+    var r=mount.getBoundingClientRect();
+    px=e.clientX-r.left; py=e.clientY-r.top;
+    if(!raf) raf=requestAnimationFrame(paint);
+  }
+  mount.addEventListener('pointerenter',function(e){
+    mount.style.setProperty('--brush',reduce?'150px':'0px');
+    move(e);
+    if(!reduce) requestAnimationFrame(function(){ mount.style.setProperty('--brush','150px'); });
   });
+  mount.addEventListener('pointermove',move);
+  mount.addEventListener('pointerleave',function(){
+    mount.style.setProperty('--brush','0px');
+  });
+  /* the transition lives here rather than in the stylesheet, so it only ever
+     applies to the brush size and never to the position */
+  if(!reduce) mount.style.transition='';
 })();
 
 /* ---- the hero stage ----

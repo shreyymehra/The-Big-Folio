@@ -836,3 +836,36 @@ is replaced by the delivered cover, and the 29 CSS rules that drew it are delete
 **Cleanup:** 37 lines of dead CSS and a 53-line dead block in `home.js` that drove `[data-fi]`,
 which no page has had since the Phase 1 hero was reverted. Verified before deleting: the carousel
 marks use `data-file`, which is why a careless grep matches six of them.
+
+## HERO REMARKS V1 — FIRST PASS (6 Oct 2026)
+
+From `ShreyMehra HERO Remarks V1.odt`. Done in this pass:
+
+- **Nav.** The slate is `[WORK] [IDEAS] [ME] [CONTACT]`; on hover the brackets fade outward as the
+  rule draws under the word, and come back on leave. The mark is sized at `1.05em` of the nav's own
+  type, so the logo and the words scale together instead of the logo being bigger.
+- **Hero.** The floating hint is gone (it was landing on the email line, which is the copy overlap
+  he flagged) and so is the credential line (the logo wall says it once). The ring rides **in front
+  of** the centre-piece again so every mark stays clickable, and the marks are bigger
+  (`clamp(148px,23vh,256px)`). To keep the copy readable, each mark dims to .28 and its label cuts
+  out entirely while it crosses the reading area, phase-locked to the same 54s orbit. The label cuts
+  rather than fades: five seconds at a quarter opacity is a contrast failure, zero is simply absent.
+- **The brush.** The ripple is gone. The pointer now paints colour back into the black and white
+  photograph through a CSS mask that follows it (`.print-colour`, `--bx/--by/--brush`), after the Up
+  bank reveal. **It needs the colour original of the Delhi frame**: today it keys off the same
+  halftone, so what it reveals is a saturated version rather than true colour.
+- **Tickers.** Both Pause motion controls are gone. The three flowing tickers are two crossing
+  lines: skills (now including storytelling, copywriting, PRDs, user research, positioning,
+  messaging, enablement) and goals plus the verified figures. The testimonial tape is untouched.
+- **Logo wall.** The college-project lines are removed at his instruction, which overrides the
+  CONTENT rule above; the risk is noted in the handover. The marks are on cape red, bigger, and
+  span the full breadth.
+- **Island.** The slate and the readout now share one grid cell with `min-width:0`, so the shut
+  shape no longer carries the slate's width as empty space on the right, and the readout fades in
+  after the width settles instead of appearing to slide out of the edge.
+- **Work.** The crosshair under the copy is gone: it followed no grid line and carried nothing.
+
+**A mistake worth recording:** the regex that removed the two Pause motion buttons was lazy across
+`</button>\s*</div>` and swallowed the whole worked-with block between them. Caught by grepping for
+`worked-mark` after the edit; restored from `git show HEAD:index.html`. Match structure, not
+delimiters, when deleting markup.
