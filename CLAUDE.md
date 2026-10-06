@@ -947,3 +947,42 @@ clipped container, and the disabled magazine Back button is correctly unfocusabl
 
 `PORTFOLIO-SUMMARY.md` is the companion document: every tab, the copy verbatim, the device, the
 state, and the five things worth fixing next in order.
+
+## THE X AND THE RUNNING WALL (7 Oct 2026, at his instruction)
+
+**The X is back, and both bands are now one object.** The merge of 6 Oct took the two crossing bands
+down to a single level band, to cut height. He has reversed that: two bands again, crossing, in
+**opposite directions at one speed**, and in the **same style** rather than one leading and one
+answering. Both are a cape blue plane with cream type and **cream rules top and bottom**. The rules
+are not decoration: two identical blue planes overlapping merge into one shape, and the cream edge
+of the upper band cuts the lower one the way one strip of tape cuts another. Without them there is
+no X, only a blue blob with type running through it.
+
+Content keeps the semantic split the two bands originally had, because that is what makes the
+crossing mean something: **what I do** (15 disciplines) crossing **what it moved** (the seven
+verified figures plus the three sectors). Every figure is from the master resume; 20k MAU rejoined
+the set, since it was in the verified list and not on the page.
+
+**The logo wall runs.** A static grid of eight asks to be read as a table, and a recruiter reads the
+first two names and stops. It is now a right-to-left loop on the same engine as the bands, so it
+holds while pointed at or focused and never starts under reduced motion. One track, eight marks,
+four copies; only the first copy carries alt text, the rest are `aria-hidden`.
+
+**Three traps in that conversion, all found by looking at it:**
+1. **`.wt-band` was overridden by `.xband`,** which is declared further down the file, so the logo
+   band inherited the crossing bands' `position:absolute`, `left:-10vw` and `width:120vw` and the
+   marks sat off the left edge. It needs `.worked-ticker .wt-band` to win.
+2. **`max-width:100%` collapsed every mark to zero width.** In a track of indefinite width the
+   percentage resolves against a box the image is itself sizing, which is circular; the marks are
+   sized by height here, so the cap has to be `max-width:none`.
+3. **Bliss and Birch needed a bigger nudge than the grid version.** In a fixed cell, by-height
+   sizing was close enough; in a free-running row next to a 300px wordmark, a 49px square device
+   reads as a hole. Its cap is now `clamp(54px,6vw,80px)`.
+
+Dead with the grid: `.worked-list` and all its rules, the per-cell borders, the hover invert and
+`.worked-ctx` (the college-project line it carried came off on 6 Oct).
+
+**Still open, and it grew:** there are now **three** self-starting loops on home (the quote tape, the
+logo wall, the X) and **no pause control**, which he removed on 6 Oct. Pointer and focus hold each
+one, and reduced motion stops all of them, but neither is the mechanism WCAG 2.2.2 asks for. One
+control in the island would close it without putting a button back on the page.

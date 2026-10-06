@@ -49,7 +49,7 @@
       el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up)}
     el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)})});
 
-  /* ---- tickers: the quote tape and the two crossing bands ----
+  /* ---- tickers: the quote tape, the logo loop and the two crossing bands ----
      They scroll themselves (Shrey, 21 Sep 2026), and scrolling the page pushes
      them along on top. Clash, marked: WCAG 2.2.2 wants a way to stop anything
      that moves on its own for more than five seconds. So: each one eases to a
@@ -69,7 +69,7 @@
   syncToggles();
   if(reduce) toggles.forEach(function(b){ b.hidden=true; }); /* nothing moves, nothing to pause */
 
-  if(!reduce) [].forEach.call(document.querySelectorAll('[data-cross],[data-tape]'),function(box){
+  if(!reduce) [].forEach.call(document.querySelectorAll('[data-cross],[data-tape],[data-logos]'),function(box){
     var BASE=+box.getAttribute('data-speed')||40, PUSH=+box.getAttribute('data-push')||.5; /* px per second; scroll push */
     var bands=[].slice.call(box.querySelectorAll('[data-xband]')).map(function(el){
       var track=el.querySelector('.xtrack');

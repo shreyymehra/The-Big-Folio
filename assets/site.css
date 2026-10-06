@@ -212,19 +212,25 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
    height it still reads light. One nudge, the way a logo wall is normally
    optically corrected. */
-.worked-list li:nth-child(5) .worked-mark{height:clamp(42px,4.8vw,64px)}
-.worked-list li{display:grid;place-items:center;gap:6px;padding:var(--s-3) var(--s-2)}
-.worked-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
-  gap:1px;background:rgba(var(--deep-rgb),.28);border-top:1px solid var(--deep);border-bottom:1px solid var(--deep)}
-.worked-list li{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.4rem;
-  min-height:clamp(4.2rem,7vw,5.6rem);padding:.6rem 1rem;background:var(--cream);
-  transition:background .3s var(--ease),color .3s var(--ease)}
-/* context where the relationship was not employment. Honest beats impressive. */
-.worked-ctx{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
-.worked-list .mark{display:block;max-width:100%;max-height:1.9rem;width:auto}
-.worked-list li:hover{background:var(--deep);color:var(--cream)}
-@media (max-width:1100px){.worked-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media (max-width:560px){.worked-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* The wall runs (7 Oct, at his instruction). A static grid of eight asks to be
+   read as a table; a loop reads as a line of credits and never ends, which is
+   the point: the names keep arriving. Right to left, one speed, same engine as
+   the two crossing bands, so it holds while pointed at or focused and stops
+   dead under reduced motion. Ruled top and bottom to match the X below it. */
+.worked-ticker{position:relative;overflow:hidden;border-top:2px solid var(--deep);border-bottom:2px solid var(--deep)}
+/* .xband is declared further down the file, so this needs the extra class to
+   win: left as .wt-band it inherited the crossing bands' absolute position and
+   the logos sat off the left edge at 120vw wide. */
+.worked-ticker .wt-band{position:relative;left:auto;top:auto;width:100%;overflow:hidden}
+.wt-set{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
+.wt-set li{flex:none;display:flex;align-items:center;padding:clamp(.9rem,1.9vw,1.4rem) clamp(1.6rem,3.4vw,3.2rem)}
+/* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
+   height it still reads light. One optical nudge, as a logo wall is normally
+   corrected; it is the fifth mark in every repeat. */
+.wt-set .worked-mark{max-width:none}
+.wt-set li:nth-child(5) .worked-mark{height:clamp(54px,6vw,80px)}
+@media (max-width:560px){.wt-set li{padding:.9rem 1.3rem}}
+
 
 /* ---------- the cross ----------
    Two bands meet in an X, from the riyadesign reference (chosen by Shrey,
@@ -232,17 +238,18 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
    other way on cream, ruled so it reads where it crosses. Speed follows the
    scroll through Lenis: scrolling pushes the bands, scrolling back reverses
    them, pointing at a band slows it to a stop. The riso star is the separator. */
-/* One band instead of two crossing ones (6 Oct). With a single line there
-   is nothing to cross, so it sits level and the section loses the height the
-   X was costing: the point of the merge was to cut scroll. */
-.cross--single{min-height:0;padding:var(--s-6) 0;display:block}
-.cross--single .xband{position:relative;top:auto;left:auto;transform:rotate(-1.4deg);margin:0}
-.cross--single .xband--do{width:104%;margin-left:-2%}
 .cross{position:relative;height:clamp(190px,19vw,290px);overflow:hidden;margin:clamp(-1.5rem,-2vw,-.5rem) 0 var(--s-8)}
 .xband{position:absolute;left:-10vw;width:120vw;top:50%;overflow:hidden}
-.xband--do{background:var(--deep);color:var(--cream);transform:translateY(-50%) rotate(-6deg);z-index:1}
-.xband--moved{background:var(--cream);color:var(--deep);border-top:2px solid var(--deep);border-bottom:2px solid var(--deep);
-  transform:translateY(-50%) rotate(6deg);z-index:2;backface-visibility:hidden}
+/* Both bands are the same object (7 Oct, at his instruction): one blue plane,
+   cream type, cream rules top and bottom. Identical, so neither reads as the
+   main one and the other as a footnote. The rules are what make the crossing
+   legible: two identical blue planes overlapping would merge into one shape,
+   and the cream edge of the upper band cuts the lower one the way one strip of
+   tape cuts another. Opposite rotations, opposite directions, one speed. */
+.xband--do,.xband--moved{background:var(--deep);color:var(--cream);
+  border-top:2px solid var(--cream);border-bottom:2px solid var(--cream);backface-visibility:hidden}
+.xband--do{transform:translateY(-50%) rotate(-6deg);z-index:1}
+.xband--moved{transform:translateY(-50%) rotate(6deg);z-index:2}
 .xtrack{display:flex;width:max-content;will-change:transform}
 .xset{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
 .xset li{display:flex;align-items:baseline;gap:.45em;white-space:nowrap;padding:clamp(.8rem,1.5vw,1.2rem) 0;
@@ -885,7 +892,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.worked-ctx,.xset i,.contact .no,.shead .no{opacity:.82}
+   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.xset i,.contact .no,.shead .no{opacity:.82}
 .proof .no,.proof .who{color:var(--p-ink);opacity:1}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
 
