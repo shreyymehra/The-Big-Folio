@@ -1,3 +1,5 @@
+@font-face{font-family:'Asimov Print B';src:url('fonts/AsimovPrintB.otf') format('opentype');font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Asimov Print B';src:url('fonts/AsimovPrintBItal.otf') format('opentype');font-weight:400 900;font-style:italic;font-display:swap}
 /* ============================================================
    BASE: the system every page shares, case pages included.
    Loaded before site.css (and before the case pages' inline styles),
@@ -30,8 +32,8 @@
      file and tw.css. */
   --cream:#F7F4EC; --deep:#173CA8; --fluoro:#E8251F;
   --cream-rgb:247,244,236; --deep-rgb:23,60,168;
-  --fd:'Geist',system-ui,sans-serif;
-  --fd-track:-.025em; /* Geist Black sets tight at display sizes */
+  --fd:'Asimov Print B','Geist',system-ui,sans-serif;
+  --fd-track:-.015em; /* Asimov Print B is already tight; Geist needed more */
   --fb:'Inter','Geist',system-ui,sans-serif;
   --fu:'Geist Light','Geist',system-ui,sans-serif;
   --pad:clamp(1.2rem,4vw,3rem); --max:1240px;
