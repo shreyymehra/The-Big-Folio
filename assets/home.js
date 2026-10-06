@@ -83,6 +83,9 @@
     /* the track holds identical copies; one copy's width is the loop length */
     function measure(){ bands.forEach(function(b){ b.span=b.track.scrollWidth/b.track.children.length; }); }
     measure(); addEventListener('resize',measure);
+    /* a track of images measures short until they have boxes, and the loop
+       length is then wrong for the life of the page: re-measure as each lands */
+    [].forEach.call(box.querySelectorAll('img'),function(im){ if(!im.complete) im.addEventListener('load',measure,{once:true}); });
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
 
     var vel=0,lastY=scrollY,lastT=0,running=false,raf=0,go=0;

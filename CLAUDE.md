@@ -975,7 +975,13 @@ four copies; only the first copy carries alt text, the rest are `aria-hidden`.
 2. **`max-width:100%` collapsed every mark to zero width.** In a track of indefinite width the
    percentage resolves against a box the image is itself sizing, which is circular; the marks are
    sized by height here, so the cap has to be `max-width:none`.
-3. **Bliss and Birch needed a bigger nudge than the grid version.** In a fixed cell, by-height
+3. **Lazy images with no declared size broke the loop.** An image that has not loaded and carries
+   no width/height attribute has a zero box, so the track measured short, the loop length was wrong
+   for the life of the page, and the row ran with one mark on screen and a long gap behind it. The
+   marks now declare their intrinsic size and load eagerly (eight small files, cached after the
+   first copy), and the engine re-measures as each image lands. **Any future track of images needs
+   both.**
+4. **Bliss and Birch needed a bigger nudge than the grid version.** In a fixed cell, by-height
    sizing was close enough; in a free-running row next to a 300px wordmark, a 49px square device
    reads as a hole. Its cap is now `clamp(54px,6vw,80px)`.
 
