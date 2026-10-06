@@ -311,7 +311,6 @@ a.wk-note:focus-visible{outline:3px solid var(--fluoro);outline-offset:6px}
 .wk-arrow::after{content:"";position:absolute;right:0;top:50%;width:8px;height:8px;
   border-top:1px solid rgba(var(--cream-rgb),.6);border-right:1px solid rgba(var(--cream-rgb),.6);transform:translateY(-50%) rotate(45deg)}
 a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
-.wk-note .gap{display:block;margin-top:.6rem;letter-spacing:.08em;text-transform:none;color:var(--fluoro)}
 
 /* stacked mode: fade up as each tile enters */
 /* ============================================================
@@ -501,10 +500,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;transition:border-color var(--d-1) ease}
 .ways a:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .ways .ico{width:18px;height:18px;flex:none}
-.ways .ways-gap{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;font-family:var(--fu);
-  font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;color:var(--deep);opacity:.55;
-  border-bottom:2px dashed color-mix(in srgb,var(--deep) 45%,transparent)}
-.ways-note{margin:var(--s-3) 0 0;font-size:var(--t-small);opacity:.82;max-width:40em}
 .second{display:flex;flex-wrap:wrap;gap:1.6rem;margin:2rem 0 0;
   font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
 .second a{text-decoration:none;opacity:.82;border-bottom:1px solid currentColor;
@@ -692,8 +687,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .reading p{font-size:var(--t-body);line-height:1.62}
 .reading .pull{font-family:var(--fd);font-weight:700;font-size:var(--lg);line-height:1.1;
   border-left:4px solid var(--fluoro);padding:.2rem 0 .2rem 1.2rem;margin:2rem 0;letter-spacing:var(--fd-track)}
-.gapbox{border:2px dashed var(--fluoro);padding:1rem 1.1rem;font-family:var(--fu);font-size:var(--xs);
-  letter-spacing:.06em;text-transform:uppercase;opacity:.82;margin:1.5rem 0}
 
 /* progress rail for a long read */
 .rail{position:fixed;left:0;top:0;height:3px;background:var(--fluoro);width:0;z-index:65}
@@ -895,7 +888,6 @@ a.wrow:hover .go::after{padding-left:.25em}
    there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.worked-ctx,.xset i,.contact .no,.shead .no{opacity:.82}
 .proof .no,.proof .who{color:var(--p-ink);opacity:1}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
-.wk-note .gap{color:var(--accent-type)}
 
 /* ---------- work covers: static, with a state change on hover ----------
    Decided 18 Sep 2026: no screen recordings. The cover stays; a bar rises
@@ -962,8 +954,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding:var(--s-2) 0 2px}
 .pg-link span{display:inline-block;transition:transform var(--d-2) var(--e-spring)}
 .pg-link:hover span,.pg-link:focus-visible span{transform:translateX(4px)}
-.mag .gap{font-family:var(--fu);font-size:var(--t-small);line-height:1.6;letter-spacing:.02em;
-  border:1.5px dashed rgba(var(--deep-rgb),.5);padding:var(--s-3) var(--s-4);margin:0;max-width:26em}
 
 /* 1. cover: masthead over the photograph, the hero's overlap move */
 /* The cover is Shrey's own artwork now (delivered 1 Oct), so the page is a
@@ -1359,7 +1349,10 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .me-head .ph{width:100%;height:100%;border-radius:0}
 @keyframes mebob{to{transform:translateY(-10px) rotate(-3deg)}}
 @media (prefers-reduced-motion:reduce){.me-head{animation:none}}
-@media (max-width:900px){.me-head{position:relative;right:auto;top:auto;margin:var(--s-5) 0 0}}
+/* it is a <span>, so the stacked branch has to give it a box: inline elements
+   ignore width, height and aspect-ratio, which collapsed the slot to a 62px
+   band across the column under 900px (found 7 Oct). */
+@media (max-width:900px){.me-head{display:block;position:relative;right:auto;top:auto;margin:var(--s-5) 0 0}}
 .places{padding:var(--sec) 0}
 .ph-globe{width:min(100%,520px);aspect-ratio:1;margin:var(--s-6) 0 var(--s-4)}
 /* ============================================================

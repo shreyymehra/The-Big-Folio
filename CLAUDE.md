@@ -906,3 +906,44 @@ and there are four plain ways out, equally weighted.
 
 **Not guessed:** the Medium and X links are marked `[GAP]` rather than pointed at a plausible URL.
 A 404 in front of a recruiter is worse than a missing link.
+
+## THE GAP REGISTER (7 Oct 2026)
+
+Every missing thing on the site is now **one component with one code**, G01 upward in page order,
+matched line for line by `FILL-IN.md` at the repo root. Four treatments were in use before this: a
+dashed box on /work and /contact (`.gapbox`), a dashed box in the magazine (`.mag .gap`), a dashed
+Tailwind box on the case pages, and two dead icon buttons in the contact row (`.ways-gap`). A
+visitor met the same absence looking four different ways and read it as four kinds of broken.
+
+The component is `.slot` (and `.slot-i` inline), in **base.css**, because the case pages load only
+base.css and tw.css. The treatment is the red left rule the system already uses for a trade-off and
+a pull quote, so a gap reads as an editor's margin note rather than a hole. The code is set in the
+display face at full `--t-small`: at `.95em` it fell to 13.3px, which the contrast harness flags as
+red type under 14px, and `opacity:.9` on the line took it below AA. **Do not put opacity on `.slot`.**
+
+Seventeen coded slots: G01-G06 home, G07-G09 /about/, G10 /work/, G11-G16 the case pages, G17
+/contact/. `FILL-IN.md` also carries five items that need a file but have no slot (the colour Delhi
+frame, the six quote attributions, two LinkedIn recommendations, 16:10 cover masters, junk-journal
+props) and three decisions only Shrey can make.
+
+**Also fixed this pass, all found by looking rather than by grep:**
+- **The Medium and X dead buttons are gone.** Two greyed items in a four-item CTA row made the row
+  look half broken; it is now two live links and one slot line.
+- **The section numbers disagreed.** Home called Me 04 and Contact 05; /about/ said 03 and
+  /contact/ said 06. They now run 02 Work, 03 Ideas, 04 Me, 05 Contact on every route.
+- **`.me-head` collapsed below 900px.** It is a `<span>`, and the stacked branch left it inline, so
+  `width`, `height` and `aspect-ratio` were all ignored and the square figure slot flattened to a
+  62px band across the column. `display:block` in that branch.
+- **A typo in a project title:** "Too Close the Sun" was missing a word, on both pages.
+- **The resume link is percent-encoded.** The filename has spaces; the raw form 404s on a strict
+  server, which is what Pages is.
+- **The contact page now has a live resume row.** Its gap was stale: it claimed nothing was behind
+  the home link, and the .docx has been in `public/` since the asset drop. The real remaining need
+  is a PDF, which is what G17 now says.
+
+**Known non-defects, confirmed again:** the figcaption over the photograph carries its own opaque
+plate (8.5:1), each carousel label overlaps only its own mark, the ticker tracks overflow their own
+clipped container, and the disabled magazine Back button is correctly unfocusable.
+
+`PORTFOLIO-SUMMARY.md` is the companion document: every tab, the copy verbatim, the device, the
+state, and the five things worth fixing next in order.

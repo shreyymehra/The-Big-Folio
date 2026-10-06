@@ -298,4 +298,21 @@ html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::afte
   border:2px dashed #0D1633;font-family:var(--fu);font-size:11px;line-height:1.25;letter-spacing:.04em;text-transform:uppercase}
 .ph b{font-family:var(--fd);font-weight:900;font-size:14px;letter-spacing:0;text-transform:none}
 .ph i{font-style:normal;opacity:.82;font-size:10px}
+/* ---------- THE GAP REGISTER (7 Oct 2026) ----------
+   Every missing thing on the site is now one component with one treatment and
+   one code, G01 upward in page order, matched line for line by FILL-IN.md.
+   Four different treatments were in use before this (a dashed box on /work and
+   /contact, a dashed box in the magazine, a dashed utility box on the case
+   pages, and two dead icon buttons in the contact row), so a visitor met the
+   same absence looking four different ways and read it as four kinds of broken.
+   The treatment is the red left rule the system already uses for a trade-off
+   and a pull quote, which reads as an editor's margin note rather than a hole.
+   Lives in base.css because the case pages load only base.css and tw.css. */
+.slot{display:block;max-width:32em;margin:var(--s-5) 0;border-left:3px solid var(--fluoro);
+  padding:var(--s-2) 0 var(--s-2) var(--s-4);font-family:var(--fu);font-size:var(--t-small);
+  line-height:1.6;letter-spacing:.01em}
+.slot b,.slot-i b{font-family:var(--fd);font-weight:900;font-size:1em;letter-spacing:.08em;
+  color:var(--accent-type);margin-right:.6em}
+.slot-i b{margin-right:.45em}
+
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
