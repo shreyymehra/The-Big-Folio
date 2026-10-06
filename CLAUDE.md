@@ -869,3 +869,40 @@ From `ShreyMehra HERO Remarks V1.odt`. Done in this pass:
 `</button>\s*</div>` and swallowed the whole worked-with block between them. Caught by grepping for
 `worked-mark` after the edit; restored from `git show HEAD:index.html`. Match structure, not
 delimiters, when deleting markup.
+
+## HERO REMARKS V1 — SECOND PASS (6 Oct 2026)
+
+Corrections to the first pass, after he pointed out I had built the opposite of two of his notes.
+
+**The ring orbits outside the centre-piece.** First pass put it behind (wrong), second put it in
+front (also wrong). He asked for neither: the marks must clear the centre, and the centre squeezes
+to allow it. An **ellipse cannot do this**: with a 840x343 centre the corner test
+`((W/2+mw)/rx)^2 + ((H/2+mh)/ry)^2` comes to 1.65 and has to be under 1, which would need a 570px
+vertical radius against 290 available. So the path is now the **perimeter of a rectangle**, via CSS
+motion path (`offset-path:border-box`, `offset-distance` animated, `offset-rotate:0deg` so the
+marks stay upright). A rectangle only has to clear each side, which this space allows.
+The centre-piece came down from 760x436 to 840x343: smaller print, smaller name tiles, tighter
+claim, and the two calls to action on one line. Below 1280px the ring becomes a row, because that
+is where it stops fitting. Checked through a full circuit at six widths: nothing overlaps the
+centre, the marks, the hero edge or the screen edge.
+
+**Two tickers, not three.** The comic quote tape stays. The two crossing bands are now **one** level
+band carrying skills and the verified figures together, which is what the merge was for: the X was
+costing height and the point was to cut scroll.
+
+**The logo wall is sized by height, not by a shared box.** A square mark in a 560x200 box reads
+small next to a wordmark that fills it, which is why Bliss and Birch looked wrong. Each mark is now
+trimmed to its own ink and capped by height, with one optical nudge for Bliss and Birch, whose
+device is drawn small inside its own lockup.
+
+**Work cards pop out of the wall.** They no longer pile: the three sit in their own columns and
+none overlaps another, so no label is ever read through a card. Each starts small, flat and clipped
+to a slot, then pushes forward, scrubbed by the same pinned scroll (`--p`).
+
+**Ideas and below, first moves.** The hero's own "Hi", "is" and star are out of the zine: repeating
+them made it read as a second hero. A full-bleed turn now separates the zine from Me, with the line
+"Enough about the work" sitting on the rule. At the end of the page the "Looking for" line is gone
+and there are four plain ways out, equally weighted.
+
+**Not guessed:** the Medium and X links are marked `[GAP]` rather than pointed at a plausible URL.
+A 404 in front of a recruiter is worse than a missing link.
