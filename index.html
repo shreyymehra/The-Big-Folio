@@ -50,12 +50,9 @@
 
   <div class="stage">
     <div class="stage-centre">
-      <figure class="print">
-        <span class="print-mount" data-reveal><img class="print-bw" src="assets/img/352bc34c15.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, Delhi, 2003." width="880" height="1100" draggable="false"><span class="print-colour" aria-hidden="true"></span><span class="print-stamp" aria-hidden="true">2003</span></span>
-        <figcaption><b>Delhi, 2003</b>First machine I was allowed to break.</figcaption>
-      </figure>
-
-      <div class="stage-copy">
+      <!-- LEFT PANEL. Red ground, halftone, the cut-out name printed on it
+           with the photograph. Finalised hero spec, 6 Oct 2026. -->
+      <div class="hero-panel">
         <h1 class="hero-name" id="hero-title"><span class="l1">
         <span class="tile t-hi"   data-t="380" data-depth="1.6"><img src="assets/img/6be05cdb12.webp" alt="Hi"></span>
         <span class="tile t-my"   data-t="440" data-depth="1.3"><img src="assets/img/73fb7f40e3.webp" alt="my"></span>
@@ -63,21 +60,31 @@
         <span class="tile t-is"   data-t="560" data-depth="1.5"><img src="assets/img/10c617bac6.webp" alt="is"></span>
       </span>
       <span class="l2"><span class="tile t-shrey" data-t="640" data-depth="0.7"><img src="assets/img/9989e0f6ed.webp" alt="Shrey"></span></span></h1>
-        <p class="claim" data-t="760">I build brands people want to belong to.</p>
-        <div class="said" data-t="840">and I have always wanted to build <span class="roll"><ul id="rollul">
-        <li>brands</li><li>experiences</li><li>campaigns</li><li>launches</li><li>communities</li><li>worlds</li><li>brands</li></ul></span></div>
-        <p class="hero-k" data-t="900">Product marketing &middot; GTM &middot; Brand strategy</p>
-        <div class="hero-cta" data-t="960"><a class="hbtn" href="#work">See the work <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,88V192a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h75L55.51,72.48a12,12,0,0,1,17-17L180,163V88a12,12,0,0,1,24,0Z"/></svg></a><a class="hmail" href="mailto:shreyymehraa@gmail.com"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg> shreyymehraa@gmail.com</a></div>
+      <figure class="print">
+        <span class="print-mount" data-reveal><img class="print-bw" src="assets/img/352bc34c15.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, Delhi, 2003." width="880" height="1100" draggable="false"><span class="print-colour" aria-hidden="true"></span><span class="print-stamp" aria-hidden="true">2003</span></span>
+        <figcaption><b>2003.</b>First machine I was allowed to break.</figcaption>
+      </figure>
+      </div>
+
+      <div class="stage-copy">
+        <!-- CLAIM. The bracketed word rides once through the list on load and
+             settles on "brands". The roller is a stack of spans, never a <ul>:
+             a list inside a <p> is auto-closed by the parser and the word
+             escapes the sentence. aria-hidden on the roller, with the settled
+             word carried in text for anything that does not watch it move. -->
+        <p class="claim" data-t="760">I build <span class="roll" data-t="760" aria-hidden="true"><span class="rollstack" id="rollul"><span>worlds</span><span>stories</span><span>brands</span><span>campaigns</span><span>brands</span></span></span><span class="vh">brands</span> people want to belong to, and the case for why they pay off.</p>
+        <p class="hero-k" data-t="900">Product marketing &amp; brand strategy. Made in Melbourne.</p>
+        <div class="hero-cta" data-t="960"><a class="hbtn" href="#work">The receipts <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,88V192a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h75L55.51,72.48a12,12,0,0,1,17-17L180,163V88a12,12,0,0,1,24,0Z"/></svg></a><a class="hbtn hbtn-alt" href="mailto:shreyymehraa@gmail.com"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg> shreyymehraa@gmail.com</a></div>
       </div>
     </div>
 
     <ul class="floats" aria-label="Where to go">
-      <li class="fl fl-work"><a href="#work" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Work</span></a></li>
-      <li class="fl fl-ideas"><a href="#ideas" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Ideas</span></a></li>
-      <li class="fl fl-me"><a href="about/" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Me</span></a></li>
-      <li class="fl fl-faq"><a href="about/#faq" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/faq.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">FAQ</span></a></li>
-      <li class="fl fl-contact"><a href="#contact" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Contact</span></a></li>
-      <li class="fl fl-listen"><a href="#vinyl" data-file data-listen draggable="false"><span class="fl-icon"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Listening</span></a></li>
+      <li class="fl fl-work"><a href="#work" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Work</span><span class="fl-hint" aria-hidden="true">The briefs nobody asked me to write</span></a></li>
+      <li class="fl fl-ideas"><a href="#ideas" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Ideas</span><span class="fl-hint" aria-hidden="true">How I think, before anyone asks</span></a></li>
+      <li class="fl fl-me"><a href="about/" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Me</span><span class="fl-hint" aria-hidden="true">Who Am I?</span></a></li>
+      <li class="fl fl-faq"><a href="about/#faq" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/faq.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">FAQ</span><span class="fl-hint" aria-hidden="true">Pick My Brain</span></a></li>
+      <li class="fl fl-contact"><a href="#contact" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Contact</span><span class="fl-hint" aria-hidden="true">Let's build something people remember</span></a></li>
+      <li class="fl fl-listen"><a href="#vinyl" data-file data-listen draggable="false"><span class="fl-icon"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Vinyl</span><span class="fl-hint" aria-hidden="true">What I build to</span></a></li>
     </ul>
   </div>
 </section>
@@ -97,10 +104,10 @@
     </div>
   </div>
   
-  <section class="workedwith" aria-label="Worked with"><div class="wrap"><div class="worked">
-      <p class="worked-k mono">Worked with</p>
+  <section class="workedwith" aria-label="Employers, clients and volunteer work"><div class="wrap"><div class="worked">
+      <p class="worked-k mono">Employers, clients and volunteer work</p>
       <div class="worked-ticker" data-logos data-speed="34" data-push="0.3">
-        <div class="xband wt-band" data-xband data-dir="-1"><div class="xtrack"><ul class="wt-set" aria-label="Worked with"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="iSelect" width="451" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="Compare the Market" width="560" height="103" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="Tickertape" width="560" height="80" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="TEDxVIPS" width="560" height="163" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="Bliss and Birch" width="161" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="Amazon" width="560" height="187" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="UN Youth" width="107" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="BCG" width="560" height="117" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" width="451" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" width="560" height="103" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" width="560" height="80" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" width="560" height="163" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" width="161" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" width="560" height="187" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" width="107" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" width="560" height="117" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" width="451" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" width="560" height="103" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" width="560" height="80" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" width="560" height="163" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" width="161" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" width="560" height="187" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" width="107" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" width="560" height="117" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" width="451" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" width="560" height="103" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" width="560" height="80" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" width="560" height="163" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" width="161" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" width="560" height="187" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" width="107" height="200" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" width="560" height="117" decoding="async"></li></ul></div></div>
+        <div class="xband wt-band" data-xband data-dir="-1"><div class="xtrack"><ul class="wt-set" aria-label="Employers, clients and volunteer work"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="iSelect" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="Compare the Market" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="Tickertape" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="TEDxVIPS" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="Bliss and Birch" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="Amazon" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="UN Youth" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="BCG" loading="lazy" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" loading="lazy" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" loading="lazy" decoding="async"></li></ul><ul class="wt-set" aria-hidden="true"><li><img class="worked-mark" src="assets/img/logos/iselect-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/ctm-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tickertape-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/tedx-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/blissbirch-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/amazon-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/unyouth-mono.webp" alt="" loading="lazy" decoding="async"></li><li><img class="worked-mark" src="assets/img/logos/bcg-mono.webp" alt="" loading="lazy" decoding="async"></li></ul></div></div>
       </div>
     </div></div></section>
 <div class="cross" data-cross>
@@ -198,7 +205,7 @@
       <span class="prop sticker s3" data-par="-0.1"></span>
     </div>
     <div class="desk-mag">
-      <span class="ph ph-clip" aria-hidden="true"><b>Ideas1</b><span>clipboard or hands holding the magazine</span><i>G01</i></span>
+      <span class="ph ph-clip" aria-hidden="true" data-slot="G01"></span>
     <div class="mag" data-mag>
       <div class="mag-book" data-book aria-roledescription="magazine" aria-label="Ideas, issue 01">
   
@@ -271,7 +278,7 @@
           <p class="pg-kick mono">Posts</p>
           <h2 class="pg-title">Coming next</h2>
           <p class="pg-body">This issue hosts projects, posts and anything else worth making. The posts are being written.</p>
-          <p class="slot"><b>G02</b>The first post. Not written yet.</p>
+          <p class="slot" data-slot="G02">The first post is being written.</p>
           <span class="pg-folio mono">06</span>
         </section>
   
@@ -281,7 +288,7 @@
           <p class="lt-cta">Let's build something you will always be proud of.</p>
           <a class="lt-mail" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>
           <a class="pg-link" href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">&nearr;</span></a>
-          <p class="slot"><b>G03</b>Where the photographs, the paintings and the writing live.</p>
+          <p class="slot" data-slot="G03">The photographs, the paintings and the writing live elsewhere. Links to come.</p>
           <span class="pg-folio mono">07</span>
         </section>
   
@@ -325,14 +332,13 @@
     <span class="no">05 / Contact</span>
     <h2 class="cta rv">Let&#39;s build something<br>you will <em>always</em><br>be proud of.</h2>
 
-    <span class="reach-wrap"><a class="reach rv" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a><svg class="scribble" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 14C64 6 108 18 168 11 228 4 268 17 330 9 356 6 378 10 396 15"/><path class="s2" d="M10 19C70 12 118 21 176 16 238 11 276 20 340 14"/></svg><span class="ph ph-reveal" aria-hidden="true"><b>Contact1</b><span>dark graphic revealed on hover</span><i>G05</i></span></span>
+    <span class="reach-wrap"><a class="reach rv" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a><svg class="scribble" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 14C64 6 108 18 168 11 228 4 268 17 330 9 356 6 378 10 396 15"/><path class="s2" d="M10 19C70 12 118 21 176 16 238 11 276 20 340 14"/></svg><span class="ph ph-reveal" aria-hidden="true" data-slot="G05"></span></span>
 
     <div class="ways rv" aria-label="Ways to reach me">
       <a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,20H40A20,20,0,0,0,20,40V216a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V40A20,20,0,0,0,216,20ZM96,176a12,12,0,0,1-24,0V112a12,12,0,0,1,24,0Zm-12-84a16,16,0,1,1,16-16A16,16,0,0,1,84,92Zm104,84a12,12,0,0,1-24,0V140a16,16,0,0,0-32,0v36a12,12,0,0,1-24,0V112a12,12,0,0,1,23.74-2.33A40,40,0,0,1,188,140Z"/></svg>LinkedIn</a>
       
       <a href="public/ShreyMehra%20Master%20Resume.docx" download><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM152,88V44l44,44Zm-8,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h40A8,8,0,0,1,144,160Zm0-32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h40A8,8,0,0,1,144,128Z"/></svg>Resume</a>
     </div>
-    <p class="slot"><b>G04</b>Medium and X handles. Not guessed: a 404 in front of a recruiter is worse than a short list.</p>
 
     <div class="foot">
       <p class="sign" title="Made by Shrey Mehra, duh">
@@ -341,7 +347,7 @@
       <p class="foot-meta">Melbourne &middot; <time id="mel-time">local time</time></p>
     </div>
   </div>
-  <span class="ph ph-ground" aria-hidden="true"><b>Contact2</b><span>the hill the contact section stands on, full width</span><i>G06</i></span>
+  <span class="ph ph-ground" aria-hidden="true" data-slot="G06"></span>
 </section>
 </main>
 

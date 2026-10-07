@@ -24,11 +24,32 @@
   }
   if(!document.getElementById('loader')) assemble(); /* otherwise the loader calls it */
 
-  /* rolling verticals */
+  /* The claim's rolling word.
+     The frame is sized to the word in it, not to the longest word in the
+     list, otherwise "brands" settles inside a plane cut for "campaigns" and
+     the gap after it reads as a rendering fault. One measurement per word at
+     init, then the width is animated with the same timing as the step. */
   var ul=document.getElementById('rollul'),n=ul.children.length-1,i=0;
+  var rollBox=ul.parentElement,
+      rollW=[].map.call(ul.children,function(el){return el.getBoundingClientRect().width});
+  function fitRoll(k){ if(rollBox&&rollW[k]) rollBox.style.width=Math.ceil(rollW[k])+'px'; }
+  function measureRoll(){
+    rollW=[].map.call(ul.children,function(el){return el.getBoundingClientRect().width});
+    fitRoll(i); }
+  fitRoll(reduce?n:0);
+  /* The display face loads async. Measuring before it arrives sizes the frame
+     to the fallback and the plane ends up the wrong width for the rest of the
+     visit, so measure again once the real face is in. */
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){
+    if(reduce){i=n;} measureRoll();});}
+  addEventListener('resize',measureRoll);
+  if(reduce){ ul.style.transform='translateY(-'+(n*1.25)+'em)'; }
   if(!reduce){ var rollT=setInterval(function(){i++;ul.style.transition='transform 420ms var(--ease)';
-    ul.style.transform='translateY(-'+(i*1.25)+'em)';
-    if(i===n-1) clearInterval(rollT); /* one pass, then it rests on the last word */ },1900); }
+    ul.style.transform='translateY(-'+(i*1.25)+'em)'; fitRoll(i);
+    if(i>=n) clearInterval(rollT); /* one pass through the list, then it rests
+       on the last item. The list ends on the word it must settle on, so the
+       resting state is authored rather than whatever index the loop stopped
+       at. Was i===n-1, which stopped one short and rested on the wrong word. */ },1500); }
 
   /* cut-out drift + drag */
   var tiles=[].slice.call(document.querySelectorAll('.tile'));
@@ -83,9 +104,6 @@
     /* the track holds identical copies; one copy's width is the loop length */
     function measure(){ bands.forEach(function(b){ b.span=b.track.scrollWidth/b.track.children.length; }); }
     measure(); addEventListener('resize',measure);
-    /* a track of images measures short until they have boxes, and the loop
-       length is then wrong for the life of the page: re-measure as each lands */
-    [].forEach.call(box.querySelectorAll('img'),function(im){ if(!im.complete) im.addEventListener('load',measure,{once:true}); });
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
 
     var vel=0,lastY=scrollY,lastT=0,running=false,raf=0,go=0;

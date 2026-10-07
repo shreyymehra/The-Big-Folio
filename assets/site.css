@@ -1477,7 +1477,13 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   animation:ride 60s linear infinite;animation-delay:calc(var(--i) * -10s)}
 @keyframes ride{to{offset-distance:calc(var(--i) * 16.6667% + 100%)}}
 .fl-work{--i:0}.fl-ideas{--i:1}.fl-me{--i:2}.fl-faq{--i:3}.fl-contact{--i:4}.fl-listen{--i:5}
-.floats:is(:hover,:focus-within) .fl,html.sm-paused .fl{animation-play-state:paused}
+/* The ring stops when the pointer enters the hero, not when it reaches a mark
+   (7 Oct). .floats has pointer-events:none, so the old rule only fired once you
+   were already on top of a mark, which is the hard part: these six are primary
+   navigation, and a moving target is harder to acquire than a still one. Now the
+   marks move while nobody is engaging, which is what the device is for, and hold
+   still the moment someone is, which is what navigation is for. */
+.stage-hero:is(:hover,:focus-within) .fl,html.sm-paused .fl{animation-play-state:paused}
 
 .fl a{display:grid;justify-items:center;gap:var(--s-2);text-decoration:none;color:var(--deep);cursor:pointer}
 .fl-icon{display:block;width:var(--fl-w);height:var(--fl-w);transition:transform 220ms var(--e-spring)}
@@ -1522,3 +1528,110 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .stage-copy .hero-name .l1{flex-wrap:wrap}
   .stage-copy .t-shrey{width:min(248px,72%)}
 }
+
+
+/* ============================================================
+   FINALISED HERO (6 Oct 2026). Appended last so it wins by order.
+
+   Three changes from the previous hero, all of them subtractions except
+   the panel:
+   1. The cut-out name moves off the cream and onto a red halftone panel
+      with the photograph, so the left column is one object instead of two.
+   2. The separate rolling line is gone. Its word now rides inside the
+      claim, which removes the second headline that was diluting the first.
+   3. Both calls to action render as buttons. Square, hard-edged, 2px rule:
+      a button in this system is a plane with a border, never a pill.
+   ============================================================ */
+
+/* --- the panel --------------------------------------------------- */
+.hero-panel{position:relative;display:grid;justify-items:start;gap:var(--s-4);
+  width:clamp(238px,25vw,330px);padding:var(--s-5) var(--s-5) var(--s-6);
+  background:var(--fluoro);border:2px solid var(--deep);
+  /* halftone: one dot per 7px cell, ink blue at low alpha over the red.
+     A printed screen, not a texture overlay, so it survives scaling. */
+  background-image:radial-gradient(circle at 50% 50%,rgba(13,22,51,.26) 1.15px,transparent 1.25px);
+  background-size:7px 7px;background-color:var(--fluoro)}
+/* The tile sizes used to live under .stage-copy. The name has moved out of
+   that scope, so without these the five cut-outs render at natural size, the
+   grid column takes its minimum from them, and the panel blows out to 1289px
+   with the photograph following it. Measured, not guessed: that is exactly
+   what happened on the first build of this panel. */
+.hero-panel{min-width:0;justify-items:stretch}
+.hero-panel .hero-name{position:static;width:100%;max-width:100%;margin:0}
+.hero-panel .hero-name .l1{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:7px}
+.hero-panel .hero-name .l2{display:block;margin-top:5px}
+.hero-panel .tile{display:inline-block}
+.hero-panel .tile img{display:block;width:100%;height:auto}
+.hero-panel .t-hi{width:clamp(30px,3vw,38px)}
+.hero-panel .t-my{width:clamp(35px,3.4vw,44px)}
+.hero-panel .t-name{width:clamp(62px,6.2vw,78px)}
+.hero-panel .t-is{width:clamp(21px,2.1vw,26px)}
+.hero-panel .t-shrey{width:clamp(140px,14vw,176px)}
+.hero-panel .print{width:100%;max-width:100%;transform:rotate(-1.6deg)}
+.hero-panel .print-stamp{right:-12px;top:-12px}
+@media (max-width:900px){
+  .hero-panel{width:min(330px,88%);padding:var(--s-4) var(--s-4) var(--s-5)}
+}
+
+/* --- the claim ---------------------------------------------------- */
+/* It is the largest type in the hero now that the second line is gone. */
+.stage-copy .claim{font-size:clamp(1.75rem,3.1vw,2.6rem);line-height:1.06;max-width:15em;
+  margin:0}
+/* The roller. A clipped frame one line tall; the stack inside is moved by
+   home.js. Spans, not list items: see the markup note. */
+/* 1.25em is not a taste value. home.js moves the stack by i * 1.25em, so the
+   frame and every row have to be exactly that or the words land between
+   lines. They were 1.1em on the first pass and the roller settled 25px off. */
+.stage-copy .roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;
+  padding:0 .22em;background:var(--deep);color:var(--cream);box-sizing:content-box;
+  font-family:var(--fd);font-weight:900;font-size:1em;line-height:1.25;
+  transition:width 420ms var(--ease)}
+@media (prefers-reduced-motion:reduce){.stage-copy .roll{transition:none}}
+.stage-copy .roll .rollstack{display:block;transition:transform 420ms var(--ease)}
+/* width:max-content so each word keeps its own measured width. Without it a
+   block child fills the frame, and re-measuring after the webfont loads
+   returns the frame width instead of the word width. */
+.stage-copy .roll .rollstack>span{display:block;width:max-content;height:1.25em;line-height:1.25em;white-space:nowrap}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
+
+.stage-copy .hero-k{margin:var(--s-3) 0 0;opacity:1;color:var(--deep)}
+
+/* --- both actions are buttons ------------------------------------- */
+/* The brief asked for buttons rather than bare text. Square and ruled, so
+   the pill veto still holds. The second one is the outline variant: equal
+   size, lower weight, which is how two actions sit together without the
+   secondary one disappearing. */
+.stage-copy .hero-cta .hbtn{min-height:48px;padding:0 var(--s-4);border:2px solid var(--deep);
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;text-transform:uppercase;
+  transition:background-color var(--d-1) ease,color var(--d-1) ease}
+.stage-copy .hero-cta .hbtn-alt{background:transparent;color:var(--deep);text-transform:none;
+  letter-spacing:0;font-family:var(--fb);font-weight:600;font-size:var(--t-small)}
+.stage-copy .hero-cta .hbtn-alt:hover,.stage-copy .hero-cta .hbtn-alt:focus-visible{
+  background:var(--yellow);color:#0D1633}
+.stage-copy .hero-cta .hbtn:not(.hbtn-alt):hover,
+.stage-copy .hero-cta .hbtn:not(.hbtn-alt):focus-visible{background:var(--yellow);color:#0D1633}
+
+/* --- nav marks: the snap-in label --------------------------------- */
+/* The short name is always there so the mark is never a mystery. The long
+   label snaps in on hover and focus: a cut-out strip, held off-angle, no
+   fade. A fade would read as a tooltip; a snap reads as a label being
+   slapped on. Hidden from assistive tech because the link already carries
+   its destination, and it is never the only way to know where a mark goes. */
+.fl a{position:relative}
+.fl-hint{position:absolute;left:50%;top:calc(100% + 6px);z-index:5;
+  width:max-content;max-width:min(230px,42vw);padding:4px 9px;
+  background:var(--yellow);color:#0D1633;border:2px solid var(--deep);
+  font-family:var(--fu);font-size:11px;line-height:1.3;text-align:left;
+  transform:translate(-50%,0) rotate(-1.6deg) scale(.86);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 90ms linear,transform 140ms var(--e-spring),visibility 0s linear 140ms}
+.fl a:hover .fl-hint,.fl a:focus-visible .fl-hint{
+  opacity:1;visibility:visible;transform:translate(-50%,0) rotate(-1.6deg) scale(1);
+  transition:opacity 90ms linear,transform 140ms var(--e-spring),visibility 0s}
+@media (prefers-reduced-motion:reduce){
+  .fl-hint{transition:opacity 90ms linear,visibility 0s linear 90ms;
+    transform:translate(-50%,0) rotate(-1.6deg)}
+  .fl a:hover .fl-hint,.fl a:focus-visible .fl-hint{transform:translate(-50%,0) rotate(-1.6deg)}
+}
+@media (hover:none){.fl-hint{display:none}}

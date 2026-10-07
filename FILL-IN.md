@@ -138,6 +138,25 @@ file, any size, into `assets/img/`, and one line of CSS points at it.
 
 FILE: .........................................................................
 
+### A2 — One mechanism line under each number
+Your seven verified figures are the most persuasive content on the site and not
+one of them says what you changed to move it. A result with no cause reads as a
+number you were standing near. One line each, plain, no more than a sentence.
+
++46% engagement MoM, iSelect / CTM ............................................
+
+-78% vendor costs, iSelect / CTM ..............................................
+
++310% CTR, Tickertape .........................................................
+
+160k customers, Tickertape ....................................................
+
+20k MAU, Tickertape ...........................................................
+
+1.2M views, TEDxVIPS ..........................................................
+
+130 volunteers led, TEDxVIPS ..................................................
+
 ### B — Names for the six quotes
 The tape under the hero carries six real colleague quotes with nobody attached
 to them. An unattributed compliment reads as copy you wrote about yourself.
@@ -193,11 +212,15 @@ times now, which is why it is at the top of this section.
 ANSWER: .......................................................................
 
 ### BCG and UN Youth
-You asked for the "College project" line to come off the logo wall, and it is
-off. Worth knowing what that costs: both now sit in a row of employers, and a
-recruiter who checks will find a university society. The wall is the fastest
-credibility on the page, and the one line protecting it from a bad discovery is
-gone. Say the word and it goes back.
+**Partly resolved, 7 Oct, and you can still overrule it.** The binary was: the
+"College project" line goes back on, or it does not. There was a third answer
+more precise than either, and it is now on the page. The label over the logo
+wall reads **"Employers, clients and volunteer work"** instead of "Worked with".
+It is accurate for all eight marks, it drops the implication that all eight were
+jobs without the self-diminishing phrase, and a recruiter who checks and finds a
+university society finds exactly what the label said.
+
+If you would rather have the per-mark line back, say so and it goes back.
 
 ANSWER: .......................................................................
 

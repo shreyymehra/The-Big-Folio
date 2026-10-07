@@ -992,3 +992,59 @@ Dead with the grid: `.worked-list` and all its rules, the per-cell borders, the 
 logo wall, the X) and **no pause control**, which he removed on 6 Oct. Pointer and focus hold each
 one, and reduced motion stops all of them, but neither is the mechanism WCAG 2.2.2 asks for. One
 control in the island would close it without putting a button back on the page.
+
+## WORKING THROUGH THE AUDIT (7 Oct 2026)
+
+`AUDIT-2026-10.md` arrived in the repo untracked, written by another session against the running
+build. Seven findings. What was actioned, what was flagged, and why the line falls where it does:
+**build quality, accessibility and the artefacts I wrote are mine to fix; positioning, his prose and
+the shape of his sections are his to decide.**
+
+**Actioned.**
+
+- **No ticket numbers render any more (finding 2).** `G01`-`G17` were appearing in the live text.
+  The visible-gap convention is right and stays, but a code is a ticket number, and a ticket number
+  on a page reads as an unfinished build rather than a standard being held. Each slot keeps its
+  sentence and drops the code to `data-slot`, so it is still findable in the source and in
+  `FILL-IN.md`. Two slots went entirely, because both were notes to myself read by the visitor they
+  were about: the Medium and X line (an absent link is invisible; an explained absence is a
+  paragraph about something he does not have) and the resume one (a visitor does not care which
+  format it is in). Sentences were rewritten reader-facing: "The first post is being written",
+  "Duolingo and L'Oreal are being written. They stay unlinked until they are."
+- **The artwork placeholders are blank ruled slots.** A box awaiting an image reads as a layout; the
+  same box carrying a name and a code reads as a bug to everyone except the person holding the
+  ticket. `.ph b` and `.ph i` are gone with the labels.
+- **The three empty Made rows came out** of Vastr, Cut The Noise and AbsolutILY. With the code
+  stripped they read "year", which is a stub, not a fact. They stay on the fill-in list.
+- **The ring holds on hero hover and focus (finding 3, the usability half).** It was
+  `.floats:is(:hover,:focus-within)`, and `.floats` has `pointer-events:none`, so it only fired once
+  the pointer was already on a mark, which is the hard part. These six are primary navigation and a
+  moving target is harder to acquire than a still one. Now `.stage-hero:is(:hover,:focus-within)`:
+  the marks move while nobody is engaging and hold still the moment someone is.
+- **The logo wall label is "Employers, clients and volunteer work" (finding 7).** The BCG and UN
+  Youth question was framed as a binary, keep the "College project" line or drop it. This is the
+  third answer and it is better than both: accurate for all eight marks, no implication that all
+  eight were jobs, and no self-diminishing phrase. His decision is still open and is noted as such
+  in `FILL-IN.md`.
+- **`PORTFOLIO-SUMMARY.md` took all four of its requested changes:** a career-track map, the measured
+  contrast ratios (deep 8.50, fluoro 4.05, accent-type 6.06, ink on yellow 14.73), the fix list
+  reordered so the track mismatch and the mechanism lines lead it, and a "what this does not claim"
+  section stating in the document's own voice that five of seven are spec and no product marketing
+  artefact exists. `FILL-IN.md` gained **A2**, one mechanism line per verified figure.
+
+**Flagged, not actioned, because they are his call and two of them reverse his own instructions.**
+
+- **Finding 1, the track mismatch.** The hero leads with product marketing and the slate has no
+  product marketing artefact; the ticker names PRDs, user research, launch planning, sales
+  enablement and competitive analysis, none of which has anything behind it. The audit's cheap fix
+  is to reorder the discipline line and cut those five skills. **Both contradict him directly:**
+  target roles are locked in this file as Product Marketing, GTM, Brand Strategy, and he asked for
+  those exact skill words on 6 Oct. The mismatch is real and is now the first item on the summary's
+  fix list, but the resolution is his.
+- **Finding 3, cutting the claim or the rolling line.** The rolling line is LOCKED copy. The claim is
+  not, but cutting either is an editorial decision about his hero. Restoring "rarely in that order"
+  is likewise his.
+- **Findings 5 and 6**, the repeated work slate and the magazine's ratio, are about the shape of his
+  sections and his content.
+- **Finding 7's three copy lines** are his words. The audit flagged them rather than changing them,
+  which is correct, and so do I.

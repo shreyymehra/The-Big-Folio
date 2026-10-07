@@ -19,10 +19,15 @@ without a seam. The grid is drawn from your own reference image, held at 30%
 strength on light and 18% on dark, which is the point where body copy over it
 reads exactly as it does on blank paper.
 
-**Colour.** Superman, aged to newsprint. Cape blue `#173CA8` carries every line
-of type and every rule. Cape red `#E8251F` carries planes and type above 24px,
-with `#B8141A` for red at small sizes. Shield yellow `#FFED10` is an accent only:
-a highlighter, a star, a hover. There is no fourth colour and no grey.
+**Colour.** Superman, aged to newsprint, and the rules are enforced by measured
+ratio rather than by taste. On the off-white ground: cape blue `#173CA8` is
+**8.50:1**, so it carries every line of type and every rule. Cape red `#E8251F`
+is **4.05:1**, which clears the 3:1 that large type and graphics need and fails
+the 4.5:1 that body copy needs, so it carries planes, graphics and type above
+24px and nothing smaller. Small red is `#B8141A` at **6.06:1**. Shield yellow
+`#FFED10` never carries type on paper; ink on yellow is **14.73:1**, so the
+highlighter works the other way round. Dark mode swaps the ground and the blue,
+which is the same 8.50:1 inverted. There is no fourth colour and no grey.
 
 **Type.** Asimov Print B for every heading, with a pressed-ink edge so the
 letterforms bleed the way a cheap press bleeds. Inter for body. Geist Light for
@@ -37,6 +42,48 @@ would help but does not exist, the page shows the reasoning instead.
 **Accessibility.** Contrast passes AA on every route in both themes. Reduced
 motion stops every loop rather than just shortening it. Nothing is smaller than
 24px as a target. The page reflows at 390px instead of shrinking. There is a 404.
+
+---
+
+## WHAT EACH PIECE IS EVIDENCE FOR
+
+The summary used to say what is on each tab and never which job it argues for.
+This is that mapping, and it is the uncomfortable table on the site.
+
+| Track claimed | Artefacts | State |
+|---|---|---|
+| Product marketing | none | the hero leads with this |
+| GTM | Vastr one-page GTM brief | spec |
+| Brand strategy | Vastr, Cut The Noise, AbsolutILY, L'Oreal, Duolingo | 3 spec, 2 unbuilt |
+| Comms and enablement | Venus Roadlines | shipped, real |
+| AI-enabled | VoiceDNA | in build |
+
+The hero, the nav and the ticker all lead with **product marketing**, and the
+slate contains no product marketing artefact. The ticker also names PRDs, user
+research, launch planning, sales enablement and competitive analysis, none of
+which has anything behind it on the site. A product marketing hiring manager
+reads the hero, scans the work, finds brand and campaign, and concludes the
+headline is aspirational, which is a worse read than a brand strategist who
+says so plainly.
+
+The centre of gravity is brand and campaign. The hero says product marketing.
+One of the two has to move, and the decision is Shrey's: either reorder the
+discipline line and cut the unevidenced skills, or write up the positioning,
+launch and enablement behind the iSelect and Compare the Market stint, which is
+the only route to leading with product marketing without the claim being hollow.
+
+## WHAT THIS DOES NOT CLAIM
+
+Stated plainly, because this document will be read by people and sessions who
+act on it, and the weakness has to be written into it rather than discovered.
+
+Of seven pieces: **one is real and shipped** (Venus Roadlines), **one is in
+build and is never called live** (VoiceDNA), **three are spec and say so in
+their first line** (Vastr, Cut The Noise, AbsolutILY), and **two have no case
+page at all** (Duolingo, L'Oreal). **No product marketing artefact exists.**
+Every number on the site is from the master resume; none has a mechanism line
+under it yet saying what was changed to move it. The six quotes under the hero
+are real and unattributed. The Ideas section has no published piece.
 
 ---
 
@@ -305,17 +352,29 @@ hover as home, one step quieter. The footer shows Melbourne local time.
 
 ## WHAT I WOULD FIX NEXT, IN ORDER
 
-1. **Put names on the six quotes.** Six anonymous compliments under the hero is
-   the single weakest thing on the site, and it is twenty minutes of your time.
-2. **The colour photograph.** The best interaction on the site is running at half
+Reordered 7 Oct: the first two outrank everything that was on this list before,
+and neither was on it.
+
+1. **Close the track mismatch.** The hero sells product marketing and the slate
+   does not evidence it. Either the discipline line moves or the artefact gets
+   written. Nothing else on this list changes what a hiring manager concludes in
+   the first ten seconds.
+2. **Put a mechanism line under each number.** +46%, &minus;78%, +310%, 160k, 20k
+   MAU, 1.2M, 130 are the most persuasive content on the site and every one of
+   them is a result with no cause attached. One line each saying what you changed
+   is the highest-value hour of writing available to you, and it converts the
+   numbers from claims into evidence.
+3. **Put names on the six quotes.** Six anonymous compliments under the hero is
+   the weakest paragraph on the home page, and it is twenty minutes of your time.
+4. **The colour photograph.** The best interaction on the site is running at half
    strength for want of one file.
-3. **One real Ideas post.** The section is in the navigation and promises a point
+5. **One real Ideas post.** The section is in the navigation and promises a point
    of view. One piece converts the promise into evidence; until then it is the
    only place the site asks to be believed rather than showing something.
-4. **Settle the Venus Roadlines tag.** It is the only internal contradiction left,
-   and it sits on the one piece that is genuinely real, which is the worst place
-   for it.
-5. **Build the Me deck** once the recommendations land.
+6. **Settle the Venus Roadlines tag.** The only internal contradiction left, and
+   it sits on the one piece that is genuinely real, which is the worst place for
+   it.
+7. **Build the Me deck** once the recommendations land.
 
 ## WHAT I NOTICED THAT YOU HAVE NOT ASKED ABOUT
 
