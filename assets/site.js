@@ -3,6 +3,20 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* base.css turns on cross-document view transitions with
+     @view-transition{navigation:auto}. When the browser skips one, which it
+     does on a fast or interrupted navigation, it rejects its own internal
+     promise and the console shows
+       Uncaught (in promise) AbortError: Transition was skipped
+     on a page that owns no promise to catch it. Nothing is broken, the page
+     simply loads without the crossfade, but an error in the console is an
+     error in the console to anyone who opens one. This swallows that exact
+     rejection and nothing else: any other unhandled rejection still surfaces. */
+  addEventListener('unhandledrejection', function(e){
+    var r = e.reason;
+    if(r && r.name === 'AbortError' && /transition was skipped/i.test(r.message || '')) e.preventDefault();
+  });
+
   /* the pressed-ink filter the display headings use (base.css, INK) */
   (function(){
     if(document.getElementById('ink')) return;

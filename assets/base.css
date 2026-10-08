@@ -287,7 +287,7 @@ html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::afte
    ink spread, from an SVG filter site.js adds to every page. Subtle on
    purpose; the words stay crisp at reading distance. */
 :where(h1:not(.hero-name),h2,.said,.cta){filter:url(#ink)}
-@media (forced-colors:active){:where(h1,h2,.said,.cta){filter:none}}
+@media (forced-colors:active){:where(h1,h2,.cta){filter:none}}
 
 /* ---------- ASSET PLACEHOLDERS (Reference Book rule 2) ----------
    Every missing icon, logo or image holds its exact slot as a labelled box,

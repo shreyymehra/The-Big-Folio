@@ -55,19 +55,12 @@
 :root[data-theme="dark"]{ --g:var(--p-ink); --g-inset:var(--p-deep); --t-inset:var(--p-paper-dim);
   --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
   --rule:rgba(247,241,227,.18) }/* Reading inset. The near-white column that body copy sits on. */
-.reading{background:var(--p-white,#FCFAF6);box-shadow:0 0 0 1px var(--rule)}
 
 
 /* ---------- PROOF ----------
    The one fluoro plane. Fluoro carries no small type anywhere; on this ground
    the type colour is ink, measured 4.79.
    Kept deliberately short. Evidence read on the way past, not a destination. */
-.proof{padding:clamp(2.6rem,5vw,4.4rem) 0 clamp(2.2rem,4vw,3.4rem);
-  border-top:3px solid var(--p-ink);border-bottom:3px solid var(--p-ink)}
-.proof .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--t-mute);display:block;margin-bottom:.9rem}
-.proof h2{font-size:var(--t-h2);max-width:11em}
-.proof .lede{margin:0;font-size:var(--sm);line-height:1.55;max-width:26em;color:var(--t)}
 
 /* The figures count up with the scroll: see PROOF figures in home.js. They are
    never hidden; with no JS the markup already holds the final values. */
@@ -93,7 +86,6 @@ h1,h2,h3{font-family:var(--fd);font-weight:700;margin:0;line-height:.95;letter-s
 p{margin:0 0 1rem}
 a{color:inherit}
 .mono{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
-.measure{max-width:34em}
 :focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
 
 /* section head — a rule and a number in the margin, not a box */
@@ -102,7 +94,6 @@ a{color:inherit}
 .shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82;margin:0;font-weight:inherit}
 .shead h2{font-size:var(--xl)}
 .shead .sub{grid-column:2;font-size:var(--base);opacity:.82;max-width:34em;margin-top:.7rem}
-.dark .shead{border-color:var(--cream)}
 
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;
@@ -149,22 +140,12 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 
 /* ---------- the words ---------- */
 .hero-k{margin:0;font-family:var(--fu);font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.8)}
-.hero-k b{font-weight:600;color:var(--deep)}
-.said{margin-top:var(--s-5);font-family:var(--fd);font-weight:900;font-size:var(--t-h2);line-height:1.1;
-  letter-spacing:var(--fd-track);color:var(--deep)}
 .roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;margin-top:var(--s-1);
   background:var(--deep);color:var(--cream);padding:0 .3em;transform:rotate(-1.2deg)}
-.roll ul{list-style:none;margin:0;padding:0;transition:transform 420ms var(--ease)}
-.roll li{height:1.25em;line-height:1.25em;white-space:nowrap}
-.value{margin:var(--s-6) 0 0;font-size:var(--t-h3);font-weight:400;line-height:1.3;max-width:22em}
-.value b{font-weight:600}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-6);margin-top:var(--s-7)}
 .hbtn{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s-5);background:var(--deep);color:var(--cream);
   font-size:var(--t-body);font-weight:600;text-decoration:none;transition:background-color var(--d-1) ease,color var(--d-1) ease}
 .hbtn:hover,.hbtn:focus-visible{background:var(--deep);color:var(--cream)}
-.hmail{font-size:var(--t-body);color:var(--deep);text-decoration:none;
-  border-bottom:2px solid var(--fluoro);padding:var(--s-2) 0 2px;overflow-wrap:anywhere}
-.hmail:hover,.hmail:focus-visible{color:var(--accent-type)}
 
 
 /* the words: one column, centred on the screen's height */
@@ -183,12 +164,9 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
    so they are the thing that moves. The disciplines are metadata and sit
    still and small. Previously all three were identical marquees, which made
    the only third-party validation on the site the least legible thing on it. */
-.ticker{padding:var(--s-7) 0 0;overflow:hidden} /* the tape above is the divider; --sec here was dead air */
-.ticker .head{opacity:.82;margin:0 0 2.2rem}
+ /* the tape above is the divider; --sec here was dead air */
 
 /* metadata. Smallest, mono, muted — the bottom of the hierarchy. */
-.saygap{border:2px dashed rgba(var(--deep-rgb),.4);padding:.7rem .9rem;margin:0 0 3rem;
-  max-width:44em;opacity:.82;line-height:1.8;text-transform:none;letter-spacing:.02em}
 /* ---------- worked with ----------
    A credits line, not a logo wall. Six equal cells ruled like a table, names
    muted until pointed at, when the cell inverts. Only real employers, events and
@@ -517,11 +495,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;transition:border-color var(--d-1) ease}
 .ways a:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .ways .ico{width:18px;height:18px;flex:none}
-.second{display:flex;flex-wrap:wrap;gap:1.6rem;margin:2rem 0 0;
-  font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
-.second a{text-decoration:none;opacity:.82;border-bottom:1px solid currentColor;
-  padding-bottom:2px;transition:opacity 200ms var(--ease)}
-.second a:hover,.second a:focus-visible{opacity:1}
 
 /* footer: the Made by Shrey mark (see its own block) and one line of
    metadata. Metadata is #4A5578-weight deep, measured above AA. */
@@ -547,8 +520,32 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    with the hero photograph on the label, a tonearm that drops when it plays,
    and a fluoro ring that tracks the song's position. The ring is the one
    informative use of the accent here. 33 1/3 rpm is 1.8s a turn. */
-.vinyl{--vd:112px;position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:70;
-  display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem;color:var(--deep)}
+/* It parks small and opens when you reach for it (8 Oct). At 112px the record
+   sat over the bottom-right corner of every screen for the whole page: over a
+   figure in What it moved, over the zine, over the last line of Me. A floating
+   control may cover the corner it lives in; it may not cover the content. So
+   it rests at 64px, which is a control, and grows to 112px, which is a record,
+   on hover, focus or while playing. It is anchored bottom-right, so the target
+   only ever grows under the pointer.
+   It also stands down over the hero, which it used to do and stopped doing when
+   the hero was rebuilt: html.at-hero is still set by home.js and nothing was
+   reading it. The Listening mark in the hero is the way in, so the player has
+   no job until the visitor has passed it. */
+.vinyl{--vd:64px;position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:70;
+  display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem;color:var(--deep);
+  transition:opacity var(--d-2) var(--e-out),transform var(--d-2) var(--e-out)}
+.vinyl:is(:hover,:focus-within,.playing){--vd:112px}
+.vinyl-deck{transition:width var(--d-2) var(--e-out),height var(--d-2) var(--e-out)}
+html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-events:none}
+@media (prefers-reduced-motion:reduce){.vinyl,.vinyl-deck{transition:none}}
+/* On a phone there is no corner to spare: a 64px control sits on the body copy
+   of whatever section you are reading. So it is not there until it is asked
+   for. The Listening mark in the hero links to #vinyl, which makes it the
+   target, and once it is playing it stays. Summoned, not parked. */
+@media (max-width:640px){
+  .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-events:none}
+  .vinyl:target,.vinyl.playing,.vinyl:focus-within{opacity:1;transform:none;pointer-events:auto}
+}
 .vinyl-cap{margin:0;text-align:right;line-height:1.15;padding:.4rem .6rem .45rem;background:var(--cream);
   border:1px solid var(--deep);
   /* at rest the record is the only thing floating over the page; the card
@@ -623,6 +620,59 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* faq + about stagger */
 .tile-q{opacity:0;transform:translateY(14px);transition:opacity 480ms var(--ease),transform 480ms var(--ease),background 200ms var(--ease),color 200ms var(--ease),box-shadow 200ms var(--ease)}
 .tile-q.in{opacity:1;transform:none}
+/* ---------- Me: the monologue and the deck (8 Oct) ----------
+   His paragraph is unchanged to the word. What changed is where it breaks:
+   each sentence is its own beat with air after it, which is how a line reads
+   when it is spoken rather than printed. The opening beat is set larger
+   because it is the thesis, and the closing one is set apart because it is
+   the turn. The word-by-word ink still runs over the top; site.js walks text
+   nodes, so the beats do not interrupt it. */
+.beat{display:block;max-width:30em}
+.beat + .beat{margin-top:var(--s-5)}
+.beat--open{font-size:var(--md);line-height:1.25;font-weight:500;max-width:22em}
+.beat--close{margin-top:var(--s-6);font-style:italic}
+
+/* The right column was empty on every screen wider than 900px, which is the
+   white space he asked to use. A deck: one card at a time, thrown left or
+   right, with the next two showing behind it so it reads as a stack rather
+   than as a box. Every card is real. Nothing here is a placeholder, which is
+   why there are three and not five.
+   Markup order is a plain ordered list and stays one: a screen reader reads
+   all three in sequence and never has to drive the deck. JS adds .is-deck,
+   and without JS the list simply stacks down the column. */
+.vouch{position:relative}
+.vouch-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
+.vouch-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-4)}
+.vouch-card{background:var(--cream);border:2px solid var(--deep);padding:var(--s-5) var(--s-5) var(--s-4)}
+.vc-big{margin:0;font-family:var(--fd);font-weight:900;font-size:clamp(1.35rem,2.1vw,1.75rem);
+  line-height:1.05;letter-spacing:var(--fd-track);color:var(--deep)}
+.vc-sub{margin:var(--s-3) 0 0;font-family:var(--fb);font-size:var(--t-small);line-height:1.45;color:var(--deep)}
+.vc-who{margin:var(--s-4) 0 0;font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent-type)}
+
+/* the deck, once the script is in */
+.vouch-list.is-deck{display:block;position:relative;min-height:16.5rem;touch-action:pan-y}
+.is-deck .vouch-card{position:absolute;inset:0 0 auto;height:auto;min-height:15rem;
+  transform-origin:50% 100%;will-change:transform;
+  transition:transform var(--d-2) var(--e-out),opacity var(--d-2) ease}
+.is-deck .vouch-card[data-at="0"]{z-index:3;transform:rotate(-1deg)}
+.is-deck .vouch-card[data-at="1"]{z-index:2;transform:translateY(10px) scale(.965) rotate(1.4deg)}
+.is-deck .vouch-card[data-at="2"]{z-index:1;transform:translateY(20px) scale(.93) rotate(-.6deg)}
+.is-deck .vouch-card[data-at="0"]{cursor:grab}
+.is-deck .vouch-card[data-at="0"].is-held{cursor:grabbing;transition:none}
+.is-deck .vouch-card.is-gone{opacity:0}
+.vouch-nav{display:flex;align-items:center;gap:var(--s-3);margin-top:var(--s-5)}
+.vouch-nav button{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+  background:none;border:2px solid var(--deep);color:var(--deep);cursor:pointer;
+  font-family:var(--fu);font-size:var(--t-small);transition:background var(--d-1) ease,color var(--d-1) ease}
+.vouch-nav button:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
+.vouch-count{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
+@media (prefers-reduced-motion:reduce){.is-deck .vouch-card{transition:none}}
+@media (max-width:900px){
+  .vouch{margin-top:var(--s-7)}
+  .vouch-list.is-deck{min-height:15rem}
+}
+
 .prose p{opacity:0;transform:translateY(12px);transition:opacity 520ms var(--ease),transform 520ms var(--ease)}
 .prose p.in{opacity:1;transform:none}
 .cta span.ln{display:block;opacity:0;transform:translateY(18px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
@@ -633,7 +683,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .rv.in{opacity:1;transform:none}.anim [data-t],.anim .bg{opacity:0}
 .snap{animation:snap 180ms var(--ease) forwards}
 @keyframes snap{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
-.rise{animation:rise 560ms var(--ease) forwards}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .fade{animation:fade 640ms var(--ease) forwards}
 @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -659,51 +708,37 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .phead h1{font-size:var(--xxl);max-width:13em;margin:0 0 1.1rem}
 .phead .stand{font-size:var(--md);line-height:1.3;font-weight:500;max-width:24em;margin:0}
 .phead .rule{margin-top:2.4rem;border-top:3px solid var(--deep)}
-.dark .phead .rule{border-color:var(--cream)}
 .phead .star{width:34px;height:34px;object-fit:contain;display:block;margin-bottom:1.4rem}
 
 /* back link — same grammar as the case studies */
-.top{padding-top:calc(var(--pad) + 3.4rem)}
-.back{text-decoration:none;border-bottom:2px solid var(--fluoro);padding-bottom:3px}
 
 /* page foot — where next, then the signature line */
 .pfoot{border-top:1px solid rgba(var(--deep-rgb),.3);margin-top:var(--sec);padding:1.4rem 0 3.5rem;
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
-.dark .pfoot{border-color:rgba(var(--cream-rgb),.25)}
 .pfoot a{text-decoration:none;font-family:var(--fd);font-weight:700;font-size:var(--lg);line-height:1;letter-spacing:var(--fd-track)}
 .pfoot a .arw{color:var(--fluoro)}
 .pfoot .sig{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 
 /* home hub — section teaser that points at a full page */
-.more{display:inline-flex;align-items:center;gap:.5rem;margin-top:2.4rem;text-decoration:none;
-  font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  border-bottom:2px solid var(--fluoro);padding-bottom:4px}
+/* The same call to action as every other one on the site (8 Oct, his note:
+   no special treatment for just one). It carried a permanent red underline
+   while the four at the end of the page carried none until hovered, so the
+   one link that leads to a second page shouted and the ones that lead off the
+   site whispered. Now it matches .ways a exactly: transparent rule, red on
+   hover or focus, 44px of height to hit. */
+.more{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;margin-top:2.4rem;
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;
+  transition:border-color var(--d-1) ease}
+.more:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .more .arw{transition:transform 220ms var(--ease)}
 .more:hover .arw{transform:translateX(4px)}
 
 .lede{font-size:var(--md);line-height:1.3;font-weight:500;max-width:20em;margin:0 0 1rem}
 
 /* ideas — index list and the scrolling piece */
-.idea{display:grid;grid-template-columns:auto 1fr auto;gap:1.6rem;align-items:baseline;
-  border-bottom:1px solid rgba(var(--deep-rgb),.3);padding:1.6rem 0;text-decoration:none;
-  transition:padding 240ms var(--ease),background 240ms var(--ease)}
-.idea:hover,.idea:focus-visible{padding-left:1rem;padding-right:1rem;background:rgba(var(--deep-rgb),.05)}
-.idea .n{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.82}
-.idea h3{font-size:var(--t-h3);line-height:1.05;margin:0 0 .45rem}
-.idea .sub{font-size:var(--sm);opacity:.82;margin:0;max-width:38em}
-.idea .when{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;opacity:.82;white-space:nowrap}
-.idea[aria-disabled="true"]{opacity:.5;pointer-events:none}
-@media(max-width:700px){.idea{grid-template-columns:1fr;gap:.5rem}.idea .when{display:none}}
 
 /* a single idea, read top to bottom */
-.reading{max-width:38em;margin:0 auto}
-.reading .sec{padding:0 0 var(--sec)}
-.reading .eyebrow{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  opacity:.82;display:block;margin-bottom:.8rem}
-.reading h2{font-size:var(--lg);margin:0 0 1rem;max-width:16em}
-.reading p{font-size:var(--t-body);line-height:1.62}
-.reading .pull{font-family:var(--fd);font-weight:700;font-size:var(--lg);line-height:1.1;
-  border-left:4px solid var(--fluoro);padding:.2rem 0 .2rem 1.2rem;margin:2rem 0;letter-spacing:var(--fd-track)}
 
 /* progress rail for a long read */
 .rail{position:fixed;left:0;top:0;height:3px;background:var(--fluoro);width:0;z-index:65}
@@ -894,7 +929,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .work .wk-tile[href*="vrl"]{--y:44vh}
 @media (min-width:760px){.wk-note--right{max-width:26rem}}
 /* proof: the lede is a sentence to read, so body size */
-.proof .lede{font-size:var(--t-body)}
 /* brain dump: steps are body copy (18), so five columns become three then two */
 .step p{font-size:var(--t-body);line-height:var(--lh-body)}
 
@@ -902,8 +936,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.contact .no,.shead .no{opacity:.82}
-.proof .no,.proof .who{color:var(--p-ink);opacity:1}
+   there. Small accent text on deep uses the lifted fluoro. */.worked-k,.contact .no,.shead .no{opacity:.82}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
 
 /* ---------- work covers: static, with a state change on hover ----------
@@ -1144,9 +1177,6 @@ a.wrow:hover .go::after{padding-left:.25em}
    blue panels in a row would read as one. Blue Ben-Day dots, ink type (10.6),
    blue figures (6.2). Figures are set wholly in Geist: the trial heading
    face has no digits, and mixing faces inside a number misaligns it. */
-section.proof.comic{background-color:var(--yellow);color:var(--ink);border-color:var(--ink);
-  background-image:radial-gradient(rgba(23,60,168,.2) 1.3px,transparent 1.8px);background-size:11px 11px}
-.proof.comic h2{color:var(--ink)}.proof.comic .no{color:var(--ink);opacity:1}.proof.comic .lede{color:var(--ink)}
 
 /* ---------- me: the paragraph inks in as you read ---------- */
 [data-scrub] .w{opacity:.42;transition:opacity 160ms linear}
@@ -1162,7 +1192,6 @@ section.proof.comic{background-color:var(--yellow);color:var(--ink);border-color
 .ico{display:inline-block;width:1em;height:1em;vertical-align:-.14em;flex:none}
 .hbtn .ico{margin-left:var(--s-2);transition:transform var(--d-1) var(--e-out)}
 .hbtn:hover .ico,.hbtn:focus-visible .ico{transform:translate(2px,2px)}
-.hmail .ico{margin-right:var(--s-1)}
 @media (prefers-reduced-motion:reduce){.hbtn .ico{transition:none}}
 /* the cover furniture must never crowd the cover lines: the barcode sits
    top-left under the masthead on small covers, and the dateline stays on one row */
@@ -1213,7 +1242,6 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
 .tick-toggle:hover,.tick-toggle:focus-visible{background:var(--deep);color:var(--cream)}
 .tick-toggle[aria-pressed="true"]{background:var(--deep);color:var(--cream)}
 .ht-foot{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--s-4) var(--s-6);margin-top:var(--s-5)}
-.ht-foot .saygap{margin:0;flex:1 1 30em}
 .tick-bar{display:flex;justify-content:flex-end;margin-bottom:var(--s-4)}
 
 /* ---------- loader ----------
@@ -1439,7 +1467,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .stage-copy .t-is{width:28px}.stage-copy .t-shrey{width:186px}
 .stage-copy .claim{margin:0 0 var(--s-1);font-family:var(--fd);font-weight:900;font-size:clamp(1.5rem,2.45vw,2rem);line-height:1.03;
   letter-spacing:var(--fd-track);color:var(--deep);max-width:13em;text-wrap:balance}
-.stage-copy .said{margin:var(--s-2) 0 0;font-family:var(--fb);font-weight:500;font-size:var(--t-body);line-height:1.5;color:var(--deep)}
 .stage-copy .roll{font-family:var(--fd);font-weight:900;font-size:var(--t-body);background:var(--deep);color:var(--cream)}
 .stage-copy .hero-k{margin:var(--s-2) 0 0;font-family:var(--fu);font-size:var(--t-small);color:var(--deep);opacity:.82}
 /* the fastest credibility on the site, moved above the fold 29 Sep 2026 */

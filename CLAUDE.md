@@ -1090,3 +1090,66 @@ a `Claude outputs/` folder of screenshots, a rolling-word width fix in `home.js`
 **If a second session is running, check `git status` and `git diff` before every `git add`, and
 never use `-A`.** The repo has a documented history of uncommitted work being lost, and this is the
 second mechanism for it.
+
+## THE ME SECTION, AND A CLEAN-OUT (8 Oct 2026)
+
+**Me is built.** Three things, all from his ODT brief:
+
+1. **The monologue.** His paragraph is unchanged to the word. What changed is where it breaks: each
+   sentence is a `.beat` with air after it, the opening beat set larger because it is the thesis and
+   the closing one set apart in italic because it is the turn. The word-by-word ink still runs over
+   the top; site.js walks text nodes, so the beats do not interrupt it.
+2. **The deck**, in the right-hand column that was empty on every screen over 900px. Three cards:
+   the Venus Roadlines audit result, the First Class Honours and scholarship, and the empath line.
+   **Every card is real, which is why there are three and not five.** The two LinkedIn
+   recommendations are still item C in FILL-IN and the deck grows when they land. Title is **"Some
+   external validation"**, the second of his two options; the first, "Personality hire? Maybe",
+   reads wrong over a degree and an audit result.
+   Mechanics: the markup is an ordered list and stays one, so a screen reader reads all three in
+   order and never drives anything. JS adds `.is-deck`; without JS the list stacks down the column,
+   the same arrangement the VoiceDNA tablist uses. Drag throws a card to the back, two buttons and
+   the arrow keys do the same, and there is no end of the deck so nobody gets stuck.
+   **The arrow-key listener is on the nav, not the list:** the list holds nothing focusable, so a
+   keydown bound there could never fire.
+3. **"The long version" lost its special treatment**, which was his note. It carried a permanent red
+   underline while the links at the end of the page carried none until hovered, so the one link to a
+   second page shouted and the ones leaving the site whispered. It matches `.ways a` exactly now.
+
+**The record player was the overlap.** At 112px, `position:fixed`, it sat over the bottom-right
+corner of every screen for the whole page: over a figure in What it moved, over the zine, over the
+last line of Me. It now rests at **64px** and opens to 112px on hover, focus or while playing, and
+it **stands down over the hero** again (`html.at-hero` was still being set by home.js and nothing was
+reading it). **On phones it is not there until it is asked for**: `#vinyl` is the Listening mark's
+target, so the mark summons it and playing keeps it. A floating control may cover the corner it
+lives in; it may not cover the copy.
+
+**The console is clean.** `@view-transition{navigation:auto}` makes the browser reject its own
+internal promise when it skips a transition, which it does on a fast or interrupted navigation, and
+the page owns no promise to catch it: `Uncaught (in promise) AbortError: Transition was skipped` on
+every such load. site.js now swallows **that exact rejection and nothing else**; any other unhandled
+rejection still surfaces. The remaining warning, `Allow attribute will take precedence over
+allowfullscreen`, comes from Spotify's own embed and is not ours to fix.
+
+**Dead code: 47 rules, 58 lines out of site.css.** `.reading` (case pages load tw.css, not this),
+the whole `.proof` family including `section.proof.comic`, `.measure`, `.said` and
+`.stage-copy .said`, `.roll ul/li`, `.value`, `.hmail`, `.ticker`, `.saygap`, `.second`, `.idea`,
+`.rise` with `@keyframes rise`, `.top`, `.back`, `.hero-k b`, the `.dark ` theme leftovers, and the
+orphan references left in two grouped rules. **`.copied-note` looked just as dead and is not:
+feel.js builds it when an address is copied.** A scanner cannot tell a state selector from a dead
+one, so every removal here was checked against the markup and against the scripts first.
+
+### PERFORMANCE: the images were the whole problem
+
+Measured properly, across all nine routes at 1920, 1280 and 390, the site was serving images at
+**4 to 18 times** the pixels they display. The star mark was a 1500px file rendered at 44px.
+
+Eight files resized to roughly four times their largest rendered width, which leaves retina headroom
+and then some: `assets/img` went from **2.2MB to 1.42MB**, and the eight files alone from 1164KB to
+411KB. The hero photograph is the one that barely moved (358 to 293KB at 720px) because a halftone
+is high-frequency noise and compresses badly; it is also the one the brush reads as a background, so
+it keeps the headroom. Originals are in the session scratchpad, git history is the real recovery path.
+
+**Still open, and worth knowing:** `gsap.min.js` is 70KB and drives exactly two calls, the ransom
+tiles' jitter and one stepped spin. `motion.min.js` was deleted on 21 Sep for the same reason at
+81KB for one `inView`. The same argument applies here and the replacement is a few lines of
+`requestAnimationFrame`. Not done without his word, because it is the hero's signature motion.

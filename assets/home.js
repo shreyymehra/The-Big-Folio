@@ -468,4 +468,73 @@
     var e=es[0], covers=e.intersectionRect.height/(innerHeight||1);
     document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
   },{threshold:th}).observe(hero);
+
+  /* ---- Me: the deck of three ----
+     The markup is an ordered list and stays one. A screen reader reads all
+     three in order and never has to drive anything; this only upgrades the
+     look for a pointer or a keyboard. Without the script the list stacks down
+     the column and every card is readable, which is the same arrangement the
+     VoiceDNA tablist uses.
+     Throwing a card sends it to the back. There is no end of the deck, so
+     nobody can get stuck on a card they cannot leave. */
+  (function(){
+    var list=document.querySelector('[data-deck]'); if(!list) return;
+    var cards=[].slice.call(list.children); if(cards.length<2) return;
+    list.classList.add('is-deck');
+
+    var order=cards.slice();
+    function paint(){
+      order.forEach(function(c,i){ c.setAttribute('data-at',i); c.classList.toggle('is-gone',i>2); });
+      count.textContent=(cards.indexOf(order[0])+1)+' of '+cards.length;
+    }
+    function cycle(dir){
+      if(dir>0) order.push(order.shift());
+      else order.unshift(order.pop());
+      paint();
+    }
+
+    /* the controls, built here so they never exist without the behaviour */
+    var nav=document.createElement('div'); nav.className='vouch-nav';
+    var prev=document.createElement('button'), next=document.createElement('button'),
+        count=document.createElement('span');
+    prev.type=next.type='button';
+    prev.innerHTML='<span aria-hidden="true">&larr;</span>'; prev.setAttribute('aria-label','Previous card');
+    next.innerHTML='<span aria-hidden="true">&rarr;</span>'; next.setAttribute('aria-label','Next card');
+    count.className='vouch-count';
+    nav.appendChild(prev); nav.appendChild(next); nav.appendChild(count);
+    list.parentNode.appendChild(nav);
+    prev.addEventListener('click',function(){ cycle(-1); });
+    next.addEventListener('click',function(){ cycle(1); });
+    /* on the nav, not the list: the list holds nothing focusable, so a
+       keydown bound there could never fire. Arrow keys work once either
+       button has focus, which is the only way a keyboard reaches the deck. */
+    nav.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){ e.preventDefault(); cycle(1); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); cycle(-1); }
+    });
+
+    /* drag, pointer only. A throw past a quarter of the card's width counts;
+       anything shorter springs back, so a mis-grab costs nothing. */
+    var held=null,x0=0,dx=0;
+    list.addEventListener('pointerdown',function(e){
+      var top=order[0]; if(!top.contains(e.target)) return;
+      held=top; x0=e.clientX; dx=0; top.classList.add('is-held');
+      try{ top.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    list.addEventListener('pointermove',function(e){
+      if(!held) return; dx=e.clientX-x0;
+      held.style.transform='translateX('+dx+'px) rotate('+(dx/28)+'deg)';
+    });
+    function release(){
+      if(!held) return;
+      var card=held, threw=Math.abs(dx)>card.offsetWidth/4;
+      card.classList.remove('is-held'); card.style.transform='';
+      held=null;
+      if(threw) cycle(dx<0?1:-1);
+    }
+    list.addEventListener('pointerup',release);
+    list.addEventListener('pointercancel',release);
+
+    paint();
+  })();
 })();
