@@ -1153,3 +1153,44 @@ it keeps the headroom. Originals are in the session scratchpad, git history is t
 tiles' jitter and one stepped spin. `motion.min.js` was deleted on 21 Sep for the same reason at
 81KB for one `inView`. The same argument applies here and the replacement is a few lines of
 `requestAnimationFrame`. Not done without his word, because it is the hero's signature motion.
+
+## COLLAPSIBLE, ONE LEFT EDGE, THE THROW (9 Oct 2026, at his instruction)
+
+**What I do / What it moved collapses.** Both columns are native `<details>`, because that is
+keyboard operable, announced correctly and works with the script off, none of which a div and a
+click handler gives you. **Both carry `open`:** the figures are the most persuasive content on the
+page and a closed drawer buries them, so collapsing is for the second read. The marker is drawn
+from the site's own line work, a plus that loses its upright, not a platform triangle.
+**`.mv-grid` needed `align-items:start`**, or the collapse reclaimed nothing: grid items stretch to
+the row, so the column kept its full height with the list hidden inside it.
+
+**One left edge, site wide.** `.shead` was a two-column grid whose first column was sized `auto`,
+which meant **the heading started wherever the label beside it happened to end**. Measured at 1280
+before the fix, the same device landed on five different edges: 132, 142, 160, 207 and 251px. The
+label, heading, sub and body now all start at the content edge, which is what `/work`, `/contact`
+and the five case pages already did, so this brings home and `/about/` into line rather than
+inventing anything. The star keeps its place beside the label via `:has(.smark)`; where there is no
+star the label simply starts the row.
+
+**What the audit script cannot tell you, and I checked by hand:** a second column in a two-column
+grid is not a misalignment, and neither is pull-quote text sitting inside its own left rule, which
+is what the 78px readings on the case pages were. The harness is in `scratchpad/align.mjs`; read its
+output as candidates, never as a list of defects.
+
+**The deck throws.** A card now leaves the way it was pushed and rejoins the back once it is out of
+sight, rather than snapping. Short drags spring back, so a mis-grab costs nothing, and the card
+fades slightly as it travels. Under reduced motion it rotates without the flight, because a card
+crossing the screen is the thing that rule exists to stop. The count is `aria-live="polite"`.
+There is still no end of the deck.
+
+**It holds three real cards and needs his words.** There is nothing else true on the site that is
+not already somewhere else: the six quotes are on the tape, the figures are in the static band, the
+200K line is in the Me paragraph. So the deck ships with what is real and a **commented paste-in
+template sits beside it in index.html**: three lines in order, no script to touch. `FILL-IN.md`
+item C now describes that rather than asking for two recommendations in the abstract.
+
+**One cap height for all eight marks.** Bliss and Birch and UN Youth each had a nudge taller,
+because they are small devices rather than wordmarks and read light at a shared height. He looked
+at it and wants them the same size as the rest. The nudges are gone and one line sizes every mark.
+The cost is the thing the nudge was correcting, and it is his call: a device mark carries less
+optical weight than a wordmark beside it.

@@ -469,71 +469,94 @@
     document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
   },{threshold:th}).observe(hero);
 
-  /* ---- Me: the deck of three ----
-     The markup is an ordered list and stays one. A screen reader reads all
-     three in order and never has to drive anything; this only upgrades the
-     look for a pointer or a keyboard. Without the script the list stacks down
-     the column and every card is readable, which is the same arrangement the
-     VoiceDNA tablist uses.
-     Throwing a card sends it to the back. There is no end of the deck, so
-     nobody can get stuck on a card they cannot leave. */
+  /* ---- Me: the card deck ----
+     The markup is an ordered list and stays one. A screen reader reads every
+     card in order and never has to drive anything; this upgrades the look for
+     a pointer and a keyboard only. With the script off the list stacks down
+     the column and all of it is readable, the same arrangement the VoiceDNA
+     tablist uses.
+     A throw sends the card off the edge and puts it at the back, so the deck
+     never ends and nobody gets stuck on a card they cannot leave. Short drags
+     spring back, which is what makes a mis-grab cost nothing. */
   (function(){
-    var list=document.querySelector('[data-deck]'); if(!list) return;
+    var list=document.querySelector("[data-deck]"); if(!list) return;
     var cards=[].slice.call(list.children); if(cards.length<2) return;
-    list.classList.add('is-deck');
+    list.classList.add("is-deck");
 
-    var order=cards.slice();
+    var order=cards.slice(), busy=false;
     function paint(){
-      order.forEach(function(c,i){ c.setAttribute('data-at',i); c.classList.toggle('is-gone',i>2); });
-      count.textContent=(cards.indexOf(order[0])+1)+' of '+cards.length;
+      order.forEach(function(c,i){ c.setAttribute("data-at",i); c.classList.toggle("is-gone",i>2); });
+      count.textContent=(cards.indexOf(order[0])+1)+" of "+cards.length;
     }
-    function cycle(dir){
-      if(dir>0) order.push(order.shift());
-      else order.unshift(order.pop());
+    function rotate(dir){
+      if(dir>0) order.push(order.shift()); else order.unshift(order.pop());
       paint();
+    }
+    /* the throw: the card leaves the way it was pushed, then rejoins the back
+       of the deck once it is out of sight. Under reduced motion it just
+       rotates, because a card flying across the screen is the thing that rule
+       exists to stop. */
+    function toss(dir){
+      if(busy) return; 
+      var card=order[0];
+      if(reduce){ rotate(dir>0?1:-1); return; }
+      busy=true;
+      card.classList.add("is-thrown");
+      card.style.transform="translateX("+(dir>0?140:-140)+"%) rotate("+(dir>0?16:-16)+"deg)";
+      card.style.opacity="0";
+      setTimeout(function(){
+        card.classList.remove("is-thrown");
+        card.style.transform=""; card.style.opacity="";
+        rotate(dir>0?1:-1);
+        busy=false;
+      },320);
     }
 
     /* the controls, built here so they never exist without the behaviour */
-    var nav=document.createElement('div'); nav.className='vouch-nav';
-    var prev=document.createElement('button'), next=document.createElement('button'),
-        count=document.createElement('span');
-    prev.type=next.type='button';
-    prev.innerHTML='<span aria-hidden="true">&larr;</span>'; prev.setAttribute('aria-label','Previous card');
-    next.innerHTML='<span aria-hidden="true">&rarr;</span>'; next.setAttribute('aria-label','Next card');
-    count.className='vouch-count';
+    var nav=document.createElement("div"); nav.className="vouch-nav";
+    var prev=document.createElement("button"), next=document.createElement("button"),
+        count=document.createElement("span");
+    prev.type=next.type="button";
+    prev.innerHTML="<span aria-hidden=\"true\">&larr;</span>"; prev.setAttribute("aria-label","Previous card");
+    next.innerHTML="<span aria-hidden=\"true\">&rarr;</span>"; next.setAttribute("aria-label","Next card");
+    count.className="vouch-count"; count.setAttribute("aria-live","polite");
     nav.appendChild(prev); nav.appendChild(next); nav.appendChild(count);
     list.parentNode.appendChild(nav);
-    prev.addEventListener('click',function(){ cycle(-1); });
-    next.addEventListener('click',function(){ cycle(1); });
-    /* on the nav, not the list: the list holds nothing focusable, so a
-       keydown bound there could never fire. Arrow keys work once either
-       button has focus, which is the only way a keyboard reaches the deck. */
-    nav.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'){ e.preventDefault(); cycle(1); }
-      if(e.key==='ArrowLeft'){ e.preventDefault(); cycle(-1); }
+    prev.addEventListener("click",function(){ toss(-1); });
+    next.addEventListener("click",function(){ toss(1); });
+    /* on the nav, not the list: the list holds nothing focusable, so a keydown
+       bound there could never fire. Arrows work once a button has focus, which
+       is the only way a keyboard reaches the deck. */
+    nav.addEventListener("keydown",function(e){
+      if(e.key==="ArrowRight"){ e.preventDefault(); toss(1); }
+      if(e.key==="ArrowLeft"){ e.preventDefault(); toss(-1); }
     });
 
-    /* drag, pointer only. A throw past a quarter of the card's width counts;
-       anything shorter springs back, so a mis-grab costs nothing. */
+    /* drag. The card follows the pointer and tilts into the direction of
+       travel; past a quarter of its width the release becomes a throw. */
     var held=null,x0=0,dx=0;
-    list.addEventListener('pointerdown',function(e){
+    list.addEventListener("pointerdown",function(e){
+      if(busy) return;
       var top=order[0]; if(!top.contains(e.target)) return;
-      held=top; x0=e.clientX; dx=0; top.classList.add('is-held');
+      held=top; x0=e.clientX; dx=0; top.classList.add("is-held");
       try{ top.setPointerCapture(e.pointerId); }catch(err){}
     });
-    list.addEventListener('pointermove',function(e){
+    list.addEventListener("pointermove",function(e){
       if(!held) return; dx=e.clientX-x0;
-      held.style.transform='translateX('+dx+'px) rotate('+(dx/28)+'deg)';
+      var t=Math.min(1,Math.abs(dx)/(held.offsetWidth/2));
+      held.style.transform="translateX("+dx+"px) rotate("+(dx/28)+"deg)";
+      held.style.opacity=String(1-t*0.25);
     });
     function release(){
       if(!held) return;
-      var card=held, threw=Math.abs(dx)>card.offsetWidth/4;
-      card.classList.remove('is-held'); card.style.transform='';
+      var card=held, threw=Math.abs(dx)>card.offsetWidth/4, dir=dx<0?1:-1;
+      card.classList.remove("is-held");
       held=null;
-      if(threw) cycle(dx<0?1:-1);
+      if(threw){ toss(dir); return; }
+      card.style.transform=""; card.style.opacity="";   /* springs back */
     }
-    list.addEventListener('pointerup',release);
-    list.addEventListener('pointercancel',release);
+    list.addEventListener("pointerup",release);
+    list.addEventListener("pointercancel",release);
 
     paint();
   })();

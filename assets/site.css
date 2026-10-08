@@ -88,12 +88,23 @@ a{color:inherit}
 .mono{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase}
 :focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
 
-/* section head — a rule and a number in the margin, not a box */
-.shead{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:baseline;
-  border-top:3px solid var(--deep);padding-top:1rem;margin-bottom:2.6rem}
-.shead .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;opacity:.82;margin:0;font-weight:inherit}
-.shead h2{font-size:var(--xl)}
-.shead .sub{grid-column:2;font-size:var(--base);opacity:.82;max-width:34em;margin-top:.7rem}
+/* ---------- section head ----------
+   One left edge (9 Oct, at his instruction). It used to be a two-column grid
+   whose first column was sized `auto`, which meant the heading started wherever
+   the label beside it happened to end: "03 / Ideas" and "How the work happens"
+   are different lengths, so the same device landed on five different left edges
+   across the site (measured: 132, 142, 160, 207 and 251px at 1280).
+   Now the label, the heading, the sub and the body below all start at the
+   content edge, which is what /work, /contact and the five case pages already
+   did. The star keeps its place beside the label rather than above it, via
+   :has(); where there is no star the label simply starts the row. */
+.shead{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:.7rem;row-gap:.55rem;
+  align-items:center;border-top:3px solid var(--deep);padding-top:1rem;margin-bottom:2.6rem}
+.shead .no{grid-column:1 / -1;font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  opacity:.82;margin:0;font-weight:inherit}
+.shead:has(.smark) .no{grid-column:2;grid-row:1}
+.shead h2{grid-column:1 / -1;font-size:var(--xl);margin:0}
+.shead .sub{grid-column:1 / -1;font-size:var(--base);opacity:.82;max-width:34em;margin-top:.7rem}
 
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;
@@ -212,14 +223,13 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .ht-set--logos li{display:flex;align-items:center}
 /* sized by height, with the cap released: in a track of indefinite width a
    percentage max-width resolves against a box the image is itself sizing */
+/* One cap height for all eight (9 Oct, at his instruction). Bliss and Birch
+   and UN Youth each had a nudge taller, because they are small devices rather
+   than wordmarks and read light at a shared height. He looked at it and wants
+   them the same size as the rest, so the nudges are gone and one line now
+   sizes every mark. The cost is the thing the nudge was correcting: a device
+   mark carries less optical weight than a wordmark beside it. */
 .ht-set--logos .worked-mark{display:block;height:clamp(28px,3vw,42px);width:auto;max-width:none;object-fit:contain}
-/* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
-   height it reads light next to a wordmark. One optical nudge, as a logo wall
-   is normally corrected. It is the ninth child because a star follows each. */
-.ht-set--logos li:nth-child(9) .worked-mark{height:clamp(44px,5vw,66px)}
-/* UN Youth is a tall narrow lockup, so a shared cap height leaves it 23px
-   wide against a 295px wordmark. Same correction, smaller. Thirteenth child. */
-.ht-set--logos li:nth-child(13) .worked-mark{height:clamp(40px,4.4vw,60px)}
 @media (max-width:640px){.ht-set--logos{gap:var(--s-4)}}
 
 /* ---------- what I do, and what it moved ----------
@@ -232,8 +242,29 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
    size, the unit sits next to it, and the employer sits under it, because a
    number without a source is a claim and a number with one is evidence. */
 .moved{padding:clamp(3rem,7vw,5rem) 0 clamp(2.5rem,6vw,4rem)}
+/* align-items:start, or a closed drawer reclaims nothing: grid items stretch
+   to the row by default, so the column kept its full height with the list
+   hidden inside it and the collapse did nothing visible. */
 .mv-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:clamp(2rem,5vw,4.5rem);
-  border-top:2px solid var(--deep);padding-top:var(--s-6)}
+  align-items:start;border-top:2px solid var(--deep);padding-top:var(--s-6)}
+/* Both columns are native <details> (9 Oct, at his instruction). Native,
+   because it is keyboard operable, announced correctly, and works with the
+   script switched off, none of which a div and a click handler gives you.
+   Both carry `open`: the figures are the most persuasive content on the page
+   and a closed drawer buries them. Collapsing is for the second read. */
+.mv-col > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:var(--s-3);
+  min-height:44px;margin:0 0 var(--s-5);width:fit-content}
+.mv-col > summary::-webkit-details-marker{display:none}
+/* the marker is drawn, so it can be the site’s own line work rather than a
+   platform triangle: a rule that loses its upright when the drawer opens */
+.mv-col > summary::after{content:"";width:11px;height:11px;flex:none;position:relative;
+  background:currentColor;
+  clip-path:polygon(0 45%,100% 45%,100% 55%,0 55%,0 45%,45% 45%,45% 0,55% 0,55% 100%,45% 100%,45% 45%);
+  transition:transform var(--d-2) var(--e-out),opacity var(--d-1) ease;opacity:.7}
+.mv-col[open] > summary::after{clip-path:polygon(0 45%,100% 45%,100% 55%,0 55%);transform:rotate(180deg)}
+.mv-col > summary:is(:hover,:focus-visible)::after{opacity:1}
+.mv-col > summary:focus-visible{outline:2px solid var(--fluoro);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.mv-col > summary::after{transition:none}}
 .mv-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
 .mv-do{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-4);line-height:1.5}
 .mv-do li{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;text-transform:uppercase;
@@ -555,7 +586,9 @@ html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-event
 @media (prefers-reduced-motion:reduce){.vinyl-cap{transition:none}}
 .vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:var(--t-small);letter-spacing:var(--fd-track)}
 .vinyl-by{display:block;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin-top:.25rem}
-.vinyl-by a{color:inherit;text-underline-offset:2px;display:inline-block;padding:5px 0}
+/* 24px minimum on the target (WCAG 2.5.8). It was 23, which the caption only
+   exposed once the player started opening on hover. */
+.vinyl-by a{color:inherit;text-underline-offset:2px;display:inline-block;padding:7px 0;min-height:24px}
 .vinyl-by a:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
 .vinyl-deck{position:relative;width:var(--vd);height:var(--vd)}
 .vinyl-disc{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(var(--cream-rgb),.4);
@@ -607,11 +640,7 @@ html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-event
 
 
 /* ---------- star marks ---------- */
-.smark{grid-column:1;grid-row:1;justify-self:start;align-self:start;width:28px;height:28px;object-fit:contain}
-.shead{grid-template-columns:auto 1fr;row-gap:.5rem}
-.shead .no{grid-column:1;grid-row:2;align-self:start;white-space:nowrap}
-.shead h2{grid-column:2;grid-row:1 / span 2}
-.shead .sub{grid-column:2;grid-row:3}
+.smark{grid-column:1;grid-row:1;justify-self:start;align-self:center;width:24px;height:24px;object-fit:contain}
 
 /* dealt-card brain dump */
 .step{opacity:0;transform:translateY(20px) rotate(4deg);transition:opacity 520ms var(--ease),transform 620ms var(--ease)}

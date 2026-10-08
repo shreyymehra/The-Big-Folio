@@ -114,14 +114,14 @@
     <div class="wrap">
       <h2 class="vh" id="moved-title">What I do, and what it moved</h2>
       <div class="mv-grid">
-        <div class="mv-col mv-col--do">
-          <p class="mv-k mono">What I do</p>
+        <details class="mv-col mv-col--do" open>
+          <summary class="mv-k mono">What I do</summary>
           <ul class="mv-do"><li>Product marketing</li><li>GTM</li><li>Brand strategy</li><li>Positioning</li><li>Messaging</li><li>Storytelling</li><li>Copywriting</li><li>PRDs</li><li>User research</li><li>Launch planning</li><li>Sales enablement</li><li>Competitive analysis</li><li>Campaign planning</li><li>Brand building</li><li>AI workflows</li></ul>
-        </div>
-        <div class="mv-col">
-          <p class="mv-k mono">What it moved</p>
+        </details>
+        <details class="mv-col" open>
+          <summary class="mv-k mono">What it moved</summary>
           <ul class="mv-figs"><li><b>+46%</b> <span class="mv-what">engagement, month on month</span> <span class="mv-who">iSelect and Compare the Market</span></li><li><b>&minus;78%</b> <span class="mv-what">vendor costs</span> <span class="mv-who">iSelect and Compare the Market</span></li><li><b>+310%</b> <span class="mv-what">click-through</span> <span class="mv-who">Tickertape</span></li><li><b>160k</b> <span class="mv-what">customers</span> <span class="mv-who">Tickertape</span></li><li><b>20k</b> <span class="mv-what">monthly active users</span> <span class="mv-who">Tickertape</span></li><li><b>1.2M</b> <span class="mv-what">views</span> <span class="mv-who">TEDxVIPS</span></li><li><b>130</b> <span class="mv-what">volunteers led</span> <span class="mv-who">TEDxVIPS</span></li></ul>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -329,7 +329,19 @@
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">I am someone who learnt Adobe After Effects in six hours for a high-stakes university presentation, and who ran GA4 analytics as an intern and presented key findings without being asked to.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
       <aside class="vouch" aria-labelledby="vouch-title">
         <p class="vouch-k mono" id="vouch-title">Some external validation</p>
-        <ol class="vouch-list" data-deck><li class="vouch-card"><p class="vc-big">Three out of four,<br>across three audits.</p><p class="vc-sub">The manual held up under outside inspection and the Tata Steel contract stayed.</p><p class="vc-who mono">Venus Roadlines &middot; 2021</p></li><li class="vouch-card"><p class="vc-big">First Class<br>Honours.</p><p class="vc-sub">Master of Management (Marketing), on a Faculty of Business and Economics Scholarship.</p><p class="vc-who mono">University of Melbourne</p></li><li class="vouch-card"><p class="vc-big">&ldquo;An empath.&rdquo;</p><p class="vc-sub">What a high-school crush called me once. I took it seriously as a job title.</p><p class="vc-who mono">Unsolicited, and on the record</p></li></ol>
+        <ol class="vouch-list" data-deck>
+        <!-- Adding a LinkedIn recommendation: copy one <li> below, keep the three
+             lines in this order, and the deck picks it up. No script to touch.
+             vc-big  the line worth quoting, kept short enough to read at a glance
+             vc-sub  the rest of it, or the context
+             vc-who  who said it, and their role
+        <li class="vouch-card">
+          <p class="vc-big">&ldquo;The quoted line.&rdquo;</p>
+          <p class="vc-sub">The sentence or two around it.</p>
+          <p class="vc-who mono">Name &middot; Role, Company</p>
+        </li>
+        -->
+        <li class="vouch-card"><p class="vc-big">Three out of four,<br>across three audits.</p><p class="vc-sub">The manual held up under outside inspection and the Tata Steel contract stayed.</p><p class="vc-who mono">Venus Roadlines &middot; 2021</p></li><li class="vouch-card"><p class="vc-big">First Class<br>Honours.</p><p class="vc-sub">Master of Management (Marketing), on a Faculty of Business and Economics Scholarship.</p><p class="vc-who mono">University of Melbourne</p></li><li class="vouch-card"><p class="vc-big">&ldquo;An empath.&rdquo;</p><p class="vc-sub">What a high-school crush called me once. I took it seriously as a job title.</p><p class="vc-who mono">Unsolicited, and on the record</p></li></ol>
       </aside>
     </div>
     <a class="more" href="about/">The long version <span class="arw">&rarr;</span></a>

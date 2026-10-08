@@ -174,13 +174,29 @@ A name and a role for each is enough; the company is optional.
 
 "My go-to person for AI, pop culture or ranting" ..............................
 
-### C — Two LinkedIn recommendations
-For the swipe deck in the Me section. Paste the text, the name and the role.
-The section is not built yet, and will not be built with invented cards.
+### C — LinkedIn recommendations, and anything like them
+**The deck is built and live**, in the Me section, titled "Some external
+validation". It swipes, it has buttons and arrow keys, and it currently holds
+three cards, all real: the Venus Roadlines audit result, the First Class
+Honours and scholarship, and the empath line.
+
+What it needs is you. Paste each recommendation below and it goes straight in;
+there is a commented template beside the deck in index.html with the three
+lines in order, so adding one is copy, paste, fill. No script to touch.
+
+For each: the line worth quoting, the sentence or two around it, and who said
+it with their role.
 
 ONE: ..........................................................................
 
 TWO: ..........................................................................
+
+THREE: ........................................................................
+
+Anything else that belongs here, in your words: an award, a result someone
+else verified, a line from a manager, a thank-you worth keeping.
+
+MORE: .........................................................................
 
 ### D — Cover masters at 16:10
 The posters you sent are portrait A-series and the collage slots were built
