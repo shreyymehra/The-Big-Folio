@@ -1048,3 +1048,45 @@ the shape of his sections are his to decide.**
   sections and his content.
 - **Finding 7's three copy lines** are his words. The audit flagged them rather than changing them,
   which is correct, and so do I.
+
+## TWO TAPES, AND THE NUMBERS STOP MOVING (7 Oct 2026, his decision)
+
+Three moving strips became two, and both are now the same object. **The comic tape is the only
+moving device on home:** a strip of paper with torn edges, tilted, running itself. One carries what
+people said, one carries who the work was for. The marks sit in the same set as the quotes and take
+the same star between them, so the two read as a pair rather than as two devices. The tilt
+alternates, -2deg and +1.6deg, so they do not look like one band printed twice.
+
+**The X is gone and the figures stopped moving.** It said something true, that the disciplines and
+the results belong to each other, and it said it in motion, which is where the seven verified
+figures went to not be read. A scanning reader takes away "there are numbers" rather than any one of
+them. The same two ideas are now side by side and still, in `.moved`: **what I do** (15 disciplines,
+his list, unchanged) beside **what it moved** (the seven figures, each at display size with its unit
+next to it and **its employer under it**, because a number without a source is a claim and a number
+with one is evidence). This is audit finding 4, and it is the only one of the seven that his own
+instruction and the audit both asked for.
+
+Offered and declined: keeping the figures inside the logo tape. He took the static band.
+
+**Two optical nudges in the logo tape, same reason as before:** Bliss and Birch is drawn small
+inside its own lockup and UN Youth is a tall narrow one, so at a shared cap height they read at
+55px and 23px wide against a 295px wordmark. Each is capped taller. They are the **ninth and
+thirteenth** children now, not the fifth and seventh, because a star follows every mark.
+
+**Dead with the X:** `.cross`, `.xband`, `.xband--do`, `.xband--moved`, `.xset` and its items, the
+760px media query, and the whole `.worked-ticker` / `.wt-band` / `.wt-set` block from the morning.
+
+### A WARNING THAT COST SOMETHING
+
+**Another session was editing this same checkout at the same time.** It wrote `AUDIT-2026-10.md`,
+a `Claude outputs/` folder of screenshots, a rolling-word width fix in `home.js`, and CSS in
+`site.css`. Two things went wrong:
+
+1. A `git add -A` swept its untracked audit file into my commit before I had read it.
+2. It overwrote `index.html` and **reverted the width/height fix on the eight logo marks**, which my
+   `git add -u` then committed as HEAD. The lazy-load gap bug was live again for two commits. It is
+   re-applied here, in the tape markup.
+
+**If a second session is running, check `git status` and `git diff` before every `git add`, and
+never use `-A`.** The repo has a documented history of uncommitted work being lost, and this is the
+second mechanism for it.

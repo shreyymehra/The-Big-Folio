@@ -212,24 +212,6 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
    height it still reads light. One nudge, the way a logo wall is normally
    optically corrected. */
-/* The wall runs (7 Oct, at his instruction). A static grid of eight asks to be
-   read as a table; a loop reads as a line of credits and never ends, which is
-   the point: the names keep arriving. Right to left, one speed, same engine as
-   the two crossing bands, so it holds while pointed at or focused and stops
-   dead under reduced motion. Ruled top and bottom to match the X below it. */
-.worked-ticker{position:relative;overflow:hidden;border-top:2px solid var(--deep);border-bottom:2px solid var(--deep)}
-/* .xband is declared further down the file, so this needs the extra class to
-   win: left as .wt-band it inherited the crossing bands' absolute position and
-   the logos sat off the left edge at 120vw wide. */
-.worked-ticker .wt-band{position:relative;left:auto;top:auto;width:100%;overflow:hidden}
-.wt-set{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
-.wt-set li{flex:none;display:flex;align-items:center;padding:clamp(.9rem,1.9vw,1.4rem) clamp(1.6rem,3.4vw,3.2rem)}
-/* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
-   height it still reads light. One optical nudge, as a logo wall is normally
-   corrected; it is the fifth mark in every repeat. */
-.wt-set .worked-mark{max-width:none}
-.wt-set li:nth-child(5) .worked-mark{height:clamp(54px,6vw,80px)}
-@media (max-width:560px){.wt-set li{padding:.9rem 1.3rem}}
 
 
 /* ---------- the cross ----------
@@ -238,34 +220,62 @@ nav .sig{background:none;border:0;padding:0;box-shadow:none}
    other way on cream, ruled so it reads where it crosses. Speed follows the
    scroll through Lenis: scrolling pushes the bands, scrolling back reverses
    them, pointing at a band slows it to a stop. The riso star is the separator. */
-.cross{position:relative;height:clamp(190px,19vw,290px);overflow:hidden;margin:clamp(-1.5rem,-2vw,-.5rem) 0 var(--s-8)}
-.xband{position:absolute;left:-10vw;width:120vw;top:50%;overflow:hidden}
-/* Both bands are the same object (7 Oct, at his instruction): one blue plane,
-   cream type, cream rules top and bottom. Identical, so neither reads as the
-   main one and the other as a footnote. The rules are what make the crossing
-   legible: two identical blue planes overlapping would merge into one shape,
-   and the cream edge of the upper band cuts the lower one the way one strip of
-   tape cuts another. Opposite rotations, opposite directions, one speed. */
-.xband--do,.xband--moved{background:var(--deep);color:var(--cream);
-  border-top:2px solid var(--cream);border-bottom:2px solid var(--cream);backface-visibility:hidden}
-.xband--do{transform:translateY(-50%) rotate(-6deg);z-index:1}
-.xband--moved{transform:translateY(-50%) rotate(6deg);z-index:2}
-.xtrack{display:flex;width:max-content;will-change:transform}
-.xset{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
-.xset li{display:flex;align-items:baseline;gap:.45em;white-space:nowrap;padding:clamp(.8rem,1.5vw,1.2rem) 0;
-  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1;letter-spacing:var(--fd-track)}
-.xset li::after{content:"";flex:none;align-self:center;width:.62em;height:.62em;margin:0 1.15em;background:currentColor;opacity:.55;
-  clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
-.xset b{font-weight:700;letter-spacing:0}
-.xset i{font-style:normal;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;
-  opacity:.82;align-self:center}
-@media (max-width:760px){
-  .cross{height:clamp(150px,44vw,210px)}
-  .xband{left:-30vw;width:160vw}
-  .xband--do{transform:translateY(-50%) rotate(-7deg)}
-  .xband--moved{transform:translateY(-50%) rotate(7deg)}
-}
 
+
+/* ---------- the second tape: the marks ----------
+   Only two things on this page move now (7 Oct, at his instruction) and both
+   are the same object: a strip of paper tape with torn edges, tilted, running
+   itself. One carries what people said, one carries who the work was for. The
+   marks sit in the same set as the quotes and take the same star between them,
+   so the two tapes are read as a pair rather than as two devices.
+   The tilt alternates so they do not look like one band printed twice. */
+.ht-band--logos{transform:rotate(1.6deg);margin-top:var(--s-5)}
+.ht-set--logos{gap:var(--s-5)}
+.ht-set--logos li{display:flex;align-items:center}
+/* sized by height, with the cap released: in a track of indefinite width a
+   percentage max-width resolves against a box the image is itself sizing */
+.ht-set--logos .worked-mark{display:block;height:clamp(28px,3vw,42px);width:auto;max-width:none;object-fit:contain}
+/* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
+   height it reads light next to a wordmark. One optical nudge, as a logo wall
+   is normally corrected. It is the ninth child because a star follows each. */
+.ht-set--logos li:nth-child(9) .worked-mark{height:clamp(44px,5vw,66px)}
+/* UN Youth is a tall narrow lockup, so a shared cap height leaves it 23px
+   wide against a 295px wordmark. Same correction, smaller. Thirteenth child. */
+.ht-set--logos li:nth-child(13) .worked-mark{height:clamp(40px,4.4vw,60px)}
+@media (max-width:640px){.ht-set--logos{gap:var(--s-4)}}
+
+/* ---------- what I do, and what it moved ----------
+   This replaces the crossing bands (7 Oct). The X said something true, that
+   the disciplines and the results belong to each other, and it said it in
+   motion, which is where the seven figures went to not be read. A scanning
+   reader takes away "there are numbers" rather than any one of them, and
+   these seven are the most persuasive content on the site.
+   So the same two ideas, side by side and still. The figure leads at display
+   size, the unit sits next to it, and the employer sits under it, because a
+   number without a source is a claim and a number with one is evidence. */
+.moved{padding:clamp(3rem,7vw,5rem) 0 clamp(2.5rem,6vw,4rem)}
+.mv-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:clamp(2rem,5vw,4.5rem);
+  border-top:2px solid var(--deep);padding-top:var(--s-6)}
+.mv-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
+.mv-do{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-4);line-height:1.5}
+.mv-do li{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--deep);white-space:nowrap}
+.mv-do li::after{content:"·";margin-left:var(--s-4);opacity:.5}
+.mv-do li:last-child::after{content:none}
+.mv-figs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--s-5) var(--s-6)}
+.mv-figs li{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:baseline;
+  column-gap:var(--s-3);border-top:1.5px solid rgba(var(--deep-rgb),.3);padding-top:var(--s-2)}
+.mv-figs b{grid-row:span 2;font-family:var(--fd);font-weight:900;font-size:clamp(1.5rem,2.6vw,2.1rem);
+  line-height:1;letter-spacing:var(--fd-track);color:var(--deep)}
+.mv-what{font-family:var(--fb);font-size:var(--t-small);line-height:1.3;color:var(--deep)}
+.mv-who{font-family:var(--fu);font-size:var(--xs);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent-type)}
+@media (max-width:900px){
+  .mv-grid{grid-template-columns:minmax(0,1fr);gap:var(--s-7)}
+  .mv-figs{gap:var(--s-4) var(--s-5)}
+}
+@media (max-width:560px){.mv-figs{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
@@ -892,7 +902,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.xset i,.contact .no,.shead .no{opacity:.82}
+   there. Small accent text on deep uses the lifted fluoro. */.ticker .head,.saygap,.worked-k,.contact .no,.shead .no{opacity:.82}
 .proof .no,.proof .who{color:var(--p-ink);opacity:1}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
 
