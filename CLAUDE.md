@@ -256,7 +256,9 @@ ordinary artefact with strong reasoning.
 **Locked copy, use verbatim, fix typos only:**
 - Hero: `and I have always wanted to build [brands/products/launches/systems/teams/worlds]`
 - Hero idea line: `I find the idea, write the words, and build the case for why it moves a number.`
-- Photo caption: `Delhi, 1998. First machine I was allowed to break.`
+- Photo caption: `2003. First machine I was allowed to break.` **2003 is locked, confirmed by him
+  12 Oct 2026.** This line read 1998 for months and the site read 2003; the film date stamp on the
+  print is ambiguous and he has settled it. Do not "correct" it back.
 - Contact CTA: `Let's build something you will always be proud of.`
 - Brain Dump: five steps, complete, in his voice
 - About: five paragraphs, his writing
@@ -1299,3 +1301,28 @@ on-palette choice and the pink and light-blue stars are not. The other three are
 **A pane quirk, not a site bug, now seen three times:** lazy-loaded images report `naturalWidth 0`
 in the preview pane until forced with a cache-buster. The covers and this head both did it and both
 render in a normal browser. Do not chase it.
+
+## THE HEADS, THE STAR, AND WHAT KEEPS ME GOING (12 Oct 2026, at his instruction)
+
+**Two of the four heads are placed, not one.** The red-star head in the fur hat holds the Me1 slot on
+`/about/`; **the yellow-star head rides the giant star in the sign-off**, which is the key image he
+asked for. Yellow was the only choice of the four: red on cape red disappears, and pink and light
+blue are off-palette. The remaining two are cut and in the session scratchpad.
+
+The layering is the point and it is the first real overlap on the site: **star behind, head on it,
+wordmark across its chin.** The direction has been asking for things to sit on top of other things
+and this is the first place it happens where nothing is clickable.
+
+**The year is settled: 2003, his call, 12 Oct.** The locked line in CONTENT read `Delhi, 1998` for
+months while the site read 2003, and the film date stamp on the print is ambiguous. CONTENT now
+reads 2003 and says it is confirmed. **Do not "correct" it back.**
+
+**The globe is gone.** `Where I have been` and its list of places are replaced by **What keeps me
+going**: a polaroid of his parents and himself. A polaroid rather than a framed image, which means a
+white card on a page of off-white, a deep lip under the picture where the chemistry sits, and a
+degree or two off square so it reads as placed rather than laid out. It is the only white object on
+the page, which is what makes it read as a print on a desk.
+
+**Two lines in that section are mine and need his read:** the heading "The two people who made the
+rest possible" and the caption "Mum, Dad, me." Both are flagged in `FILL-IN.md` under G09, and the
+photograph itself is G08 now rather than the globe.

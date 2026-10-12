@@ -64,15 +64,23 @@ Bobblehead or floating head, star on one eye. Square. Goes in `assets/img/`.
 
 FILE: .........................................................................
 
-### G08 — The globe
-Globe of the places you have been. Square, up to 520px. Goes in `assets/img/`.
+### G08 — The polaroid: your parents and you
+**The globe is gone, at your instruction (12 Oct).** "Where I have been" is now
+**What keeps me going**, and the slot is a polaroid card waiting for one
+photograph of the three of you. It sits on /about/ and the card is built.
+
+Square-ish works best; the card is 1/1.04. Goes in `assets/img/`.
 
 FILE: .........................................................................
 
-### G09 — The places
-The list for the globe, in the order they happened. City and country is enough.
+### G09 — The line under it
+My placeholder caption reads "Mum, Dad, me." and the heading reads "The two
+people who made the rest possible". Both are mine, not yours. Replace either or
+both.
 
-PLACES: .......................................................................
+CAPTION: ......................................................................
+
+HEADING: ......................................................................
 
 ### G10 — Duolingo and L'Oreal
 Both have cards on /work but no case pages, so both stay unlinked.

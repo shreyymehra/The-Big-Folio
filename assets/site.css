@@ -1531,8 +1531,33 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    ignore width, height and aspect-ratio, which collapsed the slot to a 62px
    band across the column under 900px (found 7 Oct). */
 @media (max-width:900px){.me-head{display:block;position:relative;right:auto;top:auto;margin:var(--s-5) 0 0}}
-.places{padding:var(--sec) 0}
-.ph-globe{width:min(100%,520px);aspect-ratio:1;margin:var(--s-6) 0 var(--s-4)}
+/* ---------- what keeps me going (12 Oct, at his instruction) ----------
+   Replaces the globe and the list of places. A polaroid rather than a framed
+   image: white card, a deep lip under the picture where a polaroid's chemistry
+   sits, and pinned a degree or two off square so it reads as placed by hand
+   rather than laid out. It is the only white object on a page of off-white,
+   which is what makes it read as a print on a desk. */
+.keeps{padding:var(--sec) 0}
+/* The card is white in BOTH themes, because a polaroid is white paper and
+   not a surface that follows the UI. That means the caption cannot use --deep,
+   which becomes the light cream in dark mode: it was 1.26 on the card. Ink and
+   the rule are fixed values here for the same reason. This is the --card trap
+   from 24 Sep in a new place: anything hard-coded light needs hard-coded ink. */
+.pola{margin:var(--s-7) 0 0;width:min(100%,420px);background:#FFFDF7;
+  border:1px solid rgba(13,22,51,.22);padding:14px 14px 0;color:#0D1633;
+  transform:rotate(-1.8deg);transform-origin:50% 0}
+.pola-shot{display:block;width:100%;aspect-ratio:1/1.04;background:#EDEAE1}
+.pola-cap{margin:0;padding:var(--s-5) var(--s-2) var(--s-6);
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;color:#0D1633}
+@media (max-width:640px){.pola{transform:rotate(-1.2deg)}}
+
+/* The head that rides the giant star in the sign off. It sits in front of the
+   star and behind the wordmark, which is the whole point: the three layers
+   overlap the way a collage does rather than clearing each other. */
+.star-head{position:absolute;z-index:1;left:50%;bottom:0;
+  width:clamp(120px,15vw,250px);height:auto;
+  transform:translate(-50%,-38%) rotate(3deg);pointer-events:none;user-select:none}
+@media (max-width:640px){.star-head{width:clamp(96px,26vw,150px);transform:translate(-50%,-30%) rotate(3deg)}}
 /* ============================================================
    THE HERO STAGE (23 Sep 2026, Reference Book rows 00-02)
    Taken: Balint Horvath's centre-piece with labelled objects floating
