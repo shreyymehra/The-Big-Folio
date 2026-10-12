@@ -2174,3 +2174,19 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .mani-more{margin:var(--s-5) 0 0;font-family:var(--fu);font-size:var(--t-small)}
 .mani-more a{color:var(--accent-type);text-decoration:none;border-bottom:1.5px solid currentColor}
 .mani-more a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633;border-color:#0D1633}
+
+/* ---------- the star, with him in the middle of it (13 Oct 2026) ----------
+   From the same delivery as the bobbleheads, found in 3.pdf of that zip. It is
+   the best picture of him on the site: he is in it, he took it himself, and
+   the star is the site's own mark drawn by hand rather than the vector one.
+   It replaces the small floating head in the /about/ header, which was a
+   decoration where this is a feature.
+   Bigger than the head it replaces, because a 900x975 artefact at 240px reads
+   as a sticker. Loaded eagerly: it is above the fold on this page, and a lazy
+   image in the header pops in after the heading has already settled. */
+.me-head--star{width:clamp(200px,26vw,360px);aspect-ratio:auto;
+  top:calc(var(--s-9) + var(--s-4));right:max(var(--pad),6vw)}
+.me-head--star img{width:100%;height:auto}
+@media (max-width:900px){
+  .me-head--star{width:min(300px,70%);margin-inline:auto}
+}
