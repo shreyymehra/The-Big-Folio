@@ -1554,3 +1554,61 @@ strip and the magazine's manifesto spread.
 **`NEEDS.md` is the new companion document**: every asset, every line of writing and every decision
 still outstanding, each one saying what it unblocks. It is the answer to "generate a thorough list
 of things you need". `FILL-IN.md` remains the line-by-line register of coded slots.
+
+## THE STAR, THE SCAN, AND THE 11fps HOME (13 Oct 2026)
+
+**The star with him in it was in the bobblehead zip all along**, in `3.pdf`, which an earlier note
+in this file recorded as "a third large copy" of the floating heads. It is not: it is him inside a
+hand-drawn red star, holding the phone that took it. It replaces the small floating head in the
+`/about/` header, because that was a decoration and this is a feature. Keyed out with
+`scratchpad/keyout.mjs` at background sample 60,60. **Check the other PDFs in a delivery before
+recording what they contain.**
+
+### THE HOME SCROLL WAS 11fps, AND IT WAS THREE AVOIDABLE THINGS
+
+Measured with `scratchpad/scan.mjs` (payload, FCP, frame health over a scripted full-page scroll)
+and `scratchpad/prof.mjs` (CPU profile over the same). `/contact/` held 51fps on the same harness
+while home managed 11, which is the comparison that matters: the machine is not the problem.
+
+1. **The ghost stars measured the SVG path every frame.** `getTotalLength`,
+   `getComputedTextLength` and **sixteen `getPointAtLength` calls per frame**, together 12.3% of
+   the whole profile. None of their inputs change while scrolling. The curve is sampled **once**
+   into a 360-point `Float32Array` and every frame after is interpolation on that array;
+   re-sampled on resize and on `fonts.ready`, which are the only two moments the text length moves.
+2. **The tiles were walked three times a frame**, and the middle pass read `--p` back **out of the
+   style object** to find the active tile: a CSSOM round trip for a number the first pass held.
+3. **The reading progress was a bare scroll listener** reading `document.body.scrollHeight`, which
+   is a forced synchronous layout, and **Lenis fires scroll on every frame it animates**. Cached,
+   rAF-throttled, and it only writes when the rounded value moved, which is the guard `--paper-in`
+   and `--star-in` already use.
+
+**After: SVG geometry calls gone from the profile entirely, idle 25.3% to 39.0%, the progress
+writer 6.9% to 3.0%.** Verified behaviourally, not just syntactically: all 8 ghost stars still
+place along the curve, all 3 tiles still drive `--p` to 1, the star fill still tracks.
+
+**The lesson worth keeping: anything inside a scroll handler that measures geometry is a bug until
+proven otherwise.** Path length, text length, `scrollHeight` and `getBoundingClientRect` on a
+fixed-size element are all constants being recomputed sixty times a second.
+
+**Keep both harnesses.** `scan.mjs` and `prof.mjs` are the only way this was found; it is invisible
+in the file and invisible in a screenshot.
+
+### `SCAN-REPORT.md`
+
+A full verification pass written as the sceptical recruiter the site is built for: scores out of 10
+per dimension, what was fixed without asking, what is flagged and why, and the four things that
+would actually move a hiring decision. Read it with `NEEDS.md`, which is the input list; this one
+is the judgement.
+
+**The single highest-impact finding, and it is his call because it reverses his own instruction:**
+`<details class="mv">` ships **closed**, so the seven verified figures, the only independently real
+evidence on the site, are behind a click that a scanning reader will not take. This file records
+from 9 Oct: *"Both carry `open`: the figures are the most persuasive content on the page and a
+closed drawer buries them."* On 13 Oct the pill was built closed, at his instruction. Flagged, not
+changed.
+
+**Two facts established in passing and worth not re-deriving:** the Asimov Print display face is
+**Apache 2.0** (a Roboto derivative), so the licence question is closed and conversion is
+permitted; and it ships as **two `.otf` files totalling 264KB on every route**, where WOFF2 would
+be roughly 90KB. There is no Python or fonttools on this machine, so it is a recommendation rather
+than a fix.
