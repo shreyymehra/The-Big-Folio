@@ -1375,3 +1375,44 @@ lives in site.css. Self-contained beats moved.
 **Dead code removed, checked against the markup AND the scripts first:** the `.hero-panel` family,
 the inner `.mv-col` disclosures, `.places`, the carousel block, the no-motion-path fallback and the
 orbit pause rule.
+
+## THE MOTIVATION ARTEFACTS, THE ORANGE STRIP, THE CONTACT PILL (13 Oct 2026)
+
+**What keeps me going holds his own artefacts.** He sent a sheet of three: two paper-clipped polaroid
+stacks and a camera with the Taj frame still on its screen. Cut out with `scratchpad/keyout.mjs`,
+clips and all, and each floats on its own slow CSS loop with a different duration and delay, so the
+group never lines up into a grid. **Keyframes on transform only**, which the compositor handles and
+which cannot stack or lag the way the hero drift did.
+
+**The five steps run instead of listing**, right to left on an **orange band** (`#F0792A`), which is
+that section's own ground. Orange is new to the palette and earns its place by being the only one;
+ink on it is 9.1. The first attempt missed because the list is `.steps5`, not `.pg-steps`.
+
+**Paragraph gaps are tighter** on both the home monologue and the long version, at his request. They
+read as one piece of writing rather than five separated blocks.
+
+**Contact is one pill and a third shorter.** It used to run the call to action, then the address,
+then a row of links, then the sign-off pill repeating all of them: **the email, LinkedIn and the
+resume each appeared twice.** The copy lives inside the pill now, there is one of each link, and the
+Contact1 image slot is gone at his word.
+
+**The star settles as the section arrives.** `--star-in` runs 0 to 1 while contact rises up the
+screen, written on a rAF tick only when the rounded value changes, exactly like `--paper-in`. At 0 it
+sits lower, turned further and quieter; at 1 it is home. Transform and opacity only.
+
+**The record is ABBA, Take A Chance On Me**, with his own sleeve as the label, and the label is no
+longer screened because it is artwork rather than a photograph standing in for one. **The Spotify id
+was verified by opening the track, not guessed**: a wrong id is a dead player.
+
+**Not done, and his call:** he supplied the mp3. It is 5.7MB, four times the whole image payload,
+and it is a commercial recording, so hosting it on a public portfolio is a copyright exposure. The
+embed plays the real track and costs nothing to host.
+
+### THE PLANE TRAP, THIRD TIME
+
+`--deep` became the light cream in dark mode and put the yellow "always" on cream at **1.06**. The
+pill is cape blue in both themes now, hard-coded, the same way the polaroid card is white in both.
+
+**The rule, now that it has bitten three times:** anything that is conceptually **a plane** (a card,
+a pill, a printed object) rather than **a surface that follows the UI** must not use theme tokens.
+Hard-code it, and hard-code the type on it. `--card`, `.pola` and `.sign-off` have all been this bug.

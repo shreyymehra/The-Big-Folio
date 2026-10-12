@@ -503,6 +503,27 @@
       if(!queued){ queued=true; requestAnimationFrame(paint); } });
   })();
 
+  /* ---- the star settles as the contact section arrives ----
+     One variable, written on a rAF tick and only when the rounded value
+     changes, exactly like --paper-in. No layout, no observer churn. */
+  (function(){
+    var sec=document.getElementById("contact"); if(!sec) return;
+    var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduce){ sec.style.setProperty("--star-in",1); return; }
+    var last=-1, queued=false;
+    function write(){
+      queued=false;
+      var r=sec.getBoundingClientRect();
+      /* 0 when the section is a screen away, 1 once its top has risen past
+         a third of the viewport */
+      var v=1-Math.max(0,Math.min(1,(r.top-innerHeight*0.33)/(innerHeight*0.67)));
+      v=Math.round(v*100)/100;
+      if(v!==last){ last=v; sec.style.setProperty("--star-in", v); }
+    }
+    function onScroll(){ if(!queued){ queued=true; requestAnimationFrame(write); } }
+    write(); addEventListener("scroll",onScroll,{passive:true}); addEventListener("resize",onScroll);
+  })();
+
   /* ---- the strip of marks opens the metrics ----
      He asked for the logos to be a second way into the drawer below them, so a
      click anywhere on the strip toggles it. The strip is not a button: the
