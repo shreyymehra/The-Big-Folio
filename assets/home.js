@@ -190,9 +190,11 @@
   var loader=document.getElementById('loader');
   (function(){
     if(!loader) return;
-    var seen=false; try{ seen=localStorage.getItem('sm-seen')==='1'; }catch(e){}
-    if(reduce||seen){ loader.remove(); assemble(); return; }
-    try{ localStorage.setItem('sm-seen','1'); }catch(e){}
+    /* every full load, at his instruction (13 Oct). The first-visit flag made
+       the loader a thing almost nobody saw: a returning recruiter, or anyone
+       who had opened the link once from an email, never got it. Reduced motion
+       still skips it, because it is motion and nothing else. */
+    if(reduce){ loader.remove(); assemble(); return; }
     hero.classList.add('anim');
     var done=false, timers=[];
     function finish(){
@@ -203,8 +205,9 @@
       assemble();
     }
     timers.push(setTimeout(function(){ [].forEach.call(loader.querySelectorAll('.lmeta'),function(e){ e.classList.add('in'); }); },60));
-    timers.push(setTimeout(function(){ var r=document.getElementById('lrule'); if(r) r.classList.add('draw'); },140));
-    timers.push(setTimeout(finish,760));
+    timers.push(setTimeout(function(){ var s=document.getElementById('lstar'); if(s) s.classList.add('spin'); },90));
+    timers.push(setTimeout(function(){ var r=document.getElementById('lrule'); if(r) r.classList.add('draw'); },200));
+    timers.push(setTimeout(finish,980));
     ['click','keydown','wheel','touchstart'].forEach(function(ev){ addEventListener(ev,finish,{once:true,passive:true}); });
   })();
 
@@ -469,102 +472,47 @@
     document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
   },{threshold:th}).observe(hero);
 
-  /* ---- the ring is fitted, not guessed ----
-     A stylesheet cannot read one element’s box to size another, so the radii
-     were hand-picked numbers and the marks ran straight over the hero panel at
-     every width above 1280: measured, every one of the six, by 12,000 to
-     20,000 square pixels per orbit.
-     The arithmetic the stylesheet could not do: a mark riding the top edge
-     needs centreHeight/2 + markHeight/2 + a gap of vertical radius to clear the
-     centre-piece, and it has only stageCentre - markHeight/2 - an edge before
-     it leaves the hero. At 1440x900 that wanted 391px against 335px available,
-     which is why it could never be written as a constant.
-     When it does not fit, the PANEL gives, not the marks and not the copy.
-     That is his call from 6 Oct, that the marks must clear the identity, with
-     one correction found by looking: squeezing the whole centre starved the
-     claim into five short lines, because the grid hands width to the copy.
-     Only when the panel reaches its floor do we fall back to the row. */
+  /* ---- the marks are placed, not animated ----
+     They orbited, then they drifted on a GSAP ticker. Both were wrong: the
+     orbit fought the centre for room and the drift stacked them on each other
+     and cost a frame budget every tick for motion nobody asked to watch.
+     They are hand-placed in the margins now, in CSS, and the only motion is a
+     parallax that answers the pointer. One rAF while the pointer is moving,
+     nothing at rest, no layout, no collisions to solve. */
   (function(){
-    var hero=document.querySelector(".stage-hero"); if(!hero) return;
-    var centre=hero.querySelector(".stage-centre"),
-        floats=hero.querySelector(".floats"),
-        mark=hero.querySelector(".fl");
-    if(!centre||!floats||!mark) return;
-
-    /* Two things can give before the ring is abandoned, in this order:
-       the panel, because the identity can be smaller, and then the marks,
-       because a slightly smaller mark that orbits beats a bigger one that
-       does not. At 1280x720, a very common laptop, the ring missed by seven
-       pixels with the panel already at its floor and the whole device fell
-       back to a static row. */
-    var P_FLOOR=210, P_STEP=14, M_FLOOR=104, M_STEP=8, GAP=10, EDGE=12;
-
-    function clear(){
-      hero.style.removeProperty("--panel-w");
-      floats.style.removeProperty("--fl-w");
-      floats.style.removeProperty("--rx");
-      floats.style.removeProperty("--ry");
-    }
-
-    function room(){
-      var h=hero.getBoundingClientRect(),
-          c=centre.getBoundingClientRect(),
-          m=mark.getBoundingClientRect();
-      var cy=c.top+c.height/2, cx=c.left+c.width/2;
-      return {
-        maxRy:Math.min(cy-h.top, h.bottom-cy)-m.height/2-EDGE,
-        maxRx:Math.min(cx-h.left, h.right-cx)-m.width/2-EDGE,
-        needRy:c.height/2+m.height/2+GAP,
-        needRx:c.width/2+m.width/2+GAP
-      };
-    }
-    function fits(r){ return r.needRy<=r.maxRy && r.needRx<=r.maxRx; }
-
-    function fit(){
-      /* under 1280 the media query already lays the marks out as a row, and
-         the fitter has nothing to say */
-      if(innerWidth<1280){ hero.classList.remove("is-row"); clear(); return; }
-
-      clear();
-      var panel=hero.querySelector(".hero-panel");
-      var r=room();
-
-      /* 1. the panel gives */
-      if(panel){
-        var w=Math.round(panel.getBoundingClientRect().width);
-        while(!fits(r) && w>P_FLOOR){
-          w=Math.max(P_FLOOR,w-P_STEP);
-          hero.style.setProperty("--panel-w",w+"px");
-          r=room();
-        }
+    var hero=document.getElementById("hero"); if(!hero) return;
+    var marks=[].slice.call(hero.querySelectorAll(".fl"));
+    /* its own, because the main IIFE that declared reduce closes above this */
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!marks.length||reduce) return;
+    var tx=0, ty=0, queued=false;
+    function paint(){
+      queued=false;
+      for(var i=0;i<marks.length;i++){
+        var d=+marks[i].getAttribute("data-depth")||1;
+        marks[i].style.transform="translate3d("+(tx*10*d).toFixed(1)+"px,"+(ty*8*d).toFixed(1)+"px,0)";
       }
-      /* 2. then the marks give */
-      if(!fits(r)){
-        var mw=Math.round(mark.getBoundingClientRect().width)-28; /* .fl is --fl-w + 28 */
-        while(!fits(r) && mw>M_FLOOR){
-          mw=Math.max(M_FLOOR,mw-M_STEP);
-          floats.style.setProperty("--fl-w",mw+"px");
-          r=room();
-        }
-      }
-
-      if(!fits(r)){ hero.classList.add("is-row"); clear(); return; }
-      hero.classList.remove("is-row");
-      /* sit a little outside the minimum where there is room to, so the ring
-         reads as an orbit rather than as a box drawn around the photograph */
-      var rx=Math.min(r.maxRx,r.needRx+40), ry=Math.min(r.maxRy,r.needRy+16);
-      floats.style.setProperty("--rx",Math.round(rx)+"px");
-      floats.style.setProperty("--ry",Math.round(ry)+"px");
     }
+    hero.addEventListener("pointermove",function(ev){
+      var r=hero.getBoundingClientRect();
+      tx=((ev.clientX-r.left)/r.width-.5)*2;
+      ty=((ev.clientY-r.top)/r.height-.5)*2;
+      if(!queued){ queued=true; requestAnimationFrame(paint); }
+    });
+    hero.addEventListener("pointerleave",function(){ tx=ty=0;
+      if(!queued){ queued=true; requestAnimationFrame(paint); } });
+  })();
 
-    var tid;
-    function schedule(){ clearTimeout(tid); tid=setTimeout(fit,120); }
-    fit();
-    addEventListener("resize",schedule);
-    /* the tiles and the face land after the fonts and the images do, and both
-       change the panel’s height, so measure again once they have */
-    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
-    addEventListener("load",fit);
+  /* ---- the strip of marks opens the metrics ----
+     He asked for the logos to be a second way into the drawer below them, so a
+     click anywhere on the strip toggles it. The strip is not a button: the
+     real control is the <summary>, which keeps the keyboard path and the
+     announcement correct. This only adds a pointer shortcut on top. */
+  (function(){
+    var strip=document.querySelector(".logo-strip"), mv=document.getElementById("mv");
+    if(!strip||!mv) return;
+    strip.addEventListener("click",function(){ mv.open=!mv.open;
+      if(mv.open) mv.querySelector(".mv-pill").focus({preventScroll:true}); });
   })();
 
   /* ---- Me: the card deck ----
@@ -580,6 +528,9 @@
     var list=document.querySelector("[data-deck]"); if(!list) return;
     var cards=[].slice.call(list.children); if(cards.length<2) return;
     list.classList.add("is-deck");
+
+    /* same reason as the parallax: the IIFE that declared reduce closes above */
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     var order=cards.slice(), busy=false;
     function paint(){

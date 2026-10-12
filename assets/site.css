@@ -78,7 +78,9 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0}
-body{background:var(--ground);color:var(--text);font-family:var(--fb);font-size:var(--t-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;background-image:var(--paper);background-size:var(--paper-size);background-attachment:fixed}
+/* the grid moved to a fixed layer in base.css so its strength can be driven
+   by the scroll; body only carries the ground colour now */
+body{background:var(--ground);color:var(--text);font-family:var(--fb);font-size:var(--t-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
@@ -214,26 +216,49 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    them, pointing at a band slows it to a stop. The riso star is the separator. */
 
 
-/* ---------- the second tape: the marks ----------
-   Only two things on this page move now (7 Oct, at his instruction) and both
-   are the same object: a strip of paper tape with torn edges, tilted, running
-   itself. One carries what people said, one carries who the work was for. The
-   marks sit in the same set as the quotes and take the same star between them,
-   so the two tapes are read as a pair rather than as two devices.
-   The tilt alternates so they do not look like one band printed twice. */
-.ht-band--logos{transform:rotate(1.6deg);margin-top:var(--s-5)}
-.ht-set--logos{gap:var(--s-5)}
-.ht-set--logos li{display:flex;align-items:center}
-/* sized by height, with the cap released: in a track of indefinite width a
-   percentage max-width resolves against a box the image is itself sizing */
-/* One cap height for all eight (9 Oct, at his instruction). Bliss and Birch
-   and UN Youth each had a nudge taller, because they are small devices rather
-   than wordmarks and read light at a shared height. He looked at it and wants
-   them the same size as the rest, so the nudges are gone and one line now
-   sizes every mark. The cost is the thing the nudge was correcting: a device
-   mark carries less optical weight than a wordmark beside it. */
-.ht-set--logos .worked-mark{display:block;height:clamp(28px,3vw,42px);width:auto;max-width:none;object-fit:contain}
-@media (max-width:640px){.ht-set--logos{gap:var(--s-4)}}
+/* ---------- the strip of marks (13 Oct, at his instruction) ----------
+   One comic ticker on this page and it is the quote tape. These are other
+   people's marks and they are evidence, so they travel on a ruled line with no
+   torn edge, no tilt and no stars between them.
+   The whole strip is also a way into the metrics below it: home.js makes a
+   click on it open that drawer, which is why it carries a pointer. */
+.logo-strip{position:relative;overflow:hidden;cursor:pointer;
+  border-top:2px solid var(--deep);border-bottom:2px solid var(--deep)}
+.logo-strip .ls-band{position:relative;overflow:hidden}
+/* the shared .xtrack rule went with the crossing bands; each track needs its
+   own row now or the four repeat copies stack instead of running */
+.logo-strip .xtrack{display:flex;width:max-content;will-change:transform}
+.ls-set{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
+.ls-set li{flex:none;display:flex;align-items:center;padding:clamp(.85rem,1.8vw,1.3rem) clamp(1.5rem,3.2vw,3rem)}
+.ls-set .worked-mark{display:block;height:clamp(26px,2.9vw,40px);width:auto;max-width:none;object-fit:contain}
+.logo-strip:is(:hover,:focus-within){background:rgba(var(--deep-rgb),.04)}
+@media (max-width:560px){.ls-set li{padding:.8rem 1.2rem}}
+
+/* ---------- the metrics, collapsed onto a pill ----------
+   Closed on arrival. Shield yellow, because this is the one plane on the page
+   that has to be found rather than read past, and it is the first time yellow
+   carries a surface rather than a highlight. Ink on yellow is 14.73, so the
+   type inside is ink and the red accent stays off it. */
+.mv{margin-top:var(--s-6)}
+.mv-pill{cursor:pointer;list-style:none;display:flex;align-items:center;gap:var(--s-4);
+  background:var(--yellow);color:#0D1633;border:2px solid #0D1633;border-radius:999px;
+  padding:clamp(.9rem,2vw,1.3rem) clamp(1.6rem,3.5vw,2.6rem);min-height:56px}
+.mv-pill::-webkit-details-marker{display:none}
+.mv-pill-k{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.1;
+  letter-spacing:var(--fd-track)}
+.mv-pill-n{margin-left:auto;font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.72}
+.mv-chev{flex:none;width:14px;height:14px;border-right:3px solid #0D1633;border-bottom:3px solid #0D1633;
+  transform:rotate(45deg) translate(-2px,-2px);transition:transform var(--d-2) var(--e-out)}
+.mv[open] .mv-chev{transform:rotate(225deg) translate(-2px,-2px)}
+.mv-pill:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.mv-chev{transition:none}}
+
+/* the drawer sits under the pill on the page's own ground */
+.mv .mv-grid{margin-top:var(--s-6)}
+@media (max-width:640px){
+  .mv-pill{border-radius:28px;flex-wrap:wrap;gap:var(--s-2) var(--s-3)}
+  .mv-pill-n{margin-left:0;width:100%}
+}
 
 /* ---------- what I do, and what it moved ----------
    This replaces the crossing bands (7 Oct). The X said something true, that
@@ -255,18 +280,8 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    script switched off, none of which a div and a click handler gives you.
    Both carry `open`: the figures are the most persuasive content on the page
    and a closed drawer buries them. Collapsing is for the second read. */
-.mv-col > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:var(--s-3);
-  min-height:44px;margin:0 0 var(--s-5);width:fit-content}
-.mv-col > summary::-webkit-details-marker{display:none}
 /* the marker is drawn, so it can be the site’s own line work rather than a
    platform triangle: a rule that loses its upright when the drawer opens */
-.mv-col > summary::after{content:"";width:11px;height:11px;flex:none;position:relative;
-  background:currentColor;
-  clip-path:polygon(0 45%,100% 45%,100% 55%,0 55%,0 45%,45% 45%,45% 0,55% 0,55% 100%,45% 100%,45% 45%);
-  transition:transform var(--d-2) var(--e-out),opacity var(--d-1) ease;opacity:.7}
-.mv-col[open] > summary::after{clip-path:polygon(0 45%,100% 45%,100% 55%,0 55%);transform:rotate(180deg)}
-.mv-col > summary:is(:hover,:focus-visible)::after{opacity:1}
-.mv-col > summary:focus-visible{outline:2px solid var(--fluoro);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.mv-col > summary::after{transition:none}}
 .mv-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
 .mv-do{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-4);line-height:1.5}
@@ -289,6 +304,72 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 }
 @media (max-width:560px){.mv-figs{grid-template-columns:minmax(0,1fr)}}
 
+/* ============================================================
+   HERO v3 (13 Oct 2026, at his instruction)
+   Side by side, and nothing loops. The name lockup and the polaroid hold the
+   left column, the claim and the calls to action hold the right. The six marks
+   are HAND-PLACED in the outer margins: they orbited once and fought the
+   centre for room, then they drifted on a ticker and stacked on each other and
+   cost a frame budget for motion nobody asked to watch. Placed, they cannot
+   collide, cannot lag, and still move, because the pointer parallaxes them.
+   ============================================================ */
+.stage-centre{grid-template-columns:minmax(0,auto) minmax(0,1fr);align-items:center;
+  gap:var(--s-5) clamp(1.6rem,4vw,3.4rem);width:min(960px,calc(100% - 2 * var(--pad)))}
+
+/* left: the cut-out name over the polaroid */
+.hero-side{position:relative;display:grid;justify-items:start;gap:var(--s-4);
+  width:clamp(240px,30vw,360px)}
+.hero-side .hero-name{position:static;display:grid;justify-items:start;gap:4px;margin:0;
+  width:100%;max-width:100%}
+.hero-side .hero-name .l1{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px}
+.hero-side .hero-name .l2{display:block;margin-top:2px}
+.hero-side .tile{display:block}
+.hero-side .tile img{display:block;width:100%;height:auto}
+.hero-side .t-hi{width:17%}.hero-side .t-my{width:20%}
+.hero-side .t-name{width:35%}.hero-side .t-is{width:11%}
+.hero-side .t-shrey{width:74%}
+.hero-pola{width:100%;transform:rotate(-2deg)}
+
+/* right: the copy */
+.hero-mid{display:grid;justify-items:start;gap:var(--s-4);min-width:0}
+.hero-mid .stage-copy{max-width:19em}
+
+/* the doodle slot he will fill */
+.doodle{display:block;width:clamp(96px,11vw,150px);aspect-ratio:1;opacity:.5}
+
+/* ---- the marks: placed, never looping ----
+   Six positions in the outer margins, chosen so no two share a band and none
+   of them crosses the centre column at any width this layout is used at. */
+.floats{position:absolute;inset:0;width:auto;height:auto;transform:none;border-radius:0;
+  z-index:4;pointer-events:none;list-style:none;margin:0;padding:0;
+  --fl-w:clamp(104px,11vw,172px)}
+.fl{position:absolute;width:calc(var(--fl-w) + 28px);pointer-events:auto;
+  offset-path:none;animation:none;transition:transform 420ms cubic-bezier(.16,1,.3,1)}
+.fl-icon{width:var(--fl-w);height:var(--fl-w)}
+.fl-work{left:2.5vw;top:14%}
+.fl-ideas{left:4.5vw;top:48%}
+.fl-me{left:2vw;top:76%}
+.fl-faq{right:3vw;left:auto;top:12%}
+.fl-contact{right:5vw;left:auto;top:46%}
+.fl-listen{right:2.5vw;left:auto;top:74%}
+@media (prefers-reduced-motion:reduce){.fl{transition:none}}
+
+@media (max-width:1180px){
+  .floats{--fl-w:clamp(84px,9vw,120px)}
+  .fl-work{left:1vw;top:10%}.fl-ideas{left:1vw;top:50%}.fl-me{left:1vw;top:80%}
+  .fl-faq{right:1vw;top:10%}.fl-contact{right:1vw;top:50%}.fl-listen{right:1vw;top:80%}
+}
+@media (max-width:860px){
+  .stage-centre{grid-template-columns:minmax(0,1fr)}
+  .hero-side{width:min(100%,360px)}
+  .hero-mid .stage-copy{max-width:26em}
+  .floats{position:relative;inset:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:var(--s-4);margin:var(--s-7) auto 0;max-width:560px;pointer-events:auto}
+  .fl{position:static;width:auto}
+  .fl-work,.fl-ideas,.fl-me,.fl-faq,.fl-contact,.fl-listen{left:auto;right:auto;top:auto}
+  .fl-icon{width:100%;height:auto;aspect-ratio:1}
+}
+
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
    Shrey, 17 Sep 2026), measured from the live site rather than its source:
@@ -309,7 +390,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .wk-title{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:.92;
   letter-spacing:var(--fd-track);max-width:9ch;margin:.8rem 0 0;color:var(--cream)}
 .wk-sub{font-size:var(--base);line-height:1.5;opacity:.82;max-width:24em;margin:1.2rem 0 0}
-.wk-axis,.wk-ghost{display:none}
+.wk-ghost{display:none}
 
 .wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
 .wk-tile{display:block;color:var(--cream);text-decoration:none;transform:rotate(var(--r,0deg))}
@@ -330,7 +411,12 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* inside: what the hover reveals. Scrolls once, like a recording of the page,
    and snaps back to the top when the pointer leaves, like a video rewinding. */
 
-.wk-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px;
+/* The caption is the only writing on a poster wall, so it is set to be read
+   from across the room rather than squinted at: the name at display size on
+   its own line, the state under it. It also sits on a paper plate, which is
+   what makes it read as a sticker on the print rather than a caption floating
+   on the blue. */
+.wk-label{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-top:14px;
   font-size:var(--t-small);letter-spacing:.08em;color:rgba(var(--cream-rgb),.72)}
 .wk-label span:first-child{color:var(--cream);font-weight:600}
 .wk-label span:last-child{text-align:right}
@@ -380,9 +466,9 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
     left:var(--wk-left);max-width:calc(31vw - var(--wk-left) - 2rem)}
   .wk-title{font-size:var(--t-h2);max-width:none}
   .wk-sub{font-size:var(--sm)}
-  .wk-axis{display:block;position:absolute;z-index:1;pointer-events:none;background:rgba(var(--cream-rgb),.12)}
-  .wk-axis--h{left:5%;right:4%;top:76vh;height:1px}
-  .wk-axis--v{top:14vh;bottom:8vh;left:31%;width:1px}
+  /* the crosshair is gone for good (13 Oct): it followed no grid line and
+     carried nothing. It was set to display:none at the top of this file and
+     then switched back on here, which is why it kept coming back. */
   .wk-ghost{display:block;position:absolute;z-index:0;inset:-8vh -7vw -12vh -9vw;width:116vw;height:122vh;
     overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
   .wk-ghost-text{font-family:var(--fd);font-weight:700;letter-spacing:var(--fd-track);fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
@@ -422,7 +508,9 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
     transition:opacity .42s var(--wk-ease)}
   .work.wk-live .wk-tile{opacity:0}
   .work.wk-live .wk-tile.is-visible{opacity:1}
-  .wk-label{opacity:0;transition:opacity .3s var(--wk-ease)}
+  /* the labels stay: hiding them until hover was what made the wall read as
+     decoration rather than as three pieces of work */
+  .wk-label{opacity:1}
   
   .wk-tile:nth-child(1){--dx:6vw;--dy:0vh}
   .wk-tile:nth-child(2){--dx:13vw;--dy:3vh}
@@ -507,7 +595,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    one of two. Was: dark ground, --xxl headline, a decorative star and three
    links competing at the same weight. One accent appears here, on the one
    action that matters. */
-.contact{background:var(--cream);background-image:var(--paper);background-size:var(--paper-size);color:var(--deep);
+.contact{background:var(--cream);color:var(--deep);
   padding:var(--sec) 0 3rem;position:relative;border-top:3px solid var(--deep)}
 .contact .no{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;opacity:.82;display:block;margin-bottom:2.4rem}
@@ -965,7 +1053,15 @@ a.wrow:hover .go::after{padding-left:.25em}
 .vinyl-title{font-size:var(--t-body)}
 .vinyl-by{font-size:var(--t-small);text-transform:none;letter-spacing:.02em}
 /* work tiles: names in sentence case so 14px labels fit the tile, not the page */
-.wk-label{text-transform:none;letter-spacing:.02em}
+.wk-label{text-transform:none;letter-spacing:.02em;
+  background:var(--cream);color:var(--deep);padding:.5rem .8rem .55rem;
+  border:2px solid var(--deep);transform:rotate(-1deg);align-self:flex-start;max-width:100%}
+.wk-label span:first-child{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+  line-height:1.05;letter-spacing:var(--fd-track);color:var(--deep)}
+.wk-label span:last-child{font-family:var(--fu);font-size:var(--t-small);
+  letter-spacing:.04em;color:var(--accent-type);text-align:left}
+.wk-tile:is(:hover,:focus-visible) .wk-label{background:var(--yellow)}
+.wk-tile:is(:hover,:focus-visible) .wk-label span:first-child{color:#0D1633}
 .wk-note{letter-spacing:.04em}
 .work .wk-tile[href*="vrl"]{--y:44vh}
 @media (min-width:760px){.wk-note--right{max-width:26rem}}
@@ -1427,6 +1523,10 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    site where type is allowed to run off the edge.
    ============================================================ */
 .contact{isolation:isolate}
+/* its own grid layer, because the section paints an opaque ground over the
+   fixed one and would otherwise hide it */
+.contact::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:var(--paper);background-size:var(--paper-size);opacity:calc(.25 + var(--paper-in) * .75)}
 
 /* The ending sits on a coloured pill (12 Oct, at his instruction). The veto
    list bans pills, and it means the small metadata capsule, not this: a plane
@@ -1576,7 +1676,7 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 /* on the dark ground the mount has to go darker, not grey: mixing the dark
    cream towards white lands in the middle and takes the caption with it */
 html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#fff 10%)}
-.stage-ground{position:absolute;inset:0;z-index:0;background-image:var(--paper);background-size:var(--paper-size)}
+.stage-ground{position:absolute;inset:0;z-index:0;background-image:var(--paper);background-size:var(--paper-size);opacity:calc(.25 + var(--paper-in) * .75)}
 
 .stage{position:relative;z-index:2;min-height:calc(100svh - var(--s-10) - var(--s-9));display:grid;place-items:center}
 
@@ -1671,29 +1771,18 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    motion.
    ============================================================ */
 /* These two are the no-JS fallback only. home.js measures the centre-piece
-   and the mark and writes --rx/--ry that actually clear it; a stylesheet
-   cannot read one element's box to size another, which is why the hand-picked
-   radii here collided with the panel at every width over 1280. */
-.floats{--fl-w:clamp(132px,18vh,196px);
-  --rx:min(560px,calc(50vw - var(--fl-w) / 2 - 26px));
-  --ry:min(300px,calc(46svh - var(--fl-w) / 2 - 8px));
-  list-style:none;margin:0;padding:0;
-  position:absolute;left:50%;top:50%;width:calc(var(--rx) * 2);height:calc(var(--ry) * 2);
-  transform:translate(-50%,-50%);border-radius:96px;z-index:4;pointer-events:none}
-
-.fl{position:absolute;width:calc(var(--fl-w) + 28px);pointer-events:auto;
-  offset-path:border-box;offset-rotate:0deg;offset-anchor:50% 50%;
-  offset-distance:calc(var(--i) * 16.6667%);
-  animation:ride 60s linear infinite;animation-delay:calc(var(--i) * -10s)}
-@keyframes ride{to{offset-distance:calc(var(--i) * 16.6667% + 100%)}}
-.fl-work{--i:0}.fl-ideas{--i:1}.fl-me{--i:2}.fl-faq{--i:3}.fl-contact{--i:4}.fl-listen{--i:5}
+/* The carousel is gone (13 Oct). The marks are hand-placed in the margins by
+   the HERO v3 block above; these rules kept winning by source order and put
+   translate(-50%,-50%) back on .floats, which threw every mark 560px off its
+   position. Removed rather than overridden: two systems for one object is how
+   this kept happening. */
 /* The ring stops when the pointer enters the hero, not when it reaches a mark
    (7 Oct). .floats has pointer-events:none, so the old rule only fired once you
    were already on top of a mark, which is the hard part: these six are primary
    navigation, and a moving target is harder to acquire than a still one. Now the
    marks move while nobody is engaging, which is what the device is for, and hold
    still the moment someone is, which is what navigation is for. */
-.stage-hero:is(:hover,:focus-within) .fl,html.sm-paused .fl{animation-play-state:paused}
+
 
 .fl a{display:grid;justify-items:center;gap:var(--s-2);text-decoration:none;color:var(--deep);cursor:pointer}
 .fl-icon{display:block;width:var(--fl-w);height:var(--fl-w);transition:transform 220ms var(--e-spring)}
@@ -1709,10 +1798,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .fl a:focus-visible .fl-icon{outline:3px solid var(--fluoro);outline-offset:3px}
 
 /* no motion path support: the six sit still on the same rectangle */
-@supports not (offset-path:border-box){
-  .fl{animation:none;offset-path:none;left:50%;top:0;translate:-50% 0}
-  .fl-ideas{top:50%}.fl-me{top:100%}.fl-faq{left:0;top:25%}.fl-contact{left:100%;top:50%}.fl-listen{left:0;top:75%}
-}
+
 @media (prefers-reduced-motion:reduce){.fl{animation:none}}
 
 .stage-hint{position:absolute;z-index:4;left:50%;bottom:0;transform:translateX(-50%);margin:0;
@@ -1774,34 +1860,14 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    Narrowing the whole centre instead starved the claim into five short lines
    and pushed the two calls to action onto separate rows, which is the kind of
    thing you only see by looking at it. Without --panel-w the vw sizing holds. */
-.hero-panel{position:relative;display:grid;justify-items:start;gap:var(--s-4);
-  width:var(--panel-w,clamp(238px,25vw,330px));padding:var(--s-5) var(--s-5) var(--s-6);
-  background:var(--fluoro);border:2px solid var(--deep);
-  /* halftone: one dot per 7px cell, ink blue at low alpha over the red.
-     A printed screen, not a texture overlay, so it survives scaling. */
-  background-image:radial-gradient(circle at 50% 50%,rgba(13,22,51,.26) 1.15px,transparent 1.25px);
-  background-size:7px 7px;background-color:var(--fluoro)}
 /* The tile sizes used to live under .stage-copy. The name has moved out of
    that scope, so without these the five cut-outs render at natural size, the
    grid column takes its minimum from them, and the panel blows out to 1289px
    with the photograph following it. Measured, not guessed: that is exactly
    what happened on the first build of this panel. */
-.hero-panel{min-width:0;justify-items:stretch}
-.hero-panel .hero-name{position:static;width:100%;max-width:100%;margin:0}
-.hero-panel .hero-name .l1{display:flex;flex-wrap:nowrap;align-items:flex-end;gap:7px}
-.hero-panel .hero-name .l2{display:block;margin-top:5px}
-.hero-panel .tile{display:inline-block}
-.hero-panel .tile img{display:block;width:100%;height:auto}
 /* The cut-out letters are a percentage of the panel rather than of the
    viewport, so the whole lockup scales as one object when the panel gives way.
    The percentages are the sizes they already had at a 330px panel. */
-.hero-panel .t-hi{width:13.5%}
-.hero-panel .t-my{width:15.6%}
-.hero-panel .t-name{width:27.7%}
-.hero-panel .t-is{width:9.2%}
-.hero-panel .t-shrey{width:62.4%}
-.hero-panel .print{width:100%;max-width:100%;transform:rotate(-1.6deg)}
-.hero-panel .print-stamp{right:-12px;top:-12px}
 @media (max-width:900px){
   .hero-panel{width:min(330px,88%);padding:var(--s-4) var(--s-4) var(--s-5)}
 }

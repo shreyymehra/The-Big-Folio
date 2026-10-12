@@ -1326,3 +1326,52 @@ the page, which is what makes it read as a print on a desk.
 **Two lines in that section are mine and need his read:** the heading "The two people who made the
 rest possible" and the caption "Mum, Dad, me." Both are flagged in `FILL-IN.md` under G09, and the
 photograph itself is G08 now rather than the globe.
+
+## HERO v3, THE STRIP, THE PILL, THE LOADER (13 Oct 2026)
+
+**The hero is side by side and nothing in it loops.** Three attempts got here and the first two were
+mine to own: the marks orbited a motion path, which fought the centre for room at every width; then
+they drifted on a GSAP ticker, which **stacked them on top of each other and cost a frame budget
+every tick for motion nobody asked to watch.** He called it laggy and uncool and he was right.
+
+They are **hand-placed in the margins in CSS** now, three a side, and the only motion is a parallax
+that answers the pointer: one rAF while it moves, nothing at rest. Verified zero mark-on-mark
+overlaps and zero marks over the centre column.
+
+**The trap that cost the most time here:** the old carousel rules sat *later* in the file than the
+new ones and kept winning by source order, putting `translate(-50%,-50%)` back on `.floats` and
+throwing every mark 560px off its position while the computed `left`/`top` read correctly. Deleted
+rather than overridden. **Two systems for one object is how this kept happening.**
+
+Layout: the cut-out name and the polaroid hold the left column, the claim and the calls to action
+the right. The red panel is gone; the photograph is a print, which is what the polaroid in What
+keeps me going established.
+
+**One ticker, at his instruction.** The comic tape is the only comic device left. The marks of
+employers now run on a **plain ruled strip**, no torn edge, no tilt, no stars: they are other
+people's marks and they are evidence, so they travel on a line and nothing else.
+
+**The metrics collapse onto a shield-yellow pill**, closed on arrival. Clicking the pill or
+**anywhere on the strip of logos** opens it; the strip is a pointer shortcut layered over a real
+`<summary>`, so the keyboard path and the announcement stay correct. Ink on yellow is 14.73. This is
+the first time yellow carries a surface rather than a highlight.
+
+**The work wall reads now.** The captions were small uppercase on blue; each is a paper sticker with
+the name at display size and the state under it, and they no longer hide until hover, which is what
+made the wall read as decoration. The posters are larger and spread down the stage.
+
+**The crosshair is gone for good.** He asked twice. It was `display:none` at the top of the file and
+switched back on inside a media query further down, which is why it kept coming back.
+
+**The grid fades in with the scroll.** `--paper-in` goes 0 to 1 across the first screen and a half,
+written on a rAF tick only when the rounded value changes. Every surface that paints the grid reads
+it: the fixed page layer, the hero ground and the contact section.
+
+**The star loader is back and plays on every load.** The first-visit flag meant almost nobody saw
+it. Every other route now gets one too, injected by site.js and **scoped to its own id with its own
+rules in base.css**, because the case pages load only base.css and tw.css and home's richer loader
+lives in site.css. Self-contained beats moved.
+
+**Dead code removed, checked against the markup AND the scripts first:** the `.hero-panel` family,
+the inner `.mv-col` disclosures, `.places`, the carousel block, the no-motion-path fallback and the
+orbit pause rule.
