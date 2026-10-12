@@ -188,21 +188,40 @@
       p.setAttribute('d',STAR); g.appendChild(p); starG.appendChild(g); stars.push(g);
     }
 
-    /* the stars trail the ghost type: first one starts where the text ends */
-    function placeStars(offsetPct){
-      if(!curve||!txt||!stars.length) return;
-      var L=curve.getTotalLength(), tl=0;
-      try{ tl=txt.getComputedTextLength(); }catch(e){}
-      var start=offsetPct/100*L+tl+STAR_GAP*.35;
-      stars.forEach(function(g,i){
-        var d=start+i*STAR_GAP;
-        if(d<0||d>L){ g.style.display='none'; return; }
-        var a=curve.getPointAtLength(d), b=curve.getPointAtLength(Math.min(L,d+1));
-        var ang=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI, k=STAR_SIZE/100;
-        g.style.display='';
-        g.setAttribute('transform','translate('+a.x.toFixed(1)+' '+a.y.toFixed(1)+') rotate('+ang.toFixed(2)+') scale('+k+') translate(-50 -70)');
-      });
+    /* The curve is sampled once into a table, not measured every frame.
+       getTotalLength, getComputedTextLength and sixteen getPointAtLength calls
+       per frame came to 12.3% of the profile, and not one of their inputs
+       changes while the page is scrolling. SAMPLES is 360 over a path about
+       2600 units long, so a step is ~7 units and the angle is read across two
+       table entries rather than re-sampled. */
+    var SAMPLES=360, pathL=0, textL=0, lut=null;
+    function sampleCurve(){
+      if(!curve){ lut=null; return; }
+      pathL=curve.getTotalLength();
+      try{ textL=txt?txt.getComputedTextLength():0; }catch(e){ textL=0; }
+      lut=new Float32Array(SAMPLES*2);
+      for(var i=0;i<SAMPLES;i++){
+        var pt=curve.getPointAtLength(pathL*i/(SAMPLES-1));
+        lut[i*2]=pt.x; lut[i*2+1]=pt.y;
+      }
     }
+    function placeStars(offsetPct){
+      if(!lut||!stars.length) return;
+      var start=offsetPct/100*pathL+textL+STAR_GAP*.35, k=STAR_SIZE/100;
+      for(var i=0;i<stars.length;i++){
+        var g=stars[i], d=start+i*STAR_GAP;
+        if(d<0||d>pathL){ g.style.display='none'; continue; }
+        var fi=d/pathL*(SAMPLES-1), i0=fi|0, i1=i0+1<SAMPLES?i0+1:i0, fr=fi-i0;
+        var ax=lut[i0*2]+(lut[i1*2]-lut[i0*2])*fr,
+            ay=lut[i0*2+1]+(lut[i1*2+1]-lut[i0*2+1])*fr;
+        var ang=Math.atan2(lut[i1*2+1]-lut[i0*2+1], lut[i1*2]-lut[i0*2])*180/Math.PI;
+        g.style.display='';
+        g.setAttribute('transform','translate('+ax.toFixed(1)+' '+ay.toFixed(1)+') rotate('+ang.toFixed(2)+') scale('+k+') translate(-50 -70)');
+      }
+    }
+    sampleCurve();
+    addEventListener('resize',sampleCurve);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(sampleCurve);
 
     var io=null;
     function stacked(){
@@ -242,16 +261,19 @@
       var off=14-p*62;
       if(tp) tp.setAttribute('startOffset',off.toFixed(2)+'%');
       placeStars(off);
-      tiles.forEach(function(t){
-        var cp=clamp((p-(+t.dataset.reveal||0))/.13);
+      /* one pass. The tile that most recently landed is the top of the pile:
+         on narrow screens only its label shows, and on touch it is the one
+         that plays. It used to be found by writing --p and then reading it
+         back out of the style object on a second pass, which is a CSSOM round
+         trip for a number this loop already has. */
+      var active=null;
+      for(var ti=0;ti<tiles.length;ti++){
+        var t=tiles[ti], cp=clamp((p-(+t.dataset.reveal||0))/.13);
         t.classList.toggle('is-visible',cp>0);
         t.style.setProperty('--p',cp.toFixed(4));
-      });
-      /* the tile that most recently landed is the top of the pile: on narrow
-         screens only its label shows, and on touch it is the one that plays */
-      var active=null;
-      tiles.forEach(function(t){ if(+t.style.getPropertyValue('--p')>=.999) active=t; });
-      tiles.forEach(function(t){ t.classList.toggle('is-top',t===active); });
+        if(cp>=.999) active=t;
+      }
+      for(var tj=0;tj<tiles.length;tj++) tiles[tj].classList.toggle('is-top',tiles[tj]===active);
       if(!fine){
         tiles.forEach(function(t){
           var on=t.classList.contains('is-playing');

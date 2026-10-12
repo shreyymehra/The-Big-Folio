@@ -85,12 +85,34 @@
   /* reading progress: the star fills on home, the rail grows on essays.
      The nav is the island now, driven by feel.js. */
   var rail = document.querySelector('.rail');
+  /* The page height is cached and the write is rAF throttled. Reading
+     document.body.scrollHeight forces a synchronous layout, and Lenis fires
+     scroll on every frame it animates, so this was one forced layout per frame
+     for a number that only moves when the page resizes. It was 5.3% of the
+     home profile. */
+  var _railMax = 0, _railQueued = false;
+  var _railFill = document.getElementById('starfill');
+  function _railMeasure(){ _railMax = document.body.scrollHeight - innerHeight; }
+  var _railLast = -1;
+  function _railPaint(){
+    _railQueued = false;
+    var p = _railMax > 0 ? Math.min(1, scrollY / _railMax) : 0;
+    /* Only write when the rounded value has actually moved. clipPath on the
+       star forces a repaint, and at 0.1% steps on a 9000px page most frames
+       were repainting it to the value it already had. Same guard as
+       --paper-in and --star-in, which is the pattern this file already uses. */
+    var q = Math.round(p * 1000);
+    if (q === _railLast) return;
+    _railLast = q;
+    var pct = q / 10;
+    if (_railFill) _railFill.style.clipPath = 'inset(' + (100 - pct).toFixed(1) + '% 0 0 0)';
+    if (rail) rail.style.width = pct.toFixed(1) + '%';
+  }
+  _railMeasure(); _railPaint();
+  addEventListener('resize', function(){ _railMeasure(); _railPaint(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ _railMeasure(); _railPaint(); });
   addEventListener('scroll', function(){
-    var y = scrollY;
-    var m = document.body.scrollHeight - innerHeight, p = m > 0 ? Math.min(1, y/m) : 0;
-    var fill = document.getElementById('starfill');
-    if (fill) fill.style.clipPath = 'inset(' + ((1-p)*100).toFixed(1) + '% 0 0 0)';
-    if (rail) rail.style.width = (p*100).toFixed(2) + '%';
+    if (!_railQueued) { _railQueued = true; requestAnimationFrame(_railPaint); }
   }, {passive:true});
 
   /* scroll reveals */
