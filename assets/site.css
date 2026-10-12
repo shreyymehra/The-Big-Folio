@@ -314,11 +314,14 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
 .wk-tile{display:block;color:var(--cream);text-decoration:none;transform:rotate(var(--r,0deg))}
 .wk-tile:focus-visible{outline:3px solid var(--fluoro);outline-offset:8px}
-.wk-frame{position:relative;display:block;aspect-ratio:1/1.414;overflow:hidden;contain:paint;container-type:size;
+/* 16:10 again (12 Oct): the covers were portrait A-series when they arrived
+   in October and the collage was retuned to match. He has supplied 1600x1000
+   masters, so the slot goes back to the shape it was designed for. */
+.wk-frame{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;contain:paint;container-type:size;
   border:1px solid rgba(var(--cream-rgb),.22);background:var(--cream)}
 
 /* poster: the still face. Typographic until real imagery exists. */
-.wk-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.wk-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
 .wk-poster{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;
   padding:5cqw 5.5cqw;transition:opacity .25s var(--wk-ease)}
 .wk-poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
@@ -715,6 +718,12 @@ html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-event
 .rv.in{opacity:1;transform:none}.anim [data-t],.anim .bg{opacity:0}
 .snap{animation:snap 180ms var(--ease) forwards}
 @keyframes snap{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+/* .rise is applied by home.js at runtime, never written in the markup, which
+   is why the dead-code sweep of 8 Oct removed it after checking only the HTML
+   and left the hero claim and both calls to action invisible for four days:
+   .anim [data-t] holds them at opacity 0 and this is what brings them back.
+   Any class a script adds has to be grepped in assets/*.js too. */
+.rise{animation:rise 560ms var(--ease) forwards}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .fade{animation:fade 640ms var(--ease) forwards}
 @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -849,9 +858,9 @@ a.wrow:hover .go::after{padding-left:.25em}
    or the reveal mechanism. Each plate differs in COMPOSITION,
    not merely ground colour — per the section brief.
    ============================================================ */
-.plate{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--deep);
+.plate{position:relative;overflow:hidden;aspect-ratio:16/10;background:var(--deep);
   border:2px solid var(--deep);display:grid;isolation:isolate}
-.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;z-index:1}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .plate .pw{font-family:var(--fd);font-weight:700;text-transform:uppercase;
   color:var(--cream);line-height:.8;letter-spacing:var(--fd-track);margin:0;z-index:1;
   font-size:var(--t-h2)}
@@ -1419,10 +1428,26 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    ============================================================ */
 .contact{isolation:isolate}
 
+/* The ending sits on a coloured pill (12 Oct, at his instruction). The veto
+   list bans pills, and it means the small metadata capsule, not this: a plane
+   big enough to be a room rather than a label. Same job as the reference's
+   rounded blob, in our own colour.
+   Cape blue and not red, because the block carries small type and red only
+   carries type above 24px. Cream on deep is 8.50.
+   The hover rule inside turns yellow rather than red: red on blue is unusable,
+   and this is the one place yellow gets to be the interactive colour. */
 .sign-off{position:relative;z-index:2;display:grid;gap:var(--s-7) var(--s-6);
   grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr) minmax(0,1fr) auto;
   align-items:start;margin-top:clamp(3.5rem,7vw,5.5rem);
-  border-top:3px solid var(--deep);padding-top:var(--s-6)}
+  background:var(--deep);color:var(--cream);border-radius:999px;
+  padding:clamp(2.6rem,5vw,4rem) clamp(2.2rem,6vw,6rem)}
+.sign-off .so-line,.sign-off .so-mail,.sign-off .so-col a,.sign-off .so-k{color:var(--cream)}
+.sign-off .so-mail:is(:hover,:focus-visible),
+.sign-off .so-col a:is(:hover,:focus-visible){border-bottom-color:var(--yellow)}
+.sign-off :focus-visible{outline-color:var(--yellow)}
+/* the pill is a plane, so the grid's own paper does not show through it and
+   the star behind must not either */
+.sign-off{isolation:isolate}
 .so-line{margin:0;font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.12;
   letter-spacing:var(--fd-track);color:var(--deep);max-width:18em}
 .so-mail{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;margin-top:var(--s-4);
@@ -1470,7 +1495,8 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
   fill:var(--fluoro);opacity:.92;pointer-events:none}
 
 @media (max-width:1100px){
-  .sign-off{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-6)}
+  .sign-off{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s-6);
+    border-radius:clamp(28px,6vw,72px);padding:clamp(2.2rem,5vw,3rem) clamp(1.6rem,4vw,2.6rem)}
   .so-fan{justify-self:start}
 }
 @media (max-width:640px){

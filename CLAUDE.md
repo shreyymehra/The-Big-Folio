@@ -1240,3 +1240,44 @@ because it is the piece where he designed and built an interface rather than des
 **Worth his read:** his own line for the Me section was *"I am not a product designer"*. A
 Product & interface group does not contradict that, since UI/UX and product design are not the same
 claim, but he should decide whether the group name is the one he wants standing next to it.
+
+## THE PILL, THE COVERS, AND A REGRESSION I CAUSED (12 Oct 2026)
+
+**The hero copy was invisible for four days and it was my fault.** He reported the hero showing only
+"Product marketing & brand strategy" with no claim, no calls to action and no revolve. Reproduced on
+a clean load: `.anim` holds every `[data-t]` at opacity 0, and `home.js` brings them back by adding
+`rise`, `snap` or `fade` at each element's own delay. **The dead-code sweep of 8 Oct deleted `.rise`**
+after checking the markup, where it never appears, because it is applied by script at runtime.
+`@keyframes rise` survived, which is why nothing looked obviously broken in the stylesheet.
+
+**The rule for any future sweep: grep `assets/*.js` as well as the HTML.** A class a script adds is
+invisible to a markup search and to a DOM scanner, and `.copied-note` was caught that way while this
+one was not.
+
+**The ring was falling back to the row on common laptops.** At 1280x720 the orbit missed by **seven
+pixels** with the panel already at its 210px floor, so `.is-row` fired and nothing revolved. The
+fitter now squeezes in two stages: the panel first, because the identity can be smaller, then the
+marks down to a 104px floor, because a slightly smaller mark that orbits beats a bigger one that
+does not. The row is the third answer, not the second. Gap and edge came down from 14/18 to 10/12.
+
+**The ending sits on a cape blue pill**, at his instruction. The veto list bans pills and means the
+small metadata capsule, not a plane big enough to be a room. Blue and not red because the block
+carries small type and red carries none under 24px; cream on deep is 8.50. The hover rule inside
+turns **yellow**, because red on blue is unusable and this is the one place yellow gets to be the
+interactive colour. Rounded ends square off under 1100px, where they would eat the corner content.
+
+**The 16:10 covers are in.** Seven masters arrived in four formats: two PNG, three SVG and one ZIP
+holding two PNGs. **Three of the SVGs were the October trap again**, a base64 raster inside a vector
+wrapper, 30MB for L'Oreal and 26MB for VRL. All seven are now 1200x750 WebP, 33 to 133KB, 415KB for
+the set.
+
+**The slots went back to landscape:** `.wk-frame` from `1/1.414` to `16/10` and `.plate` from `4/3`
+to `16/10`, and both lost `object-position:top center`, which only existed to keep a portrait
+poster's headline in frame. With the art and the slot at the same ratio, cover crops nothing.
+
+**`.gitignore` now excludes the delivered masters** (`assets/img/work/*.png|svg|zip`,
+`assets/img/*.jpg|jpeg`). The site serves only the WebP derived from them, and a 30MB SVG in git
+history is permanent. They stay on disk where they cannot be swept in by accident.
+
+**One stale file left on purpose:** `assets/img/work/vrl2.webp`, unreferenced since the new master
+landed. It may be the alternate he wants, so it is his to delete, not mine.

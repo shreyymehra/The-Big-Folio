@@ -12,3 +12,14 @@ Thumbs.db
 
 # local build tools (Tailwind standalone CLI, 112MB, re-download per assets/tw/README.md)
 .tools/
+
+# Delivered source masters: originals he drops in to be converted. They are
+# large (two of the October SVGs were a 30MB base64 raster in a vector wrapper)
+# and the site never serves them, only the WebP derived from them. Keep them on
+# disk, out of git history, where they cannot be committed by accident.
+assets/img/work/*.png
+assets/img/work/*.svg
+assets/img/work/*.zip
+assets/img/*.jpeg
+assets/img/*.jpg
+Claude outputs/

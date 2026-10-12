@@ -491,45 +491,68 @@
         mark=hero.querySelector(".fl");
     if(!centre||!floats||!mark) return;
 
-    var FLOOR=210, STEP=14, GAP=14, EDGE=18;
+    /* Two things can give before the ring is abandoned, in this order:
+       the panel, because the identity can be smaller, and then the marks,
+       because a slightly smaller mark that orbits beats a bigger one that
+       does not. At 1280x720, a very common laptop, the ring missed by seven
+       pixels with the panel already at its floor and the whole device fell
+       back to a static row. */
+    var P_FLOOR=210, P_STEP=14, M_FLOOR=104, M_STEP=8, GAP=10, EDGE=12;
 
     function clear(){
       hero.style.removeProperty("--panel-w");
+      floats.style.removeProperty("--fl-w");
       floats.style.removeProperty("--rx");
       floats.style.removeProperty("--ry");
     }
+
+    function room(){
+      var h=hero.getBoundingClientRect(),
+          c=centre.getBoundingClientRect(),
+          m=mark.getBoundingClientRect();
+      var cy=c.top+c.height/2, cx=c.left+c.width/2;
+      return {
+        maxRy:Math.min(cy-h.top, h.bottom-cy)-m.height/2-EDGE,
+        maxRx:Math.min(cx-h.left, h.right-cx)-m.width/2-EDGE,
+        needRy:c.height/2+m.height/2+GAP,
+        needRx:c.width/2+m.width/2+GAP
+      };
+    }
+    function fits(r){ return r.needRy<=r.maxRy && r.needRx<=r.maxRx; }
 
     function fit(){
       /* under 1280 the media query already lays the marks out as a row, and
          the fitter has nothing to say */
       if(innerWidth<1280){ hero.classList.remove("is-row"); clear(); return; }
 
-      hero.style.removeProperty("--panel-w");
+      clear();
       var panel=hero.querySelector(".hero-panel");
-      var w=panel?Math.round(panel.getBoundingClientRect().width):0;
-      var need=null;
-      for(var i=0;i<14;i++){
-        var h=hero.getBoundingClientRect(),
-            c=centre.getBoundingClientRect(),
-            m=mark.getBoundingClientRect();
-        /* the ring is centred on the centre-piece, so measure the room from
-           there to each edge of the hero and take the tighter side */
-        var cy=c.top+c.height/2, cx=c.left+c.width/2;
-        var maxRy=Math.min(cy-h.top, h.bottom-cy)-m.height/2-EDGE;
-        var maxRx=Math.min(cx-h.left, h.right-cx)-m.width/2-EDGE;
-        var needRy=c.height/2+m.height/2+GAP;
-        var needRx=c.width/2+m.width/2+GAP;
-        if(needRy<=maxRy&&needRx<=maxRx){ need={rx:needRx,ry:needRy,maxRx:maxRx,maxRy:maxRy}; break; }
-        if(!panel||w<=FLOOR) break;
-        w=Math.max(FLOOR,w-STEP);
-        hero.style.setProperty("--panel-w",w+"px");
+      var r=room();
+
+      /* 1. the panel gives */
+      if(panel){
+        var w=Math.round(panel.getBoundingClientRect().width);
+        while(!fits(r) && w>P_FLOOR){
+          w=Math.max(P_FLOOR,w-P_STEP);
+          hero.style.setProperty("--panel-w",w+"px");
+          r=room();
+        }
+      }
+      /* 2. then the marks give */
+      if(!fits(r)){
+        var mw=Math.round(mark.getBoundingClientRect().width)-28; /* .fl is --fl-w + 28 */
+        while(!fits(r) && mw>M_FLOOR){
+          mw=Math.max(M_FLOOR,mw-M_STEP);
+          floats.style.setProperty("--fl-w",mw+"px");
+          r=room();
+        }
       }
 
-      if(!need){ hero.classList.add("is-row"); clear(); return; }
+      if(!fits(r)){ hero.classList.add("is-row"); clear(); return; }
       hero.classList.remove("is-row");
       /* sit a little outside the minimum where there is room to, so the ring
          reads as an orbit rather than as a box drawn around the photograph */
-      var rx=Math.min(need.maxRx,need.rx+40), ry=Math.min(need.maxRy,need.ry+16);
+      var rx=Math.min(r.maxRx,r.needRx+40), ry=Math.min(r.maxRy,r.needRy+16);
       floats.style.setProperty("--rx",Math.round(rx)+"px");
       floats.style.setProperty("--ry",Math.round(ry)+"px");
     }
