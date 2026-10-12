@@ -63,6 +63,19 @@ photo-booth strip, which is more you than the same head twice, and the band's
 ground carries the colour load. If you want it on-palette, say so and I will run
 it on the red and yellow two.
 
+### A8. The sitar photograph · I cannot find it
+**P0, blocked.** You said there is another image of you with the sitar and to
+use it in the hero or About. **It is not in the repo and I could not find it.**
+Where I looked: every image under `assets/img/` and `assets/work/`, the
+"What motivates Me" PDF (three artefacts, all already cut and in use), the
+bobblehead zip (four PDFs, all the floating heads), `Downloads`, `Pictures`
+and the git history. Drop it anywhere in the repo and I will cut and place it.
+
+When it lands my recommendation is **About, not the hero**: the hero card is
+already carrying the 2003 photograph, and a second picture of you three inches
+away competes with it. In About it would sit beside the monologue, where there
+is a column doing nothing.
+
 ### A7. Junk-journal props · unblocks the texture you keep asking for
 **P2.** You have said twice that the site lacks the creative instance and that
 inspirations have not been wholly used. The thing the references have that this
@@ -107,11 +120,10 @@ the stub text rather than ship the word "year".
 
 What I need: the year each was made.
 
-### B5. Two lines in What keeps me going are mine, not yours
-**P1, and this one matters.** The heading **"The two people who made the rest
-possible"** and the caption **"Mum, Dad, me."** are my writing on a photograph
-of your parents. Everything else in that section is yours. Please either approve
-them or replace them.
+### B5. ~~Two lines in What keeps me going are mine~~ HALF CLOSED, 13 Oct
+The heading is yours now: the section is **"Who I do it for"**, your title, and
+the camera sits in the middle. **Still open:** the caption **"Mum, Dad, me."**
+is my writing. Approve it or replace it.
 
 ---
 
@@ -140,21 +152,21 @@ GitHub Pages and Vercel both serve this. Two live URLs means a recruiter can
 land on whichever is staler. Pick one, point a domain at it. **Open since
 September and unanswered.**
 
-### C3. The beliefs appear twice
+### C3. ~~The beliefs appear twice~~ CLOSED 13 Oct
 The five beliefs are now the star-head strip on `/about/` **and** the manifesto
 spread in the home magazine. Different devices, different pages, a click apart.
 I kept both because the magazine spread is a designed artefact and most visitors
 never flip to page three. **Your call** whether the magazine page becomes
 something else.
 
-### C4. The home Me paragraph is the /about/ opening paragraph, verbatim
+### C4. ~~The home Me paragraph is the /about/ opening, verbatim~~ CLOSED 13 Oct
 One click apart. Home's Me section is the teaser and `/about/` is "the long
 version", so reading the identical four sentences twice undercuts both.
 
 The fix is to cut the home one back to its first sentence and its last, which
 are the thesis and the turn. **It is your prose, so I have not touched it.**
 
-### C5. Five answers in the FAQ run long
+### C5. ~~Two answers in the FAQ run long~~ CLOSED 13 Oct
 Q.05 and Q.07 are about a hundred words each. They are good answers and they are
 yours. For a page whose promise is "answered properly so neither of us has to
 spend the first fifteen minutes", a hundred words is a lot of the fifteen.
