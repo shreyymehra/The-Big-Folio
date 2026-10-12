@@ -57,6 +57,7 @@
   (function () {
     if (reduce || !hasGsap) return;
     var tiles = [].slice.call(document.querySelectorAll('.wk-tile'));
+    var canHover = matchMedia('(hover:hover) and (pointer:fine)').matches;
     if (!tiles.length) return;
 
     tiles.forEach(function (tile) {
@@ -72,7 +73,15 @@
       var tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
       tl.to(frame, { rotation: -rest, y: -14, duration: .42 }, 0);
       if (poster) tl.to(poster, { scale: 1.06, duration: .62 }, 0);
-      if (open) tl.fromTo(open, { yPercent: 100 }, { yPercent: 0, duration: .34 }, .04);
+      /* The band only hides at rest where there is a hover to bring it back.
+         A fromTo() here would have left it visible until the first hover and
+         then snapped it off screen to animate it back on, which is a flash on
+         the very first interaction; and on a touch screen, hiding it at rest
+         would have removed "Read the case" with no way to reveal it. */
+      if (open && canHover) {
+        gsap.set(open, { yPercent: 100 });
+        tl.to(open, { yPercent: 0, duration: .34 }, .04);
+      }
 
       function enter() { tl.timeScale(1).play(); }
       /* out faster than in: a hover that lingers on exit feels broken */

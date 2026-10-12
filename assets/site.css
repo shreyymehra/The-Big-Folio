@@ -697,8 +697,10 @@ html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-event
 .vinyl.playing .vinyl-icon{margin-left:0;width:10px;clip-path:none;
   background:linear-gradient(90deg,currentColor 0 36%,transparent 36% 64%,currentColor 64% 100%)}
 /* the embed does the playing; it is rendered, never shown */
-.vinyl-host{position:absolute;right:0;bottom:0;width:var(--vd);height:80px;overflow:hidden;opacity:0;pointer-events:none}
-.vinyl-host iframe{width:100%;height:80px;border:0}
+/* .vinyl-host and its iframe rule are gone with the Spotify embed (13 Oct).
+   Checked against the markup AND the scripts before deleting, which is the
+   rule this repo learnt the hard way with .rise. */
+.vinyl-audio{display:none}
 @media (max-width:640px){
   .vinyl{--vd:76px;gap:.5rem}
   .vinyl-btn{width:26px;height:26px;margin:-13px 0 0 -13px}
@@ -2064,3 +2066,9 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .id-stamp{align-self:start}
   .idcard::before{inset:7px -7px -7px 7px}
 }
+
+/* The deck says so when the file will not play, rather than leaving a button
+   that silently does nothing. Set by motion-free code in home.js on the audio
+   element's own error event, so it can only appear when the load really failed. */
+.vinyl-dead .vinyl-btn{opacity:.5;cursor:not-allowed}
+.vinyl-dead .vinyl-cap .vinyl-by::after{content:" · unavailable";color:var(--accent-type)}
