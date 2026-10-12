@@ -20,6 +20,7 @@ Thumbs.db
 assets/img/work/*.png
 assets/img/work/*.svg
 assets/img/work/*.zip
+assets/img/*.zip
 assets/img/*.jpeg
 assets/img/*.jpg
 Claude outputs/
