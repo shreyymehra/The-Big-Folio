@@ -1452,8 +1452,17 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .stage{position:relative;z-index:2;min-height:calc(100svh - var(--s-10) - var(--s-9));display:grid;place-items:center}
 
 /* the centre-piece: the photograph, then the name and the one value line */
-.stage-centre{position:relative;isolation:isolate;z-index:2;align-items:center;--fl-w:clamp(132px,19vh,212px);position:relative;z-index:3;display:grid;align-items:center;gap:var(--s-6) var(--s-7);
-  grid-template-columns:auto minmax(0,1fr);gap:var(--s-5) var(--s-6);width:min(840px,calc(100% - 2 * var(--pad)));margin:0 auto}
+/* The centre-piece is squeezed to fit the ring, which is what he asked for
+   when the ring went outside it: the marks are the navigation and must clear
+   the identity, and the identity is the thing that can give. --centre-max is
+   driven by the fitter in home.js; 840 is the unconstrained size.
+   The photograph scales WITH it, because the panel's height is what the ring
+   runs out of, and height follows the print. The duplicated --fl-w and the
+   duplicated gap/position that used to sit on this rule are gone: the mark
+   size is declared once, on .floats. */
+.stage-centre{position:relative;isolation:isolate;z-index:3;display:grid;align-items:center;
+  grid-template-columns:auto minmax(0,1fr);gap:var(--s-5) var(--s-6);
+  width:min(840px,calc(100% - 2 * var(--pad)));margin:0 auto}
 .print{margin:0;width:clamp(168px,17vw,228px);transform:rotate(-2.4deg)}
 .print-mount{display:block;position:relative;background:var(--card);border:2px solid var(--deep);padding:10px 10px 0}
 /* ============================================================
@@ -1530,8 +1539,12 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    upright. Stops on hover and focus, on Pause motion, and under reduced
    motion.
    ============================================================ */
+/* These two are the no-JS fallback only. home.js measures the centre-piece
+   and the mark and writes --rx/--ry that actually clear it; a stylesheet
+   cannot read one element's box to size another, which is why the hand-picked
+   radii here collided with the panel at every width over 1280. */
 .floats{--fl-w:clamp(132px,18vh,196px);
-  --rx:min(620px,calc(50vw - var(--fl-w) / 2 - 26px));
+  --rx:min(560px,calc(50vw - var(--fl-w) / 2 - 26px));
   --ry:min(300px,calc(46svh - var(--fl-w) / 2 - 8px));
   list-style:none;margin:0;padding:0;
   position:absolute;left:50%;top:50%;width:calc(var(--rx) * 2);height:calc(var(--ry) * 2);
@@ -1576,6 +1589,18 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 
 /* under 1180 there is no room to float: the objects become a row under the
    centre-piece, and the photograph stays the centre-piece. */
+/* The row is reachable two ways: under 1279px by media query, which is the
+   no-JS path, and by .is-row, which the fitter sets when the ring cannot clear
+   the centre-piece even with the centre at its floor. Same rules either way. */
+.stage-hero.is-row .stage{display:block}
+.stage-hero.is-row .stage-centre{width:100%;max-width:820px}
+.stage-hero.is-row .floats{animation:none;position:relative;left:auto;top:auto;width:auto;height:auto;
+  transform:none;border-radius:0;pointer-events:auto;inset:auto;display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s-4) var(--s-3);margin:var(--s-8) auto 0;max-width:820px}
+.stage-hero.is-row .fl{translate:none;offset-path:none;animation:none;position:static;width:auto}
+.stage-hero.is-row .fl-icon{width:100%;height:auto;aspect-ratio:1}
+.stage-hero.is-row .stage-hint{display:none}
+
 @media (max-width:1279px){
   .stage-hero{padding:calc(var(--s-9) + var(--s-4)) var(--pad) var(--s-8)}
   .stage{display:block}
@@ -1610,8 +1635,16 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    ============================================================ */
 
 /* --- the panel --------------------------------------------------- */
+/* The panel takes its width from --panel-w, not from the viewport (12 Oct).
+   It is the tallest thing in the centre-piece, so it is what the ring runs out
+   of room for, and while it was sized in vw there was nothing for the fitter
+   to squeeze. The squeeze lands HERE rather than on the centre-piece: the grid
+   is auto minmax(0,1fr), so width taken off the panel is handed to the copy.
+   Narrowing the whole centre instead starved the claim into five short lines
+   and pushed the two calls to action onto separate rows, which is the kind of
+   thing you only see by looking at it. Without --panel-w the vw sizing holds. */
 .hero-panel{position:relative;display:grid;justify-items:start;gap:var(--s-4);
-  width:clamp(238px,25vw,330px);padding:var(--s-5) var(--s-5) var(--s-6);
+  width:var(--panel-w,clamp(238px,25vw,330px));padding:var(--s-5) var(--s-5) var(--s-6);
   background:var(--fluoro);border:2px solid var(--deep);
   /* halftone: one dot per 7px cell, ink blue at low alpha over the red.
      A printed screen, not a texture overlay, so it survives scaling. */
@@ -1628,11 +1661,14 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .hero-panel .hero-name .l2{display:block;margin-top:5px}
 .hero-panel .tile{display:inline-block}
 .hero-panel .tile img{display:block;width:100%;height:auto}
-.hero-panel .t-hi{width:clamp(30px,3vw,38px)}
-.hero-panel .t-my{width:clamp(35px,3.4vw,44px)}
-.hero-panel .t-name{width:clamp(62px,6.2vw,78px)}
-.hero-panel .t-is{width:clamp(21px,2.1vw,26px)}
-.hero-panel .t-shrey{width:clamp(140px,14vw,176px)}
+/* The cut-out letters are a percentage of the panel rather than of the
+   viewport, so the whole lockup scales as one object when the panel gives way.
+   The percentages are the sizes they already had at a 330px panel. */
+.hero-panel .t-hi{width:13.5%}
+.hero-panel .t-my{width:15.6%}
+.hero-panel .t-name{width:27.7%}
+.hero-panel .t-is{width:9.2%}
+.hero-panel .t-shrey{width:62.4%}
 .hero-panel .print{width:100%;max-width:100%;transform:rotate(-1.6deg)}
 .hero-panel .print-stamp{right:-12px;top:-12px}
 @media (max-width:900px){

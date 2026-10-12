@@ -1194,3 +1194,49 @@ because they are small devices rather than wordmarks and read light at a shared 
 at it and wants them the same size as the rest. The nudges are gone and one line sizes every mark.
 The cost is the thing the nudge was correcting, and it is his call: a device mark carries less
 optical weight than a wordmark beside it.
+
+## THE HERO, TAKEN OVER (12 Oct 2026)
+
+**The overlap was arithmetic the stylesheet could not do.** `--rx` and `--ry` were hand-picked
+constants, so the ring had no idea how big the centre-piece was. Measured through a full orbit at
+five widths, **every one of the six marks crossed the hero panel at every width above 1280**, by
+12,000 to 20,000 square pixels. Under 1280 it looked fine only because the media query had already
+turned the ring into a row.
+
+The sum: a mark riding the top edge needs `centreHeight/2 + markHeight/2 + gap` of vertical radius
+to clear the centre, and has only `stageCentre - markHeight/2 - edge` before it leaves the hero. At
+1440x900 that wanted 391px against 335px available. **No constant could have been right**, because
+one side of it is content.
+
+**`home.js` now fits the ring to the measured boxes**, re-running on resize, on `fonts.ready` and on
+`load`, because the tiles and the face both land late and both change the panel's height.
+
+**Two findings that only came from looking at it:**
+
+1. **The squeeze has to land on the panel, not the centre-piece.** The first version drove
+   `--centre-max`, which did nothing: the panel was sized `clamp(238px,25vw,330px)`, so narrowing
+   the centre only squeezed the copy column beside it, and the height, which is what the ring
+   actually runs out of, never moved. Worse, when it did bite it starved the claim into five short
+   lines and pushed the two calls to action onto separate rows. The grid is `auto minmax(0,1fr)`, so
+   **width taken off the panel is handed to the copy**: driving `--panel-w` instead fixes the
+   geometry and widens the claim at the same time. At 1440x900 the panel goes 330 to 246, the claim
+   holds three lines and the two CTAs stay on one.
+2. **The cut-out letters had to stop being sized in vw.** They are percentages of the panel now, so
+   the lockup scales as one object. The percentages are the sizes they already had at 330px.
+
+`.is-row` makes the row fallback reachable by class as well as by media query, so the fitter can
+drop to it if the panel ever hits its 210px floor. It has not needed to at any size tested.
+
+Verified collision-free through a full orbit at **1920, 1680, 1600, 1440, 1366, 1280, 1279, 1024,
+768 and 390**: no mark touches the centre-piece, the copy, another mark, the hero edge or the screen
+edge. `scratchpad/hero.mjs` is the harness; keep it, this will need re-checking after any hero change.
+
+**UI/UX is on the site**, at his instruction, in three places where there is something behind it:
+the home `What I do` list gains UI/UX and Prototyping beside User research; `/about/` gains a
+**Product & interface** group under Fluent (UI/UX, wireframing and prototyping, information
+architecture, user research, design systems, accessibility); and **VoiceDNA carries a UI/UX tag**,
+because it is the piece where he designed and built an interface rather than described one.
+
+**Worth his read:** his own line for the Me section was *"I am not a product designer"*. A
+Product & interface group does not contradict that, since UI/UX and product design are not the same
+claim, but he should decide whether the group name is the one he wants standing next to it.

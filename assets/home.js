@@ -469,6 +469,81 @@
     document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
   },{threshold:th}).observe(hero);
 
+  /* ---- the ring is fitted, not guessed ----
+     A stylesheet cannot read one element’s box to size another, so the radii
+     were hand-picked numbers and the marks ran straight over the hero panel at
+     every width above 1280: measured, every one of the six, by 12,000 to
+     20,000 square pixels per orbit.
+     The arithmetic the stylesheet could not do: a mark riding the top edge
+     needs centreHeight/2 + markHeight/2 + a gap of vertical radius to clear the
+     centre-piece, and it has only stageCentre - markHeight/2 - an edge before
+     it leaves the hero. At 1440x900 that wanted 391px against 335px available,
+     which is why it could never be written as a constant.
+     When it does not fit, the PANEL gives, not the marks and not the copy.
+     That is his call from 6 Oct, that the marks must clear the identity, with
+     one correction found by looking: squeezing the whole centre starved the
+     claim into five short lines, because the grid hands width to the copy.
+     Only when the panel reaches its floor do we fall back to the row. */
+  (function(){
+    var hero=document.querySelector(".stage-hero"); if(!hero) return;
+    var centre=hero.querySelector(".stage-centre"),
+        floats=hero.querySelector(".floats"),
+        mark=hero.querySelector(".fl");
+    if(!centre||!floats||!mark) return;
+
+    var FLOOR=210, STEP=14, GAP=14, EDGE=18;
+
+    function clear(){
+      hero.style.removeProperty("--panel-w");
+      floats.style.removeProperty("--rx");
+      floats.style.removeProperty("--ry");
+    }
+
+    function fit(){
+      /* under 1280 the media query already lays the marks out as a row, and
+         the fitter has nothing to say */
+      if(innerWidth<1280){ hero.classList.remove("is-row"); clear(); return; }
+
+      hero.style.removeProperty("--panel-w");
+      var panel=hero.querySelector(".hero-panel");
+      var w=panel?Math.round(panel.getBoundingClientRect().width):0;
+      var need=null;
+      for(var i=0;i<14;i++){
+        var h=hero.getBoundingClientRect(),
+            c=centre.getBoundingClientRect(),
+            m=mark.getBoundingClientRect();
+        /* the ring is centred on the centre-piece, so measure the room from
+           there to each edge of the hero and take the tighter side */
+        var cy=c.top+c.height/2, cx=c.left+c.width/2;
+        var maxRy=Math.min(cy-h.top, h.bottom-cy)-m.height/2-EDGE;
+        var maxRx=Math.min(cx-h.left, h.right-cx)-m.width/2-EDGE;
+        var needRy=c.height/2+m.height/2+GAP;
+        var needRx=c.width/2+m.width/2+GAP;
+        if(needRy<=maxRy&&needRx<=maxRx){ need={rx:needRx,ry:needRy,maxRx:maxRx,maxRy:maxRy}; break; }
+        if(!panel||w<=FLOOR) break;
+        w=Math.max(FLOOR,w-STEP);
+        hero.style.setProperty("--panel-w",w+"px");
+      }
+
+      if(!need){ hero.classList.add("is-row"); clear(); return; }
+      hero.classList.remove("is-row");
+      /* sit a little outside the minimum where there is room to, so the ring
+         reads as an orbit rather than as a box drawn around the photograph */
+      var rx=Math.min(need.maxRx,need.rx+40), ry=Math.min(need.maxRy,need.ry+16);
+      floats.style.setProperty("--rx",Math.round(rx)+"px");
+      floats.style.setProperty("--ry",Math.round(ry)+"px");
+    }
+
+    var tid;
+    function schedule(){ clearTimeout(tid); tid=setTimeout(fit,120); }
+    fit();
+    addEventListener("resize",schedule);
+    /* the tiles and the face land after the fonts and the images do, and both
+       change the panel’s height, so measure again once they have */
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+    addEventListener("load",fit);
+  })();
+
   /* ---- Me: the card deck ----
      The markup is an ordered list and stays one. A screen reader reads every
      card in order and never has to drive anything; this upgrades the look for
