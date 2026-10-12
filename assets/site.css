@@ -1521,7 +1521,10 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .phead{position:relative}
 .me-head{position:absolute;right:max(var(--pad),4vw);top:var(--s-6);width:clamp(140px,18vw,240px);aspect-ratio:1;
   animation:mebob 1.4s var(--e-out) 3 alternate}
-.me-head .ph{width:100%;height:100%;border-radius:0}
+/* the floating head is a cut-out with its own transparent margin, so it is
+   contained rather than cropped and the slot stops being square-bound */
+.me-head{aspect-ratio:auto}
+.me-head img{display:block;width:100%;height:auto;object-fit:contain}
 @keyframes mebob{to{transform:translateY(-10px) rotate(-3deg)}}
 @media (prefers-reduced-motion:reduce){.me-head{animation:none}}
 /* it is a <span>, so the stacked branch has to give it a box: inline elements

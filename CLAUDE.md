@@ -1281,3 +1281,21 @@ history is permanent. They stay on disk where they cannot be swept in by acciden
 
 **One stale file left on purpose:** `assets/img/work/vrl2.webp`, unreferenced since the new master
 landed. It may be the alternate he wants, so it is his to delete, not mine.
+
+**Me1 is in (12 Oct).** The delivery was a zip of four PDFs: the same four cut-out floating heads on
+a dark ground, on a light ground, a third large copy, and one blank page. Each head is black and
+white with a hand-drawn star over one eye, which is the Reference Book spec exactly.
+
+**The light-ground version is the one to key**, because keying light grey leaves dark hair intact
+where keying the dark version eats it. Rendered at 1800px, blobs labelled, background keyed to alpha
+with a ten-level feather, each head trimmed to its own ink. `scratchpad/keyout.mjs` is the script and
+it is worth keeping: it takes a background sample point, because **a rendered PDF page sits inside
+Chrome's own dark viewer surround and the top-left pixel is the wrong colour to sample.** The first
+pass keyed the surround and returned one blob.
+
+The red-star head is the one wired, because red is the site's accent; the yellow one is the other
+on-palette choice and the pink and light-blue stars are not. The other three are cut and waiting.
+
+**A pane quirk, not a site bug, now seen three times:** lazy-loaded images report `naturalWidth 0`
+in the preview pane until forced with a cache-buster. The covers and this head both did it and both
+render in a normal browser. Do not chase it.
