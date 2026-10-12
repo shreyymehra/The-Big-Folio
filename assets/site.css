@@ -1556,9 +1556,11 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   /* the path is stylesheet-relative on purpose: a url() inside a custom
      property is resolved against this file by the browser, not against the
      page, so an inline override from the markup resolves wrong */
-  background-image:url("img/352bc34c15.webp");
+  background-image:url("img/delhi-colour.webp");
   background-size:cover;background-position:center;
-  filter:saturate(1.85) contrast(1.05);
+  /* the source is the colour original now, not the same halftone pushed, so
+     the saturation boost that was faking colour comes off (12 Oct) */
+  filter:saturate(1.06);
   -webkit-mask-image:radial-gradient(circle var(--brush,118px) at var(--bx,-999px) var(--by,-999px),#000 42%,rgba(0,0,0,.55) 62%,transparent 78%);
   mask-image:radial-gradient(circle var(--brush,118px) at var(--bx,-999px) var(--by,-999px),#000 42%,rgba(0,0,0,.55) 62%,transparent 78%);
   transition:-webkit-mask-image 120ms linear,mask-image 120ms linear}
