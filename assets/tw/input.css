@@ -86,7 +86,7 @@
     --cream:#173CA8; --deep:#E6E0D2; --fluoro:#FF6B5E;
   }
   /* ----------------------------------------------------------------
-     VoiceDNA runs on the inverse of the rest of the site (Shrey, 24 Sep
+     Voice'D runs on the inverse of the rest of the site (Shrey, 24 Sep
      2026). It is the only page that is a product rather than a piece of
      writing, so it is the only page that is a screen rather than paper.
      The values are the ones the dark theme already uses, so nothing new is
@@ -158,7 +158,7 @@
   .case .dec.in .cost::before{transform:scaleY(1)}
 
   /* ----------------------------------------------------------------
-     VoiceDNA: the gap map, shown at the size it is read.
+     Voice'D: the gap map, shown at the size it is read.
      The point of the product is that the distance between what a brand
      says it sounds like and what it actually sounds like IS the brief,
      so the gap band is the loud element and the two markers are quiet.

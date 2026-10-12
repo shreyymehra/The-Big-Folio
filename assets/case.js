@@ -45,7 +45,7 @@
   decs.forEach(function(d){ dio.observe(d); });
 })();
 
-/* The VoiceDNA gap map: two sample analyses behind a tablist. Arrow keys
+/* The Voice'D gap map: two sample analyses behind a tablist. Arrow keys
    move between tabs, as a tablist should. Without JS the first panel is
    already open and the second is simply below it, so the page still reads. */
 (function(){

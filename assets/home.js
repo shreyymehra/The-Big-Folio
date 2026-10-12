@@ -129,57 +129,55 @@
     } else start();
   });
 
-  /* ---- vinyl: Spotify's embed behind a record ----
-     Never autoplays. The Spotify iframe API is not requested on page load; it
-     loads the first time someone points at, focuses or touches the player, so
-     it never costs first paint. A click before it is ready is remembered and
-     played once the embed reports ready.
+  /* ---- vinyl: the deck plays a file ----
+     The Spotify embed is gone at his instruction. It needed a signed-in
+     session to play more than thirty seconds, which is not the state most
+     recruiters arrive in, and it put a third party in the critical path of a
+     device that is meant to be charm.
 
-     State comes from Spotify's playback_update events, not from the click, so
-     the record only spins while audio is actually playing. Visitors signed in
-     to Spotify in that browser hear the whole song; everyone else hears
-     Spotify's 30-second preview. Hosting the MP3 would lift that limit and is a
-     licensing problem on a public site in his name, so it is not done. */
+     Nothing is fetched until the player is reached for: the element carries
+     preload="none" and the source only starts loading on the first play. The
+     record spins from the audio element's own events, never from the click,
+     so the disc and the ring can never disagree with what is audible. */
   (function(){
     var vw=document.getElementById('vinyl'); if(!vw) return;
-    var btn=vw.querySelector('.vinyl-btn'), host=vw.querySelector('[data-spotify-host]'),
-        ring=vw.querySelector('.vinyl-ring circle'), uri=vw.getAttribute('data-track');
-    if(!btn||!host||!ring) return; /* markup out of step with this script: stay silent, never break the page */
-    var ctrl=null, requested=false, wantPlay=false;
+    var btn=vw.querySelector('.vinyl-btn'),
+        ring=vw.querySelector('.vinyl-ring circle'),
+        au=vw.querySelector('.vinyl-audio');
+    /* markup out of step with this script: stay silent, never break the page */
+    if(!btn||!ring||!au) return;
 
     function setPlaying(on){
       vw.classList.toggle('playing',on);
       btn.setAttribute('aria-pressed',on?'true':'false');
-      btn.setAttribute('aria-label',(on?'Pause':'Play')+' I Want You by Savage Garden');
+      btn.setAttribute('aria-label',(on?'Pause':'Play')+' Take A Chance On Me by ABBA');
     }
-    function load(){
-      if(requested||!host||!uri) return; requested=true;
-      window.onSpotifyIframeApiReady=function(API){
-        API.createController(host,{uri:uri,width:'100%',height:'80'},function(c){
-          ctrl=c;
-          c.addListener('ready',function(){
-            vw.classList.add('ready');
-            if(wantPlay){ wantPlay=false; vw.classList.remove('queued'); c.togglePlay(); }
-          });
-          c.addListener('playback_update',function(e){
-            var d=e.data||{};
-            setPlaying(!d.isPaused&&!d.isBuffering);
-            if(d.duration) ring.style.strokeDashoffset=(100-100*Math.min(1,d.position/d.duration)).toFixed(2);
-          });
-        });
-      };
-      var s=document.createElement('script');
-      s.src='https://open.spotify.com/embed/iframe-api/v1'; s.async=true;
-      document.body.appendChild(s);
-    }
-    ['pointerenter','focusin','touchstart'].forEach(function(ev){
-      vw.addEventListener(ev,load,{once:true,passive:true});
+    au.addEventListener('play',function(){ vw.classList.remove('queued'); setPlaying(true); });
+    au.addEventListener('pause',function(){ setPlaying(false); });
+    au.addEventListener('ended',function(){ setPlaying(false); ring.style.strokeDashoffset='100'; });
+    au.addEventListener('canplay',function(){ vw.classList.add('ready'); });
+    /* the ring is the progress read-out. timeupdate fires about four times a
+       second, which is finer than the eye reads on a 48px ring and costs one
+       style write each. */
+    au.addEventListener('timeupdate',function(){
+      if(!au.duration) return;
+      ring.style.strokeDashoffset=(100-100*Math.min(1,au.currentTime/au.duration)).toFixed(2);
     });
+    au.addEventListener('error',function(){
+      /* the file did not load. Say so on the control rather than leaving a
+         button that silently does nothing. */
+      vw.classList.remove('queued','playing'); vw.classList.add('vinyl-dead');
+      btn.setAttribute('aria-label','Track unavailable');
+    });
+
     btn.addEventListener('click',function(){
-      if(!ctrl||!vw.classList.contains('ready')){
-        wantPlay=!wantPlay; vw.classList.toggle('queued',wantPlay); load(); return;
-      }
-      ctrl.togglePlay();
+      if(au.paused){
+        vw.classList.add('queued');
+        var p=au.play();
+        /* a rejected play() is a browser policy block, not a bug: drop the
+           queued state so the button does not sit lit forever. */
+        if(p&&p.catch) p.catch(function(){ vw.classList.remove('queued'); });
+      } else au.pause();
     });
   })();
 
@@ -519,7 +517,7 @@
      The markup is an ordered list and stays one. A screen reader reads every
      card in order and never has to drive anything; this upgrades the look for
      a pointer and a keyboard only. With the script off the list stacks down
-     the column and all of it is readable, the same arrangement the VoiceDNA
+     the column and all of it is readable, the same arrangement the Voice'D
      tablist uses.
      A throw sends the card off the edge and puts it at the back, so the deck
      never ends and nobody gets stuck on a card they cannot leave. Short drags

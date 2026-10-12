@@ -409,12 +409,20 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    --p is the per-card scroll progress the pin already computes, so the
    pop is scrubbed by the same scroll rather than fired by a timer.
    ============================================================ */
+/* The clip is gone (13 Oct). Coming out of a slot was my idea and it fails
+   in practice: --p spends most of its life between 0 and 1, so the card spends
+   most of its life as a card with its top 20% and its bottom 5% sliced off,
+   and a half-cut label does not read as an animation, it reads as a rendering
+   bug. That is the choppiness he reported. Opacity, scale and lift have no
+   intermediate value that looks broken, which is the property that matters
+   for anything scrubbed by a scroll the reader controls.
+   Opacity now resolves by --p .45, so the card is solid well before it is
+   near enough to read. */
 .work.wk-live .wk-tile{
   --p:0;
-  opacity:calc(var(--p) * 1.6);
-  transform:rotate(var(--r,0deg)) scale(calc(.74 + var(--p) * .26)) translateY(calc((1 - var(--p)) * 26px));
-  clip-path:inset(calc((1 - var(--p)) * 46%) 0 calc((1 - var(--p)) * 10%) 0);
-  transition:none;will-change:transform,opacity,clip-path}
+  opacity:calc(var(--p) * 2.2);
+  transform:rotate(var(--r,0deg)) scale(calc(.84 + var(--p) * .16)) translateY(calc((1 - var(--p)) * 34px));
+  transition:none;will-change:transform,opacity}
 /* the slot it comes out of: a rule on the wall, behind the card */
 .work.wk-live .wk-tile::before{content:"";position:absolute;z-index:-1;left:6%;right:6%;top:46%;height:2px;
   background:rgba(var(--cream-rgb),.5);opacity:calc(1 - var(--p));transform:scaleX(calc(.3 + var(--p) * .7))}
@@ -1442,8 +1450,10 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
 /* the pick-up: lift, a small turn, and the hard 3px offset the cut-outs use
    (veto-list clash, marked: kept to this one hover) */
 a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6deg);box-shadow:3px 3px 0 #0D1633}
-.wk-tile .wk-frame{transition:transform 260ms var(--e-spring)}
-.wk-tile:is(:hover,:focus-visible) .wk-frame{transform:translateY(-8px) rotate(-1.2deg)}
+/* The hover lift moved to motion.js (13 Oct): it is now a three-part move
+   on one timeline (the tile straightens, the poster pushes, the red band
+   wipes up) and CSS cannot keep those in step. Nothing here drives .wk-frame
+   any more, so the two systems cannot fight over its transform. */
 @media (prefers-reduced-motion:reduce){.plate,.wk-tile .wk-frame{transition:none}a.wrow:is(:hover,:focus-visible) .plate,.wk-tile:is(:hover,:focus-visible) .wk-frame{transform:none}}
 
 /* 05 Ideas: the magazine sits on its clipboard */
@@ -1927,3 +1937,130 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* the marks sit on the same light ground in both themes, so their labels do too */
 .floats .fl-name{background:#FFFDF7;border-color:#173CA8;color:#173CA8}
 .floats .fl a:hover .fl-name,.floats .fl a:focus-visible .fl-name{background:#FFED10;color:#0D1633}
+
+/* ============================================================
+   THE STAR-HEAD STRIP (13 Oct 2026, at his instruction, after Rishabh)
+   His face, four cuts of it, running between the five things he believes.
+   It replaces a plain <ol> of the same five lines, which was the weakest
+   presentation of the strongest personal copy on the site.
+
+   It travels sideways as the page scrolls DOWN rather than running itself.
+   That is the whole point of the device here: home already carries one
+   self-starting loop, he has said twice that motion must not cost the
+   content, and a scroll-linked strip is controlled by the reader, cannot be
+   missed, and stops the moment they stop. Driven by ScrollTrigger in
+   about.js; with the script off, or under reduced motion, the strip simply
+   sits still and scrolls horizontally by hand like any overflow list.
+   ============================================================ */
+.hstrip{position:relative;margin:var(--s-9) 0;padding:var(--s-6) 0;
+  border-top:2px solid var(--deep);border-bottom:2px solid var(--deep);
+  background:var(--yellow);overflow:hidden}
+.hs-view{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+.hs-view::-webkit-scrollbar{display:none}
+.hs-track{display:flex;align-items:center;gap:clamp(1.4rem,3vw,2.6rem);
+  margin:0;padding:0 var(--pad);list-style:none;width:max-content}
+/* ink on shield yellow is 14.73, which is the one pairing that lets display
+   type sit on a yellow plane at all */
+.hs-say{flex:none;max-width:22ch;font-family:var(--fd);font-weight:900;
+  font-size:clamp(1.15rem,2.1vw,1.9rem);line-height:1.08;
+  letter-spacing:var(--fd-track);color:#0D1633}
+.hs-say span{display:block}
+.hs-face{flex:none;width:clamp(96px,11vw,164px)}
+.hs-face img{display:block;width:100%;height:auto}
+/* the faces alternate their tilt, so four cut-outs in a row read as a strip
+   of frames rather than a row of stickers set at one angle */
+.hs-face:nth-of-type(odd) img{transform:rotate(-3deg)}
+.hs-face:nth-of-type(even) img{transform:rotate(2.5deg)}
+@media (max-width:640px){
+  .hstrip{margin:var(--s-8) 0;padding:var(--s-5) 0}
+  .hs-say{max-width:18ch}
+}
+
+/* ---------- the choppiness pass (13 Oct 2026) ----------
+   Three things he reported as "overlaps and unnecessary gaps", all of them
+   found by screenshotting the scroll rather than by reading the file. */
+
+/* 1. The quote tape is rotated -2deg and runs 2vw wider than its box, so its
+      bottom corners drop about 26px below the padding box and landed on the
+      "Employers, clients and volunteer work" label underneath. A rotated band
+      has to reserve the height its corners actually occupy.
+      The clearance goes on .workedwith, not on .handtape: the worked-with
+      section is NESTED INSIDE the tape section in the markup, so padding on
+      the parent puts space under both of them and changes nothing between
+      them. Checked in the DOM after the first fix did not move it. */
+.workedwith{display:block;margin-top:40px}
+
+/* 2. 144px of nothing between the logo strip and the metrics pill: the strip's
+      own bottom margin and the section's top padding were both set as if they
+      were the only gap there. One gap, not two. */
+.worked{margin-bottom:var(--s-5)}
+.moved{padding-top:clamp(1.6rem,3.4vw,2.6rem)}
+
+/* 3. The dashed slot behind the zine read as a broken frame rather than as a
+      waiting image: it is a large empty dashed rectangle with nothing in it,
+      which is the one placeholder treatment this site had already decided
+      against everywhere else. It comes back when the clipboard art lands. */
+.ph-clip{display:none}
+
+/* ---------- the card carries the name properly (13 Oct 2026) ----------
+   The first build of the card shrank the cut-out name to a 150px thumbnail in
+   a head strip. That inverts the hierarchy the whole system is built on: the
+   name is the identity, the identity is the idea, and the idea is the largest
+   thing in the block. It also threw away the one device that is unmistakably
+   his, the ransom lettering, by setting it at a size where you cannot read
+   that the letters are cut from different sources.
+
+   So the name is the headline now and the card is sized around it. */
+.idcard{width:min(620px,100%)}
+.id-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;
+  gap:var(--s-3);padding-bottom:clamp(.9rem,1.8vw,1.2rem);
+  /* red, not blue: the hero had no cape red in it at all except a 52px stamp,
+     on a site whose system is three colours. One rule is enough to fix that. */
+  border-bottom:3px solid var(--fluoro)}
+.id-head .hero-name .l1{gap:8px}
+.id-head .t-hi{width:clamp(38px,4.4vw,52px)}
+.id-head .t-my{width:clamp(45px,5.2vw,61px)}
+.id-head .t-name{width:clamp(80px,9.1vw,107px)}
+.id-head .t-is{width:clamp(26px,3vw,36px)}
+.id-head .t-shrey{width:clamp(186px,21vw,248px)}
+.id-stamp{align-self:end}
+
+/* the claim grows with it, so the card reads as one object rather than a
+   large name with small print under it */
+.idcard .claim{font-size:clamp(1.4rem,2.5vw,2rem);max-width:13em}
+.idcard .hero-pola{width:clamp(150px,17vw,205px)}
+
+/* A registration edge, not a shadow. Offset printing lays one plate slightly
+   off another and leaves a hard colour edge; a drop shadow fakes depth. The
+   veto list bans the second and this is the first: no blur, no transparency,
+   a flat plane of cape red showing along two sides of the card. */
+/* The registration edge. Third build, and the first honest one.
+   Attempts one and two put the red on a pseudo-element behind the card and
+   it painted over the whole card instead. The cause was never the z-index:
+   .idcard carried transform:rotate(), and a transform creates a stacking
+   context by itself, so a z-index:-1 child can never get behind its parent's
+   background whatever the index says.
+
+   Attempt three moved the paper onto a pseudo-element too, which worked
+   visually and then lied: with no background on .idcard itself, the contrast
+   harness walked up to the body and read the claim at 1.01 in dark mode on a
+   card that is plainly white. A check that cannot see the real ground is
+   worse than no check, because the next session trusts the zero.
+
+   So the ROTATION moves up to .stage-centre, which holds nothing but the
+   card. .idcard then has no transform and no stacking context, keeps its real
+   background where anything reading this file would expect it, and the red
+   plane sits behind it on a plain negative index. No blur, no transparency:
+   one plate printed slightly off another, which is not what the veto list
+   means by an offset shadow. */
+.stage-centre{transform:rotate(-1.2deg)}
+.idcard{transform:none;z-index:auto;background:#FFFDF7;border:2px solid #0D1633;
+  padding:clamp(1.1rem,2vw,1.5rem)}
+.idcard::before{content:"";position:absolute;z-index:-1;inset:12px -12px -12px 12px;
+  background:var(--fluoro)}
+
+@media (max-width:560px){
+  .id-head{grid-template-columns:minmax(0,1fr)}
+  .id-stamp{align-self:start}
+  .idcard::before{inset:7px -7px -7px 7px}
+}
