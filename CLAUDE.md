@@ -1454,3 +1454,103 @@ Positions are hand-placed, checked in frame at 1440, 1280, 1024 and 390.
 Verified: contrast 0 failures light and dark on all nine routes, console clean, the three
 remaining harness lines are the documented non-defects (the figcaption's own opaque plate, the
 12px date, the label tucked into the mark's transparent margin).
+
+## VOICE'D, THE MP3, THE STRIP, THE MOTION LAYER (13 Oct 2026, at his instruction)
+
+**Voice'D replaces VoiceDNA** in every visible string, nine of them across six pages. **The
+`/work/voicedna/` URL stays**, the same policy that kept `/about/` when the label became Me, so
+links already sent keep working. The `.vd-` CSS prefix and the file names are unchanged.
+
+**The record plays the file.** The Spotify embed gave anyone not signed in a thirty second
+preview, which is the state most recruiters arrive in, and it put a third party in the critical
+path of a device that exists to be charm. `assets/audio/take-a-chance-on-me.mp3` (5.7MB) is served
+with `preload="none"`, so nothing is fetched until the deck is reached for. The disc and the ring
+run off the audio element's own events, never off the click, so they cannot disagree with what is
+audible. A stale `aria-label` naming a Savage Garden track went with it. `.vinyl-host` and its
+iframe rule are deleted, checked against the markup **and** the scripts first.
+
+**His face is off the contact sign-off and is a strip on `/about/`.** Four cut-out heads run
+between the five things he believes, which were sitting there as a plain `<ol>`, the weakest
+presentation of the strongest personal copy on the site. The strip **travels sideways on the
+scroll** rather than looping: home already carries one self-starting loop, and a scroll-linked
+band is controlled by the reader, cannot be missed, and stops when they stop. **The blue and pink
+stars are off palette** and are used anyway, because four different frames read as a photo-booth
+strip rather than one asset repeated; flagged in NEEDS for his call.
+
+### THE MOTION LAYER
+
+`assets/motion.js`, on GSAP 3.12.5 with **ScrollTrigger now vendored**. It is **additive**: every
+block bails out silently if its markup is absent, nothing it does is needed for the page to read,
+and the existing `.anim` / `[data-t]` / `.rise` reveal system is untouched. Lenis owns scrolling,
+so ScrollTrigger is fed `lenis.on('scroll', ScrollTrigger.update)` or every trigger fires against
+a stale position.
+
+- **The work tile straightens off the wall.** The old hover was `translateY(-8px)` on a spring,
+  which he called underwhelming and which says only "this is a button". Now the tile rotates to
+  true, lifts, the poster pushes in behind its own frame and the red band wipes up: three things
+  on one timeline, which is the reason this is GSAP and not three transitions that drift apart.
+- **On `/work`, the row under the pointer is the only one lit.** Opacity only, down to .45, so
+  nothing reflows and every dimmed row stays above the contrast floor.
+- `[data-stage]` / `[data-stage-item]` is an opt-in section arrival. Nothing uses it yet; it
+  exists so the next section does not get its own observer.
+
+**A bug only driving it could find:** `fromTo()` on the red band leaves it visible at rest and then
+snaps it off screen to animate it back, so the very first hover on the page flashes. It now hides
+at rest **only where a hover exists**, or a touch screen would lose "Read the case" entirely.
+
+### THE CHOPPINESS WAS THREE REAL THINGS
+
+All found by screenshotting the scroll, none visible in the file.
+
+1. **The quote tape's rotated corners landed on the logo label.** A -2deg band 2vw wider than its
+   box drops its corners about 26px below the padding box. The clearance has to go on
+   `.workedwith`, which is **nested inside** the tape section, so padding on the parent moves
+   nothing between them. The first fix changed nothing and the DOM said why.
+2. **144px of nothing** between the logo strip and the metrics pill: the strip's bottom margin and
+   the section's top padding were each set as if it were the only gap.
+3. **The work tiles revealed through a `clip-path`.** `--p` spends most of its life between 0 and
+   1, so the card spent most of its life with its top 20% and bottom 5% sliced off. A half-cut
+   label does not read as an animation, it reads as a rendering bug, and that is the choppiness he
+   reported. Opacity, scale and lift have **no intermediate value that looks broken**, which is the
+   property that matters for anything a reader scrubs.
+
+### THE HERO CARD CARRIES THE NAME
+
+It had been shrunk to a 150px thumbnail in a head strip, which inverts the hierarchy the system is
+built on and throws away the one device that is unmistakably his: at that size you cannot see the
+letters are cut from different sources. The name is the headline now, the card is sized around it,
+and the head rule is **cape red**, because the hero had no red in it at all except a 52px stamp.
+
+**The registration edge took three attempts and the lesson is worth keeping.** Two put the red on a
+pseudo-element behind the card and it painted over the whole card. The cause was never the z-index:
+**`.idcard` carried `transform:rotate()`, and a transform creates a stacking context on its own**,
+so a `z-index:-1` child can never get behind its parent's background whatever the index says.
+Changing `z-index:3` to `auto` did nothing for exactly that reason. The third attempt moved the
+paper onto a pseudo-element too; it worked visually and then **lied**, because with no background
+on `.idcard` the contrast harness walked up to the body and read the claim at 1.01 in dark mode on
+a plainly white card. **A check that cannot see the real ground is worse than no check**, because
+the next session trusts the zero. So the rotation moved up to `.stage-centre`, which holds nothing
+but the card, and `.idcard` keeps a real background where anything reading the file expects it.
+
+### THE COPY AUDIT
+
+Deduplication only. **His prose is not rewritten anywhere**: every edit deletes a second copy or
+swaps a repeated headline for words already true of that page. Everything merely long is in
+`NEEDS.md` for him, because shortening his writing is his call.
+
+- **"The briefs nobody asked me to write" was printed four times on home alone** (work heading,
+  magazine contents, magazine projects page, a hover hint on a 150px icon). A line that names the
+  whole body of work carries nothing by the fourth printing.
+- The process intro and its own step 01 both carried "knowing what to do and how to do it is 80%",
+  forty words apart.
+- The spec-and-numbers policy was on `/work` and again almost word for word in FAQ Q.01. The same
+  invitation was in Q.02 and on `/contact/` verbatim.
+- The magazine said the posts were being written in two adjacent sentences.
+
+**Still duplicated, and flagged rather than cut because they are his:** the home Me paragraph is
+the `/about/` opening paragraph verbatim one click apart, and the five beliefs are now both the
+strip and the magazine's manifesto spread.
+
+**`NEEDS.md` is the new companion document**: every asset, every line of writing and every decision
+still outstanding, each one saying what it unblocks. It is the answer to "generate a thorough list
+of things you need". `FILL-IN.md` remains the line-by-line register of coded slots.
