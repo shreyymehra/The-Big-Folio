@@ -352,7 +352,13 @@ html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::afte
 :root{--paper-in:0}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background-image:var(--paper);background-size:var(--paper-size);
-  opacity:calc(.25 + var(--paper-in) * .75);transition:opacity 120ms linear}
+  /* Dialled back 13 Oct, at his instruction: the grid was reaching opacity 1
+     and reading as squared paper rather than as texture. The ceiling is .58
+     now, and the floor .16. The SVG itself is untouched, so the strongest
+     stroke is still .30 of this, which is the rule in CLAUDE.md.
+     It also no longer runs the whole page: the flat blocks below paint over
+     it, so the grid is the texture of SOME sections rather than of the site. */
+  opacity:calc(.16 + var(--paper-in) * .42);transition:opacity 120ms linear}
 @media (prefers-reduced-motion:reduce){body::before{opacity:1;transition:none}}
 
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

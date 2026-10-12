@@ -336,7 +336,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
   padding:clamp(.9rem,2vw,1.4rem) clamp(1.4rem,3vw,2.6rem);
   font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1;
   letter-spacing:var(--fd-track);color:#0D1633}
-.pr-set b{font-family:var(--fu);font-weight:400;font-size:var(--t-small);letter-spacing:.08em;opacity:.7}
+.pr-set b{font-family:var(--fu);font-weight:400;font-size:var(--t-small);letter-spacing:.08em}
 
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
@@ -1136,7 +1136,9 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* the orange duotone predates the retro palette: set it back to one ink and
    print it red, the way a two-colour newsstand cover would */
 .pg-cover{isolation:isolate}
-.pg-cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;background:var(--fluoro);mix-blend-mode:multiply;pointer-events:none;z-index:1}
+/* The red multiply wash over the cover is gone (13 Oct). It was left from
+   the composed cover his artwork replaced, and it was repainting the blue
+   half of his own cover red. Never screen delivered artwork. */
 
 /* 2. contents: the inversion */
 .pg-contents{background:var(--deep);color:var(--cream);border-color:var(--deep)}
@@ -2072,3 +2074,103 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    element's own error event, so it can only appear when the load really failed. */
 .vinyl-dead .vinyl-btn{opacity:.5;cursor:not-allowed}
 .vinyl-dead .vinyl-cap .vinyl-by::after{content:" · unavailable";color:var(--accent-type)}
+
+/* ============================================================
+   HOME IS SCHEDULED IN BLOCKS (13 Oct 2026, at his instruction)
+   "The home is still not scheduled on different blocks and the grid
+   background seems very overdone."
+
+   Both halves of that are the same problem. Every section except Work sat on
+   one continuous cream with one continuous grid behind it, so the page read
+   as a single sheet eight screens long, and the only way to feel progress was
+   the headings. Giving six sections six grounds is what makes a scroll feel
+   like a sequence of rooms rather than a long corridor.
+
+   The schedule, and the reason for each:
+     1  HERO       paper + grid     the texture is the hero's signature
+     2  NUMBERS    flat cream       a clean plain break (his Akriti note)
+     3  WORK       cape blue        the one colour block, torn at both edges
+     4  IDEAS      flat warm white  a clean sheet, so the zine art carries it
+     5  ME         paper + grid     the texture returns, so it reads as a motif
+     6  CONTACT    cream + star     unchanged
+
+   Textured, plain, colour, plain, textured, colour. Nothing new is invented:
+   every ground is a token already locked, and the two flat blocks are simply
+   the grid not showing through.
+   ============================================================ */
+
+/* --- 2. THE PROOF BLOCK: quotes, the logo wall, the numbers ---------------
+   Three sections that answer one question (who says so) and read as one band.
+   The flat ground is an opaque cream painted over the fixed grid layer, which
+   is why no grid shows here: there is nothing to switch off. */
+/* The tape and the logo wall came off home at his instruction, so this block
+   is now the numbers alone: what he does, and what it moved. It is still the
+   plain break between the hero and the work, and it is still the only thing
+   between them, which is the point he was making. */
+.moved{background:var(--cream);border-top:2px solid var(--deep)}
+/* no bottom rule: the work block tears away from this one, and a ruled edge
+   12px above a torn one reads as a mistake rather than as two devices. */
+
+/* --- 3. WORK: the blue block is torn, not cut -----------------------------
+   A full-bleed colour band with two razor edges is a <div>. The same band
+   torn along both edges is a strip of paper laid on the page, which is the
+   collage language the rest of the site is built in. The wobble is the quote
+   tape's own edge, reused rather than redrawn, so the two devices are
+   recognisably the same hand. */
+.work{position:relative}
+.work::before,.work::after{content:"";position:absolute;left:0;right:0;height:12px;z-index:20;
+  pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%23F7F4EC'/%3E%3C/svg%3E") repeat-x 0 0/240px 12px}
+.work::before{top:-1px}
+.work::after{bottom:-1px;transform:scaleY(-1)}
+/* dark mode: the torn edge has to be the colour of the page it tears away
+   from, and that colour flips. Hard-coding it would leave a cream scar on an
+   ink page, which is the plane trap in its other direction. */
+:root[data-theme="dark"] .work::before,:root[data-theme="dark"] .work::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%230D1633'/%3E%3C/svg%3E")}
+
+/* --- 4. IDEAS: a clean sheet ---------------------------------------------
+   The zine cover is his artwork and it is busy. A grid behind busy artwork is
+   two textures competing, and the artwork loses. Warm white rather than cream
+   so the sheet reads as a different stock from the proof block above it. */
+.ideas{background:#FFFDF7;position:relative}
+/* bottom only, for the same reason: the work block above already tears into
+   this one. */
+.ideas::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-bottom:2px solid var(--deep)}
+:root[data-theme="dark"] .ideas{background:color-mix(in srgb,var(--cream) 94%,#000)}
+
+/* --- 5. ME: the texture returns ------------------------------------------
+   Nothing to declare: .about has no background, so the fixed grid shows
+   through again. Stated here only so the schedule above is complete and the
+   next session does not "fix" the gap by giving it one. */
+
+/* ---------- Who I do it for (13 Oct 2026, his title) ----------
+   The camera holds the whole family and the Taj frame still on its screen, so
+   it is the picture that explains the other two. It sits in the middle at his
+   instruction, and it is wider than the polaroid stacks either side of it
+   (820x486 against 820x960), so a straight three-column grid would leave it
+   floating in a tall cell. The centre column takes the extra width instead. */
+.mot{grid-template-columns:minmax(0,.82fr) minmax(0,1.36fr) minmax(0,.82fr);
+  align-items:center}
+.mot-item--cam{animation:mot-b 9s ease-in-out infinite .6s}
+@media (prefers-reduced-motion:reduce){.mot-item--cam{animation:none;transform:rotate(-1.2deg)}}
+@media (max-width:760px){.mot{grid-template-columns:minmax(0,1fr)}}
+
+/* the orange band on /about/ sits between the heading and the five cards, so
+   it needs air on both sides rather than the flush bleed it has on home */
+.dump .process{margin:var(--s-6) 0 var(--s-7)}
+
+/* ---------- the manifesto spread carries one line, big ----------
+   The five beliefs are the star-head strip on /about/ now, so printing all
+   five here as a numbered list was the same copy twice. A zine that prints
+   its loudest line at full size is behaving like a zine; a zine that prints
+   a bulleted list is behaving like a slide. The other four are one click away
+   and the page says so. */
+.mani-one{margin:0;border:0;padding:0}
+.mani-one p{margin:0;font-family:var(--fd);font-weight:900;
+  font-size:clamp(1.75rem,3.2vw,3.1rem);line-height:1.02;
+  letter-spacing:var(--fd-track);color:var(--deep);text-wrap:balance}
+.mani-more{margin:var(--s-5) 0 0;font-family:var(--fu);font-size:var(--t-small)}
+.mani-more a{color:var(--accent-type);text-decoration:none;border-bottom:1.5px solid currentColor}
+.mani-more a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633;border-color:#0D1633}

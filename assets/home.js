@@ -70,64 +70,9 @@
       el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up)}
     el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)})});
 
-  /* ---- tickers: the quote tape, the logo loop and the two crossing bands ----
-     They scroll themselves (Shrey, 21 Sep 2026), and scrolling the page pushes
-     them along on top. Clash, marked: WCAG 2.2.2 wants a way to stop anything
-     that moves on its own for more than five seconds. So: each one eases to a
-     stop while pointed at or focused, a "Pause tickers" button beside each
-     stops all of them (remembered across visits), and under reduced motion
-     they never move. Each loop only runs while it is on screen. */
-  var PAUSE_KEY='sm-tickers';
-  var paused=false; try{ paused=localStorage.getItem(PAUSE_KEY)==='paused'; }catch(e){}
-  var toggles=[].slice.call(document.querySelectorAll('[data-tick-toggle]'));
-  function syncToggles(){ toggles.forEach(function(b){
-    b.setAttribute('aria-pressed',paused?'true':'false');
-    b.querySelector('span').textContent=paused?'Play motion':'Pause motion'; }); window.__smPaused=paused;
-    /* CSS loops (the carousel) read this class, since they cannot read a variable */
-    document.documentElement.classList.toggle('sm-paused',paused); }
-  toggles.forEach(function(b){ b.addEventListener('click',function(){
-    paused=!paused; try{ localStorage.setItem(PAUSE_KEY,paused?'paused':'playing'); }catch(e){} syncToggles(); }); });
-  syncToggles();
-  if(reduce) toggles.forEach(function(b){ b.hidden=true; }); /* nothing moves, nothing to pause */
-
-  if(!reduce) [].forEach.call(document.querySelectorAll('[data-cross],[data-tape],[data-logos]'),function(box){
-    var BASE=+box.getAttribute('data-speed')||40, PUSH=+box.getAttribute('data-push')||.5; /* px per second; scroll push */
-    var bands=[].slice.call(box.querySelectorAll('[data-xband]')).map(function(el){
-      var track=el.querySelector('.xtrack');
-      var b={el:el,track:track,dir:+el.getAttribute('data-dir')||-1,x:0,span:0,hold:0,holdTarget:0};
-      el.addEventListener('pointerenter',function(){ b.holdTarget=1; });
-      el.addEventListener('pointerleave',function(){ b.holdTarget=0; });
-      return b;
-    });
-    box.addEventListener('focusin',function(){ bands.forEach(function(b){ b.holdTarget=1; }); });
-    box.addEventListener('focusout',function(){ bands.forEach(function(b){ b.holdTarget=0; }); });
-    /* the track holds identical copies; one copy's width is the loop length */
-    function measure(){ bands.forEach(function(b){ b.span=b.track.scrollWidth/b.track.children.length; }); }
-    measure(); addEventListener('resize',measure);
-    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(measure);
-
-    var vel=0,lastY=scrollY,lastT=0,running=false,raf=0,go=0;
-    function frame(t){
-      if(!running){ raf=0; return; }
-      var dt=lastT?Math.min(.05,(t-lastT)/1000):0; lastT=t;
-      var v=window.lenis&&typeof window.lenis.velocity==='number'?window.lenis.velocity:(scrollY-lastY);
-      lastY=scrollY; vel+=(v-vel)*.12;
-      go+=((paused?0:1)-go)*.08; /* pause eases out rather than snapping */
-      bands.forEach(function(b){
-        b.hold+=(b.holdTarget-b.hold)*.08;
-        var speed=(BASE*go+Math.abs(vel)*PUSH*60)*(1-b.hold);
-        b.x+=b.dir*speed*dt;
-        if(b.span){ b.x%=b.span; if(b.x>0) b.x-=b.span; }
-        b.track.style.transform='translate3d('+b.x.toFixed(2)+'px,0,0)';
-      });
-      raf=requestAnimationFrame(frame);
-    }
-    function start(){ if(running) return; running=true; lastT=0; lastY=scrollY; if(!raf) raf=requestAnimationFrame(frame); }
-    function stop(){ running=false; }
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es[0].isIntersecting?start():stop(); },{rootMargin:'120px 0px'}).observe(box);
-    } else start();
-  });
+  /* ---- tickers moved to site.js (13 Oct) ----
+     /about/ now carries the orange process band, so the engine is a shared
+     behaviour and this file is for home-only behaviour. Moved, not copied. */
 
   /* ---- vinyl: the deck plays a file ----
      The Spotify embed is gone at his instruction. It needed a signed-in
