@@ -50,31 +50,35 @@
   <div class="bg stage-ground" aria-hidden="true"></div>
 
   <div class="stage">
-    <div class="stage-centre">
-      <!-- LEFT PANEL. Red ground, halftone, the cut-out name printed on it
-           with the photograph. Finalised hero spec, 6 Oct 2026. -->
-      <!-- The name hangs down the left margin, the polaroid holds the middle
-           with the copy under it. Vertical rather than two columns side by
-           side, at his instruction 12 Oct. -->
-      <div class="hero-side">
-        <h1 class="hero-name" id="hero-title"><span class="l1">
+        <div class="stage-centre">
+      <!-- ============================================================
+           THE CARD (13 Oct 2026, at his instruction, after the Akriti
+           reference). The name, the photograph and the copy stop being
+           three things arranged near each other and become one object:
+           a licence card. Header strip, portrait, details, actions, in
+           that order, which is the order every ID card in the world
+           uses and the reason this reads as clean rather than as a
+           layout. It sits on the left; the marks have the rest.
+           ============================================================ -->
+      <article class="idcard">
+        <div class="id-head">
+          <h1 class="hero-name" id="hero-title"><span class="l1">
         <span class="tile t-hi"   data-t="380" data-depth="1.6"><img src="assets/img/6be05cdb12.webp" alt="Hi"></span>
         <span class="tile t-my"   data-t="440" data-depth="1.3"><img src="assets/img/73fb7f40e3.webp" alt="my"></span>
         <span class="tile t-name" data-t="500" data-depth="1.0"><img src="assets/img/f5ced9a8cd.webp" alt="name"></span>
         <span class="tile t-is"   data-t="560" data-depth="1.5"><img src="assets/img/10c617bac6.webp" alt="is"></span>
       </span>
       <span class="l2"><span class="tile t-shrey" data-t="640" data-depth="0.7"><img src="assets/img/9989e0f6ed.webp" alt="Shrey"></span></span></h1>
-<figure class="print hero-pola">
+          <span class="id-stamp mono" aria-hidden="true">No. 2003</span>
+        </div>
+
+        <div class="id-body">
+          <figure class="print hero-pola">
         <span class="print-mount" data-reveal><img class="print-bw" src="assets/img/352bc34c15.webp" alt="Shrey as a small boy at a hand-crank USHA sewing machine, Delhi, 2003." width="720" height="900" draggable="false"><span class="print-colour" aria-hidden="true"></span><span class="print-stamp" aria-hidden="true">2003</span></span>
         <figcaption><b>2003.</b>First machine I was allowed to break.</figcaption>
       </figure>
-        <span class="ph doodle doodle--1" aria-hidden="true" data-slot="H1"></span>
-      </div>
-
-      <div class="hero-mid">
-        
-
-        <div class="stage-copy">
+          <div class="id-detail">
+            <div class="stage-copy">
         <!-- CLAIM. The bracketed word rides once through the list on load and
              settles on "brands". The roller is a stack of spans, never a <ul>:
              a list inside a <p> is auto-closed by the parser and the word
@@ -84,7 +88,9 @@
         <p class="hero-k" data-t="900">Product marketing &amp; brand strategy. Made in Melbourne.</p>
         <div class="hero-cta" data-t="960"><a class="hbtn" href="#work">The receipts <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M204,88V192a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h75L55.51,72.48a12,12,0,0,1,17-17L180,163V88a12,12,0,0,1,24,0Z"/></svg></a><a class="hbtn hbtn-alt" href="mailto:shreyymehraa@gmail.com"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,44H32A12,12,0,0,0,20,56V192a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A12,12,0,0,0,224,44ZM193.15,68,128,127.72,62.85,68ZM44,188V83.28l75.89,69.57a12,12,0,0,0,16.22,0L212,83.28V188Z"/></svg> shreyymehraa@gmail.com</a></div>
         </div>
-      </div>
+          </div>
+        </div>
+      </article>
     </div>
 
     <ul class="floats" aria-label="Where to go">

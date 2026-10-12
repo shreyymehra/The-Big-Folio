@@ -472,36 +472,15 @@
     document.documentElement.classList.toggle('at-hero',e.isIntersecting&&covers>.6);
   },{threshold:th}).observe(hero);
 
-  /* ---- the marks are placed, not animated ----
-     They orbited, then they drifted on a GSAP ticker. Both were wrong: the
-     orbit fought the centre for room and the drift stacked them on each other
-     and cost a frame budget every tick for motion nobody asked to watch.
-     They are hand-placed in the margins now, in CSS, and the only motion is a
-     parallax that answers the pointer. One rAF while the pointer is moving,
-     nothing at rest, no layout, no collisions to solve. */
-  (function(){
-    var hero=document.getElementById("hero"); if(!hero) return;
-    var marks=[].slice.call(hero.querySelectorAll(".fl"));
-    /* its own, because the main IIFE that declared reduce closes above this */
-    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!marks.length||reduce) return;
-    var tx=0, ty=0, queued=false;
-    function paint(){
-      queued=false;
-      for(var i=0;i<marks.length;i++){
-        var d=+marks[i].getAttribute("data-depth")||1;
-        marks[i].style.transform="translate3d("+(tx*10*d).toFixed(1)+"px,"+(ty*8*d).toFixed(1)+"px,0)";
-      }
-    }
-    hero.addEventListener("pointermove",function(ev){
-      var r=hero.getBoundingClientRect();
-      tx=((ev.clientX-r.left)/r.width-.5)*2;
-      ty=((ev.clientY-r.top)/r.height-.5)*2;
-      if(!queued){ queued=true; requestAnimationFrame(paint); }
-    });
-    hero.addEventListener("pointerleave",function(){ tx=ty=0;
-      if(!queued){ queued=true; requestAnimationFrame(paint); } });
-  })();
+  /* ---- the marks float on their own, in CSS ----
+     They orbited, then drifted on a GSAP ticker, then answered the pointer.
+     All three are gone, the last at his word: "loops should be there, pointer
+     is not something we implement well." Each mark now runs one of two
+     keyframe loops at its own duration and delay, declared in site.css, so
+     nothing is computed per frame, nothing writes an inline transform over
+     the CSS, and each one only travels a few pixels around a fixed position,
+     which is why they cannot collide and cannot lag. Reduced motion stops
+     them in place. Nothing for this file to do. */
 
   /* ---- the star settles as the contact section arrives ----
      One variable, written on a rAF tick and only when the rounded value

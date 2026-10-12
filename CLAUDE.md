@@ -1416,3 +1416,41 @@ pill is cape blue in both themes now, hard-coded, the same way the polaroid card
 **The rule, now that it has bitten three times:** anything that is conceptually **a plane** (a card,
 a pill, a printed object) rather than **a surface that follows the UI** must not use theme tokens.
 Hard-code it, and hard-code the type on it. `--card`, `.pola` and `.sign-off` have all been this bug.
+
+## THE ID CARD (13 Oct 2026, at his instruction, after the Akriti reference)
+
+**The hero is one object now.** His note was that the "Hi I am", the photograph and the copy
+should be grouped and sit to one side, "like their ID card but super clean". They were three
+things arranged near each other; they are now an `<article class="idcard">` with the order every
+licence in the world uses: head strip (the cut-out name and `No. 2003`), a rule, then portrait
+beside detail, then the two actions. It sits left, tilted 1.2 degrees, and the six marks have the
+whole right field. `.stage-centre` is a block container, not a two-column grid.
+
+**The marks float on CSS, and nothing else.** Three systems have driven these six: an ellipse
+orbit, a GSAP drift, and a pointer parallax. All three are gone, the last at his word, *"loops
+should be there, pointer is not something we implement well."* Each mark now runs one of two
+keyframe loops (`fl-a`, `fl-b`) at its own duration and delay, so they never beat together. Each
+travels a few pixels around a **fixed** position, which is why they cannot collide, cannot stack
+and cannot lag: there is no per-frame work and no inline transform written over the CSS.
+Positions are hand-placed, checked in frame at 1440, 1280, 1024 and 390.
+
+**Three traps in this pass, all found by looking:**
+
+1. **Source order, again.** The v4 block was written near the top of `site.css`, and the old
+   carousel rules sat 1400 lines below it, so the new hero was dead on arrival. It is now the last
+   word on the object, and the old rules are deleted rather than overridden: `.stage-centre`'s
+   840px grid, the whole `.is-row` branch, the 1279 and 780 queries, `.stage-hint`, `.hero-panel`
+   and `.hero-cred` (neither has had markup since 6 Oct), and six comment blocks describing three
+   systems that no longer exist. 6.5KB out. **Two placement systems for one object is how the
+   560px offset bug happened, and it is how it would happen again.**
+2. **The plane trap, a fourth time.** The card is hard-coded `#FFFDF7`, but its children still read
+   `--deep` and `--card`, which swap in dark mode: the caption landed at 1.34, the stamp at 1.29
+   and the email button at 1.25. Anything inside the card is a printed surface and now carries
+   literal values. The mark labels took the same treatment, because the hero ground stays light in
+   both themes at his instruction. **Any new child of a hard-coded plane needs this check.**
+3. The marks were respaced after the first screenshot: Vinyl was falling off the bottom edge at
+   900px tall and the field read sparse. Vertical range is 10 to 74 percent now.
+
+Verified: contrast 0 failures light and dark on all nine routes, console clean, the three
+remaining harness lines are the documented non-defects (the figcaption's own opaque plate, the
+12px date, the label tucked into the mark's transparent margin).
