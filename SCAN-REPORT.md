@@ -264,3 +264,89 @@ In order of what moves a hiring decision:
    become six references.
 
 Everything else on this list is polish. These four are the portfolio.
+
+---
+
+# V1 SCAN — 20 Oct 2026
+
+Everything below was re-measured after this pass, not carried forward. Nine
+routes, both themes, 1440 and a properly emulated 390.
+
+## The scores, moved
+
+| | Was (13 Oct) | Now | What changed |
+|---|---|---|---|
+| Craft and design | 8.5 | **9** | One transition language, the work section reads as a sequence, the case pages got the grid dial-back. |
+| Performance | 7.5 | **8.5** | Six of nine routes now hold 60fps on a scripted scroll. Home doubled. Fonts still 264KB. |
+| Accessibility | 9 | **9** | Zero real contrast failures in both themes. Two defects found and fixed in this pass. |
+| Clarity of offer | 7 | **7.5** | Copy pruned. The numbers drawer is still closed, which is still the biggest single clarity cost. |
+| Deliverables | 5 | **7** | The PRD exists. The portfolio now has one artefact for the discipline it leads with. |
+| Credibility | 6 | **6.5** | The PRD refuses to invent a number where the build should produce one, in public. |
+| **Overall** | **7.1** | **8.0** | |
+
+## Measured, after
+
+**Scroll health**, scripted full-page scroll, frames over 50ms:
+
+| Route | Was | Now |
+|---|---|---|
+| `/` | 11fps | **23fps** |
+| `/work/` | 27fps | **47fps** |
+| case pages | 16–33fps | **60fps, zero long frames** |
+| `/about/` | 41fps | **60fps** |
+| `/contact/` | 51fps | **60fps** |
+
+**Contrast:** 0 real failures, light and dark, all nine routes.
+**Console:** clean, all nine routes.
+**Links:** every internal link resolves, including the new PRD route.
+**390px:** no horizontal scroll on any route, verified with real device metrics.
+
+**Payload** is unchanged and the fonts are still why: 1660KB on home, 440–520KB
+on a case page, of which 264KB is two `.otf` files on every route.
+
+## Fixed in this pass
+
+- **The work section reads as a sequence.** One project on stage at a time,
+  numbered, large. Two bugs caught by looking: giving every tile an exit
+  emptied the stage for most of the pin, and the first handoff dissolved one
+  poster through another.
+- **One transition language.** Different grounds tear; shared grounds rule.
+- **The process band is an infographic** with his own marks, a number, a name
+  and the line that says what happens.
+- **Copy pruned**: a table of contents written as a sentence, a restated
+  policy, and a slot that explained an absence.
+- **The case pages got the grid dial-back** home received a week ago.
+- **Two accessibility defects**: the band's sub-line measured 4.16 where I had
+  estimated 5.6, and the new magazine link shipped at 104x19 against a 24px
+  minimum.
+
+## Still open, and still his
+
+1. **The numbers drawer ships closed.** Unchanged and still the highest-impact
+   ten minutes available. The seven verified figures are the only
+   independently real evidence on the site and a scanning reader will not open
+   a drawer labelled "15 disciplines · 7 numbers".
+2. **Six quote attributions.** One message turns six decorations into six
+   references.
+3. **The fonts.** 264KB of `.otf` on every route, roughly 90KB as WOFF2.
+   Apache 2.0, so conversion is permitted. Needs a machine with `fonttools`.
+4. **Two of seven work rows are dead ends.** Five rows where every one opens
+   is stronger than seven where two do not.
+5. **Ideas is still a cover and a contents page.**
+
+## One correction
+
+Mid-pass I reported an 8px horizontal scroll on home at 390 and called it a
+regression. It was not. My harness set a 390px window rather than emulating a
+390px viewport, so the page was actually laying out at 485px and the reading
+was an artefact. Re-measured with real device metrics: no horizontal scroll on
+any route. The `.contact{position:relative}` change it prompted is correct on
+its own terms — `overflow:hidden` was there and was clipping nothing, because
+the section was not a containing block for its own absolutely positioned
+children — so it stays.
+
+## Verdict for V1
+
+**Ready to push.** The things that would still change a hiring decision are
+content decisions rather than build defects, and the four that matter are
+listed above in the order I would do them.

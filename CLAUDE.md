@@ -1660,3 +1660,68 @@ with them. **The lesson, and it is the same one as "check the other PDFs in a
 delivery": when an asset lands, the register entry that asked for it is part of
 the change.** A register that asks for what it already has is worse than no
 register, because the next person to read it believes it.
+
+## V1 PASS: THE PRD, THE SEQUENCE, THE EGG (19-20 Oct 2026, at his instruction)
+
+**The process band is an infographic**, with his own hero marks matched to meaning rather than
+assigned to fill a slot: the record player listens, the pencil starts blank, the bulb is research
+turning into something, the phone is the step that is a conversation, the star is the standard it
+becomes. Each step carries a mark, a number, a name and the line that says what happens, so the
+band summarises and the cards below explain. It runs on home and `/about/`, which is why the
+**ticker engine moved from `home.js` to `site.js`**: a behaviour on two pages is shared behaviour.
+
+**`/work/vastr/prd/` is the artefact the site did not have.** The portfolio leads with product
+marketing and everything on it argued rather than specified. The PRD carries user stories, P0
+scope with the line between in and out, seven requirements each with the reason it is that number,
+success metrics with a kill criterion, risks with mitigations, and a phased release. Sourced
+entirely from his own case copy and the GTM brief already on the site. **R-02 deliberately carries
+no percentage**, and says so on the page: the threshold is an output of the first build, and
+inventing it would be printing the one number the build should produce.
+
+**The work wall reads as a sequence.** It was three posters at three hand-placed positions,
+accumulating, with a few hundred pixels of empty blue under them and nothing telling the eye which
+to read first. Each project now holds the stage alone, larger, numbered, and hands it to the next.
+
+**Two bugs there, both only visible in a screenshot:**
+1. Giving every tile an exit **emptied the stage for most of the pin**: `--wp` reaches 1 well
+   before the pin releases and then holds, so the last tile must never leave. The handoff is read
+   off the **next tile's reveal** rather than a constant, so it survives re-spacing.
+2. The first handoff dissolved one poster through the other, labels and all, which reads as a
+   rendering fault rather than a transition. The outgoing tile clears before the incoming starts.
+
+**One transition language.** Some seams were a hard 2px rule, which cuts the page without saying
+anything; others were nothing, so two different grounds met with no event. The rule now: **where
+two different grounds meet the upper block tears away in its own colour; where two blocks share a
+ground a rule is the honest signal and stays.** The work block had been tearing into Ideas in
+cream when Ideas is warm white, and those six points showed as a pale line along the seam.
+
+**The easter egg is earned.** One of his cut-out heads peeks over the wordmark at the bottom of
+home, for anyone who actually went the whole way down. No new copy and no new asset: a reward that
+needs a caption is not one. **The first version tracked the deepest point reached and fired at
+98.5%, which a single jump to the footer satisfies** — End, or a link to `#contact`, won it without
+the visitor seeing anything, and the comment above the code claimed a journey the code did not
+enforce. My own test caught it. It tracks **coverage** now: ten bands, eight visited, plus the end.
+Jumping marks exactly two bands. Verified both ways.
+
+### WHAT THE FINAL SCAN FOUND
+
+- **The band's sub-line measured 4.16 where I had estimated 5.6.** Second failure of a translucent
+  ink on the orange plane; the step numbers were the first at 3.98. **The rule for this plane: no
+  opacity on type over the orange, ever.** Full ink is 9.1 and family and size carry the hierarchy.
+- **The new magazine link shipped at 104x19** against the 24px minimum (WCAG 2.5.8).
+- **`.contact` had `overflow:hidden` and was clipping nothing**, because it was statically
+  positioned and therefore not a containing block for its own absolutely positioned children.
+  `position:relative` makes the clip mean what it says.
+
+**A correction worth recording.** Mid-pass I reported an 8px horizontal scroll on home at 390 and
+called it a regression. **It was not.** `hover.mjs` sets a 390px *window*, which is not a 390px
+*viewport*: the page laid out at 485px and the reading was an artefact. `scratchpad/mob.mjs` uses
+`Emulation.setDeviceMetricsOverride` and is the one to trust for reflow. Re-measured: no horizontal
+scroll on any route.
+
+**Scroll health after the 13 Oct performance work, measured again:** case pages and `/about/` and
+`/contact/` now hold **60fps with zero long frames** (were 16 to 41), `/work/` 47 (was 27), home 23
+(was 11). Home is still the heaviest and the pin plus the magazine are why.
+
+`SCAN-REPORT.md` carries the V1 section: scores moved 7.1 to 8.0, what was fixed, and the five
+things still open, every one of them a content decision rather than a build defect.

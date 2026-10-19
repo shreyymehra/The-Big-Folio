@@ -351,11 +351,12 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .pr-txt b{font-family:var(--fu);font-weight:400;font-size:var(--xs);letter-spacing:.1em;color:#0D1633}
 .pr-txt strong{font-family:var(--fd);font-weight:900;font-size:clamp(1rem,1.5vw,1.3rem);
   letter-spacing:var(--fd-track);color:#0D1633}
-/* ink at 72% on the orange is 5.6, which clears AA for this size. The step
-   numbers were at .7 opacity here once and measured 3.98; do not reintroduce
-   an opacity on type over this plane without checking it. */
+/* No opacity on type over the orange, ever. The step numbers were at .7 here
+   and measured 3.98; this sub-line was at .72 and measured 4.16. Both were
+   estimated rather than checked. Full ink is 9.1 and the hierarchy is carried
+   by family and size, which costs nothing. */
 .pr-txt i{font-family:var(--fb);font-style:normal;font-size:var(--t-small);
-  color:rgba(13,22,51,.72);white-space:normal;max-width:22ch}
+  color:#0D1633;white-space:normal;max-width:22ch}
 @media (max-width:640px){
   .pr-txt i{display:none}
   .pr-ico{width:38px;height:38px}
@@ -1522,7 +1523,7 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    content, with the footer line sitting on it rather than after it. */
 /* a third of the height it was: the pill carries the copy, so the section is
    the pill, the sign-off line and the ground. */
-.contact{overflow:hidden;padding-bottom:clamp(96px,12vw,150px)}
+.contact{position:relative;overflow:hidden;padding-bottom:clamp(96px,12vw,150px)}
 .contact .wrap{position:relative;z-index:1}
 /* ============================================================
    THE SIGN OFF (12 Oct 2026, from the sitraaart reference)
@@ -2195,6 +2196,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   font-size:clamp(1.75rem,3.2vw,3.1rem);line-height:1.02;
   letter-spacing:var(--fd-track);color:var(--deep);text-wrap:balance}
 .mani-more{margin:var(--s-5) 0 0;font-family:var(--fu);font-size:var(--t-small)}
+.mani-more a{display:inline-flex;align-items:center;min-height:24px;padding:2px 0}
 .mani-more a{color:var(--accent-type);text-decoration:none;border-bottom:1.5px solid currentColor}
 .mani-more a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633;border-color:#0D1633}
 
