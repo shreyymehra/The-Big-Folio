@@ -2332,3 +2332,60 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 :root[data-theme="dark"] .work::after,
 :root[data-theme="dark"] .ideas::after{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%230D1633'/%3E%3C/svg%3E")}
+
+/* ---------- why the marks are NOT beside the figures (20 Oct 2026) ----------
+   Tried and reverted, recorded so it is not tried again. The idea was to let
+   each client mark cite the number it produced, turning an assertion into
+   evidence with a source attached. It was built, looked at, and it was wrong
+   for two reasons:
+
+   1. The figure ALREADY names its source in words. A small mark beside the
+      word "Tickertape" says Tickertape a second time. Nobody trusts +310%
+      more because a logo sits next to it; the line had already said so.
+   2. Half of the eight are plate lockups rather than wordmarks. iSelect is
+      white knocked out of a red rounded rectangle. Tinted to one ink it is a
+      grey box, and at the 16px a citation allows it is mud either way.
+
+   The marks are information where the question "who has he worked with" is
+   actually being asked, which is /about/, not next to a number that has
+   already answered it. That is where they live now. */
+
+/* ---------- Worked with, on /about/ (20 Oct 2026) ----------
+   The eight marks finally earn a place. They came off the top of home at his
+   instruction and he was right: a row of other people's logos before a
+   visitor has seen anything he made is an interruption. On the page that is
+   about his background it is the opposite, it is the fastest answer on the
+   site to a question a recruiter is actually asking.
+
+   STATIC, not a loop. They ran as a marquee on home until 13 Oct and the
+   motion was part of the problem: eight names moving become a texture you
+   scan past. Eight names held still are read in one glance.
+
+   Each mark keeps its own colour. Four of the eight are plate lockups rather
+   than wordmarks (iSelect is white knocked out of red), and tinting those to
+   one ink turns them into grey boxes. That was learnt by doing it. */
+.worked-at{margin:0 0 var(--s-7)}
+.worked-at h3{margin:0 0 .2rem}
+.wa-marks{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-5);
+  margin:var(--s-4) 0 0;padding:0;list-style:none}
+.wa-marks li{display:flex;align-items:center}
+/* sized by HEIGHT, never by a shared box: a square device in the same box as
+   a wide wordmark reads half the size. This was settled on 6 Oct and the
+   reasoning is worth keeping. */
+.wa-marks img{display:block;width:auto;max-width:none;height:clamp(20px,2.4vw,30px)}
+/* two exceptions, both devices drawn small inside their own lockup rather
+   than wordmarks, so a shared cap height leaves them looking like holes */
+.wa-marks li:nth-child(6) img,
+.wa-marks li:nth-child(7) img{height:clamp(30px,3.6vw,44px)}
+@media (max-width:640px){.wa-marks{gap:var(--s-3) var(--s-4)}}
+
+/* ---------- the alphabet page (20 Oct 2026) ----------
+   The sheet every cut-out letter in the hero was lifted from. It is the one
+   artefact on the site that shows a system behind a device rather than the
+   device on its own, which is why it is a page rather than a background.
+   Contained, never cropped: the value is seeing all 26 with their three
+   variants, so it fits the page rather than filling it. */
+.pg-alpha{display:flex;flex-direction:column}
+.pg-alpha-art{display:block;flex:1 1 auto;min-height:0;width:100%;height:100%;
+  object-fit:contain;object-position:center top;margin:var(--s-4) 0 0;
+  border:2px solid var(--deep);background:#fff}
