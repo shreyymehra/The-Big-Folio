@@ -1,0 +1,178 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><script src="../../../assets/theme.js"></script><link rel="stylesheet" href="../../../assets/base.css"><script src="../../../assets/feel.js" defer></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="../../../public/favicon.svg" type="image/svg+xml">
+<title>Vastr PRD &middot; Shrey Mehra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/tw.css"></head><body class="case grain bg-ground font-body text-body text-type antialiased">
+<nav id="nav"><a class="sig" href="../../../" aria-label="Shrey Mehra, home"><img class="sig-logo" src="../../../assets/logos/sm-mark-light.svg" alt="Shrey Mehra" width="881" height="371"></a>
+  <span class="links"><a href="../../../work/" aria-current="page"><i aria-hidden="true">[</i>Work<i aria-hidden="true">]</i></a><a href="../../../#ideas"><i aria-hidden="true">[</i>Ideas<i aria-hidden="true">]</i></a><a href="../../../about/"><i aria-hidden="true">[</i>Me<i aria-hidden="true">]</i></a><a href="../../../contact/"><i aria-hidden="true">[</i>Contact<i aria-hidden="true">]</i></a></span></nav>
+
+<div class="mx-auto max-w-[1240px] px-(--pad) pt-[calc(var(--pad)+3.4rem)]"><a class="label inline-block border-b-2 border-fluoro py-1 no-underline" href="../../../work/vastr/">&larr; Vastr case study</a></div>
+
+<header class="mx-auto max-w-[1240px] px-(--pad) border-b-[3px] border-deep pt-12 pb-10">
+  <img class="mb-4 block h-auto w-[38px]" src="../../../assets/star.webp" alt="">
+  <div class="mb-5 flex flex-wrap gap-1.5"><span class="label border border-deep px-1.5 py-0.5">Product Marketing</span><span class="label border border-deep px-1.5 py-0.5">Product</span><span class="label border border-deep bg-plane px-1.5 py-0.5 text-on-plane">Spec</span></div>
+  <h1 class="mt-0 mb-5 font-display text-h1 font-black">Vastr PRD v0.1</h1>
+  <p class="mt-0 mb-6 max-w-[30em] text-h3 font-medium">The requirements document behind the case study. What gets built, what does not, and how we would know it worked.</p>
+  <div class="label flex flex-wrap gap-6 opacity-82"><span>9 min read</span><span>Shrey Mehra</span><span>Owner: PMM</span></div>
+  <p class="mt-6 max-w-[38em] border-l-4 border-fluoro pl-3.5 opacity-85">Spec work, disclosed here, once. Vastr is fictional and nothing here shipped. This is the document as it would actually be written: scoped, prioritised, and honest about what is unknown.</p>
+
+  <dl class="mt-8 grid max-w-[52em] grid-cols-1 gap-x-8 gap-y-3 border-[3px] border-deep p-5 sm:grid-cols-[max-content_minmax(0,1fr)]">
+    <dt class="label opacity-82">Why this exists</dt><dd class="m-0">A case study argues. A PRD commits. This is the artefact that turns the Vastr positioning into something an engineer could estimate and a founder could cut.</dd>
+    <dt class="label opacity-82">Status</dt><dd class="m-0">Draft. Pre-build, pre-funding, pre-user.</dd>
+    <dt class="label opacity-82">Decision needed</dt><dd class="m-0">Sign-off on the P0 scope below, which is deliberately smaller than the case study describes.</dd>
+  </dl>
+</header>
+
+<div class="mx-auto max-w-[1240px] px-(--pad) grid grid-cols-1 items-start gap-8 pt-14 pb-20 md:grid-cols-[minmax(0,1.618fr)_minmax(0,1fr)] md:gap-12">
+<main class="case-prose">
+
+<section class="sec rv" id="p0"><span class="eyebrow">01 / Problem</span>
+<h2>The job is navigation, not acquisition</h2>
+<p>People own more clothes than any generation before them and still stand in front of a full wardrobe with nothing to wear. Every funded product in this category has read that as a cataloguing problem and built a database the user has to feed by hand.</p>
+<p>The wardrobe is not under-stocked. It is <em>unnavigable</em>. That distinction is the whole product, and it is also the reason the incumbents keep losing people at week three: a database nobody maintains returns nothing, so the app that asked for the effort is the app that gets deleted.</p>
+<div class='my-8 max-w-[30em] border-l-4 border-fluoro pl-[1.1rem] font-body text-h3 font-medium'>We are not competing on catalogue size. We are competing on how little the user has to do before the product is useful.</div>
+</section>
+
+<section class="sec rv" id="p1"><span class="eyebrow">02 / Users</span>
+<h2>Who this is for, and who it is not</h2>
+<p><strong>Primary.</strong> 18&ndash;30, style-aware, time-poor, decision-fatigued. Owns more than they wear. Would dress better if they could find what they already have.</p>
+<p><strong>Secondary.</strong> The same person six months later, now using the wardrobe to decide what <em>not</em> to buy. This is where the affiliate model earns and where retention actually lives.</p>
+<p><strong>Explicitly not for</strong>, in v1: resellers, stylists managing other people's wardrobes, and anyone whose primary need is inventory for insurance or resale. Each would pull the data model toward completeness, and completeness is the thing that kills the category.</p>
+</section>
+
+<section class="sec rv" id="p2"><span class="eyebrow">03 / Stories</span>
+<h2>User stories, P0 only</h2>
+<p>Written as the user, not as the feature. Anything that could not be phrased this way was cut before it reached this list.</p>
+<ol class="prd-stories">
+  <li><b>US-01</b><span>As someone with a full wardrobe, I can add a garment by photographing it, so that building my wardrobe costs me seconds rather than an evening.</span></li>
+  <li><b>US-02</b><span>As someone running late, I can ask for an outfit for an occasion and get one built only from what I already own, so that I stop re-deciding the same thing every morning.</span></li>
+  <li><b>US-03</b><span>As someone who does not trust style apps, I can reject an outfit and say why in one tap, so that the engine learns my taste instead of a generic one.</span></li>
+  <li><b>US-04</b><span>As someone who has used the app for a month, I can see what I never wear, so that the wardrobe tells me something I did not already know.</span></li>
+  <li><b>US-05</b><span>As someone genuinely missing a piece, I can see options that fill the actual gap, so that buying is a considered decision rather than a feed.</span></li>
+</ol>
+</section>
+
+<section class="sec rv" id="p3"><span class="eyebrow">04 / Scope</span>
+<h2>In, out, and the line between them</h2>
+<p>The case study describes three features. This document ships <strong>one and a half of them</strong>, because the outfit engine is worthless without a populated wardrobe and the shop is worthless without a working engine. Sequencing is the decision, not the feature list.</p>
+
+<div class="prd-scope">
+  <div class="prd-in">
+    <p class="label">P0 &middot; v1 ships without these and there is no product</p>
+    <ul>
+      <li>Garment capture by photo, with automatic category, colour and basic attribute recognition</li>
+      <li>Manual correction of any recognised attribute, in one tap</li>
+      <li>Outfit generation from wardrobe contents against an occasion input</li>
+      <li>Accept / reject with a single-reason tap</li>
+      <li>Wardrobe browse and search</li>
+    </ul>
+  </div>
+  <div class="prd-out">
+    <p class="label">P1 &middot; valuable, and it waits</p>
+    <ul>
+      <li>The shop and affiliate layer <span class="prd-why">needs an engine users already trust</span></li>
+      <li>Wear-frequency insights <span class="prd-why">needs a month of real usage to say anything</span></li>
+      <li>Weather and calendar inputs <span class="prd-why">adds accuracy to a system not yet proven to be wanted</span></li>
+    </ul>
+    <p class="label mt-6">Out &middot; not in this product</p>
+    <ul>
+      <li>Social feeds, sharing, following <span class="prd-why">this is the engagement incentive we exist to avoid</span></li>
+      <li>Trend content and &ldquo;what you should want next&rdquo; <span class="prd-why">the opposite of the positioning</span></li>
+      <li>Resale and listing tools <span class="prd-why">pulls the data model toward completeness</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section class="sec rv" id="p4"><span class="eyebrow">05 / Requirements</span>
+<h2>What P0 actually has to do</h2>
+<table class="prd-table">
+  <thead><tr><th>ID</th><th>Requirement</th><th>Why it is this number</th></tr></thead>
+  <tbody>
+    <tr><td>R-01</td><td>Capture to catalogued garment in under 10 seconds, including correction.</td><td>Longer than a photo plus a glance and the user is doing data entry, which is the behaviour that loses this category.</td></tr>
+    <tr><td>R-02</td><td>Recognition correct on category and colour without correction for the clear majority of garments.</td><td>A threshold is set after the first 500 real garments, not before. Guessing a percentage here would be inventing the one number the build should produce.</td></tr>
+    <tr><td>R-03</td><td>Any wrong attribute correctable in one tap, never a form.</td><td>Correction is the recovery path for R-02. If it costs more than the error, users stop correcting and the catalogue silently rots.</td></tr>
+    <tr><td>R-04</td><td>Outfit returned in under 3 seconds from a cold open.</td><td>The competing behaviour is opening the wardrobe door. Anything slower loses to the door.</td></tr>
+    <tr><td>R-05</td><td>Every outfit built only from owned garments. No aspirational items, ever.</td><td>One suggested item the user does not own breaks the promise the whole product rests on.</td></tr>
+    <tr><td>R-06</td><td>Rejection reason captured in one tap from a fixed, short list.</td><td>Free text will not be written at 7am. A short list is the only feedback that will actually arrive.</td></tr>
+    <tr><td>R-07</td><td>Wardrobe usable at 15 garments, not 100.</td><td>Time-to-value decides week-one retention. A product that needs a full wardrobe before it works is a product nobody finishes setting up.</td></tr>
+  </tbody>
+</table>
+<p class="slot" data-slot="G18">R-02 has no number in it on purpose. The threshold is an output of the first build, and a target invented before the data exists is the kind of number this portfolio does not print.</p>
+</section>
+
+<section class="sec rv" id="p5"><span class="eyebrow">06 / Success</span>
+<h2>How we would know, and what would kill it</h2>
+<p>Three of these targets are carried from the GTM brief in the case study. The fourth is the only one that tests the hypothesis rather than the launch.</p>
+<table class="prd-table">
+  <thead><tr><th>Metric</th><th>Target</th><th>What it tells us</th></tr></thead>
+  <tbody>
+    <tr><td>Outfit acceptance rate</td><td>65%+ by day 30</td><td><strong>The one that matters.</strong> Below this the AI is guessing at taste rather than reflecting it, and the product is a worse version of the incumbents.</td></tr>
+    <tr><td>Downloads, first 30 days</td><td>10,000</td><td>Whether the positioning travels. A launch number, not a product one.</td></tr>
+    <tr><td>Pre-launch waitlist</td><td>5,000</td><td>Whether the problem is recognised before the product is seen.</td></tr>
+    <tr><td>Affiliate click-through</td><td>8%+ within 60 days of shop launch</td><td>Whether a purchase recommendation made from a real gap converts better than a feed. This is the business model's only test.</td></tr>
+    <tr><td>Time to 15th garment</td><td>Under one session</td><td>R-07 in the field. If setup spans sessions, most users never return to finish it.</td></tr>
+  </tbody>
+</table>
+<p><strong>The kill criterion.</strong> If acceptance rate sits below 50% at day 30 with a populated wardrobe, the hypothesis is wrong and no amount of UI fixes it. The product would be recommending, not reflecting, and the category already has five of those.</p>
+</section>
+
+<section class="sec rv" id="p6"><span class="eyebrow">07 / Risks</span>
+<h2>What breaks this, in order of likelihood</h2>
+<dl class="prd-risks">
+  <dt>Recognition quality is the product</dt>
+  <dd>Every error lands in the catalogue and the engine inherits it. Accuracy stops being the user's chore and becomes our risk. <b>Mitigation:</b> one-tap correction (R-03), and recognition confidence surfaced rather than hidden, so a low-confidence guess asks instead of asserting.</dd>
+  <dt>The engine has no taste signal on day one</dt>
+  <dd>A new user has zero rejections, so the first outfits are the weakest the product will ever produce, at the exact moment it is being judged. <b>Mitigation:</b> onboarding asks for three owned outfits the user already likes, which is a taste sample disguised as setup.</dd>
+  <dt>The affiliate model earns too slowly to fund the build</dt>
+  <dd>Revenue only arrives once the user has genuinely been served, which is the point, and also a harder story than a usage graph. <b>Mitigation:</b> none at the product level. This is a funding decision, and it is the trade-off the positioning was chosen with eyes open.</dd>
+  <dt>An incumbent copies the capture flow</dt>
+  <dd>It is the most visible part and the least defensible. <b>Mitigation:</b> the defensibility is the incentive model, not the feature. A competitor earning on engagement cannot copy a product that earns on restraint without breaking their own revenue.</dd>
+</dl>
+</section>
+
+<section class="sec rv" id="p7"><span class="eyebrow">08 / Release</span>
+<h2>Three phases, each with a reason to stop</h2>
+<ol class="prd-phase">
+  <li><b>Phase 1 &middot; Closed</b><span>P0 scope, invite only, target 200 wardrobes. The only question being asked: does recognition work well enough that people keep adding garments after the first session? Stop here if it does not.</span></li>
+  <li><b>Phase 2 &middot; Waitlist</b><span>Same scope, opened to the waitlist. The question becomes acceptance rate against a real spread of taste. The 65% target is measured here, before any spend.</span></li>
+  <li><b>Phase 3 &middot; Launch and shop</b><span>Public, with the affiliate layer switched on. The shop ships last because a recommendation is only trusted from a product that has already proved it understands the wardrobe.</span></li>
+</ol>
+</section>
+
+<section class="sec rv" id="p8"><span class="eyebrow">09 / Open</span>
+<h2>What this document does not answer</h2>
+<p>Listed because a PRD that pretends to be complete is the least useful kind.</p>
+<ul class="prd-open">
+  <li>Whether recognition should run on-device or server-side. It is a cost, latency and privacy trade-off, and R-04 is the constraint it has to satisfy.</li>
+  <li>What the engine does with a wardrobe of 300 garments. Every assumption here is written for 15 to 60.</li>
+  <li>Whether &ldquo;occasion&rdquo; is the right input. It is the one the case study assumes; mood and weather are the alternatives and no user has been asked.</li>
+</ul>
+</section>
+
+</main>
+
+<aside class="side case-toc md:sticky md:top-20"><ol>
+  <li><a href="#p0">Problem</a></li>
+  <li><a href="#p1">Users</a></li>
+  <li><a href="#p2">Stories</a></li>
+  <li><a href="#p3">Scope</a></li>
+  <li><a href="#p4">Requirements</a></li>
+  <li><a href="#p5">Success</a></li>
+  <li><a href="#p6">Risks</a></li>
+  <li><a href="#p7">Release</a></li>
+  <li><a href="#p8">Open</a></li>
+</ol></aside>
+</div>
+
+<footer class="mx-auto max-w-[1240px] px-(--pad) border-t-[3px] border-deep py-10">
+  <div class="grid gap-6 sm:grid-cols-2">
+    <a class="grid gap-1.5 border-t border-deep/35 pt-3 font-display font-black no-underline" href="../../../work/vastr/"><span class="label font-normal opacity-82">&larr; Back to</span><span class="text-h3">The Vastr case study</span></a>
+    <a class="grid gap-1.5 border-t border-deep/35 pt-3 font-display font-black no-underline sm:text-right" href="../../../work/"><span class="label font-normal opacity-82">All work &rarr;</span><span class="text-h3">Seven briefs</span></a>
+  </div>
+  <p class="label mt-8 opacity-82">Shrey Mehra &middot; shreyymehraa@gmail.com</p>
+</footer>
+<script src="../../../assets/case.js" defer></script>
+</body></html>

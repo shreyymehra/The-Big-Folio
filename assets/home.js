@@ -268,10 +268,24 @@
          trip for a number this loop already has. */
       var active=null;
       for(var ti=0;ti<tiles.length;ti++){
-        var t=tiles[ti], cp=clamp((p-(+t.dataset.reveal||0))/.13);
-        t.classList.toggle('is-visible',cp>0);
+        var t=tiles[ti], rv=+t.dataset.reveal||0;
+        var cp=clamp((p-rv)/.13);
+        /* --q is the LEAVE phase: each project holds the stage alone and hands
+           it to the next, instead of three posters accumulating in scattered
+           positions with blue space between them.
+           A tile leaves exactly when the NEXT one arrives, read off that
+           tile rather than from a constant, so the handoff stays correct if
+           the reveals are ever re-spaced. THE LAST TILE NEVER LEAVES: --wp
+           reaches 1 well before the pin releases and then holds, so an exit
+           on the final tile empties the stage for the rest of the section.
+           That is exactly what the first version did, and it is only visible
+           in a screenshot. */
+        var nxt=tiles[ti+1];
+        var cq=nxt ? clamp((p-((+nxt.dataset.reveal||1)-.055))/.055) : 0;
+        t.classList.toggle('is-visible',cp>0&&cq<1);
         t.style.setProperty('--p',cp.toFixed(4));
-        if(cp>=.999) active=t;
+        t.style.setProperty('--q',cq.toFixed(4));
+        if(cp>=.999&&cq<=0) active=t;
       }
       for(var tj=0;tj<tiles.length;tj++) tiles[tj].classList.toggle('is-top',tiles[tj]===active);
       if(!fine){

@@ -31,7 +31,8 @@ PREMISE: ......................................................................
 
 PIECE: ........................................................................
 
-### G03 — Where the other work lives
+  
+  **VOID 19 Oct:** the slot is gone. An absent link is invisible; a sentence explaining it is a paragraph about what he does not have. The links still belong on the page if he sends them.
 Links for the photographs, the paintings, and the writing.
 
 PHOTOGRAPHS: ..................................................................

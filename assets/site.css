@@ -2213,3 +2213,42 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 @media (max-width:900px){
   .me-head--star{width:min(300px,70%);margin-inline:auto}
 }
+
+/* ============================================================
+   THE WORK WALL READS AS A SEQUENCE (19 Oct 2026, at his instruction)
+   "The work stuff has to be remade in a way that actually follows the flow
+   of readability."
+
+   It was three posters at three hand-placed positions, accumulating as you
+   scrolled. At any given moment you saw one, two or three of them scattered
+   across a blue field with a few hundred pixels of nothing under them, and
+   there was no order for the eye to follow: nothing said which to read first
+   or that there were three.
+
+   Each project now holds the stage alone, in one slot, at a size you can
+   actually read, and hands it to the next. The pin earns its height because
+   something changes the whole way down it, and the dead space is gone
+   because there is only ever one object on the stage.
+   ============================================================ */
+@media (min-width:760px) and (prefers-reduced-motion:no-preference){
+  .work .wk-tile,.work.wk-live .wk-tile,.work.wk-live .wk-tile.is-visible{
+    /* one slot, right of the copy column, vertically centred */
+    left:auto;right:max(var(--pad),7vw);top:50%;width:min(38vw,520px);
+    /* enter from below, sit, leave upward. --p drives the arrival and --q the
+       exit, so the two are independent and neither can strand a tile on
+       screen when the scroll is thrown rather than dragged. */
+    transform:translate3d(0,calc(-50% + (1 - var(--p,1)) * 26vh - var(--q,0) * 30vh),0)
+      scale(calc(.92 + var(--p,1) * .08))
+      rotate(calc(var(--r) * (1 - var(--q,0))));
+    opacity:calc(var(--p,1) * 2.2 * (1 - var(--q,0)));
+    transition:none}
+  /* the number is the reading order, stated rather than implied */
+  /* above the tile, not beside it: the poster is rotated, so a counter in
+     the left margin sits under its corner at two of the three angles. */
+  .wk-tile::after{content:attr(data-n);position:absolute;left:.2rem;top:-1.9rem;
+    font-family:var(--fu);font-size:var(--t-small);letter-spacing:.1em;
+    color:rgba(var(--cream-rgb),.62)}
+  .wk-label{font-size:var(--t-small)}
+  .wk-label span:first-child{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+    letter-spacing:var(--fd-track)}
+}

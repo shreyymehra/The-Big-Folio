@@ -102,7 +102,13 @@
 
   /* the little of a reset these pages need, since preflight is off */
   /* the same printed screen the rest of the site is on */
-  .case{margin:0;background-image:var(--paper);background-size:var(--paper-size);background-attachment:fixed}
+  .case{margin:0;position:relative}
+  .case::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:var(--paper);background-size:var(--paper-size);
+    /* .34 here against .58 on home: a case page is long-form reading and the
+       texture has to sit further back than it does on a landing page. Checked
+       against the PRD tables, which are the densest type on the site. */
+    opacity:.34}
   .case,.case *,.case *::before,.case *::after{box-sizing:border-box}
   .case a{color:inherit}
   .case :focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
@@ -218,3 +224,55 @@
     .case .cost::before{transform:scaleY(1);transition:none}
   }
 }
+
+/* ============================================================
+   THE VASTR PRD (19 Oct 2026)
+   The one artefact the site did not have: the portfolio leads with product
+   marketing and every piece on it argued rather than specified. A case study
+   persuades; a PRD commits. These are the blocks a requirements document
+   needs that a narrative case page does not.
+   Built on the same tokens as the case pages, so it reads as the same hand.
+   ============================================================ */
+.prd-stories{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:1rem}
+.prd-stories li{display:grid;grid-template-columns:max-content minmax(0,1fr);
+  gap:.25rem 1rem;align-items:baseline;border-top:2px solid var(--deep);padding-top:.7rem}
+.prd-stories b{font-family:var(--fu);font-weight:400;font-size:var(--t-small);
+  letter-spacing:.08em;color:var(--accent-type)}
+
+/* in and out, side by side, because the value of a scope section is the
+   boundary rather than either list */
+.prd-scope{display:grid;gap:1.6rem;margin:1.6rem 0 0}
+@media (min-width:720px){.prd-scope{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem}}
+.prd-scope ul{margin:.6rem 0 0;padding:0 0 0 1.1rem;display:grid;gap:.55rem}
+.prd-in{border-left:4px solid var(--deep);padding-left:1.1rem}
+.prd-out{border-left:4px solid var(--fluoro);padding-left:1.1rem}
+/* the reason a thing is out is the content; without it this is just a list */
+.prd-why{display:block;font-size:var(--t-small);opacity:.82}
+
+.prd-table{width:100%;border-collapse:collapse;margin:1.5rem 0 0;font-size:var(--t-small)}
+.prd-table th{text-align:left;font-family:var(--fu);font-weight:400;font-size:var(--xs);
+  letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--deep);
+  padding:0 .9rem .5rem 0;vertical-align:bottom}
+.prd-table td{border-bottom:1px solid color-mix(in srgb,var(--deep) 28%,transparent);
+  padding:.75rem .9rem .75rem 0;vertical-align:top;line-height:1.45}
+.prd-table td:first-child{font-family:var(--fu);white-space:nowrap;color:var(--accent-type)}
+@media (max-width:640px){
+  /* a three-column table does not reflow, it shrinks, so on a phone each row
+     becomes a block and the headers move into the cells */
+  .prd-table,.prd-table tbody,.prd-table tr,.prd-table td{display:block;width:100%}
+  .prd-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .prd-table tr{border-bottom:2px solid var(--deep);padding-bottom:.8rem;margin-bottom:.8rem}
+  .prd-table td{border:0;padding:.2rem 0}
+  .prd-table td:first-child{font-size:var(--xs);letter-spacing:.08em}
+}
+
+.prd-risks{margin:1.5rem 0 0}
+.prd-risks dt{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.1;
+  letter-spacing:var(--fd-track);margin-top:1.5rem}
+.prd-risks dd{margin:.5rem 0 0;padding-left:1.1rem;border-left:4px solid var(--fluoro);line-height:1.5}
+
+.prd-phase{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:1.1rem;counter-reset:ph}
+.prd-phase li{display:grid;gap:.3rem;border-top:2px solid var(--deep);padding-top:.8rem}
+.prd-phase b{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);letter-spacing:var(--fd-track)}
+
+.prd-open{margin:1.2rem 0 0;padding-left:1.1rem;display:grid;gap:.7rem}
