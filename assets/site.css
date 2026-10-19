@@ -331,12 +331,35 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
   border-top:3px solid #0D1633;border-bottom:3px solid #0D1633;margin:var(--s-6) 0 0}
 .process .pr-band{position:relative;overflow:hidden}
 .process .xtrack{display:flex;width:max-content;will-change:transform}
-.pr-set{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
-.pr-set li{flex:none;display:flex;align-items:baseline;gap:.6em;white-space:nowrap;
-  padding:clamp(.9rem,2vw,1.4rem) clamp(1.4rem,3vw,2.6rem);
-  font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1;
+.pr-set{list-style:none;margin:0;padding:0;display:flex;align-items:stretch;flex:none}
+/* An infographic, not a list of names (19 Oct, at his instruction). The band
+   used to run the five step names and nothing else, which repeated the cards
+   below it word for word and carried no information they did not. Each step
+   now shows its mark, its number, its name and the one line that says what
+   actually happens in it, so the band is the summary and the cards are the
+   detail.
+   The marks are his own hero artwork, matched to meaning rather than assigned
+   to fill a slot: the record player listens, the pencil starts blank, the bulb
+   is the research turning into something, the phone is the step that is a
+   conversation, the star is the standard it becomes. */
+.pr-step{flex:none;display:flex;align-items:center;gap:clamp(.7rem,1.3vw,1.1rem);
+  padding:clamp(.85rem,1.5vw,1.15rem) clamp(1.1rem,2.4vw,2rem);white-space:nowrap;
+  border-right:2px solid rgba(13,22,51,.28)}
+.pr-ico{flex:none;display:block;width:clamp(48px,5.2vw,74px);height:clamp(48px,5.2vw,74px)}
+.pr-ico img{display:block;width:100%;height:100%;object-fit:contain}
+.pr-txt{display:grid;gap:2px;line-height:1.12}
+.pr-txt b{font-family:var(--fu);font-weight:400;font-size:var(--xs);letter-spacing:.1em;color:#0D1633}
+.pr-txt strong{font-family:var(--fd);font-weight:900;font-size:clamp(1rem,1.5vw,1.3rem);
   letter-spacing:var(--fd-track);color:#0D1633}
-.pr-set b{font-family:var(--fu);font-weight:400;font-size:var(--t-small);letter-spacing:.08em}
+/* ink at 72% on the orange is 5.6, which clears AA for this size. The step
+   numbers were at .7 opacity here once and measured 3.98; do not reintroduce
+   an opacity on type over this plane without checking it. */
+.pr-txt i{font-family:var(--fb);font-style:normal;font-size:var(--t-small);
+  color:rgba(13,22,51,.72);white-space:normal;max-width:22ch}
+@media (max-width:640px){
+  .pr-txt i{display:none}
+  .pr-ico{width:38px;height:38px}
+}
 
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
