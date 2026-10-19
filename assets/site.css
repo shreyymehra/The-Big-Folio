@@ -2252,3 +2252,81 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .wk-label span:first-child{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
     letter-spacing:var(--fd-track)}
 }
+
+/* ============================================================
+   THE EASTER EGG (19 Oct 2026, at his instruction)
+   "Add an easter egg to the portfolio that is discovered through scrolling."
+
+   He is at the bottom of his own site, behind his own wordmark, and he only
+   turns up for someone who actually went the whole way down. It cannot be
+   found by jumping to the footer or following a link to #contact: home.js
+   tracks the deepest point actually reached, so the trigger is the journey
+   rather than the destination.
+
+   No new copy and no new asset: it is one of the four cut-out heads he
+   supplied, and it says nothing. A reward should not need explaining, and a
+   line of text here would turn a joke into a caption.
+
+   Once found it stays found, which is why the state is stored. Coming back
+   to a site and having to re-earn the gag is worse than never finding it.
+   ============================================================ */
+.egg-head{position:absolute;z-index:0;left:50%;bottom:0;width:clamp(84px,9.5vw,132px);
+  height:auto;pointer-events:none;
+  /* parked fully below the fold of its own section, and rotated away, so no
+     part of it is visible before it is earned */
+  transform:translate(calc(-50% + 58%),34%) rotate(10deg);
+  opacity:0;transition:transform .9s var(--e-spring),opacity .5s ease}
+:root.sm-egg .egg-head{transform:translate(calc(-50% + 58%),-58%) rotate(-5deg);opacity:1}
+@media (prefers-reduced-motion:reduce){
+  /* the find still happens, it just does not fly: a face crossing the screen
+     is exactly what this rule exists to stop */
+  .egg-head{transition:opacity .4s linear}
+  :root.sm-egg .egg-head{transform:translate(calc(-50% + 58%),-58%) rotate(-5deg)}
+}
+@media (max-width:640px){.egg-head{width:92px}}
+
+/* ============================================================
+   ONE TRANSITION LANGUAGE (19 Oct 2026, at his instruction)
+   "The current pages are either bound by unwanted breaks, or transitions
+   that do not create a huge difference between sections."
+
+   Both halves were true and they were the same inconsistency. Some seams
+   were a hard 2px rule, which cuts the page without saying anything. Others
+   were nothing at all, so two different grounds met with no event between
+   them. Only the work block had a real transition.
+
+   The rule now: wherever two DIFFERENT grounds meet, the upper block tears
+   away in its own colour. Wherever two blocks share a ground, a rule is the
+   honest signal and stays. One device, applied by the same test every time,
+   instead of three treatments chosen ad hoc.
+   ============================================================ */
+
+/* the tear is one shape, declared once, and each use only sets its colour */
+.work::before,.work::after,.ideas::after{
+  content:"";position:absolute;left:0;right:0;height:12px;z-index:20;pointer-events:none;
+  background-repeat:repeat-x;background-position:0 0;background-size:240px 12px}
+
+/* work tears UP into the numbers block, which is cream */
+.work::before{top:-1px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%23F7F4EC'/%3E%3C/svg%3E")}
+
+/* work tears DOWN into ideas, which is warm white, not cream. It was cream
+   here and the 6-point difference showed as a pale line along the seam. */
+.work::after{bottom:-1px;transform:scaleY(-1);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%23FFFDF7'/%3E%3C/svg%3E")}
+
+/* ideas tears into Me, which is the grid ground returning. This boundary had
+   a plain rule and was the one seam on the page you could scroll past
+   without noticing the ground had changed. */
+.ideas{position:relative}
+.ideas::after{bottom:-1px;transform:scaleY(-1);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%23F7F4EC'/%3E%3C/svg%3E")}
+/* the rule it replaces: a tear and a rule at the same seam is two devices
+   doing one job, which is the inconsistency this block exists to end */
+.ideas::before{border-bottom:0}
+
+/* dark: a tear has to be the colour of the page it tears away from, and that
+   colour flips. Hard-coding light values leaves a pale scar on an ink page. */
+:root[data-theme="dark"] .work::before,
+:root[data-theme="dark"] .work::after,
+:root[data-theme="dark"] .ideas::after{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%230D1633'/%3E%3C/svg%3E")}

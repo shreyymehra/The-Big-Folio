@@ -589,3 +589,48 @@
     paint();
   })();
 })();
+
+/* ---- the easter egg: he turns up for anyone who goes all the way down ----
+   The trigger is the DEEPEST POINT ACTUALLY REACHED, accumulated across the
+   visit, not the current scroll position. That distinction is the whole
+   device: following a link to #contact, or hitting End, lands you at the
+   bottom without having seen the site, and the egg is a reward for the
+   journey rather than for arriving.
+
+   Reduced motion still finds it; the CSS drops the flight and keeps the
+   fade, because a face crossing the screen is the thing that rule exists to
+   stop. Once found it stays found: having to re-earn a gag on a second visit
+   is worse than never finding it. */
+(function(){
+  var root=document.documentElement, KEY='sm-egg';
+  if(!document.querySelector('.egg-head')) return;
+
+  try{ if(localStorage.getItem(KEY)==='found'){ root.classList.add('sm-egg'); return; } }catch(e){}
+
+  /* Coverage, not depth. The first version tracked the deepest point reached
+     and fired at 98.5%, which a single jump to the footer satisfies: End, or a
+     link to #contact, won the egg without the visitor seeing anything. The
+     comment above claimed the journey mattered and the code did not enforce
+     it, which my own test caught by jumping straight to the bottom.
+     The page is divided into ten bands and the reader has to have been in at
+     least eight of them, AND have reached the end. Jumping marks exactly two
+     bands: the one you left and the one you landed in. */
+  var BANDS=10, NEEDED=8, seen=new Array(BANDS).fill(false), queued=false;
+  function check(){
+    queued=false;
+    var doc=document.documentElement, h=doc.scrollHeight;
+    if(h<=innerHeight) return;
+    var top=Math.min(BANDS-1,Math.floor(scrollY/h*BANDS));
+    var bot=Math.min(BANDS-1,Math.floor((scrollY+innerHeight)/h*BANDS));
+    for(var i=top;i<=bot;i++) seen[i]=true;
+    var count=0; for(var k=0;k<BANDS;k++) if(seen[k]) count++;
+    if(count>=NEEDED && (scrollY+innerHeight)/h>=.985){
+      doc.classList.add('sm-egg');
+      try{ localStorage.setItem(KEY,'found'); }catch(e){}
+      removeEventListener('scroll',onScroll);
+    }
+  }
+  function onScroll(){ if(!queued){ queued=true; requestAnimationFrame(check); } }
+  addEventListener('scroll',onScroll,{passive:true});
+  check();
+})();
