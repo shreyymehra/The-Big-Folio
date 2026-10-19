@@ -1612,3 +1612,51 @@ changed.
 permitted; and it ships as **two `.otf` files totalling 264KB on every route**, where WOFF2 would
 be roughly 90KB. There is no Python or fonttools on this machine, so it is a recommendation rather
 than a fix.
+
+## THE REGISTER CAUGHT UP WITH THE DELIVERIES (19 Oct 2026)
+
+Nothing was half-built. The only thing in the working tree was
+`assets/img/What mtoivates Me.pdf`, a master Shrey dropped at 00:23 on 13 Oct
+and **already consumed**: the three `mot-*.webp` were cut from it nine minutes
+later. Its five embedded images were extracted and checked one by one against
+what is on the page, which is the only way to know a master is spent rather
+than pending: the mum photograph, the dad photograph, the camera body, the Taj
+frame for its screen, and the camera's alpha mask. All five are placed.
+
+**`assets/img/*.pdf` is now gitignored**, with the other delivered masters. It
+was the one extension the 12 Oct rule missed, so a 2.8MB PDF sat untracked in
+`git status` waiting for the `git add -A` this file already warns about twice.
+The earlier masters in `_archive/source-assets/` (including a 6.5MB
+`zine-cover.pdf`) predate that rule and stay where they are.
+
+**The real residue was in the two documents Shrey works from.** The 13 Oct
+session wired the assets and renamed the section but only half-updated the
+registers, so `FILL-IN.md` was still asking him for things that had landed and
+for approval of copy that is not on the site:
+
+- **G07** asked for a floating head with a star on one eye. He sent it. The
+  star with him inside it holds the `/about/` header and the four cut-out heads
+  run as the photo-booth strip.
+- **G08** asked for "one photograph of the three of you" to fill a polaroid
+  card. The card does not exist; three of his own artefacts are in its place.
+- **G09** asked him to approve a heading and a caption. **Neither is on the
+  site.** The heading is his own "Who I do it for" and the artefacts carry no
+  caption, so there was nothing of mine left to approve. `NEEDS.md` B5 said the
+  caption was still open; it never shipped.
+- **G05** and **G06**, the Contact1 graphic and the hill, were voided by the
+  13 Oct contact rebuild: one pill carries the copy, and the giant star is the
+  ground the section stands on now.
+
+Closed in the house style `NEEDS.md` already used (`~~struck~~ CLOSED/VOID,
+date`) rather than deleted, so the codes still line up with the seven
+`data-slot` attributes left in the markup. **Do not renumber G01-G17.** Ten of
+the seventeen have no live slot and most of those are still genuinely open: the
+7 Oct audit stripped visible codes from several on purpose, which means a
+missing `data-slot` is not evidence an item is done. Each of the five above was
+closed on what is actually on the page, checked one at a time.
+
+A stale comment in `about/index.html` describing the empty polaroid card went
+with them. **The lesson, and it is the same one as "check the other PDFs in a
+delivery": when an asset lands, the register entry that asked for it is part of
+the change.** A register that asks for what it already has is worse than no
+register, because the next person to read it believes it.

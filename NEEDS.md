@@ -120,10 +120,11 @@ the stub text rather than ship the word "year".
 
 What I need: the year each was made.
 
-### B5. ~~Two lines in What keeps me going are mine~~ HALF CLOSED, 13 Oct
-The heading is yours now: the section is **"Who I do it for"**, your title, and
-the camera sits in the middle. **Still open:** the caption **"Mum, Dad, me."**
-is my writing. Approve it or replace it.
+### B5. ~~Two lines in What keeps me going are mine~~ CLOSED, 19 Oct
+The heading is yours: the section is **"Who I do it for"**, your title, and the
+camera sits in the middle. The caption **"Mum, Dad, me."** never shipped. The
+three artefacts carry no caption, so there is no writing of mine left in that
+section to approve.
 
 ---
 

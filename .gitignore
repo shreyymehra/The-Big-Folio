@@ -23,4 +23,5 @@ assets/img/work/*.zip
 assets/img/*.zip
 assets/img/*.jpeg
 assets/img/*.jpg
+assets/img/*.pdf
 Claude outputs/

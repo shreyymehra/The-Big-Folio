@@ -8,7 +8,8 @@ blank here is honest, a guess on the page is not.
 
 Where an item is a file, drop it in the folder named and write the filename.
 
-Last audited 7 Oct 2026.
+Last audited 19 Oct 2026. G05 to G09 were closed or voided by the 12 and
+13 Oct deliveries and the contact rebuild; the rest stand.
 
 ---
 
@@ -47,40 +48,29 @@ MEDIUM: .......................................................................
 
 X: ............................................................................
 
-### G05 — Contact artwork
-The dark graphic that comes up when the email address is hovered.
-Reads at 260 x 180, landscape. Goes in `assets/img/`.
+### ~~G05 — Contact artwork~~ VOID, 13 Oct
+You removed the slot. Contact was rebuilt as one pill carrying the copy, the
+email, LinkedIn and the resume, and the Contact1 image came out with the
+duplication. Nothing to send unless you want the slot back.
 
-FILE: .........................................................................
+### ~~G06 — The hill~~ VOID, 13 Oct
+Superseded in the same rebuild. The giant star is the ground the section stands
+on now, and it is drawn, not photographed. Nothing to send unless you want the
+hill back instead.
 
-### G06 — The hill
-The ground the contact section stands on, full browser width.
-At least 2400px wide so it survives a large screen. Goes in `assets/img/`.
+### ~~G07 — Me artwork~~ CLOSED, 13 Oct
+You sent it. The star with you inside it holds the /about/ header, and the four
+cut-out heads run as a photo-booth strip between the five things you believe.
 
-FILE: .........................................................................
+### ~~G08 — The polaroid: your parents and you~~ CLOSED, 13 Oct
+You sent a sheet of three and all three are placed: the two clipped polaroid
+stacks and the camera with the Taj frame still on its screen. The section is
+**"Who I do it for"**, your title. There is no empty card left to fill.
 
-### G07 — Me artwork
-Bobblehead or floating head, star on one eye. Square. Goes in `assets/img/`.
-
-FILE: .........................................................................
-
-### G08 — The polaroid: your parents and you
-**The globe is gone, at your instruction (12 Oct).** "Where I have been" is now
-**What keeps me going**, and the slot is a polaroid card waiting for one
-photograph of the three of you. It sits on /about/ and the card is built.
-
-Square-ish works best; the card is 1/1.04. Goes in `assets/img/`.
-
-FILE: .........................................................................
-
-### G09 — The line under it
-My placeholder caption reads "Mum, Dad, me." and the heading reads "The two
-people who made the rest possible". Both are mine, not yours. Replace either or
-both.
-
-CAPTION: ......................................................................
-
-HEADING: ......................................................................
+### ~~G09 — The line under it~~ VOID, 13 Oct
+Both lines I was asking you to approve are off the site. The heading is your own
+**"Who I do it for"** and the artefacts carry no caption, so there is nothing of
+mine left standing in that section.
 
 ### G10 — Duolingo and L'Oreal
 Both have cards on /work but no case pages, so both stay unlinked.
