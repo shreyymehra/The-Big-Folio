@@ -2314,3 +2314,19 @@ body:has(.wrow)::before{display:none}
 /* the rows get air: 11 of them at the old rhythm is a wall */
 .wrow{padding-block:clamp(1.1rem,2vw,1.6rem)}
 .wrow .tags{gap:.45rem}
+
+/* ---------- the process cards, his own deck (20 Oct) ----------
+   The five steps were retyped into five text cards, which threw away the
+   deck he designed and left the section reading as a wall of body copy. The
+   cards are the artefact; they run on the same ticker engine as the band
+   above so the section is one device rather than two. */
+.proccards{position:relative;overflow:hidden;margin:var(--s-6) 0 0;
+  padding:var(--s-5) 0;border-top:2px solid rgba(var(--cream-rgb),.35);
+  border-bottom:2px solid rgba(var(--cream-rgb),.35)}
+.proccards .pc-band{position:relative;overflow:hidden}
+.proccards .xtrack{display:flex;width:max-content;will-change:transform}
+.pc-set{display:flex;align-items:stretch;gap:var(--s-5);margin:0;padding:0 calc(var(--s-5)/2);list-style:none;flex:none}
+.pc-set li{flex:none}
+.pc-set img{display:block;width:auto;max-width:none;height:clamp(190px,24vh,270px);
+  border:2px solid #0D1633}
+@media (max-width:640px){.pc-set img{height:170px}.pc-set{gap:var(--s-4)}}
