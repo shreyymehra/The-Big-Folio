@@ -230,18 +230,17 @@
      stops all of them (remembered across visits), and under reduced motion
      they never move. Each loop only runs while it is on screen. */
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var PAUSE_KEY='sm-tickers';
-  var paused=false; try{ paused=localStorage.getItem(PAUSE_KEY)==='paused'; }catch(e){}
-  var toggles=[].slice.call(document.querySelectorAll('[data-tick-toggle]'));
-  function syncToggles(){ toggles.forEach(function(b){
-    b.setAttribute('aria-pressed',paused?'true':'false');
-    b.querySelector('span').textContent=paused?'Play motion':'Pause motion'; }); window.__smPaused=paused;
-    /* CSS loops (the carousel) read this class, since they cannot read a variable */
-    document.documentElement.classList.toggle('sm-paused',paused); }
-  toggles.forEach(function(b){ b.addEventListener('click',function(){
-    paused=!paused; try{ localStorage.setItem(PAUSE_KEY,paused?'paused':'playing'); }catch(e){} syncToggles(); }); });
-  syncToggles();
-  if(reduce) toggles.forEach(function(b){ b.hidden=true; }); /* nothing moves, nothing to pause */
+  /* The Pause motion controls came off on 6 Oct at his instruction and no
+     markup has carried [data-tick-toggle] since. What was left was not just
+     dead weight, it was a LATENT BUG: this block read
+     localStorage['sm-tickers'] on every load, so anyone who had pressed
+     Pause before 6 Oct still had 'paused' stored, the tickers started
+     frozen, and there was no longer a control anywhere to unfreeze them.
+     The stored key is cleared once, on sight, so those visitors recover.
+     html.sm-paused went with the CSS carousel it drove; no stylesheet has
+     referenced it since. */
+  try{ localStorage.removeItem('sm-tickers'); }catch(e){}
+  var paused=false;
 
   if(!reduce) [].forEach.call(document.querySelectorAll('[data-cross],[data-tape],[data-logos]'),function(box){
     var BASE=+box.getAttribute('data-speed')||40, PUSH=+box.getAttribute('data-push')||.5; /* px per second; scroll push */

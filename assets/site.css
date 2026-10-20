@@ -187,8 +187,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    A credits line, not a logo wall. Six equal cells ruled like a table, names
    muted until pointed at, when the cell inverts. Only real employers, events and
    projects sit here, with context where it was not a job; spec brands never do. */
-.worked{margin:0 0 var(--s-7)}
-.worked-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 1rem}
 /* The eight marks, cut from the board Shrey supplied (2 Oct). They are
    mixed lockups: two sit on their own dark or orange plate, the rest are
    free-standing, so each one is capped by height rather than width and the
@@ -202,7 +200,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* Each mark is trimmed to its own ink and sized by height, which is how a
    logo wall is normally set: a square device and a long wordmark then read
    as the same weight. Width follows. */
-.worked-mark{display:block;height:clamp(30px,3.4vw,46px);width:auto;max-width:100%;object-fit:contain}
 /* Bliss and Birch is drawn small inside its own lockup, so at a shared cap
    height it still reads light. One nudge, the way a logo wall is normally
    optically corrected. */
@@ -224,15 +221,10 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    click on it open that drawer, which is why it carries a pointer. */
 .logo-strip{position:relative;overflow:hidden;cursor:pointer;
   border-top:2px solid var(--deep);border-bottom:2px solid var(--deep)}
-.logo-strip .ls-band{position:relative;overflow:hidden}
 /* the shared .xtrack rule went with the crossing bands; each track needs its
    own row now or the four repeat copies stack instead of running */
 .logo-strip .xtrack{display:flex;width:max-content;will-change:transform}
-.ls-set{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:none}
-.ls-set li{flex:none;display:flex;align-items:center;padding:clamp(.85rem,1.8vw,1.3rem) clamp(1.5rem,3.2vw,3rem)}
-.ls-set .worked-mark{display:block;height:clamp(26px,2.9vw,40px);width:auto;max-width:none;object-fit:contain}
 .logo-strip:is(:hover,:focus-within){background:rgba(var(--deep-rgb),.04)}
-@media (max-width:560px){.ls-set li{padding:.8rem 1.2rem}}
 
 /* ---------- the metrics, collapsed onto a pill ----------
    Closed on arrival. Shield yellow, because this is the one plane on the page
@@ -316,7 +308,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 .mot-item{margin:0}
 .mot-item img{display:block;width:100%;height:auto}
 .mot-item--1{animation:mot-a 7.5s ease-in-out infinite}
-.mot-item--2{animation:mot-b 9s ease-in-out infinite .6s}
 .mot-item--3{animation:mot-a 8.2s ease-in-out infinite 1.2s}
 @keyframes mot-a{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-10px) rotate(.8deg)}}
 @keyframes mot-b{0%,100%{transform:translateY(-6px) rotate(1.6deg)}50%{transform:translateY(6px) rotate(-1deg)}}
@@ -619,12 +610,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* The end of the page says what to do and nothing else (6 Oct). Four ways
    out, each marked by its icon, all weighted the same: no one of them gets a
    special treatment, which was his note about the long-version link too. */
-.ways{display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin:var(--s-6) 0 0}
-.ways a{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;
-  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;transition:border-color var(--d-1) ease}
-.ways a:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
-.ways .ico{width:18px;height:18px;flex:none}
 
 /* footer: the Made by Shrey mark (see its own block) and one line of
    metadata. Metadata is #4A5578-weight deep, measured above AA. */
@@ -1082,7 +1067,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    tolerable at 10px as texture but fails AA now they are reading text.
    Metadata stays quieter than body, at .8, which clears 4.5:1 on cream and
    deep; on the fluoro ground it takes the ink tone, the only one that passes
-   there. Small accent text on deep uses the lifted fluoro. */.worked-k,.contact .no,.shead .no{opacity:.82}
+   there. Small accent text on deep uses the lifted fluoro. */.contact .no,.shead .no{opacity:.82}
 .wk-note{color:rgba(var(--cream-rgb),.82)}
 
 /* ---------- work covers: static, with a state change on hover ----------
@@ -1115,15 +1100,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .stance-body{display:grid;gap:var(--s-5);max-width:40em;margin:var(--s-6) 0 0}
 .stance-body p{margin:0;font-size:var(--t-body);line-height:var(--lh-body)}
 .stance-body .stance-lede{font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.25;letter-spacing:var(--fd-track)}
-.beliefs{margin:var(--s-8) 0 0;border-top:1px solid var(--deep);padding-top:var(--s-5)}
-.beliefs-k{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
-.beliefs-list{list-style:none;margin:0;padding:0;counter-reset:b}
-.beliefs-list li{counter-increment:b;display:grid;grid-template-columns:3.2rem minmax(0,1fr);align-items:baseline;
-  padding:var(--s-4) 0;border-bottom:1px solid rgba(var(--deep-rgb),.25);
-  font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
-.beliefs-list li::before{content:counter(b,decimal-leading-zero);font-family:var(--fu);font-size:var(--t-small);
-  font-weight:400;letter-spacing:.04em;opacity:.8}
-.beliefs-list li:last-child{color:var(--fluoro-deep,var(--accent-type))}
 
 
 /* ============================================================
@@ -1176,12 +1152,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .toc a:hover,.toc a:focus-visible{padding-left:var(--s-3);background:rgba(var(--cream-rgb),.08)}
 
 /* 3. manifesto */
-.mani{list-style:none;margin:0;padding:0;counter-reset:m;display:grid;gap:var(--s-3)}
-.mani li{counter-increment:m;display:grid;grid-template-columns:2.6rem minmax(0,1fr);align-items:baseline;
-  font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.7cqw,1.5rem);line-height:1.12;letter-spacing:var(--fd-track);
-  padding-bottom:var(--s-3);border-bottom:1px solid rgba(var(--deep-rgb),.25)}
-.mani li::before{content:counter(m,decimal-leading-zero);font-family:var(--fu);font-weight:400;font-size:var(--t-small);opacity:.82}
-.mani li:last-child{color:var(--accent-type);border-bottom:0}
 
 /* 4. projects */
 .briefs{list-style:none;margin:0;padding:0;border-top:1px solid var(--deep)}
@@ -1198,10 +1168,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* 5. process: the accent plane, ink type (4.8:1; cream would be 3.0:1) */
 .pg-process{background:var(--fluoro);color:#0D1633;border-color:#0D1633}
 .pg-process .pg-kick,.pg-process .pg-folio{opacity:1}
-.steps5{list-style:none;margin:0 0 var(--s-5);padding:0;display:grid;gap:var(--s-1)}
-.steps5 li{display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--fd);font-weight:700;
-  font-size:clamp(1.1rem,5.6cqw,1.75rem);line-height:1.1;letter-spacing:var(--fd-track)}
-.steps5 .mono{font-size:var(--t-small);font-weight:400}
 
 /* 7. letters: deep, the locked CTA at display size */
 .pg-letters{background:var(--deep);color:var(--cream);border-color:var(--deep)}
@@ -1266,10 +1232,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .desk-props{position:absolute;inset:0;pointer-events:none;z-index:1}
 .prop{position:absolute;display:block;height:auto;
   transform:translate3d(0,var(--py,0px),0) rotate(var(--rot,0deg));will-change:transform}
-.p-hi{left:3%;top:6%;width:clamp(90px,11vw,160px);--rot:-9deg}
-.p-is{left:9%;bottom:16%;width:clamp(56px,6vw,92px);--rot:10deg}
-.p-star{right:4%;top:0;width:clamp(70px,8vw,124px);--rot:14deg;z-index:3}
-.p-mark{right:9%;bottom:10%;width:clamp(40px,4.5vw,68px);--rot:-6deg}
 .sticker:empty{display:none}
 .sticker{width:clamp(40px,4vw,56px)}
 .sticker img{display:block;width:100%;height:auto}
@@ -1280,9 +1242,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* before the issue arrives, and if it never does: the cover as a link */
 @media (max-width:899px){
   .desk-surface{padding:var(--s-5) var(--pad) var(--sec)}
-  .p-is,.p-mark,.sticker{display:none}
-  .p-hi{top:-2%;left:auto;right:6%;width:78px;z-index:3}
-  .p-star{top:-1%;right:auto;left:2%;width:58px;z-index:3}
+  .sticker{display:none}
 }
 @media (prefers-reduced-motion:reduce){.prop{transform:rotate(var(--rot,0deg))}}
 .mag-count{white-space:nowrap}
@@ -1351,21 +1311,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    seam between the hero and the rest of the page. Its edges are drawn, not
    ruled: a wobbly ink line top and bottom. Quotes are set in the display face
    in ink (11.0 on yellow), separated by hand-drawn stars. */
-.handtape{position:relative;z-index:5;margin-top:calc(-1 * var(--s-8));padding:var(--s-6) 0 var(--s-5);overflow:hidden} /* straddles the hero's bottom edge: the seam between landing and scroll */
-.ht-band{transform:rotate(-2deg);margin:0 -2vw}
-.ht-tape{position:relative;overflow:hidden;background:var(--yellow);color:var(--ink);padding:var(--s-4) 0}
-.ht-tape::before,.ht-tape::after{content:"";position:absolute;left:0;right:0;height:10px;pointer-events:none;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='10' viewBox='0 0 240 10'%3E%3Cpath d='M0 5c14-3 26 2 40 0s24-4 38-1 30 3 44 0 22-3 36-1 26 4 42 1 26-2 40 1' fill='none' stroke='%230D1633' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x 0 50%/240px 10px}
-.ht-tape::before{top:1px}
-.ht-tape::after{bottom:1px;transform:scaleX(-1)}
-.ht-tape .xtrack{display:flex;width:max-content;will-change:transform}
-.ht-set{display:flex;align-items:center;gap:var(--s-5);margin:0;padding:0 var(--s-5) 0 0;list-style:none}
-.ht-set li{white-space:nowrap;font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.2;letter-spacing:var(--fd-track)}
-.ht-set q{quotes:"\201C" "\201D"}
-.ht-mark{display:block;width:28px;height:28px;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round;transform:rotate(-8deg)}
-.ht-sep:nth-child(4n) .ht-mark{transform:rotate(14deg) scale(.85)}
 
-@media (max-width:640px){.ht-set li{font-size:var(--t-body)}.ht-mark{width:22px;height:22px}}
 
 /* ---------- readability pass (21 Sep 2026) ----------
    Muted text is now opacity .82 everywhere, the lowest that holds 4.5:1 on
@@ -1381,16 +1327,8 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* plate labels sit on a cream tab, never straight on red or blue */
 .plate .pm{opacity:1;background:var(--cream);color:var(--ink);padding:2px 6px}
 /* the last belief is the red one; on ink it takes the lifted red (6.4) */
-html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
 
 /* ticker pause: small, plain, next to the thing it stops */
-.tick-toggle{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;padding:0 var(--s-3);margin:0;
-  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
-  background:none;color:var(--deep);border:1px solid currentColor;cursor:pointer}
-.tick-toggle:hover,.tick-toggle:focus-visible{background:var(--deep);color:var(--cream)}
-.tick-toggle[aria-pressed="true"]{background:var(--deep);color:var(--cream)}
-.ht-foot{display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--s-4) var(--s-6);margin-top:var(--s-5)}
-.tick-bar{display:flex;justify-content:flex-end;margin-bottom:var(--s-4)}
 
 /* ---------- loader ----------
    A cold open, not a spinner. Mono leader in the corners, the artefact
@@ -1429,8 +1367,6 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
    lane in the hero, a one-line value claim over each proof stint, and the
    roles he wants, stated once, above the ask. Every claim sits on a verified
    figure; nothing here adds a number. */
-.lookingfor{margin:var(--s-5) 0 var(--s-6);max-width:36em;font-size:var(--t-body);line-height:1.5;color:var(--deep)}
-.lookingfor b{font-weight:600}
 
 /* ============================================================
    FLOATING NAVIGATION MARKS, head start (22 Sep 2026)
@@ -1459,8 +1395,6 @@ html[data-theme="dark"] .beliefs-list li:last-child{color:#FF6B5E}
 /* ---------- yellow is an accent, never a plane (Shrey, 22 Sep 2026) ----------
    It marks things (the highlighter, the stars on the tape, the cover
    starburst); it no longer fills a band. The quote tape is paper now. */
-.ht-tape{background:#FCFAF4;color:#0D1633}
-.ht-mark{fill:#FFED10}
 /* positions for the full hero: the red panel's free strips either side of the
    print, and the cream corner above the copy */
 /* below 1180px the strips beside the print are too narrow to hold the marks
@@ -1499,9 +1433,7 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    hover" take, held to the letter, and it is all one gesture so it does not
    read as three effects competing.
    ============================================================ */
-.reach-wrap{position:relative;display:inline-block}
 .reach{position:relative;z-index:1;padding:.05em .16em .2rem}
-.reach-wrap:is(:hover,:focus-within) .reach{background:var(--deep);color:var(--cream);border-bottom-color:transparent}
 .reach{transition:border-color 220ms var(--ease),background 220ms var(--ease),color 220ms var(--ease)}
 
 /* the scribble: drawn, not decorative. It underlines the one thing on the
@@ -1511,13 +1443,8 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .scribble path{fill:none;stroke:var(--fluoro);stroke-width:3.5;stroke-linecap:round;
   stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 620ms var(--e-out)}
 .scribble .s2{stroke-width:2.5;opacity:.75;transition-delay:90ms}
-.reach-wrap:is(:hover,:focus-within) .scribble path{stroke-dashoffset:0}
 
 /* the dark graphic, row 02. It comes up beside the address, not over it. */
-.ph-reveal{position:absolute;left:calc(100% + var(--s-5));top:50%;width:260px;height:180px;background:#0D1633;color:#F7F4EC;
-  border-color:#F7F4EC;transform:translateY(-50%) rotate(3deg) scale(.6);opacity:0;pointer-events:none;
-  transition:opacity 200ms ease,transform 320ms var(--e-spring)}
-.reach-wrap:is(:hover,:focus-within) .ph-reveal{opacity:1;transform:translateY(-50%) rotate(3deg) scale(1)}
 
 /* the hill, row 09: the section stands on it, full bleed and behind the
    content, with the footer line sitting on it rather than after it. */
@@ -1630,7 +1557,6 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 }
 @media (max-width:640px){
   .sign-off{grid-template-columns:minmax(0,1fr)}
-  .so-line{font-size:var(--md)}
   .bigmark{font-size:clamp(3.4rem,21vw,6rem);transform:translate(-50%,26%)}
 }
 
@@ -1641,8 +1567,7 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .creach .reach-row:is(:hover,:focus-visible) .v{background:var(--deep);color:var(--cream)}
 .creach .reach-row .scribble{bottom:-.5rem;height:14px}
 .creach .reach-row:is(:hover,:focus-visible) .scribble path{stroke-dashoffset:0}
-@media (max-width:900px){.ph-reveal{display:none}}
-@media (prefers-reduced-motion:reduce){.ph-reveal,.reach,.scribble path{transition:none}.scribble path{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.scribble path{transition:none;stroke-dashoffset:0}}
 
 
 
@@ -1672,13 +1597,6 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    which becomes the light cream in dark mode: it was 1.26 on the card. Ink and
    the rule are fixed values here for the same reason. This is the --card trap
    from 24 Sep in a new place: anything hard-coded light needs hard-coded ink. */
-.pola{margin:var(--s-7) 0 0;width:min(100%,420px);background:#FFFDF7;
-  border:1px solid rgba(13,22,51,.22);padding:14px 14px 0;color:#0D1633;
-  transform:rotate(-1.8deg);transform-origin:50% 0}
-.pola-shot{display:block;width:100%;aspect-ratio:1/1.04;background:#EDEAE1}
-.pola-cap{margin:0;padding:var(--s-5) var(--s-2) var(--s-6);
-  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;color:#0D1633}
-@media (max-width:640px){.pola{transform:rotate(-1.2deg)}}
 
 /* The head that rides the giant star in the sign off. It sits in front of the
    star and behind the wordmark, which is the whole point: the three layers
@@ -2008,21 +1926,10 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    Three things he reported as "overlaps and unnecessary gaps", all of them
    found by screenshotting the scroll rather than by reading the file. */
 
-/* 1. The quote tape is rotated -2deg and runs 2vw wider than its box, so its
-      bottom corners drop about 26px below the padding box and landed on the
-      "Employers, clients and volunteer work" label underneath. A rotated band
-      has to reserve the height its corners actually occupy.
-      The clearance goes on .workedwith, not on .handtape: the worked-with
-      section is NESTED INSIDE the tape section in the markup, so padding on
-      the parent puts space under both of them and changes nothing between
-      them. Checked in the DOM after the first fix did not move it. */
-.workedwith{display:block;margin-top:40px}
-
-/* 2. 144px of nothing between the logo strip and the metrics pill: the strip's
-      own bottom margin and the section's top padding were both set as if they
-      were the only gap there. One gap, not two. */
-.worked{margin-bottom:var(--s-5)}
-.moved{padding-top:clamp(1.6rem,3.4vw,2.6rem)}
+/* The notes that stood here described the quote tape and the logo strip
+   clearances. Both sections came off home at his instruction, so the fixes
+   and their reasoning went with them. The seam they were protecting is now
+   the hero meeting the numbers block directly. */
 
 /* 3. The dashed slot behind the zine read as a broken frame rather than as a
       waiting image: it is a large empty dashed rectangle with nothing in it,

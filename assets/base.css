@@ -311,9 +311,8 @@ html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::afte
 .slot{display:block;max-width:32em;margin:var(--s-5) 0;border-left:3px solid var(--fluoro);
   padding:var(--s-2) 0 var(--s-2) var(--s-4);font-family:var(--fu);font-size:var(--t-small);
   line-height:1.6;letter-spacing:.01em}
-.slot b,.slot-i b{font-family:var(--fd);font-weight:900;font-size:1em;letter-spacing:.08em;
+.slot b{font-family:var(--fd);font-weight:900;font-size:1em;letter-spacing:.08em;
   color:var(--accent-type);margin-right:.6em}
-.slot-i b{margin-right:.45em}
 
 /* ---------- THE STAR LOADER (13 Oct 2026, at his instruction) ----------
    The site's own mark, drawn rather than spun: the stroke writes itself on,

@@ -387,12 +387,11 @@
     tl.push(gsap.to(img,{rotation:'random(-5,5)',x:'random(-2.5,2.5)',y:'random(-3,3)',duration:1/6,ease:'steps(1)',
       repeat:-1,repeatRefresh:true,delay:i*.04}));
   });
-  function spin(){ if(window.__smPaused) return;
+  function spin(){
     var img=imgs[Math.floor(Math.random()*imgs.length)];
     gsap.fromTo(img,{rotationY:0},{rotationY:360,duration:.75,ease:'steps(9)',overwrite:false});
   }
   var every=setInterval(spin,3200);
-  setInterval(function(){ tl.forEach(function(t){ window.__smPaused?t.pause():t.resume(); }); },300);
   document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(every); else every=setInterval(spin,3200); });
 })();
 
