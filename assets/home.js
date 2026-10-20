@@ -372,21 +372,10 @@
   document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(every); else every=setInterval(spin,3200); });
 })();
 
-/* ---- Hero6, "what I listen to": the mark opens the playlist ----
-   It used to press the deck's play button, which no longer exists: the deck
-   is the playlist now and the single track lives in Me. The mark opens the
-   panel and moves focus into it, so a keyboard user lands where the content
-   arrived rather than back at the top of the deck. */
-(function(){
-  var mark=document.querySelector('[data-listen]'),
-      more=document.querySelector('#vinyl .vinyl-more');
-  if(!mark||!more) return;
-  mark.addEventListener('click',function(e){
-    e.preventDefault();
-    if(more.getAttribute('aria-expanded')!=='true') more.click();
-    more.focus();
-  });
-})();
+/* Hero6 needs no script: the mark is an anchor to #listening and the
+   browser already scrolls to it. The handler it had existed to press a
+   button on a widget that no longer exists. */
+
 
 /* ---- the brush (6 Oct 2026, Shrey, after Up bank's reveal cursor) ----
    The photograph is printed black and white and the pointer paints the
@@ -580,35 +569,7 @@
    scroll-coverage trigger went with it rather than being left to drive
    nothing, which is the dead-listener pattern the last sweep removed. */
 
-/* ---- the playlist panel ----
-   The deck plays his file; this is the second thing. The iframe's src lives
-   in data-src until the panel is first opened, so a visitor who never asks
-   for the playlist pays nothing: no request, no third-party cookie, no 352px
-   of layout. Moved across once, on the first open, and never again.
+/* The playlist panel toggle went on 20 Oct: the embed is inline in Me now
+   rather than hanging off a fixed corner widget, so there is nothing to
+   open and nothing to collide with the copy. */
 
-   The panel is a real button with aria-expanded and a [hidden] target rather
-   than a details element, because the deck is position:fixed in the corner
-   and a details marker cannot be styled into that geometry. */
-(function(){
-  var deck=document.getElementById('vinyl'); if(!deck) return;
-  var btn=deck.querySelector('.vinyl-more'),
-      panel=deck.querySelector('.vinyl-list'),
-      frame=deck.querySelector('.vinyl-frame');
-  if(!btn||!panel||!frame) return;
-
-  btn.addEventListener('click',function(){
-    var open=btn.getAttribute('aria-expanded')==='true';
-    btn.setAttribute('aria-expanded',open?'false':'true');
-    panel.hidden=open;
-    deck.classList.toggle('list-open',!open);
-    if(!open&&!frame.src){ frame.src=frame.dataset.src; }
-  });
-
-  /* Escape closes it, because it covers a third of a phone screen when open
-     and the button it came from may have scrolled out of reach. */
-  addEventListener('keydown',function(e){
-    if(e.key!=='Escape'||btn.getAttribute('aria-expanded')!=='true') return;
-    btn.setAttribute('aria-expanded','false');
-    panel.hidden=true; deck.classList.remove('list-open'); btn.focus();
-  });
-})();

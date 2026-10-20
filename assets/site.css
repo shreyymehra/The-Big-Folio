@@ -646,62 +646,27 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    the hero was rebuilt: html.at-hero is still set by home.js and nothing was
    reading it. The Listening mark in the hero is the way in, so the player has
    no job until the visitor has passed it. */
-.vinyl{--vd:64px;position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);z-index:70;
-  display:flex;flex-direction:column;align-items:flex-end;gap:1.25rem;color:var(--deep);
-  transition:opacity var(--d-2) var(--e-out),transform var(--d-2) var(--e-out)}
-.vinyl:is(:hover,:focus-within,.playing){--vd:112px}
-.vinyl-deck{transition:width var(--d-2) var(--e-out),height var(--d-2) var(--e-out)}
-html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-events:none}
-@media (prefers-reduced-motion:reduce){.vinyl,.vinyl-deck{transition:none}}
+:focus-within,.playing){--vd:112px}
 /* On a phone there is no corner to spare: a 64px control sits on the body copy
    of whatever section you are reading. So it is not there until it is asked
    for. The Listening mark in the hero links to #vinyl, which makes it the
    target, and once it is playing it stays. Summoned, not parked. */
 @media (max-width:640px){
-  .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-events:none}
-  .vinyl:target,.vinyl.playing,.vinyl:focus-within{opacity:1;transform:none;pointer-events:auto}
 }
-.vinyl-cap{margin:0;text-align:right;line-height:1.15;padding:.4rem .6rem .45rem;background:var(--cream);
-  border:1px solid var(--deep);
-  /* at rest the record is the only thing floating over the page; the card
-     says what it is when pointed at, tabbed to, or playing */
-  opacity:0;transform:translateY(6px);pointer-events:none;transition:opacity var(--d-1) ease,transform var(--d-2) var(--e-out)}
-.vinyl:is(:hover,:focus-within,.playing) .vinyl-cap{opacity:1;transform:none;pointer-events:auto}
-@media (prefers-reduced-motion:reduce){.vinyl-cap{transition:none}}
-.vinyl-title{display:block;font-family:var(--fd);font-weight:500;font-size:var(--t-small);letter-spacing:var(--fd-track)}
-.vinyl-by{display:block;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin-top:.25rem}
+:focus-within{opacity:1;transform:none;pointer-events:auto}
 /* 24px minimum on the target (WCAG 2.5.8). It was 23, which the caption only
    exposed once the player started opening on hover. */
-.vinyl-by a{color:inherit;text-underline-offset:2px;display:inline-block;padding:7px 0;min-height:24px}
-.vinyl-by a:focus-visible{outline:2px solid var(--fluoro);outline-offset:2px}
-.vinyl-deck{position:relative;width:var(--vd);height:var(--vd)}
-.vinyl-disc{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(var(--cream-rgb),.4);
-  background:repeating-radial-gradient(circle at 50% 50%,#142C6B 0 1.4px,var(--deep) 1.4px 3px);
-  animation:vspin 1.8s linear infinite;animation-play-state:paused}
-.vinyl.playing .vinyl-disc{animation-play-state:running}
 @keyframes vspin{to{transform:rotate(360deg)}}
-.vinyl-label{position:absolute;inset:17%;border-radius:50%;overflow:hidden;background:var(--fluoro)}
 /* the label is the sleeve he supplied now, so it is not screened or greyed:
    it is artwork, and the halftone treatment was there to make a photograph
    read as a record label */
-.vinyl-label img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
-.vinyl-label::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;
-  border-radius:50%;background:var(--cream)}
-.vinyl-arm{position:absolute;right:-12px;top:-16px;width:31%;height:auto;overflow:visible;pointer-events:none;
-  transform-origin:76% 9%;transform:rotate(-14deg);transition:transform .8s var(--ease)}
-.vinyl.playing .vinyl-arm{transform:rotate(0deg)}
-.arm-rod{fill:none;stroke:var(--cream);stroke-width:3;stroke-linecap:square}
-.arm-head,.arm-pivot{fill:var(--cream);stroke:var(--deep);stroke-width:1.6}
 /* the embed does the playing; it is rendered, never shown */
 /* .vinyl-host and its iframe rule are gone with the Spotify embed (13 Oct).
    Checked against the markup AND the scripts before deleting, which is the
    rule this repo learnt the hard way with .rise. */
 @media (max-width:640px){
-  .vinyl{--vd:76px;gap:.5rem}
 }
 @media (prefers-reduced-motion:reduce){
-  .vinyl-disc{animation:none}
-  .vinyl-arm{transition:none}
 }
 
 /* star scroll indicator */
@@ -1027,8 +992,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 
 /* ---------- scale pass: fixes found by looking, 18 Sep ---------- */
 /* the record: the song leads, the artist line follows, sentence case at 14 */
-.vinyl-title{font-size:var(--t-body)}
-.vinyl-by{font-size:var(--t-small);text-transform:none;letter-spacing:.02em}
 /* work tiles: names in sentence case so 14px labels fit the tile, not the page */
 .wk-label{text-transform:none;letter-spacing:.02em;
   background:var(--cream);color:var(--deep);padding:.5rem .8rem .55rem;
@@ -2278,31 +2241,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    signed in a thirty second preview. This is a second thing, not a
    replacement. It opens upward from the deck because the deck lives in the
    bottom-right corner and there is no room below it. */
-.vinyl-more{display:flex;align-items:center;justify-content:center;margin:0 auto 6px;padding:0 10px;height:28px;box-sizing:border-box;line-height:1;
-  background:#FFFDF7;color:#173CA8;border:1.5px solid #173CA8;border-radius:999px;
-  font-family:var(--fu);font-size:11px;letter-spacing:.04em;cursor:pointer;
-  opacity:0;transform:translateY(-4px);pointer-events:none;
-  transition:opacity var(--d-1) ease,transform var(--d-1) ease}
-/* it only appears once the deck is engaged, so the resting corner stays one
-   small object rather than two */
-.vinyl:is(:hover,:focus-within) .vinyl-more,
-.vinyl.playing .vinyl-more,.vinyl.list-open .vinyl-more{
-  opacity:1;transform:none;pointer-events:auto}
-.vinyl-more:is(:hover,:focus-visible){background:var(--yellow);border-color:#0D1633;color:#0D1633}
-
-.vinyl-list{position:absolute;right:0;bottom:calc(100% + 10px);
-  width:min(360px,calc(100vw - 2rem));
-  background:#FFFDF7;border:2px solid #0D1633;padding:10px}
-.vinyl-list-k{display:flex;flex-wrap:wrap;gap:.3rem .7rem;align-items:baseline;
-  margin:0 0 8px;font-family:var(--fu);font-size:11px;letter-spacing:.04em;color:#0D1633}
-.vinyl-list-k a{color:#B8141A;text-decoration:none;border-bottom:1px solid currentColor}
-.vinyl-list-k a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633}
-.vinyl-frame{display:block;width:100%;height:352px;border:0;border-radius:10px}
-@media (max-width:560px){
-  .vinyl-list{right:auto;left:50%;transform:translateX(-50%);width:min(320px,calc(100vw - 1.6rem))}
-  .vinyl-frame{height:252px}
-}
-
 /* ---------- the one record, in Me (20 Oct 2026, at his instruction) ----------
    Split from the deck: the deck is the playlist, this is the single track.
    It sits in Me because a favourite record is a fact about him rather than a
@@ -2334,3 +2272,25 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .onrepeat.dead .onrepeat-btn{opacity:.5;cursor:not-allowed}
 .onrepeat-audio{display:none}
 @media (max-width:560px){.onrepeat{gap:var(--s-2) var(--s-3)}}
+
+/* ---------- Listening: inline in Me (20 Oct, corrected) ----------
+   This was a panel hanging off a fixed corner widget, and it opened upward
+   over this very section and covered the copy. That was the bug in his
+   screenshot, and it was mine: he asked for the playlist to be FEATURED in
+   Me and I moved the track out instead, leaving the playlist floating.
+
+   It is a block in the page now. Nothing is fixed, nothing overlays
+   anything, and the embed sits in the column it belongs to. */
+.listen{margin:var(--s-6) 0 0;padding:var(--s-4);
+  /* a printed object: hard-coded, because --cream and --deep swap in dark
+     mode and this has been the trap five times */
+  background:#FFFDF7;border:2px solid #0D1633}
+.listen-k{margin:0 0 var(--s-3);font-size:var(--xs);letter-spacing:.1em;
+  text-transform:uppercase;color:#0D1633}
+.listen .onrepeat{margin:0 0 var(--s-3)}
+.listen-cap{display:flex;flex-wrap:wrap;gap:.3rem .7rem;align-items:baseline;
+  margin:0 0 var(--s-2);font-size:11px;letter-spacing:.04em;color:#0D1633}
+.listen-cap a{color:#B8141A;text-decoration:none;border-bottom:1px solid currentColor}
+.listen-cap a:is(:hover,:focus-visible){background:#FFED10;color:#0D1633}
+.listen-frame{display:block;width:100%;height:352px;border:0;border-radius:10px}
+@media (max-width:560px){.listen-frame{height:252px}}
