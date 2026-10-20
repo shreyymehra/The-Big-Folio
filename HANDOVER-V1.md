@@ -124,7 +124,7 @@ Everything here is **content you own**. No build work is blocking release.
 | 1 | **Open the metrics drawer** (or surface two figures on the pill) | Your seven verified numbers are the only independently real evidence on the site and they sit behind a click labelled "15 disciplines · 7 numbers". A scanning reader will not open it. **Highest-impact change available.** | You (decision), me (10 min) |
 | 2 | **Six quote attributions** | First name + role is enough. Six decorations become six references. | You |
 | 3 | **Résumé as PDF** | The link serves a `.docx`, which downloads rather than opens on a phone. | You |
-| 4 | **Pick the canonical URL** | Pages and Vercel both serve this. Two live URLs means a recruiter can land on the staler one. | You |
+| 4 | ~~Pick the canonical URL~~ **DECIDED: Vercel.** Send me the domain. | A canonical tag and the Pages redirect both need an absolute URL; none is recorded in the repo and I will not guess one. | You (domain) |
 
 ### Sprint V1.2 — the half-day
 | # | Task | Why |

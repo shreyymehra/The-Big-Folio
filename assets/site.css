@@ -2389,3 +2389,26 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .pg-alpha-art{display:block;flex:1 1 auto;min-height:0;width:100%;height:100%;
   object-fit:contain;object-position:center top;margin:var(--s-4) 0 0;
   border:2px solid var(--deep);background:#fff}
+
+/* ---------- the figures group by capability (20 Oct 2026, his call) ----------
+   Seven figures in a flat list read as seven things that happened. Fourteen
+   under five capability headings read as five things he can do, each with
+   evidence under it. That is the difference between a CV line and a claim a
+   hiring manager can test, and it is why the group heading is the loudest
+   thing in each block after the number itself. */
+.mv-group{margin:0 0 var(--s-6)}
+.mv-group:last-child{margin-bottom:0}
+.mv-gk{margin:0 0 var(--s-3);padding-bottom:.35rem;
+  font-family:var(--fu);font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--deep);border-bottom:1.5px solid color-mix(in srgb,var(--deep) 32%,transparent)}
+
+/* the pill carries two real figures instead of a count of skills. Shut, it is
+   now the only place on the first two screens where a number appears, which
+   is the whole reason for the change. */
+.mv-pill-n b{font-family:var(--fd);font-weight:900;font-size:1.15em;letter-spacing:var(--fd-track)}
+.mv-pill-n i{font-style:normal;opacity:.5;margin:0 .25em}
+@media (max-width:760px){
+  /* the two figures survive, the "12 more" does not: it is the first thing
+     that can go when the row runs out of width */
+  .mv-pill-n{font-size:var(--xs)}
+}

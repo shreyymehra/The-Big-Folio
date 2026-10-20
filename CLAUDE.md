@@ -443,7 +443,14 @@ other high-leverage companies. Every ordering and framing decision serves these.
 
 ## OPEN — needs Shrey, do not decide for him
 
-1. **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
+1. **DECIDED 20 Oct 2026: Vercel is canonical.** GitHub Pages becomes the redirect.
+   **Still needed from him: the Vercel domain.** A canonical tag and a Pages
+   redirect both need an absolute URL and there is none recorded anywhere in the
+   repo. Not guessed, for the reason this file already gives about the Medium
+   and X links: a wrong URL in front of a recruiter is worse than a missing one.
+   Original note kept below for the deployment detail, which still applies.
+
+   **Where this deploys.** Astro is gone (`d5aa99b`), so the choice is no longer Framer vs Astro.
    Links are depth-relative, so the site runs unchanged at a subpath or at a root domain.
 
    - **GitHub Pages** — live at `https://shreyymehra.github.io/The-Big-Folio/`, built from
