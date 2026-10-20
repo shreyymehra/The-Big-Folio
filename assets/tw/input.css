@@ -276,3 +276,60 @@
 .prd-phase b{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);letter-spacing:var(--fd-track)}
 
 .prd-open{margin:1.2rem 0 0;padding-left:1.1rem;display:grid;gap:.7rem}
+
+/* ============================================================
+   THE SCRAPBOOK LANGUAGE REACHES THE CASE PAGES (20 Oct 2026)
+   My own scan said it plainly: home and /about/ are rich, then a reader
+   clicks a case study and lands on seven screens of blue type on cream with
+   no plane, no sticker and no texture. It reads as if two people built the
+   site and the one who did the case studies was in a hurry. That is the
+   worst possible place for the drop, because the case study is the only page
+   someone reads in order to be convinced.
+
+   Two devices, both from the vocabulary already in the system, both carrying
+   information rather than filling space. No new assets: he has not sent a
+   props sheet, and inventing one would be decoration.
+   ============================================================ */
+
+/* --- the pull quote is a scrap of paper, taped down -----------------------
+   It was a red left rule, which is the same treatment as a trade-off and a
+   gap note, so the loudest line in the page looked like a margin annotation.
+   It is now a torn scrap on the paper: white stock, a degree off square, with
+   the same hand-drawn tape edge the quote band on home uses. One hand. */
+.case-prose .pullq{
+  position:relative;margin:2.6rem 0;padding:1.5rem 1.6rem;max-width:32em;
+  background:#FFFDF7;border:2px solid #173CA8;color:#0D1633;
+  font-family:var(--fb);font-size:var(--t-h3);font-weight:500;line-height:1.24;
+  transform:rotate(-.7deg)}
+.case-prose .pullq *{color:#0D1633}
+/* the tape: a strip across the top-left corner, torn on both long edges */
+.case-prose .pullq::before{
+  content:"";position:absolute;left:-14px;top:-15px;width:118px;height:30px;
+  transform:rotate(-24deg);pointer-events:none;
+  background:var(--yellow);
+  /* torn top and bottom, cut from the same wobble as the section seams */
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 5c10-3 18 2 28 0s16-4 26-1 20 3 30 0 10-3 16-1v23c-8 2-14-2-22 0s-16 4-26 1-20-3-30 0-12 3-22 1z' fill='%23000'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 5c10-3 18 2 28 0s16-4 26-1 20 3 30 0 10-3 16-1v23c-8 2-14-2-22 0s-16 4-26 1-20-3-30 0-12 3-22 1z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size:100% 100%;mask-size:100% 100%}
+@media (max-width:640px){
+  .case-prose .pullq{transform:none;padding:1.2rem 1.2rem}
+  .case-prose .pullq::before{left:-8px;top:-12px;width:90px;height:24px}
+}
+
+/* --- the outcome sits on a plane -----------------------------------------
+   The result is the payoff of the whole page and it was set identically to
+   the six sections before it. Shield yellow because ink on it is 14.73, the
+   one pairing in this palette that lets a plane carry body copy at all.
+   It is the only plane on the page, so it reads as the destination. */
+.case-prose .is-outcome{
+  background:var(--yellow);color:#0D1633;
+  margin:3rem 0;padding:2rem 1.8rem;border:3px solid #0D1633;
+  /* full bleed of the prose column, so it is a block rather than a callout */
+  margin-inline:-1.8rem}
+.case-prose .is-outcome .eyebrow{color:#0D1633;opacity:.78}
+.case-prose .is-outcome h2,.case-prose .is-outcome p,
+.case-prose .is-outcome strong,.case-prose .is-outcome em{color:#0D1633}
+.case-prose .is-outcome .pullq{background:#FFFDF7}
+@media (max-width:640px){
+  .case-prose .is-outcome{margin-inline:0;padding:1.4rem 1.2rem}
+}
