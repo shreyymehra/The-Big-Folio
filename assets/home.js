@@ -634,3 +634,36 @@
   addEventListener('scroll',onScroll,{passive:true});
   check();
 })();
+
+/* ---- the playlist panel ----
+   The deck plays his file; this is the second thing. The iframe's src lives
+   in data-src until the panel is first opened, so a visitor who never asks
+   for the playlist pays nothing: no request, no third-party cookie, no 352px
+   of layout. Moved across once, on the first open, and never again.
+
+   The panel is a real button with aria-expanded and a [hidden] target rather
+   than a details element, because the deck is position:fixed in the corner
+   and a details marker cannot be styled into that geometry. */
+(function(){
+  var deck=document.getElementById('vinyl'); if(!deck) return;
+  var btn=deck.querySelector('.vinyl-more'),
+      panel=deck.querySelector('.vinyl-list'),
+      frame=deck.querySelector('.vinyl-frame');
+  if(!btn||!panel||!frame) return;
+
+  btn.addEventListener('click',function(){
+    var open=btn.getAttribute('aria-expanded')==='true';
+    btn.setAttribute('aria-expanded',open?'false':'true');
+    panel.hidden=open;
+    deck.classList.toggle('list-open',!open);
+    if(!open&&!frame.src){ frame.src=frame.dataset.src; }
+  });
+
+  /* Escape closes it, because it covers a third of a phone screen when open
+     and the button it came from may have scrolled out of reach. */
+  addEventListener('keydown',function(e){
+    if(e.key!=='Escape'||btn.getAttribute('aria-expanded')!=='true') return;
+    btn.setAttribute('aria-expanded','false');
+    panel.hidden=true; deck.classList.remove('list-open'); btn.focus();
+  });
+})();
