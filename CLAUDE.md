@@ -1732,3 +1732,55 @@ scroll on any route.
 
 `SCAN-REPORT.md` carries the V1 section: scores moved 7.1 to 8.0, what was fixed, and the five
 things still open, every one of them a content decision rather than a build defect.
+
+## MAIN IS CURRENT, AND THE SWEEP FOUND TWO BUGS (20 Oct 2026, at his instruction)
+
+**`main` and `v5-blocks` are now identical.** `main` had sat at `a1da02b` for 46 commits and
+carried none of the current site. The merge was a clean fast-forward; there is no divergence and
+nothing was resolved by hand. **`v5-blocks` remains where work happens**, and the two are in sync.
+
+### THE SWEEP
+
+60 rules, 76 lines, every one checked against the markup **and `assets/*.js`** before removal.
+`site.css` 154KB to 147KB, 351 classes to 318, and the detector (`scratchpad/dead.js`) now reports
+**zero** dead candidates.
+
+Residue of sections removed at his instruction: the quote tape (`.handtape`, `.ht-*`), the home
+logo strip (`.workedwith`, `.worked`, `.ls-*`), the plain beliefs list, the magazine manifesto
+list, the polaroid card, the composed zine-cover pieces, the pause-toggle furniture.
+
+**Three traps in the sweep itself, all of which would have broken something live:**
+
+1. **`otf` and `woff2` are not classes.** The detector flags them because `.otf` appears in a
+   `url()` inside `@font-face`. Deleting on that signal would have unhooked the display face.
+2. **`pola` and `mani` are dead as standalone classes while `.hero-pola`, `.mani-one` and
+   `.mani-more` are live.** The removal matches an **exact class token**, never a substring.
+3. **Four selectors also targeted something live** and needed hand edits rather than deletion:
+   `.p-is,.p-mark,.sticker` kept `.sticker`; `.slot b,.slot-i b` kept `.slot b`;
+   `.worked-k,.contact .no,.shead .no` kept the two live ones. Two `.reach-wrap` descendant rules
+   went entirely, because **no markup on any route carries `.reach-wrap`**, so they could never
+   match whatever their descendants were.
+
+**The sweeper walks past `@media` one-liners**, because the line opens with `@`. Five dead rules
+survived inside them and were found by re-running the detector after the write. Always re-run it.
+
+### TWO REAL BUGS BEHIND THE DEAD CODE
+
+1. **A latent freeze.** `site.js` read `localStorage['sm-tickers']` on every load. Anyone who
+   pressed "Pause motion" before the control was removed on 6 Oct still had `paused` stored, so
+   **their tickers started frozen with no control left anywhere to unfreeze them.** The key is now
+   cleared on sight, so those visitors recover on their next load.
+2. **A 300ms interval running for the life of the page.** `home.js` polled `window.__smPaused`
+   every 300ms to pause or resume the ransom tiles. Nothing has set that flag since the toggles
+   went, so it resumed timelines that were never paused, forever, on every visit.
+
+**The lesson to keep: dead code is not only weight.** Both of these were invisible as behaviour
+and only surfaced because something was being removed around them.
+
+### VERIFIED AFTER
+
+Console clean on nine routes, contrast unchanged, links all resolve on `main`, and the devices
+driven by the touched files confirmed still running rather than assumed: the ticker moves when it
+is in view (it is correctly stopped by its IntersectionObserver when it is not, which reads as
+broken if you test it off-screen), the ransom tiles are present, the vinyl is still on the mp3,
+and the easter egg is intact.
