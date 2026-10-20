@@ -335,6 +335,20 @@
     <div class="shead rv shead--me"><span class="no">04 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
+      <!-- One record, separate from the playlist deck (20 Oct, at his
+           instruction). It plays the file he supplied rather than an embed:
+           a signed-out visitor gets thirty seconds from Spotify and the whole
+           song from this. preload="none", so it costs nothing until asked. -->
+      <figure class="onrepeat rv">
+        <img class="onrepeat-sleeve" src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async">
+        <figcaption class="onrepeat-meta">
+          <span class="onrepeat-k mono">On repeat</span>
+          <span class="onrepeat-title">Take A Chance On Me</span>
+          <span class="onrepeat-by">ABBA &middot; 1977</span>
+        </figcaption>
+        <button class="onrepeat-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span aria-hidden="true"></span></button>
+        <audio class="onrepeat-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
+      </figure>
       <aside class="vouch" aria-labelledby="vouch-title">
         <p class="vouch-k mono" id="vouch-title">Some external validation</p>
         <ol class="vouch-list" data-deck>
@@ -403,43 +417,37 @@
     </div>
   </div>
   <!-- the ground, and the wordmark it punctuates -->
-  <img class="egg-head" src="assets/img/heads/head5.webp" alt="" aria-hidden="true" width="520" height="622" loading="lazy" decoding="async">
+  
   <p class="bigmark" aria-hidden="true">shreyymehraa</p>
   <svg class="ground-star" aria-hidden="true" focusable="false" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet"><path d="M20 3c1.4 5.6 2.1 9.8 3.8 12.7 4.6.3 9.3-.4 13.4 1.2-3.8 2.4-7.9 3.9-10.9 6.7 1 4.3 3 8.8 3.4 12.9-3.8-2.6-6.6-6-10.1-7.9-3.3 2.4-6.7 5.6-10.6 7.6 1.2-4.4 3.2-8.3 3.9-12.8C9.9 20.6 5.6 18.9 2.6 16.6c4.4-.9 8.9-.2 13.2-1.1C17.7 11.9 18.4 7.2 20 3z"/></svg>
 </section>
 </main>
 
 <div class="vinyl" id="vinyl">
-  <!-- Record player. The audio is a file in the repo, at his instruction: the
-       Spotify embed gave everyone who was not signed in a 30 second preview,
-       which is most recruiters. Nothing is requested until the player is
-       reached for (preload="none"), and it never autoplays. The label is his
-       own sleeve artwork. -->
+  <!-- The record player is the PLAYLIST and only that (20 Oct, at his
+       instruction). It used to also play a single mp3, which made one object
+       do two jobs. The track has its own element in Me now.
+       Nothing is fetched until the panel opens: the src lives in data-src. -->
   <p class="vinyl-cap">
-    <span class="vinyl-title">Take A Chance On Me</span>
-    <span class="vinyl-by">ABBA &middot; 1977</span>
+    <span class="vinyl-title">What I build to</span>
+    <span class="vinyl-by">Shrey&rsquo;s Bizarre Adventures</span>
   </p>
   <button class="vinyl-more" type="button" aria-expanded="false" aria-controls="vinyl-list">
-    <span>The whole playlist</span>
+    <span>Open the playlist</span>
   </button>
   <div class="vinyl-deck">
-    <svg class="vinyl-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="48" pathLength="100"/></svg>
-    <div class="vinyl-disc" aria-hidden="true"><span class="vinyl-label"><img src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async"></span></div>
+    <div class="vinyl-disc" aria-hidden="true"><span class="vinyl-label"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span></div>
     <svg class="vinyl-arm" viewBox="0 0 34 90" aria-hidden="true" focusable="false">
       <path class="arm-rod" d="M26 8 L23 60 L13 79"/>
       <rect class="arm-head" x="7" y="74" width="11" height="13" transform="rotate(28 12.5 80.5)"/>
       <circle class="arm-pivot" cx="26" cy="8" r="6"/>
     </svg>
-    <button class="vinyl-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span class="vinyl-icon" aria-hidden="true"></span></button>
-    <audio class="vinyl-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
   </div>
   <div class="vinyl-list" id="vinyl-list" hidden>
     <p class="vinyl-list-k">
       <span>Shrey&rsquo;s Bizarre Adventures</span>
       <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m" target="_blank" rel="noopener">Open in Spotify <span aria-hidden="true">&nearr;</span></a>
     </p>
-    <!-- src is held in data-src until the panel is opened, so this costs
-         nothing for anyone who never opens it -->
     <iframe class="vinyl-frame" title="Shrey's Bizarre Adventures on Spotify"
       data-src="https://open.spotify.com/embed/playlist/5H4RUSMx6CMD4czgpEGV8m?utm_source=portfolio"
       width="100%" height="352" frameborder="0" loading="lazy"

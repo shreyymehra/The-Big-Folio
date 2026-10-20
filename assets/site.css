@@ -687,34 +687,17 @@ html.at-hero .vinyl{opacity:0;transform:translateY(14px) scale(.9);pointer-event
 .vinyl-label img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .vinyl-label::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;
   border-radius:50%;background:var(--cream)}
-.vinyl-ring{position:absolute;inset:-7px;width:calc(100% + 14px);height:calc(100% + 14px);transform:rotate(-90deg);
-  overflow:visible;pointer-events:none}
-.vinyl-ring circle{fill:none;stroke:var(--fluoro);stroke-width:1.8;stroke-dasharray:100;stroke-dashoffset:100;
-  transition:stroke-dashoffset .6s linear}
 .vinyl-arm{position:absolute;right:-12px;top:-16px;width:31%;height:auto;overflow:visible;pointer-events:none;
   transform-origin:76% 9%;transform:rotate(-14deg);transition:transform .8s var(--ease)}
 .vinyl.playing .vinyl-arm{transform:rotate(0deg)}
 .arm-rod{fill:none;stroke:var(--cream);stroke-width:3;stroke-linecap:square}
 .arm-head,.arm-pivot{fill:var(--cream);stroke:var(--deep);stroke-width:1.6}
-.vinyl-btn{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:0;
-  padding:0;background:var(--cream);color:var(--deep);cursor:pointer;display:grid;place-items:center;
-  transition:transform .25s var(--ease),opacity .25s var(--ease)}
-.vinyl-btn:hover{transform:scale(1.08)}
-.vinyl-btn:focus-visible{outline:3px solid var(--fluoro);outline-offset:3px}
-.vinyl.queued .vinyl-btn{opacity:.6}
-.vinyl-icon{display:block;width:11px;height:12px;margin-left:3px;background:currentColor;clip-path:polygon(0 0,100% 50%,0 100%)}
-.vinyl.playing .vinyl-icon{margin-left:0;width:10px;clip-path:none;
-  background:linear-gradient(90deg,currentColor 0 36%,transparent 36% 64%,currentColor 64% 100%)}
 /* the embed does the playing; it is rendered, never shown */
 /* .vinyl-host and its iframe rule are gone with the Spotify embed (13 Oct).
    Checked against the markup AND the scripts before deleting, which is the
    rule this repo learnt the hard way with .rise. */
-.vinyl-audio{display:none}
 @media (max-width:640px){
   .vinyl{--vd:76px;gap:.5rem}
-  .vinyl-btn{width:26px;height:26px;margin:-13px 0 0 -13px}
-  .vinyl-icon{width:8px;height:9px}
-  .vinyl.playing .vinyl-icon{width:8px}
 }
 @media (prefers-reduced-motion:reduce){
   .vinyl-disc{animation:none}
@@ -2003,8 +1986,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* The deck says so when the file will not play, rather than leaving a button
    that silently does nothing. Set by motion-free code in home.js on the audio
    element's own error event, so it can only appear when the load really failed. */
-.vinyl-dead .vinyl-btn{opacity:.5;cursor:not-allowed}
-.vinyl-dead .vinyl-cap .vinyl-by::after{content:" · unavailable";color:var(--accent-type)}
 
 /* ============================================================
    HOME IS SCHEDULED IN BLOCKS (13 Oct 2026, at his instruction)
@@ -2162,38 +2143,10 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
     letter-spacing:var(--fd-track)}
 }
 
-/* ============================================================
-   THE EASTER EGG (19 Oct 2026, at his instruction)
-   "Add an easter egg to the portfolio that is discovered through scrolling."
-
-   He is at the bottom of his own site, behind his own wordmark, and he only
-   turns up for someone who actually went the whole way down. It cannot be
-   found by jumping to the footer or following a link to #contact: home.js
-   tracks the deepest point actually reached, so the trigger is the journey
-   rather than the destination.
-
-   No new copy and no new asset: it is one of the four cut-out heads he
-   supplied, and it says nothing. A reward should not need explaining, and a
-   line of text here would turn a joke into a caption.
-
-   Once found it stays found, which is why the state is stored. Coming back
-   to a site and having to re-earn the gag is worse than never finding it.
-   ============================================================ */
-.egg-head{position:absolute;z-index:0;left:50%;bottom:0;width:clamp(84px,9.5vw,132px);
-  height:auto;pointer-events:none;
-  /* parked fully below the fold of its own section, and rotated away, so no
-     part of it is visible before it is earned */
-  transform:translate(calc(-50% + 58%),34%) rotate(10deg);
-  opacity:0;transition:transform .9s var(--e-spring),opacity .5s ease}
-:root.sm-egg .egg-head{transform:translate(calc(-50% + 58%),-58%) rotate(-5deg);opacity:1}
-@media (prefers-reduced-motion:reduce){
-  /* the find still happens, it just does not fly: a face crossing the screen
-     is exactly what this rule exists to stop */
-  .egg-head{transition:opacity .4s linear}
-  :root.sm-egg .egg-head{transform:translate(calc(-50% + 58%),-58%) rotate(-5deg)}
-}
-@media (max-width:640px){.egg-head{width:92px}}
-
+/* The easter-egg head is GONE (20 Oct, at his instruction). A floating head
+   at the end of the page was explicitly cut on 13 Oct and I put one back as
+   the scroll reward, which reinstated the exact overlap he had removed. The
+   egg needs a different form and that is his call, not another guess. */
 /* ============================================================
    ONE TRANSITION LANGUAGE (19 Oct 2026, at his instruction)
    "The current pages are either bound by unwanted breaks, or transitions
@@ -2349,3 +2302,35 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .vinyl-list{right:auto;left:50%;transform:translateX(-50%);width:min(320px,calc(100vw - 1.6rem))}
   .vinyl-frame{height:252px}
 }
+
+/* ---------- the one record, in Me (20 Oct 2026, at his instruction) ----------
+   Split from the deck: the deck is the playlist, this is the single track.
+   It sits in Me because a favourite record is a fact about him rather than a
+   utility in the corner of every screen, and it is the only audio on the
+   site that plays a file he owns rather than an embed. */
+.onrepeat{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;
+  gap:var(--s-3) var(--s-4);margin:0 0 var(--s-5);padding:10px;
+  /* a printed object: white stock and hard-coded ink, because --cream and
+     --deep swap in dark mode and this has been the trap five times */
+  background:#FFFDF7;border:2px solid #0D1633;color:#0D1633}
+.onrepeat-sleeve{display:block;width:clamp(54px,7vw,72px);height:auto;border:1.5px solid #0D1633}
+.onrepeat-meta{display:grid;gap:1px;min-width:0}
+.onrepeat-k{font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;color:#B8141A}
+.onrepeat-title{font-family:var(--fd);font-weight:900;font-size:var(--t-body);
+  letter-spacing:var(--fd-track);color:#0D1633;overflow-wrap:anywhere}
+.onrepeat-by{font-family:var(--fu);font-size:var(--t-small);color:#0D1633;opacity:.78}
+.onrepeat-btn{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid #0D1633;
+  background:#173CA8;cursor:pointer;display:grid;place-items:center;padding:0}
+.onrepeat-btn span{display:block;width:0;height:0;margin-left:3px;
+  border-left:11px solid #FFFDF7;border-top:7px solid transparent;border-bottom:7px solid transparent}
+/* pause: two bars, drawn from the same span so there is no second element */
+.onrepeat.playing .onrepeat-btn span{width:11px;height:13px;margin:0;border:0;
+  background:linear-gradient(to right,#FFFDF7 0 34%,transparent 34% 66%,#FFFDF7 66% 100%)}
+.onrepeat-btn:is(:hover,:focus-visible){background:#FFED10}
+.onrepeat-btn:is(:hover,:focus-visible) span{border-left-color:#0D1633}
+.onrepeat.playing .onrepeat-btn:is(:hover,:focus-visible) span{
+  background:linear-gradient(to right,#0D1633 0 34%,transparent 34% 66%,#0D1633 66% 100%)}
+.onrepeat-btn:focus-visible{outline:3px solid var(--fluoro);outline-offset:3px}
+.onrepeat.dead .onrepeat-btn{opacity:.5;cursor:not-allowed}
+.onrepeat-audio{display:none}
+@media (max-width:560px){.onrepeat{gap:var(--s-2) var(--s-3)}}

@@ -74,55 +74,32 @@
      /about/ now carries the orange process band, so the engine is a shared
      behaviour and this file is for home-only behaviour. Moved, not copied. */
 
-  /* ---- vinyl: the deck plays a file ----
-     The Spotify embed is gone at his instruction. It needed a signed-in
-     session to play more than thirty seconds, which is not the state most
-     recruiters arrive in, and it put a third party in the critical path of a
-     device that is meant to be charm.
-
-     Nothing is fetched until the player is reached for: the element carries
-     preload="none" and the source only starts loading on the first play. The
-     record spins from the audio element's own events, never from the click,
-     so the disc and the ring can never disagree with what is audible. */
+  /* ---- the one record, in Me ----
+     Split from the deck on 20 Oct at his instruction: the deck is the
+     playlist, this is the single track. It plays the file he supplied, never
+     an embed, because a signed-out visitor gets thirty seconds from Spotify
+     and the whole song from this. State comes from the audio element's own
+     events, never from the click, so the button and the sound cannot
+     disagree. preload=none: nothing is fetched until it is asked for. */
   (function(){
-    var vw=document.getElementById('vinyl'); if(!vw) return;
-    var btn=vw.querySelector('.vinyl-btn'),
-        ring=vw.querySelector('.vinyl-ring circle'),
-        au=vw.querySelector('.vinyl-audio');
-    /* markup out of step with this script: stay silent, never break the page */
-    if(!btn||!ring||!au) return;
-
-    function setPlaying(on){
-      vw.classList.toggle('playing',on);
+    var fig=document.querySelector('.onrepeat'); if(!fig) return;
+    var btn=fig.querySelector('.onrepeat-btn'), au=fig.querySelector('.onrepeat-audio');
+    if(!btn||!au) return;
+    function set(on){
+      fig.classList.toggle('playing',on);
       btn.setAttribute('aria-pressed',on?'true':'false');
       btn.setAttribute('aria-label',(on?'Pause':'Play')+' Take A Chance On Me by ABBA');
     }
-    au.addEventListener('play',function(){ vw.classList.remove('queued'); setPlaying(true); });
-    au.addEventListener('pause',function(){ setPlaying(false); });
-    au.addEventListener('ended',function(){ setPlaying(false); ring.style.strokeDashoffset='100'; });
-    au.addEventListener('canplay',function(){ vw.classList.add('ready'); });
-    /* the ring is the progress read-out. timeupdate fires about four times a
-       second, which is finer than the eye reads on a 48px ring and costs one
-       style write each. */
-    au.addEventListener('timeupdate',function(){
-      if(!au.duration) return;
-      ring.style.strokeDashoffset=(100-100*Math.min(1,au.currentTime/au.duration)).toFixed(2);
-    });
+    au.addEventListener('play',function(){ set(true); });
+    au.addEventListener('pause',function(){ set(false); });
+    au.addEventListener('ended',function(){ set(false); });
     au.addEventListener('error',function(){
-      /* the file did not load. Say so on the control rather than leaving a
-         button that silently does nothing. */
-      vw.classList.remove('queued','playing'); vw.classList.add('vinyl-dead');
-      btn.setAttribute('aria-label','Track unavailable');
+      /* say so rather than leaving a button that silently does nothing */
+      fig.classList.add('dead'); btn.setAttribute('aria-label','Track unavailable');
     });
-
     btn.addEventListener('click',function(){
-      if(au.paused){
-        vw.classList.add('queued');
-        var p=au.play();
-        /* a rejected play() is a browser policy block, not a bug: drop the
-           queued state so the button does not sit lit forever. */
-        if(p&&p.catch) p.catch(function(){ vw.classList.remove('queued'); });
-      } else au.pause();
+      if(au.paused){ var p=au.play(); if(p&&p.catch) p.catch(function(){ set(false); }); }
+      else au.pause();
     });
   })();
 
@@ -395,10 +372,20 @@
   document.addEventListener('visibilitychange',function(){ if(document.hidden) clearInterval(every); else every=setInterval(spin,3200); });
 })();
 
-/* ---- Hero6, "what I listen to": the mark plays the record ---- */
+/* ---- Hero6, "what I listen to": the mark opens the playlist ----
+   It used to press the deck's play button, which no longer exists: the deck
+   is the playlist now and the single track lives in Me. The mark opens the
+   panel and moves focus into it, so a keyboard user lands where the content
+   arrived rather than back at the top of the deck. */
 (function(){
-  var a=document.querySelector('[data-listen]'), btn=document.querySelector('#vinyl .vinyl-btn'); if(!a||!btn) return;
-  a.addEventListener('click',function(e){ e.preventDefault(); btn.focus(); btn.click(); });
+  var mark=document.querySelector('[data-listen]'),
+      more=document.querySelector('#vinyl .vinyl-more');
+  if(!mark||!more) return;
+  mark.addEventListener('click',function(e){
+    e.preventDefault();
+    if(more.getAttribute('aria-expanded')!=='true') more.click();
+    more.focus();
+  });
 })();
 
 /* ---- the brush (6 Oct 2026, Shrey, after Up bank's reveal cursor) ----
@@ -588,51 +575,10 @@
     paint();
   })();
 })();
-
-/* ---- the easter egg: he turns up for anyone who goes all the way down ----
-   The trigger is the DEEPEST POINT ACTUALLY REACHED, accumulated across the
-   visit, not the current scroll position. That distinction is the whole
-   device: following a link to #contact, or hitting End, lands you at the
-   bottom without having seen the site, and the egg is a reward for the
-   journey rather than for arriving.
-
-   Reduced motion still finds it; the CSS drops the flight and keeps the
-   fade, because a face crossing the screen is the thing that rule exists to
-   stop. Once found it stays found: having to re-earn a gag on a second visit
-   is worse than never finding it. */
-(function(){
-  var root=document.documentElement, KEY='sm-egg';
-  if(!document.querySelector('.egg-head')) return;
-
-  try{ if(localStorage.getItem(KEY)==='found'){ root.classList.add('sm-egg'); return; } }catch(e){}
-
-  /* Coverage, not depth. The first version tracked the deepest point reached
-     and fired at 98.5%, which a single jump to the footer satisfies: End, or a
-     link to #contact, won the egg without the visitor seeing anything. The
-     comment above claimed the journey mattered and the code did not enforce
-     it, which my own test caught by jumping straight to the bottom.
-     The page is divided into ten bands and the reader has to have been in at
-     least eight of them, AND have reached the end. Jumping marks exactly two
-     bands: the one you left and the one you landed in. */
-  var BANDS=10, NEEDED=8, seen=new Array(BANDS).fill(false), queued=false;
-  function check(){
-    queued=false;
-    var doc=document.documentElement, h=doc.scrollHeight;
-    if(h<=innerHeight) return;
-    var top=Math.min(BANDS-1,Math.floor(scrollY/h*BANDS));
-    var bot=Math.min(BANDS-1,Math.floor((scrollY+innerHeight)/h*BANDS));
-    for(var i=top;i<=bot;i++) seen[i]=true;
-    var count=0; for(var k=0;k<BANDS;k++) if(seen[k]) count++;
-    if(count>=NEEDED && (scrollY+innerHeight)/h>=.985){
-      doc.classList.add('sm-egg');
-      try{ localStorage.setItem(KEY,'found'); }catch(e){}
-      removeEventListener('scroll',onScroll);
-    }
-  }
-  function onScroll(){ if(!queued){ queued=true; requestAnimationFrame(check); } }
-  addEventListener('scroll',onScroll,{passive:true});
-  check();
-})();
+/* The easter egg came out on 20 Oct at his instruction: a floating head at
+   the end of the page had been cut on 13 Oct and this reinstated it. The
+   scroll-coverage trigger went with it rather than being left to drive
+   nothing, which is the dead-listener pattern the last sweep removed. */
 
 /* ---- the playlist panel ----
    The deck plays his file; this is the second thing. The iframe's src lives
