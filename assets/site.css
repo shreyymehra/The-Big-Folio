@@ -2273,27 +2273,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .onrepeat-audio{display:none}
 @media (max-width:560px){.onrepeat{gap:var(--s-2) var(--s-3)}}
 
-/* ---------- Listening: inline in Me (20 Oct, corrected) ----------
-   This was a panel hanging off a fixed corner widget, and it opened upward
-   over this very section and covered the copy. That was the bug in his
-   screenshot, and it was mine: he asked for the playlist to be FEATURED in
-   Me and I moved the track out instead, leaving the playlist floating.
-
-   It is a block in the page now. Nothing is fixed, nothing overlays
-   anything, and the embed sits in the column it belongs to. */
-.listen{margin:var(--s-6) 0 0;padding:var(--s-4);
-  /* a printed object: hard-coded, because --cream and --deep swap in dark
-     mode and this has been the trap five times */
-  background:#FFFDF7;border:2px solid #0D1633}
-.listen-k{margin:0 0 var(--s-3);font-size:var(--xs);letter-spacing:.1em;
-  text-transform:uppercase;color:#0D1633}
-.listen .onrepeat{margin:0 0 var(--s-3)}
-.listen-cap{display:flex;flex-wrap:wrap;gap:.3rem .7rem;align-items:baseline;
-  margin:0 0 var(--s-2);font-size:11px;letter-spacing:.04em;color:#0D1633}
-.listen-cap a{color:#B8141A;text-decoration:none;border-bottom:1px solid currentColor}
-.listen-cap a:is(:hover,:focus-visible){background:#FFED10;color:#0D1633}
-.listen-frame{display:block;width:100%;height:352px;border:0;border-radius:10px}
-@media (max-width:560px){.listen-frame{height:252px}}
 
 
 /* ---------- /work reads, instead of competing with itself (20 Oct) ----------
@@ -2330,3 +2309,58 @@ body:has(.wrow)::before{display:none}
 .pc-set img{display:block;width:auto;max-width:none;height:clamp(190px,24vh,270px);
   border:2px solid #0D1633}
 @media (max-width:640px){.pc-set img{height:170px}.pc-set{gap:var(--s-4)}}
+
+/* ---------- TWO OBJECTS, not one box (20 Oct, his third correction) ----------
+   "MP4 is a disc player on site and the spotify playlist is a music list on
+   the site - you have merged these two."
+
+   He was right and I kept missing it. Putting them in one bordered box is
+   still a merge even when the contents are separate. A record player is a
+   thing you OPERATE; a playlist is a thing you READ. They share a section
+   and nothing else: no common frame, no common border, different shapes. */
+.listening{display:grid;gap:var(--s-5);margin:var(--s-6) 0 0}
+@media (min-width:900px){.listening{grid-template-columns:auto minmax(0,1fr);align-items:start;gap:var(--s-6)}}
+
+/* 1. the disc player: an object, round, with a platter and an arm */
+.disc{margin:0;display:grid;justify-items:center;gap:var(--s-3)}
+.disc-deck{position:relative;width:clamp(140px,17vw,180px);aspect-ratio:1;
+  border-radius:50%;background:#0D1633;display:grid;place-items:center;
+  border:3px solid #0D1633}
+.disc-platter{display:block;width:62%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:2px solid #FFFDF7}
+.disc-platter img{display:block;width:100%;height:100%;object-fit:cover}
+/* it only turns while sound is actually coming out */
+.disc.spinning .disc-platter{animation:disc-spin 3.2s linear infinite}
+@keyframes disc-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.disc.spinning .disc-platter{animation:none}}
+.disc-arm{position:absolute;right:4%;top:2%;width:26%;height:auto;
+  transform-origin:76% 9%;transform:rotate(-12deg);transition:transform 420ms var(--e-spring)}
+.disc.spinning .disc-arm{transform:rotate(10deg)}
+.disc-arm .arm-rod{fill:none;stroke:#FFFDF7;stroke-width:3;stroke-linecap:round}
+.disc-arm .arm-head{fill:#E8251F}
+.disc-arm .arm-pivot{fill:#FFFDF7}
+.disc-btn{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;
+  border-radius:50%;border:2px solid #0D1633;background:#FFED10;cursor:pointer;
+  display:grid;place-items:center;padding:0}
+.disc-btn span{display:block;width:0;height:0;margin-left:3px;
+  border-left:12px solid #0D1633;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.disc.spinning .disc-btn span{width:12px;height:14px;margin:0;border:0;
+  background:linear-gradient(to right,#0D1633 0 34%,transparent 34% 66%,#0D1633 66% 100%)}
+.disc-btn:focus-visible{outline:3px solid var(--fluoro);outline-offset:3px}
+.disc.dead .disc-btn{opacity:.5;cursor:not-allowed}
+.disc-meta{display:grid;justify-items:center;gap:1px;text-align:center}
+.disc-k{font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-type)}
+.disc-title{font-family:var(--fd);font-weight:900;font-size:var(--t-body);
+  letter-spacing:var(--fd-track);color:var(--deep)}
+.disc-by{font-family:var(--fu);font-size:var(--t-small);color:var(--deep);opacity:.78}
+.disc-audio{display:none}
+
+/* 2. the music list: rows, not a machine. No border, no card. */
+.mlist{min-width:0}
+.mlist-k{display:flex;flex-wrap:wrap;gap:.3rem .7rem;align-items:baseline;margin:0 0 var(--s-2);
+  font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+.mlist-k a{color:var(--accent-type);text-decoration:none;border-bottom:1px solid currentColor;
+  text-transform:none;letter-spacing:.02em}
+.mlist-k a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633}
+.mlist-frame{display:block;width:100%;height:352px;border:0;border-radius:10px}
+@media (max-width:560px){.mlist-frame{height:252px}}

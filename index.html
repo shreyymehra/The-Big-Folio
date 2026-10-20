@@ -335,37 +335,47 @@
     <div class="shead rv shead--me"><span class="no">04 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
-      <!-- Listening: the playlist and the one record, together, INLINE in Me
-           (20 Oct, corrected). This was a panel hanging off a fixed corner
-           widget and it floated over this very section. It is a block in the
-           page now, so it cannot cover anything.
-           The track plays the file he supplied rather than an embed: a
-           signed-out visitor gets thirty seconds from Spotify and the whole
-           song from this. Both are preload/lazy, so neither costs anything
-           until the reader reaches them. -->
-      <section class="listen rv" id="listening" aria-labelledby="listen-title">
-        <p class="listen-k mono" id="listen-title">What I build to</p>
+      <!-- TWO OBJECTS. The disc player is a thing you operate; the list is a
+           thing you read. They share a section and nothing else: no common
+           frame, no common border. That was the merge he kept pointing at. -->
+      <div class="listening">
 
-        <figure class="onrepeat">
-          <img class="onrepeat-sleeve" src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async">
-          <figcaption class="onrepeat-meta">
-            <span class="onrepeat-k mono">On repeat</span>
-            <span class="onrepeat-title">Take A Chance On Me</span>
-            <span class="onrepeat-by">ABBA &middot; 1977</span>
+        <!-- 1. THE DISC PLAYER. Plays his file, never an embed: a signed-out
+                visitor gets thirty seconds from Spotify and the whole song
+                from this. preload="none", so it costs nothing until used. -->
+        <figure class="disc" id="disc">
+          <div class="disc-deck">
+            <span class="disc-platter" aria-hidden="true">
+              <img src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async">
+            </span>
+            <svg class="disc-arm" viewBox="0 0 34 90" aria-hidden="true" focusable="false">
+              <path class="arm-rod" d="M26 8 L23 60 L13 79"/>
+              <rect class="arm-head" x="7" y="74" width="11" height="13" transform="rotate(28 12.5 80.5)"/>
+              <circle class="arm-pivot" cx="26" cy="8" r="6"/>
+            </svg>
+            <button class="disc-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span aria-hidden="true"></span></button>
+          </div>
+          <figcaption class="disc-meta">
+            <span class="disc-k mono">On the deck</span>
+            <span class="disc-title">Take A Chance On Me</span>
+            <span class="disc-by">ABBA &middot; 1977</span>
           </figcaption>
-          <button class="onrepeat-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span aria-hidden="true"></span></button>
-          <audio class="onrepeat-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
+          <audio class="disc-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
         </figure>
 
-        <p class="listen-cap mono">
-          <span>Shrey&rsquo;s Bizarre Adventures</span>
-          <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m" target="_blank" rel="noopener">Open in Spotify <span aria-hidden="true">&nearr;</span></a>
-        </p>
-        <iframe class="listen-frame" title="Shrey's Bizarre Adventures on Spotify"
-          src="https://open.spotify.com/embed/playlist/5H4RUSMx6CMD4czgpEGV8m?utm_source=portfolio"
-          width="100%" height="352" frameborder="0" loading="lazy"
-          allow="clipboard-write; encrypted-media; picture-in-picture"></iframe>
-      </section>
+        <!-- 2. THE MUSIC LIST. A different object: rows, not a machine. -->
+        <section class="mlist" id="listening" aria-labelledby="mlist-title">
+          <p class="mlist-k mono" id="mlist-title">
+            <span>What I build to</span>
+            <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m" target="_blank" rel="noopener">Shrey&rsquo;s Bizarre Adventures <span aria-hidden="true">&nearr;</span></a>
+          </p>
+          <iframe class="mlist-frame" title="Shrey's Bizarre Adventures on Spotify"
+            src="https://open.spotify.com/embed/playlist/5H4RUSMx6CMD4czgpEGV8m?utm_source=portfolio"
+            width="100%" height="352" frameborder="0" loading="lazy"
+            allow="clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        </section>
+      </div>
+
       <aside class="vouch" aria-labelledby="vouch-title">
         <p class="vouch-k mono" id="vouch-title">Some external validation</p>
         <ol class="vouch-list" data-deck>

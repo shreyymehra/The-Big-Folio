@@ -74,19 +74,17 @@
      /about/ now carries the orange process band, so the engine is a shared
      behaviour and this file is for home-only behaviour. Moved, not copied. */
 
-  /* ---- the one record, in Me ----
-     Split from the deck on 20 Oct at his instruction: the deck is the
-     playlist, this is the single track. It plays the file he supplied, never
-     an embed, because a signed-out visitor gets thirty seconds from Spotify
-     and the whole song from this. State comes from the audio element's own
-     events, never from the click, so the button and the sound cannot
-     disagree. preload=none: nothing is fetched until it is asked for. */
+  /* ---- the disc player ----
+     Separate from the music list, which is an embed and drives itself. This
+     is the object: the platter spins while his file plays, and the state
+     comes from the audio element's own events so the record can never be
+     turning while nothing is audible. */
   (function(){
-    var fig=document.querySelector('.onrepeat'); if(!fig) return;
-    var btn=fig.querySelector('.onrepeat-btn'), au=fig.querySelector('.onrepeat-audio');
+    var fig=document.getElementById('disc'); if(!fig) return;
+    var btn=fig.querySelector('.disc-btn'), au=fig.querySelector('.disc-audio');
     if(!btn||!au) return;
     function set(on){
-      fig.classList.toggle('playing',on);
+      fig.classList.toggle('spinning',on);
       btn.setAttribute('aria-pressed',on?'true':'false');
       btn.setAttribute('aria-label',(on?'Pause':'Play')+' Take A Chance On Me by ABBA');
     }
@@ -94,7 +92,6 @@
     au.addEventListener('pause',function(){ set(false); });
     au.addEventListener('ended',function(){ set(false); });
     au.addEventListener('error',function(){
-      /* say so rather than leaving a button that silently does nothing */
       fig.classList.add('dead'); btn.setAttribute('aria-label','Track unavailable');
     });
     btn.addEventListener('click',function(){
