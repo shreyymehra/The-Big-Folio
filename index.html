@@ -335,34 +335,6 @@
     <div class="shead rv shead--me"><span class="no">04 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
-      <!-- TWO OBJECTS. The disc player is a thing you operate; the list is a
-           thing you read. They share a section and nothing else: no common
-           frame, no common border. That was the merge he kept pointing at. -->
-      <div class="listening">
-
-        <!-- 1. THE DISC PLAYER. Plays his file, never an embed: a signed-out
-                visitor gets thirty seconds from Spotify and the whole song
-                from this. preload="none", so it costs nothing until used. -->
-        <figure class="disc" id="disc">
-          <div class="disc-deck">
-            <span class="disc-platter" aria-hidden="true">
-              <img src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async">
-            </span>
-            <svg class="disc-arm" viewBox="0 0 34 90" aria-hidden="true" focusable="false">
-              <path class="arm-rod" d="M26 8 L23 60 L13 79"/>
-              <rect class="arm-head" x="7" y="74" width="11" height="13" transform="rotate(28 12.5 80.5)"/>
-              <circle class="arm-pivot" cx="26" cy="8" r="6"/>
-            </svg>
-            <button class="disc-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span aria-hidden="true"></span></button>
-          </div>
-          <figcaption class="disc-meta">
-            <span class="disc-k mono">On the deck</span>
-            <span class="disc-title">Take A Chance On Me</span>
-            <span class="disc-by">ABBA &middot; 1977</span>
-          </figcaption>
-          <audio class="disc-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
-        </figure>
-
         <!-- 2. THE MUSIC LIST. A different object: rows, not a machine. -->
         <section class="mlist" id="listening" aria-labelledby="mlist-title">
           <p class="mlist-k mono" id="mlist-title">
@@ -374,8 +346,6 @@
             width="100%" height="352" frameborder="0" loading="lazy"
             allow="clipboard-write; encrypted-media; picture-in-picture"></iframe>
         </section>
-      </div>
-
       <aside class="vouch" aria-labelledby="vouch-title">
         <p class="vouch-k mono" id="vouch-title">Some external validation</p>
         <ol class="vouch-list" data-deck>
@@ -450,6 +420,31 @@
 </section>
 </main>
 
+<!-- The record player, fixed bottom right, at his instruction (21 Oct).
+     It plays his file, never an embed: a signed-out visitor gets thirty
+     seconds from Spotify and the whole song from this. preload="none", so
+     nothing is fetched until it is used. It rests small and opens on hover,
+     focus or while playing, because a floating control may cover the corner
+     it lives in but it may not cover the copy. -->
+<figure class="disc" id="disc">
+  <div class="disc-deck">
+    <span class="disc-platter" aria-hidden="true">
+      <img src="assets/img/abba-cover.webp" alt="" width="450" height="446" loading="lazy" decoding="async">
+    </span>
+    <svg class="disc-arm" viewBox="0 0 34 90" aria-hidden="true" focusable="false">
+      <path class="arm-rod" d="M26 8 L23 60 L13 79"/>
+      <rect class="arm-head" x="7" y="74" width="11" height="13" transform="rotate(28 12.5 80.5)"/>
+      <circle class="arm-pivot" cx="26" cy="8" r="6"/>
+    </svg>
+    <button class="disc-btn" type="button" aria-pressed="false" aria-label="Play Take A Chance On Me by ABBA"><span aria-hidden="true"></span></button>
+  </div>
+  <figcaption class="disc-meta">
+    <span class="disc-k mono">On the deck</span>
+    <span class="disc-title">Take A Chance On Me</span>
+    <span class="disc-by">ABBA &middot; 1977</span>
+  </figcaption>
+  <audio class="disc-audio" preload="none" src="assets/audio/take-a-chance-on-me.mp3"></audio>
+</figure>
 <script src="assets/site.js"></script>
 <script src="assets/magazine.js"></script>
 <script src="assets/vendor/gsap.min.js"></script>

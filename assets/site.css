@@ -2282,12 +2282,25 @@ body:has(.wrow)::before{display:none}
    still a merge even when the contents are separate. A record player is a
    thing you OPERATE; a playlist is a thing you READ. They share a section
    and nothing else: no common frame, no common border, different shapes. */
-.listening{display:grid;gap:var(--s-5);margin:var(--s-6) 0 0}
-@media (min-width:900px){.listening{grid-template-columns:auto minmax(0,1fr);align-items:start;gap:var(--s-6)}}
 
 /* 1. the disc player: an object, round, with a platter and an arm */
-.disc{margin:0;display:grid;justify-items:center;gap:var(--s-3)}
-.disc-deck{position:relative;width:clamp(140px,17vw,180px);aspect-ratio:1;
+/* FIXED, bottom right, at his instruction (21 Oct). It rests small and
+   opens on hover, focus or while playing: a floating control may cover the
+   corner it lives in, it may not cover the copy. That rule was learnt in
+   October when the old player sat over a figure, the zine and the last line
+   of Me for the whole page. */
+.disc{position:fixed;right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);
+  z-index:70;margin:0;display:grid;justify-items:center;gap:var(--s-2);
+  transition:transform 320ms var(--e-spring)}
+.disc .disc-meta{max-width:0;overflow:hidden;opacity:0;white-space:nowrap;
+  transition:max-width 320ms var(--e-spring),opacity 200ms ease}
+.disc:is(:hover,:focus-within) .disc-meta,.disc.spinning .disc-meta{max-width:16rem;opacity:1}
+.disc:is(:hover,:focus-within) .disc-deck,.disc.spinning .disc-deck{width:clamp(104px,12vw,140px)}
+.disc-deck{transition:width 320ms var(--e-spring)}
+/* it stands down over the hero: the hero is the one screen that has to be
+   uninterrupted, and html.at-hero is already set by home.js */
+html.at-hero .disc{transform:translateY(140%);pointer-events:none}
+.disc-deck{position:relative;width:clamp(76px,8vw,104px);aspect-ratio:1;
   border-radius:50%;background:#0D1633;display:grid;place-items:center;
   border:3px solid #0D1633}
 .disc-platter{display:block;width:62%;aspect-ratio:1;border-radius:50%;overflow:hidden;
@@ -2303,7 +2316,7 @@ body:has(.wrow)::before{display:none}
 .disc-arm .arm-rod{fill:none;stroke:#FFFDF7;stroke-width:3;stroke-linecap:round}
 .disc-arm .arm-head{fill:#E8251F}
 .disc-arm .arm-pivot{fill:#FFFDF7}
-.disc-btn{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;
+.disc-btn{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;
   border-radius:50%;border:2px solid #0D1633;background:#FFED10;cursor:pointer;
   display:grid;place-items:center;padding:0}
 .disc-btn span{display:block;width:0;height:0;margin-left:3px;
