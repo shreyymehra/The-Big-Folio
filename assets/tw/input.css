@@ -74,7 +74,7 @@
 /* ---------- case pages ---------- */
 @layer base {
   .case{
-    --g:#F7F4EC; --t:#173CA8;  /* reading ground */
+    --g:#FFFDF7; --t:#173CA8;  /* reading ground: warm white, the zine sheet */
     --g2:#173CA8; --t2:#F7F4EC; /* inverted blocks */
     --g3:#E8251F; --t3:#0D1633; /* accent plane: ink on fluoro is 4.8:1, cream fails */
     --pad:clamp(1.2rem,4vw,3rem);
@@ -333,3 +333,18 @@
 @media (max-width:640px){
   .case-prose .is-outcome{margin-inline:0;padding:1.4rem 1.2rem}
 }
+
+/* ---------- the ground schedule reaches the subpages (21 Oct) ----------
+   His call: ground swaps only, palette untouched. Home already ran six
+   grounds while every subpage shared one, which is most of why they read as
+   the same place. A case study is long-form reading, so it takes the warm
+   white sheet the zine uses; the textured cream belongs to the landing
+   surfaces where the grid is a feature rather than something under the type.
+
+   UNLAYERED ON PURPOSE. The case rules live in @layer base, and a layered
+   rule loses to an unlayered one no matter how specific it is, so
+   base.css body{background:var(--cream)} was winning. This sits outside the
+   layer. Found by measuring the computed background, not by reading. */
+body.case{background:var(--g)}
+/* Voice D needs no exception: it redefines --g for its own skin, so reading
+   the variable gives the inverted ground automatically. */
