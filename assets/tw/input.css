@@ -348,3 +348,6 @@
 body.case{background:var(--g)}
 /* Voice D needs no exception: it redefines --g for its own skin, so reading
    the variable gives the inverted ground automatically. */
+
+/* the PRD link on the case pages: same 24px floor, same reason */
+.case-prose a.font-display{display:inline-flex;align-items:center;min-height:24px}

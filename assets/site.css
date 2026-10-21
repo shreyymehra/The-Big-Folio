@@ -1771,16 +1771,16 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* ---- the marks: placed, and floating on their own loops ---- */
 .floats{position:absolute;inset:0;width:auto;height:auto;transform:none;border-radius:0;
   z-index:4;pointer-events:none;list-style:none;margin:0;padding:0;
-  --fl-w:clamp(128px,14.5vw,212px)}
+  --fl-w:clamp(128px,14vw,208px)}
 .fl{position:absolute;width:calc(var(--fl-w) + 28px);pointer-events:auto;
   offset-path:none;will-change:transform}
 .fl-icon{width:var(--fl-w);height:var(--fl-w)}
-.fl-work{right:27vw;top:6%;animation:fl-a 7s ease-in-out infinite}
-.fl-ideas{right:27vw;top:38%;animation:fl-b 8.4s ease-in-out infinite .4s}
-.fl-me{right:6vw;top:36%;animation:fl-a 9.2s ease-in-out infinite .9s}
-.fl-faq{right:27vw;top:70%;animation:fl-b 7.8s ease-in-out infinite 1.4s}
-.fl-contact{right:6vw;top:68%;animation:fl-a 8.6s ease-in-out infinite .2s}
-.fl-listen{right:6vw;top:4%;animation:fl-b 9.6s ease-in-out infinite 1.1s}
+.fl-work{right:27vw;top:2%;animation:fl-a 7s ease-in-out infinite}
+.fl-ideas{right:27vw;top:34%;animation:fl-b 8.4s ease-in-out infinite .4s}
+.fl-me{right:6vw;top:35%;animation:fl-a 9.2s ease-in-out infinite .9s}
+.fl-faq{right:27vw;top:66%;animation:fl-b 7.8s ease-in-out infinite 1.4s}
+.fl-contact{right:6vw;top:65%;animation:fl-a 8.6s ease-in-out infinite .2s}
+.fl-listen{right:6vw;top:1%;animation:fl-b 9.6s ease-in-out infinite 1.1s}
 @keyframes fl-a{0%,100%{transform:translate3d(0,0,0) rotate(-2deg)}50%{transform:translate3d(6px,-12px,0) rotate(2deg)}}
 @keyframes fl-b{0%,100%{transform:translate3d(0,-8px,0) rotate(2.5deg)}50%{transform:translate3d(-7px,8px,0) rotate(-1.5deg)}}
 .fl a:is(:hover,:focus-visible) .fl-icon{transform:scale(1.07)}
@@ -2384,3 +2384,60 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
 
 /* the two calls to action were sitting on the card edge */
 .idcard .hero-cta{margin-top:var(--s-4)}
+
+/* ---------- Worked with, back in the hero (21 Oct, at his instruction) ----------
+   On /about/ the eight marks were answering a question nobody had asked yet.
+   In the hero they answer the first one a visitor has: has this person done
+   real work. It sits at the bottom of the hero, under the card and the
+   marks, so it is the last thing on the first screen rather than something
+   competing with the claim.
+
+   It runs, where the /about/ version was static. There the reader had
+   already committed; here a strip that moves is what says there are more of
+   these than fit the width. Same engine as the rest: holds on pointer and
+   focus, never starts under reduced motion. */
+.wwstrip{position:absolute;left:0;right:0;bottom:0;z-index:8;
+  display:flex;align-items:center;gap:var(--s-4);
+  padding:var(--s-2) 0;overflow:hidden;
+  border-top:1.5px solid color-mix(in srgb,var(--deep) 22%,transparent)}
+.ww-k{flex:none;margin:0;padding-left:max(var(--pad),4vw);
+  font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--deep);opacity:.72}
+.wwstrip .ww-band{position:relative;flex:1 1 auto;min-width:0;overflow:hidden}
+.wwstrip .xtrack{display:flex;width:max-content;will-change:transform}
+.ww-set{display:flex;align-items:center;gap:clamp(2rem,4vw,3.4rem);
+  margin:0;padding:0 clamp(1rem,2vw,1.7rem);list-style:none;flex:none}
+.ww-set li{display:flex;align-items:center}
+/* sized by HEIGHT, never a shared box: a square device in the same box as a
+   wide wordmark reads half the size. Settled 6 Oct, worth keeping. */
+.ww-mark{display:block;width:auto;max-width:none;height:clamp(17px,1.9vw,24px)}
+@media (max-width:860px){
+  /* on a phone the hero is already a card plus six marks; the strip becomes
+     part of the flow rather than pinned to the hero's bottom edge */
+  .wwstrip{position:relative;margin-top:var(--s-5);display:block}
+  .ww-k{margin-bottom:var(--s-2)}
+  .ww-set{gap:1.6rem}
+}
+
+/* The marks are placed against the hero, and the worked-with strip now owns
+   the bottom of it, so the field has to stop above the strip or the last
+   row lands on the logos. The FAQ label was doing exactly that. One value,
+   measured from the strip height rather than nudged. */
+.floats{inset:0 0 clamp(62px,7.5vh,82px) 0}
+
+/* ---------- standalone link targets reach 24px (21 Oct) ----------
+   Found by the UI/UX sweep, not by eye: five end-of-section links were
+   rendering at 22 to 23px against the 24px minimum (WCAG 2.5.8). They are
+   all the same shape, a line of text with an arrow that ends a section, and
+   they all missed for the same reason: a bare inline anchor is only as tall
+   as its line box.
+
+   inline-flex with a min-height gives them the target without changing how
+   they look, because the extra pixels go above and below the text. */
+/* Targeted by STRUCTURE rather than class, because the markup is minified
+   onto long lines and class-hunting was costing more than it was worth: a
+   standalone end-of-section link is an anchor that is the only child of its
+   paragraph, which is exactly the shape all five had. */
+p > a:only-child,
+.pfoot a,
+.ways a,.so-col a,.mlist-k a,.case-toc a{display:inline-flex;align-items:center;min-height:24px}
