@@ -29,7 +29,25 @@
      list, otherwise "brands" settles inside a plane cut for "campaigns" and
      the gap after it reads as a rendering fault. One measurement per word at
      init, then the width is animated with the same timing as the step. */
-  var ul=document.getElementById('rollul'),n=ul.children.length-1,i=0;
+  /* The words are built here, not shipped in the markup: in the markup they
+     concatenated, so a crawler, a link preview and a JS-off reader all saw
+     "I build worldsstoriesbrandscampaignsbrands people want to belong to".
+     The page ships the finished sentence; this turns it into the roll. */
+  var rollHost=document.querySelector("[data-roll]"), rollStatic=document.getElementById("rollword");
+  /* NOT an early return. This file is one IIFE, so a return here would take
+     the tickers, the vinyl, the loader and the parallax with it if the hero
+     markup ever changes. A detached stack keeps the code below harmless. */
+  var stack=document.createElement("span");
+  stack.className="rollstack"; stack.id="rollul";
+  if(rollHost&&rollStatic){
+    (rollHost.getAttribute("data-roll")||"").split(",").filter(Boolean).forEach(function(w){
+      var sp=document.createElement("span"); sp.textContent=w; stack.appendChild(sp); });
+    rollHost.appendChild(stack);
+    /* the static word stays for the screen reader, which never sees the roll */
+    rollStatic.classList.add("vh");
+  } else { stack.appendChild(document.createElement("span")); }
+
+  var ul=stack,n=ul.children.length-1,i=0;
   var rollBox=ul.parentElement,
       rollW=[].map.call(ul.children,function(el){return el.getBoundingClientRect().width});
   function fitRoll(k){ if(rollBox&&rollW[k]) rollBox.style.width=Math.ceil(rollW[k])+'px'; }

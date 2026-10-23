@@ -75,6 +75,27 @@
     } else say('Opening your mail app.');
   });
 
+  /* 2b. the copy button copies and does NOTHING else.
+     The mailto link above copies as a side effect of opening mail; this is
+     for the reader who lives in webmail and does not want a native client
+     firing at them. Same note element, same announcement. */
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button[data-copy]"); if(!b) return;
+    var addr=b.getAttribute("data-copy");
+    var note=b.nextElementSibling&&b.nextElementSibling.classList.contains("copied-note")?b.nextElementSibling:null;
+    if(!note){
+      note=document.createElement("span"); note.className="copied-note";
+      note.setAttribute("role","status"); note.setAttribute("aria-live","polite");
+      b.insertAdjacentElement("afterend",note);
+    }
+    function say(t){ note.textContent=t; note.classList.add("on"); clearTimeout(note._t);
+      note._t=setTimeout(function(){ note.classList.remove("on"); },2600); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).then(function(){ say("Copied"); if(window.islandSay) window.islandSay("Email copied",2400); },
+        function(){ say("Could not copy. Select it instead."); });
+    } else say("Could not copy. Select it instead.");
+  });
+
   /* 3. headline clip reveal */
   function clips(){
     var els=[].slice.call(document.querySelectorAll('.shead h2,.phead h1,.proof h2,.wk-title'));

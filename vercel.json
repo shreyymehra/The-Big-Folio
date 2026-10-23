@@ -45,5 +45,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/public/ShreyMehra Master Resume.docx",
+      "destination": "/public/Shrey-Mehra-Resume.docx",
+      "permanent": true
+    },
+    {
+      "source": "/public/ShreyMehra%20Master%20Resume.docx",
+      "destination": "/public/Shrey-Mehra-Resume.docx",
+      "permanent": true
+    }
   ]
 }

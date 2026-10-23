@@ -2547,3 +2547,42 @@ p > a:only-child,
 /* the lip: deep, and it carries the caption instead of a second box */
 .idcard .print figcaption{background:none;border:0;
   padding:7% 1% 9%;text-align:left}
+
+/* ---------- the copy button beside an address (24 Oct, item 10) ----------
+   A separate control for a separate outcome: the link opens mail, this
+   copies and does nothing else. Sized at the 24px target minimum, outlined
+   rather than filled so it never competes with the address it serves. */
+.copybtn{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;
+  margin-left:var(--s-2);min-height:28px;padding:3px 10px;
+  background:none;border:1.5px solid color-mix(in srgb,currentColor 55%,transparent);
+  color:inherit;font-family:var(--fu);font-size:var(--xs);letter-spacing:.07em;
+  text-transform:uppercase;cursor:pointer;
+  transition:background var(--d-1) var(--e-out),color var(--d-1) var(--e-out)}
+.copybtn .ico{width:14px;height:14px;flex:none}
+.copybtn:is(:hover,:focus-visible){background:currentColor}
+/* The hover was mix-blend-mode difference plus invert, so one rule could
+   serve every ground. It rendered as a pale ghost box on the blue pill and
+   the label all but disappeared. Two explicit rules instead: the button
+   takes the ground it sits on. A clever rule that cannot be read is worse
+   than two plain ones. */
+.copybtn:is(:hover,:focus-visible){background:var(--deep);color:var(--cream);
+  border-color:var(--deep)}
+.sign-off .copybtn:is(:hover,:focus-visible){background:var(--cream);color:#173CA8;
+  border-color:var(--cream)}
+/* the address and its button are one row, never two lines */
+.mailrow{display:inline-flex;align-items:center;flex-wrap:wrap;gap:var(--s-1) 0}
+
+/* the claim's resting word, before the script turns it into the roll.
+   It ships visible so a reader with JS off gets the sentence rather than a
+   hole; home.js adds .vh once it has built the stack. */
+.rollword{font-family:var(--fd);font-weight:900;background:var(--deep);color:var(--cream);
+  padding:0 .14em}
+
+/* In the sign-off pill the column is 319px and the address plus a labelled
+   button measures 323, so it wrapped to a line of its own and stopped
+   reading as attached to the address. The word goes, the aria-label stays,
+   and the target is still over the 24px minimum. Measured, not guessed. */
+.sign-off .copybtn{padding:5px 7px}
+.sign-off .copybtn span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.sign-off .copybtn .ico{width:16px;height:16px}
+.sign-off .mailrow{flex-wrap:nowrap}
