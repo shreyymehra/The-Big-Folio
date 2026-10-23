@@ -209,6 +209,26 @@ questions every first screening call asks that the nine do not cover:
 
 Neither is on the site and neither is invented in the meantime.
 
+### A9. Two posters spell the project differently to the site
+
+Found while writing real alt text for them on 24 Oct, which meant looking at
+each one properly for the first time.
+
+1. **The Vastr poster reads "vastra", three times, and "vastra.com.au".** The
+   site, the URL, the case study and every mention call it **Vastr**. A
+   recruiter reading the case and then looking at the hero artefact sees two
+   names for one product, which is the opposite of what a naming case study
+   is arguing. The case already tells the story of two names that lost; this
+   reads like a third.
+2. **The Voice’D poster reads "Voiced."** and the site reads **Voice’D**
+   everywhere, including the nine strings renamed on 13 Oct.
+
+**Neither is mine to change**, because both are your artwork. Either the
+posters get re-exported or the site adopts the poster spellings, and the
+second is cheap: it is one sweep. **Tell me which and it is done the same
+day.** Until then the alt text describes what is actually in the frame, so it
+uses the poster spellings while the page uses yours.
+
 ---
 
 ## What I would do next, if you only answer three things

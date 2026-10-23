@@ -265,7 +265,12 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 /* align-items:start, or a closed drawer reclaims nothing: grid items stretch
    to the row by default, so the column kept its full height with the list
    hidden inside it and the collapse did nothing visible. */
-.mv-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:clamp(2rem,5vw,4.5rem);
+/* Golden, like .abody and .cblock and the case pages (item 13). It was
+   .95 / 1.25, which is 1.316 and is not a ratio anything else on the site
+   uses. The figures take the larger column because they are the evidence
+   and the disciplines are the context: the hierarchy and the geometry now
+   say the same thing. Measured at 1440: 463/609 before, 436/706 after. */
+.mv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.618fr);gap:clamp(2rem,5vw,4.5rem);
   align-items:start;border-top:2px solid var(--deep);padding-top:var(--s-6)}
 /* Both columns are native <details> (9 Oct, at his instruction). Native,
    because it is keyboard operable, announced correctly, and works with the
@@ -2466,7 +2471,24 @@ p > a:only-child,
 .ipod-shell{display:block;width:100%;height:auto}
 .ipod-screen{position:absolute;left:6.33%;top:4.36%;width:87.05%;height:44.21%;
   overflow:hidden;background:#0D1633}
-.ipod-screen .mlist-frame{display:block;width:100%;height:352px;border:0;border-radius:0}
+/* THE PLAYLIST SCROLLS IN THE SCREEN (24 Oct, item 13).
+   It was a 352px embed clipped to a 239px window, so the visitor saw the
+   cover, the controls and one and a half track rows with the second cut in
+   half. That reads as a crop, not a device.
+
+   Spotify’s embed has its OWN scrolling track list once it is tall enough
+   to draw one. So the frame is taller than the window on purpose and is
+   pulled up, so the window shows the LIST rather than the cover art: the
+   rows are then scrolled by Spotify inside its own player, which is exactly
+   "the playlist is scrollable on this iPod". Nothing about the embed
+   changed, which was his constraint: same src, same player, same controls.
+
+   --ipod-lift is the distance from the top of the embed to the first row.
+   Measured, not guessed: scratchpad/p3e.js reads it off the rendered frame. */
+.ipod{--ipod-lift:146px}
+.ipod-screen .mlist-frame{display:block;position:absolute;left:0;right:0;
+  top:calc(var(--ipod-lift) * -1);width:100%;height:calc(239px + var(--ipod-lift) + 40px);
+  border:0;border-radius:0}
 @media (max-width:560px){
   /* the screen is a fixed share of the artwork, so below about 380px of
      iPod the embed has fewer than 150px of width and Spotify collapses it
@@ -2477,7 +2499,12 @@ p > a:only-child,
   /* 352, not 252: at 252 Spotify picks its compact layout, draws about
      150px of card and leaves the rest of the iframe empty, which reads as a
      gap in the column. 352 is the height its track-list layout wants. */
-  .ipod-screen .mlist-frame{height:352px;border-radius:10px}
+  /* and the lift comes OFF here. On a phone there is no screen to look
+     through, so an absolutely positioned frame pulled 146px above its box
+     would hang the player off the top of the column. The desktop rule sets
+     position, top and height, so all three have to be undone, not just the
+     one that looks relevant. */
+  .ipod-screen .mlist-frame{position:static;top:auto;height:352px;border-radius:10px}
 }
 
 /* ---------- the sky behind the sign-off (23 Oct, his choice) ----------

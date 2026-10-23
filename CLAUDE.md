@@ -1906,3 +1906,137 @@ it. The ID column keeps no label, because `R-01` is its own.
 
 **A comment describing behaviour is not evidence the behaviour exists.** This
 one read as done for as long as the file has existed.
+
+## THE THIRTEEN (24 Oct 2026, at his instruction)
+
+A numbered list from him. Three of the thirteen turned out not to be broken,
+and saying so is part of the work: a fix applied to a non-defect is churn that
+the next session has to reverse.
+
+**Disclaimers (1).** Each spec case carries "Independent spec work. Not
+affiliated with, endorsed by or commissioned by Hungry Jack's / Absolut."
+**Vastr gets a different sentence on purpose**: there is no real brand to be
+unaffiliated from, so what that line has to say is that nobody commissioned
+it. The Cut The Noise poster carries the real Hungry Jack's logo, which is
+exactly why the line has to be on the page rather than in a footer.
+
+**Naming (2).** `voicedna.webp` is `voiced.webp` and the poster alt no longer
+says "voicedna". **The `/work/voicedna/` URL stays**, the same policy that kept
+`/about/` when the label became Me. He wrote "if the slug changes" and it is
+not worth the live-links risk for a string nobody sees. **Two naming
+inconsistencies are in his own artwork and are his to settle:** the Vastr
+poster reads "vastra" and "vastra.com.au", and the Voice'D poster reads
+"Voiced." Both are in NEEDS.
+
+**Alt text (3).** "The vastr poster." told a screen-reader user nothing. Each
+case header now describes what is in the frame, **written from looking at each
+poster**, capped at 125 characters. The home and `/work` copies keep `alt=""`
+and that is correct: the name and the state are in the text beside them, so a
+description there is read twice.
+
+**Status (4, 5).** One vocabulary everywhere: **Shipped / In build / Spec / In
+writing.** "Real", "In development", "Writing" and "Case page not built" were
+four more words for two states. The last of those is a note about the build
+rather than about the work, and a visitor does not care which pages exist.
+Counts: five briefs with two in writing, three of five, all projects.
+
+**The claim concatenated (7).** The shipped HTML read *"I build
+worldsstoriesbrandscampaignsbrands people want to belong to"* - what a
+crawler, a link preview and a JS-off reader all got. The screen-reader output
+was already correct via `aria-hidden` plus a `.vh` copy, but **that was one of
+three**. The rolling words are no longer in the markup: the page ships the
+sentence with its resting word, `home.js` builds the cycle and hides the
+static word. **The guard there is deliberately not an early `return`:**
+home.js is one IIFE, so a return would take the tickers, the vinyl, the loader
+and the parallax with it if the hero markup ever changed.
+
+**Sharing (10).** Nothing on the site had an `og:image`, so every link pasted
+into a cold email arrived as a bare URL, which is the one place this portfolio
+is seen first. `assets/img/og-card.jpg` is composed from his own cut-out name
+on the cream ground with the cape red rule (`scratchpad/ogcard.mjs`).
+
+Three things worth not re-deriving:
+- **It is JPEG, not WebP.** LinkedIn's scraper is the one that matters here and
+  does not reliably render WebP.
+- **The absolute base is the Pages URL.** `og:image` and `og:url` must be
+  absolute; Vercel is canonical but no domain is recorded anywhere in the repo,
+  so the base is the one URL that exists and resolves today. One sweep of one
+  constant when the domain lands.
+- **`.gitignore` excludes `assets/img/*.jpg`**, so the card needs its negation
+  line or it silently never ships.
+
+A copy button beside the address **copies and does nothing else**: the link
+already did both from one gesture, and a native mail client firing at someone
+who lives in webmail is a surprise, not a convenience. `rel="noopener
+noreferrer"` on every external link.
+
+**Résumé (11).** `public/Shrey-Mehra-Resume.docx`, with a **301 from the old
+URL in `vercel.json`**. That is possible only because Vercel is canonical;
+GitHub Pages serves no redirects.
+
+**Golden ratio (13).** Measured rather than asserted. `.id-body` was already
+1/φ and `.abody`, `.cblock` and the case pages were already φ. **One grid was
+off:** `.mv-grid` at `.95fr / 1.25fr`, a ratio of 1.316 that nothing else on
+the site uses. It is `1fr / 1.618fr` now, with the **figures** in the larger
+column, because they are the evidence and the disciplines are the context:
+the hierarchy and the geometry now say the same thing.
+
+### THE PLAYLIST SCROLLS IN THE iPOD
+
+It was a 352px embed clipped to a 239px window, so the screen showed the cover,
+the controls and one and a half track rows with the second cut in half. That
+reads as a crop, not a device.
+
+**Spotify's embed has its own scrolling track list** once it is tall enough to
+draw one. So the frame is taller than the window on purpose and is **pulled up
+by `--ipod-lift`**, so the window shows the LIST rather than the cover art. The
+rows are then scrolled by Spotify inside its own player, which is exactly what
+he asked for, and **nothing about the embed changed**: same src, same player,
+same controls, which was his constraint.
+
+**The trap, and it is the general one:** the mobile branch dropped the shell
+and set `.ipod-screen{position:static}`, but the desktop rule sets `position`,
+`top` AND `height` on the frame. Resetting only the one that looks relevant
+left an absolutely positioned player hanging 146px above its own column on a
+phone. **Undo every property an overridden rule set, not the interesting one.**
+
+**His answer on location, asked rather than guessed: it stays in Me.** The
+list said "the iPod in HERO" and the iPod has never been there; he had already
+answered "frame it in Me, where it is" once. This device has been moved twice
+on wrong guesses, so the third was a question.
+
+### THREE ITEMS THAT WERE NOT BROKEN
+
+Checked by rendering, which is the only way any of them could be settled.
+
+- **Page numbers (8).** The magazine contents reads 03-08 and the folios read
+  02-08. They already agree: **02 is the contents page's own folio**, and a
+  contents page does not list itself. Nothing changed.
+- **The marquee (6).** Every clone already carries `aria-hidden="true"`, and
+  `site.js` wraps the whole ticker engine in `if(!reduce)`, so it never starts
+  under reduced motion rather than stopping once started.
+- **Nav and head (9).** No nav has nested wrappers, every `<meta>` and
+  `<title>` is inside `<head>` on all eleven pages, and `aria-current="page"`
+  was already on nine of ten routes. Two real gaps: the nav landmark had no
+  accessible name, and **home had no `aria-current` anywhere** because the
+  slate does not list Home - the logo is the home link, so that is where it
+  belongs.
+
+### A FALSE FAILURE, AND THE HARNESS THAT CAUSED IT
+
+The focus sweep reported the **six hero marks as having no focus ring**, which
+would be a WCAG 2.4.7 failure on the site's primary navigation. They ring
+correctly: `.fl a:focus-visible` sets `outline:none` and moves the ring onto
+`.fl-icon`, which is the thing you can actually see.
+
+Two lessons, both already paid for once in this file:
+1. **`el.focus()` from script does not set `:focus-visible` in Chrome.** A
+   script-driven probe reports `outline-style:none` on elements that ring
+   perfectly for a keyboard user. `scratchpad/focus.mjs` sends **real Tab
+   presses** through CDP for that reason.
+2. **The ring may live on a child.** Reading only the focused element misses
+   every component that moves it, and that is how a real rule gets deleted. The
+   harness checks descendants now.
+
+After both fixes: **136 tab stops across seven routes, one without a ring, and
+it is Spotify's own iframe.**
