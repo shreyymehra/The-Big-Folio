@@ -351,10 +351,19 @@
             <span>What I build to</span>
             <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m" target="_blank" rel="noopener">Shrey&rsquo;s Bizarre Adventures <span aria-hidden="true">&nearr;</span></a>
           </p>
-          <iframe class="mlist-frame" title="Shrey's Bizarre Adventures on Spotify"
-            src="https://open.spotify.com/embed/playlist/5H4RUSMx6CMD4czgpEGV8m?utm_source=portfolio"
-            width="100%" height="352" frameborder="0" loading="lazy"
-            allow="clipboard-write; encrypted-media; picture-in-picture"></iframe>
+          <!-- The playlist in the iPod. The png is decorative and the embed
+               is the content, so the image carries empty alt and the iframe
+               keeps its title. Screen coordinates are measured off the png,
+               not eyeballed: see the note in site.css. -->
+          <div class="ipod">
+            <img class="ipod-shell" src="assets/img/ipod.webp" alt="" width="332" height="527" loading="lazy" decoding="async">
+            <div class="ipod-screen">
+              <iframe class="mlist-frame" title="Shrey's Bizarre Adventures on Spotify"
+                src="https://open.spotify.com/embed/playlist/5H4RUSMx6CMD4czgpEGV8m?utm_source=portfolio"
+                frameborder="0" loading="lazy"
+                allow="clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+          </div>
         </section>
       <aside class="vouch" aria-labelledby="vouch-title">
         <p class="vouch-k mono" id="vouch-title">Some external validation</p>

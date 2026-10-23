@@ -2402,7 +2402,11 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
   border-top:1.5px solid color-mix(in srgb,var(--deep) 22%,transparent)}
 .ww-k{flex:none;margin:0;padding-left:max(var(--pad),4vw);
   font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--deep);opacity:.72}
+  /* mixed toward the ground, NOT opacity: .72 on --deep landed this
+     label at 4.33, under the 4.5 small type needs. A mix is the same quiet
+     and it is a real colour, so the harness can read it. Same mistake the
+     gap register already carries a warning about. */
+  color:color-mix(in srgb,var(--deep) 84%,var(--cream))}
 .wwstrip .ww-band{position:relative;flex:1 1 auto;min-width:0;overflow:hidden}
 .wwstrip .xtrack{display:flex;width:max-content;will-change:transform}
 .ww-set{display:flex;align-items:center;gap:clamp(2rem,4vw,3.4rem);
@@ -2441,3 +2445,68 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
 p > a:only-child,
 .pfoot a,
 .ways a,.so-col a,.mlist-k a,.case-toc a{display:inline-flex;align-items:center;min-height:24px}
+
+/* ---------- the playlist plays inside the iPod (23 Oct) ----------
+   His brief: the Spotify preview fits the iPod png and looks like the
+   playlist is scrollable on it. Nothing about the embed changed; it is
+   framed, not rebuilt.
+
+   SCREEN COORDINATES ARE MEASURED off the artwork rather than eyeballed
+   (scratchpad/screen.mjs scans the png for its dark frame): 6.33% left,
+   4.36% top, 87.05% wide, 44.21% tall of the trimmed 332x527 artwork. The
+   supplied png had a white background and wide margins, so it was keyed to
+   transparent and trimmed first: on the original canvas the screen was only
+   39% of the width and the embed was unusable in it. If the artwork is
+   ever re-exported these four numbers are the only thing to re-measure.
+
+   The embed is taller than the screen is, which is the point: the screen is
+   an overflow window, so the list runs past the bottom edge the way it does
+   on a real device and Spotify's own scrolling moves it. */
+.ipod{position:relative;width:min(340px,100%);margin:var(--s-2) 0 0}
+.ipod-shell{display:block;width:100%;height:auto}
+.ipod-screen{position:absolute;left:6.33%;top:4.36%;width:87.05%;height:44.21%;
+  overflow:hidden;background:#0D1633}
+.ipod-screen .mlist-frame{display:block;width:100%;height:352px;border:0;border-radius:0}
+@media (max-width:560px){
+  /* the screen is a fixed share of the artwork, so below about 380px of
+     iPod the embed has fewer than 150px of width and Spotify collapses it
+     to an unusable sliver. The frame comes off and the playlist stands on
+     its own rather than being decoration you cannot operate. */
+  .ipod-shell{display:none}
+  .ipod-screen{position:static;width:100%;height:auto;background:none}
+  /* 352, not 252: at 252 Spotify picks its compact layout, draws about
+     150px of card and leaves the rest of the iframe empty, which reads as a
+     gap in the column. 352 is the height its track-list layout wants. */
+  .ipod-screen .mlist-frame{height:352px;border-radius:10px}
+}
+
+/* ---------- the sky behind the sign-off (23 Oct, his choice) ----------
+   His cloud texture, in the end block. First pass put it full bleed at .34
+   and it read as a photograph with graph paper laid over it: the section
+   stopped being paper, and the blue pill had to fight a blue ground.
+
+   So it is a BAND at the seam, not a background. It enters where the
+   section does, fades out before the pill, and sits at an opacity where it
+   reads as a wash rather than a picture. The star and the wordmark below
+   are untouched, which keeps the end of the page his own artwork.
+
+   The file is a phone-shaped crop, so it tiles across rather than
+   stretching: a 720-wide photograph stretched to 1920 turns to mush. */
+.contact::after{content:"";position:absolute;left:0;right:0;top:0;height:min(46vh,420px);
+  z-index:-1;pointer-events:none;
+  /* the MIRRORED tile: CSS has no mirror-repeat, so the tile is the
+     photograph beside its own flip, which makes both joins invisible.
+     The straight file tiled with a hard vertical seam every 720px, which
+     reads as a rendering bug rather than a sky. */
+  background-image:url("img/clouds-tile.webp");
+  background-size:auto 100%;background-repeat:repeat-x;background-position:center top;
+  opacity:.5;filter:saturate(.72);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 26%,transparent 94%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 26%,transparent 94%)}
+/* in dark the sky would be a lit plate on an ink page */
+:root[data-theme="dark"] .contact::after{opacity:.2;filter:saturate(.5) brightness(.6)}
+/* It does NOT drift, and that is deliberate twice over. The tile is sized
+   `auto 100%`, so its rendered width depends on the band height and no fixed
+   keyframe distance can land back on itself: every loop would jump. And he
+   asked for one moving device on the page, which is the comic tape. A sky
+   that sits still is a ground; a sky that slides is a fourth ticker. */
