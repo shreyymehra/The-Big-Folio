@@ -1784,3 +1784,84 @@ driven by the touched files confirmed still running rather than assumed: the tic
 is in view (it is correctly stopped by its IntersectionObserver when it is not, which reads as
 broken if you test it off-screen), the ransom tiles are present, the vinyl is still on the mp3,
 and the easter egg is intact.
+
+## THE iPOD, THE SKY, THE REAL PRINT (23 Oct 2026, at his instruction)
+
+**The playlist plays inside the iPod.** His brief was exact: fit the Spotify
+preview to the iPod png, make it look scrollable on it, change nothing else
+about the playlist, and say if it breaks on mobile. The embed is untouched -
+same src, same controls - and is framed by `.ipod` > `.ipod-shell` +
+`.ipod-screen`. The screen rectangle is **measured off the artwork**
+(`scratchpad/screen.mjs` scans for the dark frame): 6.33% / 4.36% / 87.05% /
+44.21%. Those four numbers are the whole placement, so a re-export needs only
+them re-measured.
+
+The png arrived on an **opaque white plate** and was keyed out - the second
+delivery in a row to do that, after the monogram's full-canvas white rect.
+Check every export from that tool.
+
+**On a phone the shell drops and the embed stands alone**, which is the answer
+to his question: it does not break, it degrades. A 340px device drawn at 390px
+wide leaves a screen nothing can be read in. It takes **352px** there, not 252:
+at 252 Spotify picks its compact layout, draws about 150px of card and leaves
+the rest of the iframe empty, which reads as a hole in the column. Verified at
+a real 390.
+
+**The sign-off stands in his cloud texture.** First pass was full bleed at .34
+and read as a photograph with the drawn grid laid over it: the section stopped
+being paper and the blue pill had to fight a blue ground. It is a **band at the
+seam** now, entering where the section does and gone before the pill.
+
+Two things worth not re-deriving:
+- **The tile is mirrored.** CSS has no mirror-repeat, so the tile has to be
+  symmetrical: `scratchpad/mirror.mjs` draws the photograph beside its own flip
+  (`assets/img/clouds-tile.webp`, 1440x704, 64KB). The straight file tiled with
+  a hard vertical join every 720px, which reads as a rendering bug, not a sky.
+- **It does not drift.** The tile is sized `auto 100%`, so its rendered width
+  follows the band height and no fixed keyframe distance lands back on itself:
+  every loop would jump. And he asked for one moving device on this page.
+
+**"Worked with" was opacity on small type.** `--deep` at `opacity:.72` is 4.33
+against the 4.5 small type needs. It is `color-mix` now. This is the same
+mistake the gap register already carries a warning about; the rule is general.
+
+**The a11y harness now skips screen-reader-only text.** `h2.vh "Five things I
+believe"` was reported at 1.06 on every run. A 1x1 clipped box is announced and
+never seen, so its contrast is meaningless, and a standing false positive makes
+the real findings easy to ignore. Contrast is **0 failures** on all nine routes
+in both themes.
+
+### TAB 2, THE REMAINING ITEMS
+
+**#10, the FAQ is reordered.** It opened on "Is any of this work real?", which
+leads a recruiter FAQ with the portfolio's weakest fact. The order is now what
+the first fifteen minutes actually runs in: what you want, what you actually
+did, what you are best at, then the honesty about the slate (Q.06), then
+process and side projects. **No answer text was touched**; only the Q numbers
+moved. The *broaden* half needs two answers only he can write - work rights,
+and the three role titles - and is **NEEDS B6**, not invented in the meantime.
+
+**#5, the print is one card, not two boxes.** What read as drawn was
+structural: a mount with a 2px ink stroke holding the photograph, and a caption
+below with its own stroke and `border-top:0` faking a shared edge. No physical
+print is two objects, and an even 10px lip on three sides is the giveaway - a
+polaroid's bottom lip is roughly five times its sides.
+
+The numbers come off **his own scan**, probed pixel by pixel
+(`scratchpad/polaprobe.mjs` on `mot-dad.webp`): card **rgb(242,241,234)**, not
+white; side lip 2.8% of card width, top 3.5%, bottom 21%. The photograph sits
+in a **well**, so its edge is an inner line on the image rather than a stroke
+around the object.
+
+**Attempted first and abandoned:** cutting the empty frame out of that scan and
+laying it over the photograph. The artefact is rotated with a second card
+behind it, so there is no rectangle to crop, and the same polaroid would then
+appear twice on the site with two different photographs in it. A true fix still
+wants one blank polaroid, or a scan of the Delhi print in one.
+
+**A trap in that probe worth keeping:** the keyed-out artefacts carry
+**alpha 179 on the card**, not 255. Every scan that tested `alpha > 200` to
+find the card returned three pixels. Test the colour, not the opacity.
+
+**#8 was already done** - the "How I think" asset swap is the five process
+cards from his deck, static and hovering, built 21 Oct.

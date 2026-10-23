@@ -2510,3 +2510,40 @@ p > a:only-child,
    keyframe distance can land back on itself: every loop would jump. And he
    asked for one moving device on the page, which is the comic tape. A sky
    that sits still is a ground; a sky that slides is a fourth ticker. */
+
+/* ---------- the hero print is one card, not two boxes (23 Oct, TAB 2.5) ----
+   His note: "Real Polaroid, not a drawn one."
+
+   What made it read as drawn was structural, not decorative. It was TWO
+   bordered boxes stacked: a mount holding the photograph with a 2px ink
+   stroke, and a caption below it with its own stroke and `border-top:0` to
+   fake a shared edge. No physical print is two objects, and the even 10px
+   lip on three sides is the giveaway: a polaroid's bottom lip is five times
+   its sides, because that is where the chemistry sits.
+
+   The numbers come off HIS OWN scan (assets/img/mot-dad.webp, probed pixel
+   by pixel): card rgb(242,241,234), not white; side lip 2.8% of the card
+   width, top 3.5%, bottom 21%. The photograph sits in a WELL, so its edge is
+   an inner line on the image, not a stroke around the whole object.
+
+   Attempted first and abandoned: cutting the empty frame out of that scan
+   and laying it over the photograph. The artefact is rotated with a second
+   card behind it, so there is no rectangle to crop, and the same polaroid
+   would then appear twice on the site with two different photographs in it.
+   A true fix still wants one blank polaroid or a scan of the Delhi print in
+   one; that is in NEEDS. */
+.idcard .print{position:relative;background:#F2F1EA;
+  border:1px solid rgba(13,22,51,.48);
+  padding:3.2% 3.2% 0;
+  /* paper grain, from the same dot technique as --paper but at print scale */
+  background-image:radial-gradient(rgba(13,22,51,.05) .5px,transparent .5px);
+  background-size:4px 4px}
+/* the mount stops being an object: no plate, no stroke, no padding */
+.idcard .print-mount{background:none;border:0;padding:0}
+/* the well. An inset line on the IMAGE, which is what a photograph set into
+   a card looks like, rather than a stroke drawn around the card. */
+.idcard .print-mount::after{content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(13,22,51,.34),inset 0 1px 3px rgba(13,22,51,.2)}
+/* the lip: deep, and it carries the caption instead of a second box */
+.idcard .print figcaption{background:none;border:0;
+  padding:7% 1% 9%;text-align:left}

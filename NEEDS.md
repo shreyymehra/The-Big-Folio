@@ -184,6 +184,31 @@ The case says taglines, positioning and brand language shipped with the manual.
 **Only the manual is on disk.** Asked four times. If the identity work exists,
 send it and the tag changes the same day.
 
+### B6. Two FAQ answers only you can write · unblocks the "broaden" half of TAB 2.10
+
+The FAQ was **reordered** on 23 Oct and that half is done: it now opens on what
+you want and what you actually did, and "Is any of this work real?" moved from
+first to sixth. Leading a recruiter FAQ with the portfolio's weakest fact meant
+the first thing they read was a disclaimer.
+
+**Broadening it needs two answers I cannot write for you**, because both are
+facts about you rather than judgements about the site. These are the two
+questions every first screening call asks that the nine do not cover:
+
+1. **"Where are you, and can you work there?"** The site says Melbourne, working
+   globally. It says nothing about work rights, and a recruiter checks that in
+   minute two. I will not guess at a visa status. One sentence from you and it
+   ships.
+2. **"What roles are you actually applying for?"** The target roles are locked in
+   the brief as Product Marketing, GTM and Brand Strategy, but Q.01 answers "a
+   place to build a culture and take my curiosity for a drive", which is you and
+   is not a job title. A recruiter sorting a pile needs the title. **Your answer
+   is good; it needs one more sentence naming the three.** Suggested, in your
+   voice, for you to accept or rewrite: *"On paper: product marketing, GTM, brand
+   strategy."*
+
+Neither is on the site and neither is invented in the meantime.
+
 ---
 
 ## What I would do next, if you only answer three things
