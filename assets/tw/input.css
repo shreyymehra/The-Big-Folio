@@ -264,6 +264,13 @@
   .prd-table tr{border-bottom:2px solid var(--deep);padding-bottom:.8rem;margin-bottom:.8rem}
   .prd-table td{border:0;padding:.2rem 0}
   .prd-table td:first-child{font-size:var(--xs);letter-spacing:.08em}
+  /* and this is the half that was only ever a comment. Without it a row is
+     three unlabelled paragraphs and the reader cannot tell the requirement
+     from the reasoning. The ID cell keeps no label, because R-01 is its own. */
+  .prd-table td[data-label]:not(:first-child)::before{content:attr(data-label);
+    display:block;margin:.5rem 0 .15rem;
+    font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+    text-transform:uppercase;color:color-mix(in srgb,var(--deep) 78%,var(--g))}
 }
 
 .prd-risks{margin:1.5rem 0 0}

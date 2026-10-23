@@ -1865,3 +1865,44 @@ find the card returned three pixels. Test the colour, not the opacity.
 
 **#8 was already done** - the "How I think" asset swap is the five process
 cards from his deck, static and hovering, built 21 Oct.
+
+### THE SECTION RATIOS WERE MEASURED, NOT NUDGED (TAB 2.9)
+
+At 1440x900 home is **7.9 screens**, and the split is:
+
+| Section | px | share | screens |
+|---|---|---|---|
+| hero | 900 | 12.7% | 1.0 |
+| moved (the figures) | 254 | 3.6% | 0.3 |
+| work | 2160 | 30.4% | 2.4 |
+| ideas | 1208 | 17.0% | 1.3 |
+| about | 1687 | 23.8% | 1.9 |
+| contact | 886 | 12.5% | 1.0 |
+
+**Work is the largest at 30.4%, which is what the brief asks for**, and the
+figures land on the second screen, which is what the 22 Sep pace note asks for.
+Ideas was the suspect, since its own contents page says the posts are being
+written, but 735 of its 1208px is the bound magazine, which is his artwork,
+not padding: the section is a real object at a fair size.
+
+**The one number out of proportion is `moved` at 3.6%** - the seven verified
+figures, the only independently real evidence on the site, at a seventh of what
+the personal section gets. That is entirely the cost of the pill shipping
+closed, which is **his instruction of 13 Oct**, so it is flagged and not
+reversed. It is mitigated: the closed pill already previews two real figures
+and "12 more", so it carries more than its height suggests.
+
+**Nothing was moved on this item.** A rework with no measurement behind it
+would have been churn.
+
+### THE PRD TABLE WAS UNREADABLE ON A PHONE
+
+Found by the sweep, confirmed by looking. Under 640px the table stacks and the
+headers are visually hidden, and the CSS comment said *"the headers move into
+the cells"* - **but that half was never written**. Every row was three
+unlabelled paragraphs, so a reader could not tell the requirement from the
+reasoning. Both tables' cells now carry `data-label` and a `td::before` prints
+it. The ID column keeps no label, because `R-01` is its own.
+
+**A comment describing behaviour is not evidence the behaviour exists.** This
+one read as done for as long as the file has existed.
