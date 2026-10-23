@@ -358,3 +358,17 @@ body.case{background:var(--g)}
 
 /* the PRD link on the case pages: same 24px floor, same reason */
 .case-prose a.font-display{display:inline-flex;align-items:center;min-height:24px}
+
+/* ---------- Sources, at the foot of a case (24 Oct, A9) ----------
+   A case that names a competitor, quotes a code or claims brand history is
+   making checkable statements, so the check sits next to them. Numbered,
+   because the items are referred to as "the first source" in conversation,
+   and set smaller than body copy because this is apparatus, not argument.
+   The rule is the same red left edge the trade-offs and pull quotes use, so
+   a reader already knows what that edge means by the time they reach it. */
+.srcs{margin:1.5rem 0 0;padding:0 0 0 1.6rem;max-width:44em;
+  display:grid;gap:.9rem;font-size:var(--t-small);line-height:1.5}
+.srcs li{padding-left:.4rem}
+.srcs li::marker{font-family:var(--fu);color:var(--accent-type)}
+.srcs a{text-underline-offset:3px}
+.srcs q{font-style:italic;quotes:"\201C" "\201D"}
