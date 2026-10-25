@@ -370,5 +370,9 @@ body.case{background:var(--g)}
   display:grid;gap:.9rem;font-size:var(--t-small);line-height:1.5}
 .srcs li{padding-left:.4rem}
 .srcs li::marker{font-family:var(--fu);color:var(--accent-type)}
-.srcs a{text-underline-offset:3px}
+/* 24px minimum target (WCAG 2.5.8). These sit inline at the end of a
+   sentence, so they are 17px tall unless told otherwise, and they are the
+   one thing on the page a sceptical reader is meant to click. */
+.srcs a{text-underline-offset:3px;display:inline-flex;align-items:center;
+  min-height:24px}
 .srcs q{font-style:italic;quotes:"\201C" "\201D"}
