@@ -62,9 +62,20 @@
     if(reduce){i=n;} measureRoll();});}
   addEventListener('resize',measureRoll);
   if(reduce){ ul.style.transform='translateY(-'+(n*1.25)+'em)'; }
-  if(!reduce){ var rollT=setInterval(function(){i++;ul.style.transition='transform 420ms var(--ease)';
+  /* TWO CYCLES, then it rests (block E). It used to make one pass and
+     stop on the last word, which reads as a thing that broke rather than a
+     thing that finished. Two passes say "this is a list" and then settle.
+     It also holds while pointed at or focused, like every other moving
+     thing on the site: a word that changes under the cursor is the reason
+     people stop reading a line. */
+  var rollCycles = 2, rollHold = false;
+  if (rollHost) {
+    ['pointerenter','focusin'].forEach(function(ev){ rollHost.addEventListener(ev,function(){ rollHold=true }) });
+    ['pointerleave','focusout'].forEach(function(ev){ rollHost.addEventListener(ev,function(){ rollHold=false }) });
+  }
+  if(!reduce){ var rollT=setInterval(function(){if(rollHold)return;i++;ul.style.transition='transform 420ms var(--e-out)';
     ul.style.transform='translateY(-'+(i*1.25)+'em)'; fitRoll(i);
-    if(i>=n) clearInterval(rollT); /* one pass through the list, then it rests
+    if(i>=n){ rollCycles--; if(rollCycles>0){ i=-1; } else clearInterval(rollT); } /* one pass through the list, then it rests
        on the last item. The list ends on the word it must settle on, so the
        resting state is authored rather than whatever index the loop stopped
        at. Was i===n-1, which stopped one short and rested on the wrong word. */ },1500); }

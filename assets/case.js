@@ -77,3 +77,35 @@
     });
   });
 })();
+
+/* ---------- reading progress on a case page (block E) ----------
+   2px, scroll-linked, no easing: it is an instrument, and an instrument
+   that lags the thing it measures is worse than none. Injected rather than
+   added to five pages of markup, and it carries aria-hidden because the
+   same information is already in the scroll position itself.
+
+   scrollHeight is read ONCE and on resize, never inside the handler: that
+   is a forced synchronous layout and the 13 Oct performance pass took the
+   homepage from 11fps to 23 by removing exactly this mistake. */
+(function(){
+  if (!document.querySelector('.case')) return;
+  var bar = document.createElement('div');
+  bar.className = 'case-rail';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+  var max = 1, last = -1, queued = false;
+  function measure(){ max = Math.max(1, document.documentElement.scrollHeight - innerHeight); }
+  function write(){
+    queued = false;
+    var k = Math.min(1, Math.max(0, scrollY / max));
+    var v = Math.round(k * 1000) / 1000;
+    if (v === last) return;
+    last = v;
+    bar.style.transform = 'scaleX(' + v + ')';
+  }
+  function onScroll(){ if (!queued) { queued = true; requestAnimationFrame(write); } }
+  measure(); write();
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', function(){ measure(); onScroll(); });
+  if (window.lenis && window.lenis.on) window.lenis.on('scroll', onScroll);
+})();

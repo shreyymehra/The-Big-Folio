@@ -281,4 +281,75 @@
     } else start();
   });
 
+
+  /* ---------- the verified figures count up, once (block E) ----------
+     His spec: once, on first view, 900ms, tabular figures, no replay. The
+     numbers are the only independently real evidence on the site, so the
+     count is not decoration: it is the thing that makes a scanning reader
+     stop on them. It runs ONCE and never again, which is why the observer
+     unobserves itself rather than toggling.
+
+     The DOM text is never rewritten to something that is not the final
+     value at rest: if the script does not run, or motion is reduced, the
+     figure is simply there. Everything here is additive. */
+  (function(){
+    var figs = [].slice.call(document.querySelectorAll('[data-countup]'));
+    if (!figs.length || reduce || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        var el = en.target;
+        var raw = (el.textContent || '').trim();
+        var m = raw.match(/^([^0-9-]*)(-?[\d.]+)(.*)$/);
+        if (!m) return;
+        var pre = m[1], target = parseFloat(m[2]), post = m[3];
+        var dec = (m[2].split('.')[1] || '').length;
+        if (!isFinite(target)) return;
+        var t0 = 0, DUR = 900;
+        function frame(now){
+          if (!t0) t0 = now;
+          var k = Math.min(1, (now - t0) / DUR);
+          /* the same curve as everything else */
+          var e = 1 - Math.pow(1 - k, 3);
+          el.textContent = pre + (target * e).toFixed(dec) + post;
+          if (k < 1) requestAnimationFrame(frame);
+          else el.textContent = raw;
+        }
+        requestAnimationFrame(frame);
+      });
+    }, { threshold: 0.6 });
+    figs.forEach(function(el){ io.observe(el); });
+  })();
+
+
+  /* ---------- card to case page (block E) ----------
+     The poster expands into the case hero through the View Transitions
+     API. @view-transition{navigation:auto} is already on in base.css, so
+     the whole job here is naming the pair.
+
+     A view-transition-name has to be UNIQUE in a document, which is why it
+     cannot simply be written into the CSS for every plate: five plates
+     sharing one name disables the transition entirely. So it is set on the
+     one the reader clicked, immediately before navigation, and the case
+     page carries the matching name on its own hero image.
+
+     Nothing here gates the navigation. If the API is absent, if the
+     transition is skipped, or if motion is reduced, the link is an
+     ordinary link and the browser does what it always did. */
+  (function(){
+    if (!document.startViewTransition) return;
+    document.addEventListener('click', function(e){
+      if (reduce) return;
+      var row = e.target.closest && e.target.closest('a.wrow, a.wk-tile');
+      if (!row) return;
+      var img = row.querySelector('.plate img, .wk-poster img');
+      if (!img) return;
+      img.style.viewTransitionName = 'work-hero';
+      /* and cleared if the navigation never happens, e.g. a modifier click
+         that opens a new tab: a stranded name would break the next one. */
+      setTimeout(function(){ img.style.viewTransitionName = ''; }, 1200);
+    }, true);
+  })();
+
 })();

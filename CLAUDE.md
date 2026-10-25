@@ -2040,3 +2040,125 @@ Two lessons, both already paid for once in this file:
 
 After both fixes: **136 tab stops across seven routes, one without a ring, and
 it is Spotify's own iframe.**
+
+## THE MOTION SPEC, A9 SOURCES, A10 (24-25 Oct 2026, at his instruction)
+
+### A9. SOURCES, AND THREE CLAIMS THE PAGES COULD NOT BACK
+
+Each case that names a competitor, quotes a code or claims brand history now
+carries a **Sources list, last in the contents rail**. Every link was opened
+before it was printed.
+
+**The clause numbers were read out of the code, not a summary.** His note gave
+ABAC Part 3(c)(i) and 3(c)(iv). The first search *contradicted* it: ABAC's 2023
+guidance numbers the same rule 3(b)(ii), and the current PDF's own outline
+shows 3(c) as a clause about age-restriction controls. Extracting the PDF text
+settled it and **his numbers are right**: Part 3 "Content standards to be
+applied", clause (c) "Responsible depiction of the effects of Alcohol",
+sub-clauses (i) and (iv). `scratchpad/pdftext.js` is the extractor, written
+because there is no Python on this machine; keep it.
+
+**Vastr's competitor claim was wrong in shape.** "Every funded competitor in
+the category earns from the behaviour this product has to discourage" asserts a
+revenue model for companies nobody had checked, and **Indyx contradicts it in
+its own words**. The Learning section carried the same claim in its headline.
+Acloset, Save Your Wardrobe and Stylebook keep their names and lose every
+statement about how they earn.
+
+**The 1985 store was being published as history.** No source exists for a
+Hungry Jack's store format of that year. The device survives; the historical
+claim does not. The naming history, which *is* sourced, stays.
+
+### A10. MORE WORK, LESS CHROME
+
+Home went from **7.9 screens to 5.7**, and work is now the largest block on it.
+
+**This reverses OPEN item 3 in this file**, which records /ideas as one of five
+primary areas from his architecture brief of 8 Sep. He has taken it off the
+homepage and out of the nav; his instruction is the later one and it wins.
+
+The work block is **the Work index's own rows, lifted rather than
+re-implemented**: same markup, same CSS, re-pathed. Two components that look
+alike and drift apart is the failure this repo keeps returning to. The pinned
+collage went with them: built for three posters, and still reserving 2160px for
+1161px of rows. Sections renumbered **02 Work, 03 Me, 04 Contact** on every
+route.
+
+**Two failed attempts at a dead-code sweep, recorded because the lesson is
+subtle.** To find a rule's selector you scan back from its brace to the
+previous brace or semicolon, and **comment text sits in exactly that gap**. A
+comment ending in prose was read as a selector list, split on its commas and
+rejoined without the spaces: 142 lines of commentary lost clauses before a diff
+caught it. Masking comments to same-length filler fixed that and then left the
+braces unbalanced, because the scan could still land inside the masked region.
+Restored both times from a copy taken first. **Only the wall rules that still
+affected layout were then removed, by hand.** A dead rule costs bytes; a broken
+stylesheet costs the site.
+
+### BLOCK E, THE MOTION SPEC
+
+**One curve, everywhere:** `--e-out` is `cubic-bezier(.2,.7,.2,1)`, his. It was
+a hard decelerate that overshot the eye on short moves. The spring stays for a
+press release, which is the one place an overshoot is the point.
+
+**The one orchestrated moment.** Five cut-out words, 60ms apart, 210ms each, so
+the last lands at **450ms**. They settle out of a small rotation rather than a
+scale, because these are paper letters and paper lands crooked. Each word takes
+its own tilt so the row does not land as one object.
+
+**A failsafe on the reveal gate, and it is the point of his "content already
+visible beneath".** `.anim [data-t]{opacity:0}` stranded the hero copy
+invisible for four days in October when a sweep removed the class a script
+applies. Everything in that gate now also carries a 2s animation to opacity 1,
+so if the script never runs the content appears anyway.
+
+**The chip runs twice and then rests.** One pass stopping on the last word
+reads as a thing that broke rather than a thing that finished. It holds while
+pointed at or focused, like every other moving thing here.
+
+**The figures count up, once, 900ms, and never replay** - the observer
+unobserves itself. `font-variant-numeric:tabular-nums`, or the row jitters
+sideways for the whole count, which is what makes a count-up look cheap. The
+text at rest is always the true value: verified by sampling, +0% through +310%,
+landing on +310%.
+
+**The card answers:** straighten to 0deg, lift 4px, offset shadow 6px to 10px,
+180ms, press depresses in 80ms. **This is a deliberate exception to the veto
+list**, which bans offset shadows. What that list is banning is soft depth, the
+glassy lift that makes a web card look like every other web card. A hard offset
+in flat ink is a print device and is already on the site for that reason.
+Nothing here is blurred. On the blue plane it prints in cream.
+
+**Card to case page** is the View Transitions API on a shared element named
+`work-hero`, 350ms. A `view-transition-name` has to be **unique in a
+document**, so it cannot be written into the CSS for every plate - five plates
+sharing one name disables the transition entirely. It is set by site.js on the
+one the reader clicked and cleared after 1.2s in case the navigation never
+happens.
+
+**The case reading bar** is 2px, scroll-linked, transform only, and
+**`transition:none` explicitly**: it was picking up `transition:all` from a
+global rule and easing *behind* the scroll, which is the one thing an
+instrument must not do. `scrollHeight` is read once and on resize, never in the
+handler, which is the 13 Oct performance lesson.
+
+### THE PLANE TRAP, SEVENTH TIME, AND IT RAN THE OTHER WAY
+
+I hard-coded the B2C chip's ink to `#173CA8` against a `var(--cream)`
+background, and in dark mode `--cream` becomes the ink: **1.88**.
+
+The rule in this file is "a plane must not use theme tokens". **This was not a
+plane.** The work section is a *surface that follows the UI*: its ground is
+`var(--deep)` and its type `var(--cream)`, and both flip together, so anything
+sitting on it has to flip with it. Both values are tokens now and neither is
+literal.
+
+**Hard-code a printed object; tokenise a surface. Getting that backwards fails
+either way, and this is the first time it failed in the tokenising direction.**
+
+### A SHELL TRAP THAT COST THREE ATTEMPTS
+
+`node -e '...'` here loses a level of backslashes, so a regex built from a
+string arrived as `/d+/` instead of `/\d+/` and silently matched nothing - it
+reports MISS rather than failing. **Anything with an escape in it goes in a
+file written with the editor tool, never an `-e` flag.**

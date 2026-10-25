@@ -753,8 +753,26 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* reveals */
 .rv{opacity:0;transform:translateY(14px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
 .rv.in{opacity:1;transform:none}.anim [data-t],.anim .bg{opacity:0}
-.snap{animation:snap 180ms var(--ease) forwards}
-@keyframes snap{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+/* THE ONE ORCHESTRATED MOMENT (25 Oct, block E). The five cut-out words
+   drop and settle: 60ms apart, 210ms each, so the last one lands at 450ms.
+   They settle out of a small rotation rather than a scale, because these
+   are paper letters and paper lands crooked and straightens. */
+.snap{animation:snap 210ms var(--e-out) forwards}
+@keyframes snap{
+  from{opacity:0;transform:translateY(-14px) rotate(var(--settle,-3deg))}
+  to{opacity:1;transform:translateY(0) rotate(0deg)}}
+/* each word takes its own tilt so the row does not land as one object */
+.t-hi{--settle:-4deg}.t-my{--settle:3.5deg}.t-name{--settle:-2.5deg}
+.t-is{--settle:4deg}.t-shrey{--settle:-2deg}
+
+/* A FAILSAFE, because this exact gate stranded the hero copy invisible for
+   four days in October when a sweep removed the class a script applies.
+   If the script never runs, everything here reveals itself after two
+   seconds instead of staying at opacity 0 forever. His note for this block
+   says the content is already visible beneath, and this is what makes that
+   true rather than a hope. */
+@keyframes failsafe{to{opacity:1}}
+.anim [data-t],.anim .bg{animation:failsafe 1ms linear 2s forwards}
 /* .rise is applied by home.js at runtime, never written in the markup, which
    is why the dead-code sweep of 8 Oct removed it after checking only the HTML
    and left the hero claim and both calls to action invisible for four days:
@@ -2636,6 +2654,44 @@ p > a:only-child,
 .work .windex--home .wrow{border-color:color-mix(in srgb,var(--cream) 34%,transparent)}
 .work .windex--home .wrow:first-child{border-top-color:color-mix(in srgb,var(--cream) 34%,transparent)}
 .work .windex--home .tags span{border-color:color-mix(in srgb,var(--cream) 55%,transparent)}
-.work .windex--home .tags .aud{background:var(--cream);color:#173CA8;
+/* THE PLANE TRAP, SEVENTH TIME, and the lesson is the opposite way round
+   here. I hard-coded this chip's ink to #173CA8 against a background of
+   var(--cream), and in dark mode --cream becomes the ink: blue on near
+   black is 1.88. The rule in CLAUDE.md is "a plane must not use theme
+   tokens", but this is not a plane. The work section is a SURFACE that
+   follows the UI: its own ground is var(--deep) and its type var(--cream),
+   and both flip together. Anything sitting on it has to flip with it, so
+   here both values are tokens and neither is literal. Hard-code a printed
+   object; tokenise a surface. Getting that backwards fails either way. */
+.work .windex--home .tags .aud{background:var(--cream);color:var(--deep);
   border-color:var(--cream)}
 .work .windex--home .wrow:is(:hover,:focus-visible) .go{color:var(--yellow)}
+
+/* ---------- block E: the card answer, and tabular figures (25 Oct) ----------
+   His spec for a project card: straighten to 0 degrees, lift 4px, offset
+   shadow 6px to 10px, 180ms; press depresses in 80ms.
+
+   A NOTE ON THE VETO LIST, which bans drop shadows and offset shadows.
+   This is his later instruction and it wins, and the two are reconcilable:
+   what the list is banning is soft depth, the glassy lift that makes a web
+   card look like every other web card. A hard offset in flat ink is a
+   print device, a plate printed slightly off its own outline, and it is
+   already on the site for exactly that reason. Nothing here is blurred. */
+.windex .plate{transition:transform var(--d-1) var(--e-out),box-shadow var(--d-1) var(--e-out)}
+a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-4px) rotate(0deg);
+  box-shadow:10px 10px 0 #0D1633}
+a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0deg);
+  box-shadow:6px 6px 0 #0D1633}
+/* on the blue plane the ink shadow disappears, so it prints in cream there */
+.work .windex--home a.wrow:is(:hover,:focus-visible) .plate{box-shadow:10px 10px 0 var(--cream)}
+.work .windex--home a.wrow:active .plate{box-shadow:6px 6px 0 var(--cream)}
+
+/* Tabular figures, so a counting number does not change width while it
+   counts. Without this the whole row jitters sideways for 900ms, which is
+   the thing that makes a count-up look cheap. */
+.mv-figs b{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+@media (prefers-reduced-motion:reduce){
+  .windex .plate{transition:none}
+  a.wrow:is(:hover,:focus-visible) .plate{transform:none;box-shadow:6px 6px 0 #0D1633}
+}
