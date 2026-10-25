@@ -41,7 +41,7 @@
 </div>
 
 <nav id="nav" aria-label="Primary"><a class="sig" href="./" aria-current="page" aria-label="Shrey Mehra, home"><img class="sig-logo" src="assets/logos/sm-mark-light.svg" alt="" width="881" height="371"></a>
-  <span class="links"><a href="work/"><i aria-hidden="true">[</i>Work<i aria-hidden="true">]</i></a><a href="#ideas"><i aria-hidden="true">[</i>Ideas<i aria-hidden="true">]</i></a><a href="about/"><i aria-hidden="true">[</i>Me<i aria-hidden="true">]</i></a><a href="contact/"><i aria-hidden="true">[</i>Contact<i aria-hidden="true">]</i></a></span></nav>
+  <span class="links"><a href="work/"><i aria-hidden="true">[</i>Work<i aria-hidden="true">]</i></a><a href="about/"><i aria-hidden="true">[</i>Me<i aria-hidden="true">]</i></a><a href="contact/"><i aria-hidden="true">[</i>Contact<i aria-hidden="true">]</i></a></span></nav>
 
 <div class="scrollstar" aria-hidden="true"><svg viewBox="0 0 100 100">
   <path d="M50 2 L59 30 L88 22 L70 46 L96 62 L66 65 L72 94 L50 74 L28 94 L34 65 L4 62 L30 46 L12 22 L41 30 Z" fill="none" stroke="#173CA8" stroke-width="5"/>
@@ -104,7 +104,6 @@
 
     <ul class="floats" aria-label="Where to go">
       <li class="fl fl-work"><a href="#work" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Work</span><span class="fl-hint" aria-hidden="true">Five briefs, two in writing</span></a></li>
-      <li class="fl fl-ideas"><a href="#ideas" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Ideas</span><span class="fl-hint" aria-hidden="true">How I think, before anyone asks</span></a></li>
       <li class="fl fl-me"><a href="about/" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Me</span><span class="fl-hint" aria-hidden="true">Who Am I?</span></a></li>
       <li class="fl fl-faq"><a href="about/#faq" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/faq.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">FAQ</span><span class="fl-hint" aria-hidden="true">Pick My Brain</span></a></li>
       <li class="fl fl-contact"><a href="#contact" data-file draggable="false"><span class="fl-icon"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" draggable="false"></span><span class="fl-name">Contact</span><span class="fl-hint" aria-hidden="true">Let's build something people remember</span></a></li>
@@ -156,50 +155,69 @@
 
 
 
-<section class="work" id="work" aria-labelledby="work-title" data-work>
-  <!-- Pinned collage. The section is 400vh tall; the shell sticks for the
-       scroll and the tiles land one per stretch of it. Scroll maths and hover
-       live in home.js, the look lives in site.css under WORK. -->
-  <div class="wk-shell">
-    <div class="wk-copy">
-      <p class="wk-eyebrow">02 / Selected work</p>
-      <h2 class="wk-title" id="work-title">The briefs nobody asked me to write</h2>
-      <p class="wk-sub">Three of five. The one that shipped, the one in build, and the one that goes deepest.</p>
-    </div>
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="shead rv"><img class="smark" src="assets/star.webp" alt=""><span class="no">02 / Selected work</span><h2 id="work-title">The briefs nobody asked me to write</h2></div>
 
-    <svg class="wk-ghost" aria-hidden="true" focusable="false" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid slice">
-      <defs><path id="wk-curve" d="M -220 720 C 300 300 1000 230 1820 770"/></defs>
-      <text class="wk-ghost-text" font-size="300"><textPath href="#wk-curve" startOffset="14%" data-ghost>BRIEFS BY</textPath></text>
-      <g data-ghost-stars></g>
-    </svg>
+    <!-- The same rows as /work, the same markup, the same CSS. Lifted rather
+         than re-implemented so the two can never drift apart. The two pieces
+         still being written are not here: an unclickable row on the homepage
+         is the "page not built" problem one route further in. -->
+    <div class="windex windex--home">
+    <a class="wrow rv" href="work/vastr/" data-d="brand gtm">
+      <span class="n">01</span>
+      <span aria-hidden="true" class="plate p-vastr"><span class="pm">01 &middot; Spec</span><img src="assets/img/work/vastr.webp" alt="" width="900" height="1274" loading="lazy"></span>
+      <span>
+        <h2>Vastr: Out With The Old</h2>
+        <p class="teaser">An AI wardrobe companion for people who want to dress like themselves, without the 7am spiral.</p>
+        <span class="tags"><span class="aud">B2C</span><span>Brand Strategy</span><span>GTM</span><span>Product Marketing</span><span>AI Product</span></span>
+      </span>
+      <span class="aside"><span class="t">7 min</span><span class="go">Open</span></span>
+    </a>
 
-    <div class="wk-stage">
-      <a class="wk-tile" href="work/voicedna/" data-tile data-n="01 / 03" data-reveal="0.02" style="--x:30vw;--y:10vh;--r:-3deg;--w:min(23vw,340px)">
-        <span class="wk-frame">
-          <span class="wk-poster"><img src="assets/img/work/voiced.webp" alt="" width="900" height="1274" loading="lazy"></span>
-          <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
-          </span></span>
-        </span>
-        <span class="wk-label"><span>Voice&rsquo;D</span><span>In build &middot; Built on the Claude API</span></span>
-      </a>
+    <a class="wrow rv" href="work/cut-the-noise/" data-d="campaign">
+      <span class="n">02</span>
+      <span aria-hidden="true" class="plate p-noise"><span class="pm">02 &middot; Spec</span><img src="assets/img/work/cutthenoise.webp" alt="" width="900" height="1274" loading="lazy"></span>
+      <span>
+        <h2>Cut The Noise</h2>
+        <p class="teaser">The campaign that wins back Hungry Jack&rsquo;s by making the most interesting move: leaving the feed.</p>
+        <span class="tags"><span class="aud">B2C</span><span>Campaign</span><span>Creative Strategy</span></span>
+      </span>
+      <span class="aside"><span class="t">4 min</span><span class="go">Open</span></span>
+    </a>
 
-      <a class="wk-tile" href="work/vastr/" data-tile data-n="02 / 03" data-reveal="0.34" style="--x:57vw;--y:30vh;--r:2deg;--w:min(23vw,340px)">
-        <span class="wk-frame">
-          <span class="wk-poster"><img src="assets/img/work/vastr.webp" alt="" width="900" height="1274" loading="lazy"></span>
-          <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
-          </span></span>
-        </span>
-        <span class="wk-label"><span>Vastr</span><span>Spec &middot; Brand + GTM</span></span>
-      </a>
+    <a class="wrow rv" href="work/voicedna/" data-d="brand">
+      <span class="n">03</span>
+      <span aria-hidden="true" class="plate p-voice"><span class="pm">03 &middot; In build</span><img src="assets/img/work/voiced.webp" alt="" width="900" height="1274" loading="lazy"></span>
+      <span>
+        <h2>Voice&rsquo;D</h2>
+        <p class="teaser">I am building a tool that tells you how your brand actually sounds versus how you think it does.</p>
+        <span class="tags"><span class="aud">B2B</span><span>AI Tool</span><span>Brand Tech</span></span>
+      </span>
+      <span class="aside"><span class="t">4 min</span><span class="go">Open</span></span>
+    </a>
 
-      <a class="wk-tile" href="work/vrl/" data-tile data-n="03 / 03" data-reveal="0.66" style="--x:33vw;--y:52vh;--r:-2deg;--w:min(23vw,340px)">
-        <span class="wk-frame">
-          <span class="wk-poster"><img src="assets/img/work/vrl.webp" alt="" width="900" height="1274" loading="lazy"></span>
-          <span class="wk-open" aria-hidden="true">Read the case <span>&rarr;</span></span>
-          </span></span>
-        </span>
-        <span class="wk-label"><span>Venus Roadlines</span><span>Shipped &middot; Brand + Ops</span></span>
-      </a>
+    <a class="wrow rv" href="work/vrl/" data-d="brand ops comms">
+      <span class="n">04</span>
+      <span aria-hidden="true" class="plate p-vrl"><span class="pm">04 &middot; Shipped</span><img src="assets/img/work/vrl.webp" alt="" width="900" height="1274" loading="lazy"></span>
+      <span>
+        <h2>Revamping My Father&rsquo;s Dream</h2>
+        <p class="teaser">Writing a 106-page bilingual manual so a logistics company could keep a Tata Steel contract.</p>
+        <span class="tags"><span class="aud">B2B</span><span>Brand Identity</span><span>Operations</span></span>
+      </span>
+      <span class="aside"><span class="t">5 min</span><span class="go">Open</span></span>
+    </a>
+
+    <a class="wrow rv" href="work/absolutily/" data-d="campaign">
+      <span class="n">05</span>
+      <span aria-hidden="true" class="plate p-abs"><span class="pm">05 &middot; Spec</span><img src="assets/img/work/absolutily.webp" alt="" width="900" height="1274" loading="lazy"></span>
+      <span>
+        <h2>AbsolutILY</h2>
+        <p class="teaser">For the wins that had no witnesses.</p>
+        <span class="tags"><span class="aud">B2C</span><span>Campaign</span><span>Creative</span></span>
+      </span>
+      <span class="aside"><span class="t">5 min</span><span class="go">Open</span></span>
+    </a>
     </div>
 
     <a class="wk-note wk-note--left" href="work/">All projects <span class="wk-arrow" aria-hidden="true"></span></a>
@@ -207,149 +225,10 @@
 </section>
 
 
-<!-- PROOF. The fluoro plane: the one violent step in the scroll ladder, and
-     the only place on the homepage carrying real commercial numbers.
-     Compact by design. This section is evidence, not a destination: it has to
-     be read in a glance on the way to the work, so it runs about half the
-     height of a viewport rather than owning one.
-     Each figure rolls up into a clipped frame on entry, the same device as the
-     hero verb list. home.js adds .js-roll, so with no JS the numbers are
-     simply there. -->
-
-<section class="ideas desk" id="ideas" aria-labelledby="ideas-title">
-  <div class="wrap">
-    <div class="shead rv"><img class="smark" src="assets/img/4d7964f598.webp" alt=""><span class="no">03 / Ideas</span><h2 id="ideas-title">How I think,<br>before anyone asks</h2></div>
-  </div>
-  <!-- The desk: the magazine itself, on the home page and nowhere else (Shrey,
-       21 Sep 2026: Ideas is a front-page thing). The hero's cut-outs are scattered
-       round it and move at their own depth on scroll (data-par). -->
-  <div class="desk-surface">
-    <div class="desk-props" aria-hidden="true">
-      <!-- The cut-out "Hi", "is" and the star used to be scattered here. They
-           are the hero's own letters and the hero's own star, so repeating
-           them made the zine read as a second hero rather than its own
-           section (6 Oct feedback). The slots stay for the junk-journal
-           pieces Shrey is making: tape, ticket stubs, a paper clip. -->
-      <span class="prop sticker s1" data-par="-0.08"></span>
-      <span class="prop sticker s2" data-par="0.14"></span>
-      <span class="prop sticker s3" data-par="-0.1"></span>
-    </div>
-    <div class="desk-mag">
-      <span class="ph ph-clip" aria-hidden="true" data-slot="G01"></span>
-    <div class="mag" data-mag>
-      <div class="mag-book" data-book aria-roledescription="magazine" aria-label="Ideas, issue 01">
-  
-        <!-- 1. COVER: the hero, set as a magazine cover -->
-        <section class="mag-page pg-cover" data-page="1" aria-label="Cover">
-          <img class="cv-art" src="assets/img/zine-cover.webp" alt="Ideas, issue one. The cover." loading="eager" width="1200" height="1699">
-        </section>
-  
-        <!-- 2. CONTENTS: inverted -->
-        <section class="mag-page pg-contents" data-page="2" aria-label="Contents">
-          <p class="pg-kick mono">Contents</p>
-          <h2 class="pg-title">In this issue</h2>
-          <ol class="toc">
-            <li><a href="#mag-p3" data-goto="3"><span class="toc-n mono">03</span><span class="toc-t">Five things I believe</span><span class="toc-k mono">Manifesto</span></a></li>
-            <li><a href="#mag-p4" data-goto="4"><span class="toc-n mono">04</span><span class="toc-t">All seven briefs</span><span class="toc-k mono">Projects</span></a></li>
-            <li><a href="#mag-p5" data-goto="5"><span class="toc-n mono">05</span><span class="toc-t">How the work happens</span><span class="toc-k mono">Process</span></a></li>
-            <li><a href="#mag-p6" data-goto="6"><span class="toc-n mono">06</span><span class="toc-t">Coming next</span><span class="toc-k mono">Posts</span></a></li>
-            <li><a href="#mag-p7" data-goto="7"><span class="toc-n mono">07</span><span class="toc-t">Letters</span><span class="toc-k mono">Contact</span></a></li><li><a href="#mag-p8" data-goto="8"><span class="toc-n mono">08</span><span class="toc-t">Where the name comes from</span><span class="toc-k mono">Type</span></a></li>
-          </ol>
-          <span class="pg-folio mono">02</span>
-        </section>
-  
-        <!-- 3. MANIFESTO: his words, verbatim -->
-        <section class="mag-page pg-beliefs" data-page="3" id="mag-p3" aria-label="Five things I believe">
-          <p class="pg-kick mono">Manifesto</p>
-          <h2 class="pg-title">Five things I believe</h2>
-          <blockquote class="mani-one"><p>You can never market the same thing to two people.</p></blockquote>
-          <p class="mani-more"><a href="about/#about">The other four <span aria-hidden="true">&rarr;</span></a></p>
-          <span class="pg-folio mono">03</span>
-        </section>
-  
-        <!-- 4. PROJECTS: the full slate, linked only where a page exists -->
-        <section class="mag-page pg-work" data-page="4" id="mag-p4" aria-label="Projects">
-          <p class="pg-kick mono">Projects</p>
-          <h2 class="pg-title">All seven briefs</h2>
-          <ul class="briefs">
-            <li><a href="work/vastr/"><span class="bf-t">Vastr</span><span class="bf-m mono">Spec &middot; Brand + GTM</span></a></li>
-            <li><a href="work/voicedna/"><span class="bf-t">Voice&rsquo;D</span><span class="bf-m mono">In build &middot; AI tool</span></a></li>
-            <li><a href="work/vrl/"><span class="bf-t">Venus Roadlines</span><span class="bf-m mono">Shipped &middot; Brand + Ops</span></a></li>
-            <li><a href="work/cut-the-noise/"><span class="bf-t">Cut The Noise</span><span class="bf-m mono">Spec &middot; Campaign</span></a></li>
-            <li><a href="work/absolutily/"><span class="bf-t">AbsolutILY</span><span class="bf-m mono">Spec &middot; Campaign</span></a></li>
-            <li class="bf-soon"><span class="bf-t">Making A Brand World From Scratch</span><span class="bf-m mono">L&rsquo;Or&eacute;al &middot; In writing</span></li>
-            <li class="bf-soon"><span class="bf-t">The Bird That Flew Too Close to the Sun</span><span class="bf-m mono">Duolingo &middot; In writing</span></li>
-          </ul>
-          <span class="pg-folio mono">04</span>
-        </section>
-  
-        <!-- 5. PROCESS: the one fluoro plane, ink type -->
-        <section class="mag-page pg-process" data-page="5" id="mag-p5" aria-label="How the work happens">
-          <p class="pg-kick mono">Process</p>
-          <h2 class="pg-title">Most of the result happens before the work starts</h2>
-          <!-- The five steps run rather than list, at his instruction: right to left
-               on an orange band, which is this section own ground. -->
-          <div class="process" data-logos data-speed="26" data-push="0.2">
-            <div class="pr-band" data-xband data-dir="-1"><div class="xtrack"><ul class="pr-set" aria-label="How the work happens"><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>01</b><strong>Listen</strong><i>Hear the brief from the inside out</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>02</b><strong>Blank Canvas</strong><i>No references, no borrowed answer</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>03</b><strong>Read, Research &amp; Relay</strong><i>Sharpen the axe before the tree</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>04</b><strong>Time for Tango</strong><i>Checks, plus a variation to choose from</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>05</b><strong>Rinse &amp; Repeat</strong><i>Make it a standard, not a project</i></span></li></ul><ul class="pr-set" aria-hidden="true"><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>01</b><strong>Listen</strong><i>Hear the brief from the inside out</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>02</b><strong>Blank Canvas</strong><i>No references, no borrowed answer</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>03</b><strong>Read, Research &amp; Relay</strong><i>Sharpen the axe before the tree</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>04</b><strong>Time for Tango</strong><i>Checks, plus a variation to choose from</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>05</b><strong>Rinse &amp; Repeat</strong><i>Make it a standard, not a project</i></span></li></ul><ul class="pr-set" aria-hidden="true"><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/listen.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>01</b><strong>Listen</strong><i>Hear the brief from the inside out</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/work.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>02</b><strong>Blank Canvas</strong><i>No references, no borrowed answer</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/ideas.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>03</b><strong>Read, Research &amp; Relay</strong><i>Sharpen the axe before the tree</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/contact.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>04</b><strong>Time for Tango</strong><i>Checks, plus a variation to choose from</i></span></li><li class="pr-step"><span class="pr-ico"><img src="assets/img/marks/me.webp" alt="" width="360" height="360" loading="lazy" decoding="async"></span><span class="pr-txt"><b>05</b><strong>Rinse &amp; Repeat</strong><i>Make it a standard, not a project</i></span></li></ul></div></div>
-          </div>
-          <a class="pg-link" href="about/#process">All five steps, in full <span aria-hidden="true">&rarr;</span></a>
-          <span class="pg-folio mono">05</span>
-        </section>
-  
-        <!-- 6. POSTS: one honest gap -->
-        <section class="mag-page pg-posts" data-page="6" id="mag-p6" aria-label="Coming next">
-          <p class="pg-kick mono">Posts</p>
-          <h2 class="pg-title">Coming next</h2>
-          <p class="pg-body">This issue hosts projects, posts and anything else worth making.</p>
-          <p class="slot" data-slot="G02">The first post is being written.</p>
-          <span class="pg-folio mono">06</span>
-        </section>
-  
-        <!-- 7. LETTERS: the locked contact line -->
-        <section class="mag-page pg-letters" data-page="7" id="mag-p7" aria-label="Letters">
-          <p class="pg-kick mono">Letters</p>
-          <p class="lt-cta">Let's build something you will always be proud of.</p>
-          <span class="mailrow"><a class="lt-mail" href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a><button class="copybtn" type="button" data-copy="shreyymehraa@gmail.com" aria-label="Copy email address"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span></button></span>
-          <a class="pg-link" href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&nearr;</span></a>
-          
-          <span class="pg-folio mono">07</span>
-        </section>
-  
-        <!-- 8. BACK COVER -->
-        
-        <!-- 8. THE ALPHABET: the source of the hero name -->
-        <section class="mag-page pg-alpha" data-page="8" id="mag-p8" aria-label="The alphabet">
-          <p class="pg-kick mono">Type</p>
-          <h2 class="pg-title">Where the name comes from</h2>
-          <p class="pg-say">Every letter in the hero was cut from this sheet. Three of each, so the same word never sets twice the same way.</p>
-          <img class="pg-alpha-art" src="assets/img/alphabet.webp" alt="A scrapbook alphabet: three hand-cut variants of every letter from A to Z, in mixed colours and typefaces." width="675" height="1200" loading="lazy" decoding="async">
-          <span class="pg-folio mono">08</span>
-        </section>
-<section class="mag-page pg-back" data-page="9" aria-label="Back cover">
-          <img class="bk-star" src="assets/star.webp" alt="">
-          <p class="bk-sign"><img src="assets/img/9989e0f6ed.webp" alt="Shrey"></p>
-          <p class="bk-meta mono">Ideas &middot; Issue 01</p>
-        </section>
-  
-      </div>
-  
-      <div class="mag-bar">
-        <button class="mag-btn" type="button" data-prev aria-label="Previous page"><svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"/></svg> Back</button>
-        <p class="mag-count mono" data-count aria-live="polite">Cover</p>
-        <button class="mag-btn" type="button" data-next aria-label="Next page">Turn <svg class="ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></button>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
-
-
-
 <section class="about" id="about">
   <div class="wrap">
     <div class="me-turn" aria-hidden="true"><span>Enough about the work</span></div>
-    <div class="shead rv shead--me"><span class="no">04 / Me</span><h2>One fear:<br>being linear</h2></div>
+    <div class="shead rv shead--me"><span class="no">03 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
         <!-- 2. THE MUSIC LIST. A different object: rows, not a machine. -->
@@ -397,7 +276,7 @@
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <span class="no">05 / Contact</span>
+    <span class="no">04 / Contact</span>
 
     <!-- One pill, and everything is in it (13 Oct, at his instruction). The
          section used to run the call to action, then the address, then a row of
@@ -415,7 +294,6 @@
         <p class="so-k mono">Explore</p>
         <ul>
           <li><a href="work/">Work</a></li>
-          <li><a href="#ideas">Ideas</a></li>
           <li><a href="about/">Me</a></li>
           <li><a href="about/#faq">FAQ</a></li>
         </ul>
