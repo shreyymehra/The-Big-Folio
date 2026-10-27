@@ -11,6 +11,15 @@
    The toggle is added to #nav by script. Without JS there is no toggle and
    the system setting still applies. */
 (function(){
+  /* CONTENT IS NEVER HIDDEN BY DEFAULT. The .rv reveal holds a block at
+     opacity 0 and a script adds .in. With no script, or with one that
+     fails, every revealed block on the site is invisible: that was
+     measured, and it was the work rows, every section heading and the
+     dividers. The rules are scoped to html.js now, so the hiding only
+     ever exists where something is able to undo it. This runs in <head>,
+     synchronously, before the stylesheet paints, so there is no flash. */
+  document.documentElement.classList.add('js');
+
   var KEY='sm-theme', root=document.documentElement;
 
   function stored(){ try{ var v=localStorage.getItem(KEY); return v==='light'||v==='dark'?v:null; }catch(e){ return null; } }

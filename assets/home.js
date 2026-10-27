@@ -61,7 +61,7 @@
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){
     if(reduce){i=n;} measureRoll();});}
   addEventListener('resize',measureRoll);
-  if(reduce){ ul.style.transform='translateY(-'+(n*1.25)+'em)'; }
+  if(reduce){ ul.style.transform='translateY(-'+(n*1.7)+'em)'; }
   /* TWO CYCLES, then it rests (block E). It used to make one pass and
      stop on the last word, which reads as a thing that broke rather than a
      thing that finished. Two passes say "this is a list" and then settle.
@@ -74,7 +74,7 @@
     ['pointerleave','focusout'].forEach(function(ev){ rollHost.addEventListener(ev,function(){ rollHold=false }) });
   }
   if(!reduce){ var rollT=setInterval(function(){if(rollHold)return;i++;ul.style.transition='transform 420ms var(--e-out)';
-    ul.style.transform='translateY(-'+(i*1.25)+'em)'; fitRoll(i);
+    ul.style.transform='translateY(-'+(i*1.7)+'em)'; fitRoll(i);
     if(i>=n){ rollCycles--; if(rollCycles>0){ i=-1; } else clearInterval(rollT); } /* one pass through the list, then it rests
        on the last item. The list ends on the word it must settle on, so the
        resting state is authored rather than whatever index the loop stopped
@@ -247,7 +247,7 @@
       var deckTop=linkTop+linkEl.offsetHeight+30;
       var shellH=copyEl.offsetParent?copyEl.offsetParent.clientHeight:innerHeight;
       var avail=noteEl.offsetTop-22-deckTop-shellH*.06-48; /* dy spread and label */
-      var w=Math.max(180,Math.min(innerWidth*.8,440,avail*1.6));
+      var w=Math.max(180,Math.min(innerWidth*.8,440,avail*1.7));
       sec.style.setProperty('--link-top',linkTop+'px');
       sec.style.setProperty('--deck-top',deckTop+'px');
       sec.style.setProperty('--deck-w',Math.round(w)+'px');

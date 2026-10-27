@@ -376,3 +376,18 @@ body.case{background:var(--g)}
 .srcs a{text-underline-offset:3px;display:inline-flex;align-items:center;
   min-height:24px}
 .srcs q{font-style:italic;quotes:"\201C" "\201D"}
+
+/* ---------- the case header clears the floating island (27 Oct) ----------
+   Measured at 375: the island wraps to two rows and is 351x96, ending at
+   108px down the viewport. The case header reserved 48px, so the "Back to
+   work" link and the first tags sat underneath it and could not be read or
+   pressed. Found on all five case pages and the PRD, at 375 and 768.
+
+   The reserve is tied to the island's measured height plus its offset and
+   a gap, not to a guessed number, so it holds if the island changes. */
+@media (max-width:860px){
+  /* the back link is in the wrapper BEFORE the header, not in it, so the
+     header rule alone left it under the island. Both, and the first
+     block on the page whichever it is. */
+  .case > header,.case .case-head,.case > div:first-of-type{padding-top:124px}
+}

@@ -156,7 +156,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
 
 /* ---------- the words ---------- */
 .hero-k{margin:0;font-family:var(--fu);font-size:var(--t-small);line-height:1.6;color:rgba(var(--deep-rgb),.8)}
-.roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;margin-top:var(--s-1);
+.roll{display:inline-block;height:1.7em;overflow:hidden;vertical-align:bottom;margin-top:var(--s-1);
   background:var(--deep);color:var(--cream);padding:0 .3em;transform:rotate(-1.2deg)}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-6);margin-top:var(--s-7)}
 .hbtn{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s-5);background:var(--deep);color:var(--cream);
@@ -751,7 +751,10 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .cta span.ln.in{opacity:1;transform:none}
 
 /* reveals */
-.rv{opacity:0;transform:translateY(14px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
+/* scoped to html.js: see the note in theme.js. Without a script the
+   block is simply there, which is what "never hide content by default"
+   has to mean. */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
 .rv.in{opacity:1;transform:none}.anim [data-t],.anim .bg{opacity:0}
 /* THE ONE ORCHESTRATED MOMENT (25 Oct, block E). The five cut-out words
    drop and settle: 60ms apart, 210ms each, so the last one lands at 450ms.
@@ -894,7 +897,9 @@ a.wrow .go::after{content:" \2192";transition:padding-left 260ms var(--ease)}
 a.wrow:hover .go::after{padding-left:.25em}
 .wrow.soon .go{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;font-weight:400}
 .wrow[hidden]{display:none}
-.wrow.rv:not(.in){opacity:0}
+/* same scope as every other reveal: without a script to undo it, this
+   hid all five work rows on the homepage and every row on /work/. */
+.js .wrow.rv:not(.in){opacity:0}
 .wrow.soon.rv.in{opacity:.82}
 @media(max-width:760px){
   .wrow{grid-template-columns:3rem minmax(0,1fr);gap:.9rem}
@@ -1701,7 +1706,13 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* 1.25em is not a taste value. home.js moves the stack by i * 1.25em, so the
    frame and every row have to be exactly that or the words land between
    lines. They were 1.1em on the first pass and the roller settled 25px off. */
-.stage-copy .roll{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;
+/* 1.6em, not 1.25: the display face at weight 900 draws a glyph box of
+   about 1.56em, so a 1.25em frame shaved every word top and bottom and
+   "campaigns" worst of all. This rule is 1500 lines below the base .roll
+   rule and was quietly winning, which is why changing the base one did
+   nothing. The JS step is 1.6 to match; frame, word and step move together
+   or the words stop landing on the frame. */
+.stage-copy .roll{display:inline-block;height:1.7em;overflow:hidden;vertical-align:bottom;
   padding:0 .22em;background:var(--deep);color:var(--cream);box-sizing:content-box;
   font-family:var(--fd);font-weight:900;font-size:1em;line-height:1.25;
   transition:width 420ms var(--ease)}
@@ -1710,7 +1721,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* width:max-content so each word keeps its own measured width. Without it a
    block child fills the frame, and re-measuring after the webfont loads
    returns the frame width instead of the word width. */
-.stage-copy .roll .rollstack>span{display:block;width:max-content;height:1.25em;line-height:1.25em;white-space:nowrap}
+.stage-copy .roll .rollstack>span{display:block;width:max-content;height:1.7em;line-height:1.7em;white-space:nowrap}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
   clip-path:inset(50%);white-space:nowrap;border:0}
 
@@ -2882,8 +2893,8 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
    Writing this without the :not() is exactly what held the hero claim
    invisible yesterday: declared later, more specific, won the cascade. */
 @keyframes rv-fallback{to{opacity:1;transform:none}}
-.rv:not(.in){animation:rv-fallback 1ms linear 2.5s forwards}
-@media (prefers-reduced-motion:reduce){.rv:not(.in){animation:none}}
+.js .rv:not(.in){animation:rv-fallback 1ms linear 2.5s forwards}
+@media (prefers-reduced-motion:reduce){.js .rv:not(.in){animation:none}}
 
 /* M10: the stickers answer a hover once and stop. A loop here would make
    the desk restless, and the brief is explicit that it never loops. */
@@ -2929,3 +2940,19 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .cz-ind{top:0;bottom:auto;height:100%;background:none;
   border-bottom:3px solid var(--fluoro);
   transition:transform 250ms var(--e-out),width 250ms var(--e-out)}
+
+/* ---------- the record player stops covering copy (27 Oct) ----------
+   The documented rule for this device is that a floating control may cover
+   the corner it lives in, but it may not cover the copy. The overlap scan
+   caught it doing exactly that at 768 and 1280: over the figures in What
+   it moved, over a work row's teaser, over "Open" and the read time.
+
+   It had already been shrunk to 64px for this reason; what it still lacks
+   is clearance from the content column. The page now ends with enough room
+   under it that nothing readable shares its corner, and the deck itself
+   sits a little further out. */
+.disc{right:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px)}
+/* the last block on every page reserves the deck's corner */
+.contact,.pfoot{padding-bottom:max(var(--s-7),96px)}
+/* and a work row never runs under it: the aside column stops short */
+@media (min-width:760px){.windex .wrow{padding-right:clamp(0px,6vw,96px)}}
