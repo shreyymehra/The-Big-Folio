@@ -1,0 +1,29 @@
+{
+  "id": "voiced-positioning",
+  "project": "voicedna",
+  "title": "Voice'D positioning canvas",
+  "type": "canvas",
+  "status": "in-build",
+  "skills": [
+    "positioning-messaging"
+  ],
+  "published": false,
+  "data": {
+    "alternatives": [
+      "{{ALTERNATIVE 1}}",
+      "{{ALTERNATIVE 2}}",
+      "{{ALTERNATIVE 3}}"
+    ],
+    "uniqueAttributes": [
+      "{{ATTRIBUTE 1}}",
+      "{{ATTRIBUTE 2}}",
+      "{{ATTRIBUTE 3}}"
+    ],
+    "value": "{{ONE SENTENCE: what the customer gets}}",
+    "bestFitCustomers": [
+      "{{SEGMENT 1}}",
+      "{{SEGMENT 2}}"
+    ],
+    "category": "{{CATEGORY}}"
+  }
+}

@@ -589,6 +589,53 @@
 
     paint();
   })();
+
+  /* ---------- the receipt lines open (pass 1, design brief F) ----------
+     200ms height reveal, his number. A real button driving a real panel,
+     so the keyboard path and the announcement come free; the only thing
+     here is the height, which CSS cannot animate from auto.
+
+     The panel is [hidden] at rest, which is what makes it correct with the
+     script off: the content is in the markup and reachable, it simply does
+     not animate. Nothing here gates the information. */
+  (function(){
+    var rows = [].slice.call(document.querySelectorAll('.rc-row'));
+    if (!rows.length) return;
+    rows.forEach(function(btn){
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!panel) return;
+      btn.addEventListener('click', function(){
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        if (open) {
+          if (reduce) { panel.hidden = true; return; }
+          panel.style.height = panel.scrollHeight + 'px';
+          requestAnimationFrame(function(){
+            panel.style.transition = 'height 200ms var(--e-out)';
+            panel.style.height = '0px';
+          });
+          panel.addEventListener('transitionend', function done(){
+            panel.removeEventListener('transitionend', done);
+            panel.hidden = true; panel.style.transition = ''; panel.style.height = '';
+          });
+        } else {
+          panel.hidden = false;
+          if (reduce) return;
+          var h = panel.scrollHeight;
+          panel.style.height = '0px';
+          requestAnimationFrame(function(){
+            panel.style.transition = 'height 200ms var(--e-out)';
+            panel.style.height = h + 'px';
+          });
+          panel.addEventListener('transitionend', function done(){
+            panel.removeEventListener('transitionend', done);
+            panel.style.transition = ''; panel.style.height = '';
+          });
+        }
+      });
+    });
+  })();
+
 })();
 /* The easter egg came out on 20 Oct at his instruction: a floating head at
    the end of the page had been cut on 13 Oct and this reinstated it. The

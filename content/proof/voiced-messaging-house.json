@@ -1,0 +1,42 @@
+{
+  "id": "voiced-messaging-house",
+  "project": "voicedna",
+  "title": "Voice'D messaging house",
+  "type": "messaging-house",
+  "status": "in-build",
+  "skills": [
+    "positioning-messaging",
+    "comms-enablement"
+  ],
+  "published": false,
+  "data": {
+    "roof": "{{VALUE PROPOSITION, one sentence}}",
+    "pillars": [
+      {
+        "name": "{{PILLAR 1}}",
+        "proof": [
+          "{{PROOF POINT}}",
+          "{{PROOF POINT}}"
+        ]
+      },
+      {
+        "name": "{{PILLAR 2}}",
+        "proof": [
+          "{{PROOF POINT}}",
+          "{{PROOF POINT}}"
+        ]
+      },
+      {
+        "name": "{{PILLAR 3}}",
+        "proof": [
+          "{{PROOF POINT}}",
+          "{{PROOF POINT}}"
+        ]
+      }
+    ],
+    "foundation": [
+      "{{REASON TO BELIEVE}}",
+      "{{REASON TO BELIEVE}}"
+    ]
+  }
+}

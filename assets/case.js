@@ -109,3 +109,14 @@
   addEventListener('resize', function(){ measure(); onScroll(); });
   if (window.lenis && window.lenis.on) window.lenis.on('scroll', onScroll);
 })();
+
+/* ---------- the stamp lands when the page opens (pass 1, brief F) -------
+   120ms, once. There is no stamp in a case header yet: that is template
+   v2 and this is pass 1. This is wired now so the device arrives with the
+   markup rather than needing a second pass to remember it, and it does
+   nothing at all until a .pm exists on the page. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var stamps = document.querySelectorAll('.case .pm');
+  for (var i = 0; i < stamps.length; i++) stamps[i].classList.add('stamp-thunk');
+})();

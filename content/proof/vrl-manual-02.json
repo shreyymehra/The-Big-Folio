@@ -1,0 +1,21 @@
+{
+  "id": "vrl-manual-02",
+  "project": "vrl",
+  "title": "{{TITLE: which spread this is}}",
+  "type": "doc",
+  "status": "shipped",
+  "org": "Venus Roadlines",
+  "period": "{{PERIOD}}",
+  "role": "{{ROLE}}",
+  "skills": [
+    "comms-enablement"
+  ],
+  "src": "/assets/img/proof/vrl/02-manual-spread.webp",
+  "thumb": "/assets/img/proof/vrl/02-manual-spread-640.webp",
+  "width": 1600,
+  "height": 1131,
+  "alt": "{{ALT, 125 characters or fewer}}",
+  "caption": "{{ONE LINE, 140 characters or fewer}}",
+  "redacted": true,
+  "published": false
+}

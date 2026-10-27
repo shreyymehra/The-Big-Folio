@@ -1,0 +1,20 @@
+{
+  "_fixture": true,
+  "_note": "DEV ONLY. Never published, never shipped, never linked. Invented values so a component can be rendered before real artefacts land.",
+  "id": "fixture-sample-ad",
+  "project": "fixture",
+  "title": "Sample artefact (fixture)",
+  "type": "ad",
+  "format": "4:5",
+  "status": "spec",
+  "brand": "Fixture",
+  "skills": [
+    "creative-ads"
+  ],
+  "src": "/assets/img/proof/_fixtures/sample.webp",
+  "width": 1600,
+  "height": 2000,
+  "alt": "Placeholder artwork used only in development.",
+  "caption": "Fixture item. Not real work.",
+  "published": false
+}

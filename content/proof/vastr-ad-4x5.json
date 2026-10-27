@@ -1,0 +1,20 @@
+{
+  "id": "vastr-ad-4x5",
+  "project": "vastr",
+  "title": "Vastr launch static, 4:5",
+  "type": "ad",
+  "format": "4:5",
+  "status": "spec",
+  "brand": "Vastr",
+  "skills": [
+    "creative-ads",
+    "launch-gtm"
+  ],
+  "src": "/assets/img/proof/vastr/02-ad-4x5.webp",
+  "thumb": "/assets/img/proof/vastr/02-ad-4x5-640.webp",
+  "width": 1600,
+  "height": 2000,
+  "alt": "{{ALT, 125 characters or fewer, describing what is in the frame}}",
+  "caption": "{{ONE LINE, 140 characters or fewer}}",
+  "published": false
+}

@@ -1,0 +1,29 @@
+{
+  "id": "tickertape-launch-01",
+  "project": "tickertape-launch",
+  "title": "{{TITLE: what this artefact is}}",
+  "type": "ad",
+  "format": "4:5",
+  "status": "{{STATUS: shipped or recreated, after permission}}",
+  "org": "Tickertape",
+  "period": "{{PERIOD}}",
+  "role": "{{ROLE}}",
+  "skills": [
+    "launch-gtm",
+    "creative-ads"
+  ],
+  "src": "/assets/img/proof/tickertape-launch/01-pricing-ad.webp",
+  "thumb": "/assets/img/proof/tickertape-launch/01-pricing-ad-640.webp",
+  "width": 1600,
+  "height": 2000,
+  "alt": "{{ALT, 125 characters or fewer}}",
+  "caption": "{{ONE LINE, 140 characters or fewer}}",
+  "redacted": true,
+  "result": {
+    "value": "+310%",
+    "metric": "click-through on launch campaigns",
+    "baseline": "{{BASELINE}}",
+    "measuredBy": "{{HOW IT WAS MEASURED}}"
+  },
+  "published": false
+}

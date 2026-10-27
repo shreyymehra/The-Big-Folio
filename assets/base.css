@@ -433,3 +433,25 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media (prefers-reduced-motion:reduce){
   ::view-transition-old(work-hero),::view-transition-new(work-hero){animation:none}
 }
+
+/* ---------- THE LOADER CLEARS ITSELF (27 Oct) ----------
+   Found while testing the hero failsafe with scripts disabled: the whole
+   site was a blank cream screen. .loader is position:fixed, inset:0,
+   z-index:120, and the ONLY thing that ever moved it was a script adding
+   .gone. If home.js or site.js does not run, is blocked, or throws before
+   that line, every route on this site is an empty page.
+
+   That is the real version of the risk this file already records twice:
+   the hero copy stranded at opacity 0 for four days in October. The same
+   failure one layer up takes the entire page, not one block.
+
+   So the loader now clears itself in CSS, with no script involved. The
+   script still clears it sooner and with the wipe; this only catches the
+   case where nothing runs. Both end in the same state, so they cannot
+   disagree. Applies to the home loader and the one site.js injects. */
+@keyframes loader-clear{to{clip-path:inset(0 0 100% 0);visibility:hidden}}
+.loader,#sm-loader{animation:loader-clear 1ms linear 2.2s forwards}
+@media (prefers-reduced-motion:reduce){
+  /* it is already display:none under reduced motion, so nothing to clear */
+  .loader,#sm-loader{animation:none}
+}

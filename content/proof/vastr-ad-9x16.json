@@ -1,0 +1,20 @@
+{
+  "id": "vastr-ad-9x16",
+  "project": "vastr",
+  "title": "Vastr launch static, 9:16",
+  "type": "ad",
+  "format": "9:16",
+  "status": "spec",
+  "brand": "Vastr",
+  "skills": [
+    "creative-ads",
+    "launch-gtm"
+  ],
+  "src": "/assets/img/proof/vastr/03-ad-9x16.webp",
+  "thumb": "/assets/img/proof/vastr/03-ad-9x16-640.webp",
+  "width": 1080,
+  "height": 1920,
+  "alt": "{{ALT, 125 characters or fewer, describing what is in the frame}}",
+  "caption": "{{ONE LINE, 140 characters or fewer}}",
+  "published": false
+}
