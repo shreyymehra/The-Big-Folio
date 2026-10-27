@@ -2930,3 +2930,154 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
    11px to fit the narrower desk bands, which put a navigation label under
    the floor. One word fits at 14px in a 108px sticker. */
 .stage-hero:has(.receipt) .fl-name{font-size:var(--t-small);padding:2px 7px}
+
+/* ---------- Contact v2 (27 Oct) ----------
+   One job per block, three type sizes, no horizontal rules: the old page
+   cut twelve lines into fragments with three of them. The stitch is used
+   twice, which is the brief's limit of three. */
+.chead{max-width:62ch;margin:0 0 var(--s-7)}
+.chead .lede{margin:0 0 var(--s-3)}
+.cz-promise{margin:0;font-family:var(--fu);font-size:var(--t-small);color:var(--deep)}
+.cgrid{display:grid;gap:clamp(1.6rem,3.5vw,3rem);align-items:start;
+  grid-template-columns:minmax(0,1.618fr) minmax(0,1fr)}
+@media (max-width:900px){.cgrid{grid-template-columns:minmax(0,1fr)}}
+.cz-h{margin:0 0 var(--s-3);font-family:var(--fd);font-weight:900;
+  font-size:var(--t-h3);line-height:1.05;letter-spacing:var(--fd-track)}
+
+/* the chips, with one indicator that slides between them rather than four
+   backgrounds fading in and out */
+.cz-chips{position:relative;display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0 0 var(--s-4)}
+.cz-chip{position:relative;z-index:1;min-height:40px;padding:8px 14px;
+  background:none;border:2px solid var(--deep);color:var(--deep);
+  font-family:var(--fu);font-size:var(--t-small);cursor:pointer;
+  transition:color var(--d-1) var(--e-out)}
+.cz-chip[aria-checked="true"]{color:var(--cream)}
+.cz-ind{position:absolute;z-index:0;left:0;top:0;height:100%;
+  background:var(--deep);opacity:0;
+  transition:transform 250ms var(--e-out),width 250ms var(--e-out)}
+.cz-ind[data-ready]{opacity:1}
+
+/* the letter, on paper */
+.cz-paper{background:#FFFDF7;border:2px solid var(--deep);padding:var(--s-4)}
+.cz-k{margin:0 0 var(--s-2);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:#0D1633;opacity:.75}
+.cz-letter{margin:0;font-size:var(--t-body);line-height:2;color:#0D1633}
+.cz-blank{font:inherit;color:#173CA8;background:none;border:0;
+  border-bottom:2px solid var(--fluoro);padding:0 2px;min-width:4ch;
+  border-radius:0}
+.cz-blank::placeholder{color:#0D1633;opacity:.42}
+.cz-blank:focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
+.cz-wipe{animation:cz-wipe 250ms var(--e-out)}
+@keyframes cz-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+.cz-acts{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-4)}
+.cz-btn{min-height:40px;padding:9px 14px;cursor:pointer;
+  font-family:var(--fu);font-size:var(--t-small);
+  background:none;border:2px solid var(--deep);color:#173CA8;
+  transition:background var(--d-1) var(--e-out),color var(--d-1) var(--e-out)}
+.cz-btn:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
+.cz-btn--go{background:var(--deep);color:var(--cream)}
+.cz-btn--go:is(:hover,:focus-visible){background:var(--fluoro);border-color:var(--fluoro)}
+.cz-say{margin:var(--s-3) 0 0;min-height:1.4em;font-family:var(--fu);
+  font-size:var(--t-small);color:var(--accent-type)}
+.cz-fallback{display:block;width:100%;margin-top:var(--s-2);font:inherit;
+  font-size:var(--t-small);padding:8px;border:2px solid var(--deep);background:var(--cream)}
+.cz-plain{margin:var(--s-3) 0 0;font-size:var(--t-small);color:#0D1633}
+
+/* the three taped notes down the side */
+.cside{display:grid;gap:var(--s-5)}
+.cnote{background:#FFFDF7;border:2px solid var(--deep);padding:var(--s-4);
+  transform:rotate(-.8deg)}
+.cside .cnote:nth-child(2){transform:rotate(.7deg)}
+.cside .cnote:nth-child(3){transform:rotate(-.4deg)}
+.cnote .cz-h{font-size:var(--t-body);color:#173CA8}
+.clist{margin:0;display:grid;grid-template-columns:max-content minmax(0,1fr);
+  gap:6px var(--s-3);font-size:var(--t-small)}
+.clist dt{font-family:var(--fu);color:#0D1633;opacity:.75}
+.clist dd{margin:0;color:#0D1633}
+.cnote .wk-note{color:#173CA8;margin-top:var(--s-3)}
+
+.cfaq,.cways{margin:var(--s-6) 0 0}
+.cways .creach{margin-top:var(--s-3)}
+
+/* body copy caps at 62 characters, the brief's number. .stand was 672px,
+   which is nearer 74 at this size. */
+.phead .stand{max-width:62ch}
+/* with no script every letter is hidden, because [hidden] is in the markup
+   and the script is what reveals the chosen one. So with the script off
+   the FIRST letter shows: the page must never be a set of buttons with no
+   letter under them. */
+.cz-letter:first-of-type{display:revert}
+
+/* THE CHECKED CHIP MUST NOT DEPEND ON THE INDICATOR.
+   The chip ships aria-checked="true" in the markup, and the checked rule
+   set its text to cream. With the script off the sliding indicator never
+   gets painted, so the first chip was cream type on cream paper: a blank
+   box. Found by loading the page with scripts disabled.
+
+   So the checked chip carries its own plane by default, and only gives it
+   up once the script has marked the group as driving the indicator. */
+.cz-chip[aria-checked="true"]{background:var(--deep);color:var(--cream)}
+.cz-chips[data-js] .cz-chip[aria-checked="true"]{background:none}
+
+/* ---------- M1: a reveal that cannot leave a blank screen (27 Oct) ----------
+   Measured with scripts disabled: EVERY .rv block on every route sat at
+   opacity 0. That is the work rows, every section heading, the stitched
+   dividers. The homepage showed a hero and a receipt and then nothing.
+
+   .rv ships at opacity 0 and a script adds .in. The script also has a
+   fallback for browsers with no IntersectionObserver, but that branch
+   cannot run if the script itself never runs, which is the case this is
+   for: blocked, failed, or still downloading.
+
+   Scoped with :not(.in) so it can NEVER compete with the real reveal.
+   Writing this without the :not() is exactly what held the hero claim
+   invisible yesterday: declared later, more specific, won the cascade. */
+@keyframes rv-fallback{to{opacity:1;transform:none}}
+.rv:not(.in){animation:rv-fallback 1ms linear 2.5s forwards}
+@media (prefers-reduced-motion:reduce){.rv:not(.in){animation:none}}
+
+/* M10: the stickers answer a hover once and stop. A loop here would make
+   the desk restless, and the brief is explicit that it never loops. */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .fl a:hover .fl-icon{animation:wiggle 300ms var(--e-out) 1}
+}
+@keyframes wiggle{0%{transform:rotate(0)}30%{transform:rotate(2deg)}
+  65%{transform:rotate(-2deg)}100%{transform:rotate(0)}}
+
+/* ---------- two fixes the sweep caught on Contact v2 ----------
+   1. The checked chip read 1.00. The indicator that gave it its plane is an
+      absolutely positioned SIBLING, so nothing walking up the ancestors can
+      see it: the harness read cream type on cream paper and it was right to,
+      because any tool a recruiter's employer runs would read it the same way.
+
+      So the checked chip keeps its OWN plane in every case, and the
+      indicator becomes a sliding underline rather than the fill. It still
+      slides between choices, which is the point of M3, and the chip is now
+      legible to anything that inspects it. Better than suppressing a
+      warning about a thing that genuinely cannot be seen. */
+.cz-chips[data-js] .cz-chip[aria-checked="true"]{background:var(--deep)}
+.cz-ind{top:auto;bottom:-6px;height:3px;background:var(--fluoro)}
+
+/* 2. THE PLANE TRAP, EIGHTH TIME. .cnote is a printed card, hard-coded
+      #FFFDF7 in both themes, but the .slot inside it draws its text from
+      --deep, which becomes the light ink in dark mode: 1.26 on white.
+      Anything inside a hard-coded plane carries literal values. */
+.cnote .slot,.cnote .slot-i,.cnote p,.cnote dd{color:#173CA8}
+.cnote .slot,.cnote .slot-i{border-left-color:#E8251F}
+.cz-paper .cz-letter,.cz-paper .cz-k,.cz-plain{color:#0D1633}
+
+/* THE PLANE TRAP, NINTH. .stage-copy .hero-cta .hbtn-alt sets its ink from
+   --deep while sitting on the ID card, which is hard-coded #FFFDF7 in both
+   themes: 4.42, under the floor. The card is a printed object, so the
+   button on it carries literal values like every other child of it.
+   This rule is last in the file so it cannot be undone by source order,
+   which is how the earlier idcard fix stopped winning. */
+.idcard .hero-cta .hbtn-alt,.stage-copy .hero-cta .hbtn-alt{color:#173CA8;border-color:#173CA8}
+.idcard .hero-cta .hbtn-alt:is(:hover,:focus-visible){background:#173CA8;color:#FFFDF7}
+
+/* the indicator is now translated on both axes from the row's top-left,
+   because the chips wrap, so it can no longer be pinned to the bottom */
+.cz-ind{top:0;bottom:auto;height:100%;background:none;
+  border-bottom:3px solid var(--fluoro);
+  transition:transform 250ms var(--e-out),width 250ms var(--e-out)}

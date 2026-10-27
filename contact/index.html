@@ -27,41 +27,128 @@
     <span class="no">04 / Contact</span>
     <h1>Let&rsquo;s build something you will always be proud of.</h1>
     <p class="stand">If your team is making something new and needs it to mean something, we should talk. Full time preferred, Melbourne or remote.</p>
-    <div class="rule"></div>
   </div>
 </header>
 
-<main class="wrap">
-  <div class="cblock">
-    <div>
-      <p class="lede">The fastest way to reach me is email. I answer everything that isn&rsquo;t automated.</p>
-      <p>Tell me what you are building and what is stuck. If there is a brief, send it. If there isn&rsquo;t one yet, that is often the more interesting conversation.</p>
-    </div>
-    <div>
-      <div class="creach">
-        <span class="mailrow"><a class="reach-row" href="mailto:shreyymehraa@gmail.com">
-          <span class="k">Email</span><span class="v">shreyymehraa@gmail.com<svg class="scribble" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 14C64 6 108 18 168 11 228 4 268 17 330 9 356 6 378 10 396 15"/><path class="s2" d="M10 19C70 12 118 21 176 16 238 11 276 20 340 14"/></svg></span>
-        </a><button class="copybtn" type="button" data-copy="shreyymehraa@gmail.com" aria-label="Copy email address"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span></button></span>
-        <a class="" href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener noreferrer">
-          <span class="k">LinkedIn</span><span class="v">/shreymehraa &nearr;</span>
-        </a>
-        <a class="" href="../work/">
-          <span class="k">The work</span><span class="v">Five briefs, two in writing &rarr;</span>
-        </a>
-        <a class="" href="../public/Shrey-Mehra-Resume.docx" download>
-          <span class="k">R&eacute;sum&eacute;</span><span class="v">Download &darr;</span>
-        </a>
+<main class="wrap" id="main">
+
+  <div class="chead">
+    <p class="cz-promise">
+      <!-- SLOT: a reply time he will keep. No default: a promise nobody
+           agreed to is worse than no promise. -->
+      <span class="slot-i" data-slot="C02">Reply time to be confirmed.</span>
+      It is <time id="mel-time">local time</time> in Melbourne.
+    </p>
+  </div>
+
+  <div class="cgrid">
+
+    <section class="cz" aria-labelledby="cz-title">
+      <h2 class="cz-h" id="cz-title">What is this about?</h2>
+      <div class="cz-chips" role="radiogroup" aria-labelledby="cz-title">
+          <button class="cz-chip" type="button" role="radio" aria-checked="true" data-chip="hiring" aria-controls="cz-hiring" id="chip-hiring">I'm hiring</button>
+          <button class="cz-chip" type="button" role="radio" aria-checked="false" data-chip="project" aria-controls="cz-project" id="chip-project">I have a project</button>
+          <button class="cz-chip" type="button" role="radio" aria-checked="false" data-chip="coffee" aria-controls="cz-coffee" id="chip-coffee">Coffee and advice</button>
+          <button class="cz-chip" type="button" role="radio" aria-checked="false" data-chip="other" aria-controls="cz-other" id="chip-other">Something else</button>
+        <span class="cz-ind" aria-hidden="true"></span>
       </div>
+
+      <div class="cz-paper">
+        <p class="cz-k mono">Write it</p>
+        <p class="cz-letter" id="cz-hiring" data-letter="hiring" data-subject="Role: [role] at [company]">Hi Shrey, I’m <input class="cz-blank" type="text" data-field="name" size="9" placeholder="your name" aria-label="Your name" autocomplete="off"> from <input class="cz-blank" type="text" data-field="company" size="7" placeholder="company" aria-label="Company" autocomplete="off">. We’re hiring a <input class="cz-blank" type="text" data-field="role" size="8" placeholder="the role" aria-label="The role" autocomplete="off">, and the first problem it needs to solve is <input class="cz-blank" type="text" data-field="problem" size="11" placeholder="the problem" aria-label="The problem" autocomplete="off">. It’s based in <input class="cz-blank" type="text" data-field="where" size="6" placeholder="where" aria-label="Where" autocomplete="off">, starting <input class="cz-blank" type="text" data-field="when" size="6" placeholder="when" aria-label="When" autocomplete="off">. Role link: <input class="cz-blank" type="text" data-field="link" size="6" placeholder="link" aria-label="Link" autocomplete="off"></p>
+        <p class="cz-letter" id="cz-project" data-letter="project" data-subject="Project: [what]" hidden>Hi Shrey, I’m <input class="cz-blank" type="text" data-field="name" size="9" placeholder="your name" aria-label="Your name" autocomplete="off">. I’m making <input class="cz-blank" type="text" data-field="what" size="6" placeholder="what" aria-label="What" autocomplete="off"> for <input class="cz-blank" type="text" data-field="who" size="13" placeholder="who it is for" aria-label="Who it is for" autocomplete="off">, and what’s stuck is <input class="cz-blank" type="text" data-field="problem" size="11" placeholder="the problem" aria-label="The problem" autocomplete="off">. The deadline is <input class="cz-blank" type="text" data-field="when" size="6" placeholder="when" aria-label="When" autocomplete="off"> and the budget is around <input class="cz-blank" type="text" data-field="range" size="6" placeholder="range" aria-label="Range" autocomplete="off">. Links: <input class="cz-blank" type="text" data-field="link" size="6" placeholder="link" aria-label="Link" autocomplete="off"></p>
+        <p class="cz-letter" id="cz-coffee" data-letter="coffee" data-subject="Coffee: [topic]" hidden>Hi Shrey, I’m <input class="cz-blank" type="text" data-field="name" size="9" placeholder="your name" aria-label="Your name" autocomplete="off">, <input class="cz-blank" type="text" data-field="background" size="25" placeholder="a line on your background" aria-label="A line on your background" autocomplete="off">. I’d like to talk about <input class="cz-blank" type="text" data-field="topic" size="9" placeholder="the topic" aria-label="The topic" autocomplete="off">. I’m free <input class="cz-blank" type="text" data-field="when" size="6" placeholder="when" aria-label="When" autocomplete="off">, and I know you’re on Melbourne time.</p>
+        <p class="cz-letter" id="cz-other" data-letter="other" data-subject="Hello from [name]" hidden>Hi Shrey, I’m <input class="cz-blank" type="text" data-field="name" size="9" placeholder="your name" aria-label="Your name" autocomplete="off">. <input class="cz-blank" type="text" data-field="message" size="23" placeholder="say what’s on your mind" aria-label="Say what’s on your mind" autocomplete="off"></p>
+        <div class="cz-acts">
+          <button class="cz-btn cz-btn--go" type="button" data-act="mail">Open in my email</button>
+          <button class="cz-btn" type="button" data-act="gmail">Open in Gmail</button>
+          <button class="cz-btn" type="button" data-act="copy">Copy message</button>
+          <button class="cz-btn" type="button" data-act="addr">Copy address</button>
+        </div>
+        <p class="cz-say" role="status" aria-live="polite"></p>
+        <!-- With no script this is the whole page's job: a real address and
+             a real mailto, visible and working. -->
+        <p class="cz-plain">Or just write to
+          <a href="mailto:shreyymehraa@gmail.com">shreyymehraa@gmail.com</a>.</p>
+      </div>
+    </section>
+
+    <div class="cside">
+      <section class="cnote" aria-labelledby="next-title">
+        <h2 class="cz-h" id="next-title">What happens next</h2>
+        <!-- SLOT: three steps. Confirm each is true before it ships: does
+             he reply with fit or no fit and two call times, and is the call
+             twenty minutes? -->
+        <p class="slot" data-slot="C03">The three steps are being confirmed.</p>
+      </section>
+
+      <section class="cnote" aria-labelledby="look-title">
+        <h2 class="cz-h" id="look-title">What I am looking for</h2>
+        <dl class="clist">
+          <dt>Roles</dt><dd><span class="slot-i" data-slot="C04">To be confirmed.</span></dd>
+          <dt>Where</dt><dd><span class="slot-i" data-slot="C05">To be confirmed.</span></dd>
+          <dt>Start</dt><dd><span class="slot-i" data-slot="C06">To be confirmed.</span></dd>
+          <dt>Work rights</dt><dd><span class="slot-i" data-slot="C07">To be confirmed.</span></dd>
+        </dl>
+      </section>
+
+      <section class="cnote" aria-labelledby="rc-c-title">
+        <h2 class="cz-h" id="rc-c-title">The receipts</h2>
+        <!-- SLOT: which three. They have to match the four on the homepage
+             receipt and the master resume. -->
+        <p class="slot" data-slot="C08">The three to show here are being chosen.</p>
+        <a class="wk-note wk-note--left" href="../#work">See the work <span class="wk-arrow" aria-hidden="true"></span></a>
+      </section>
     </div>
   </div>
 
+  <hr class="stitch rv" aria-hidden="true">
+
+  <section class="cfaq" aria-labelledby="cfaq-title">
+    <h2 class="cz-h" id="cfaq-title">Pick my brain</h2>
+    <div class="bento">
+      <button class="tile-q" aria-expanded="false"><span class="qn">Q.01</span>
+        <span class="qt">How fast do you reply?<span class="pm">+</span></span>
+        <span class="ans"><span class="slot-i" data-slot="C09">Being written.</span></span></button>
+      <button class="tile-q" aria-expanded="false"><span class="qn">Q.02</span>
+        <span class="qt">Are you open to relocating or remote work?<span class="pm">+</span></span>
+        <span class="ans"><span class="slot-i" data-slot="C10">Being written.</span></span></button>
+      <button class="tile-q" aria-expanded="false"><span class="qn">Q.03</span>
+        <span class="qt">When can you start?<span class="pm">+</span></span>
+        <span class="ans"><span class="slot-i" data-slot="C11">Being written.</span></span></button>
+      <button class="tile-q" aria-expanded="false"><span class="qn">Q.04</span>
+        <span class="qt">Do you take freelance or brand consulting work?<span class="pm">+</span></span>
+        <span class="ans"><span class="slot-i" data-slot="C12">Being written.</span></span></button>
+    </div>
+  </section>
+
+  <hr class="stitch rv" aria-hidden="true">
+
+  <section class="cways" aria-labelledby="ways-title">
+    <h2 class="cz-h" id="ways-title">Other routes</h2>
+    <div class="creach">
+      <a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener noreferrer">
+        <span class="k">LinkedIn</span><span class="v">/shreymehraa &nearr;</span>
+      </a>
+      <a href="../work/">
+        <span class="k">The work</span><span class="v">All projects &rarr;</span>
+      </a>
+      <a href="../public/Shrey-Mehra-Resume.docx" download>
+        <!-- SLOT: this points at the .docx because the PDF does not exist.
+             The label says what it actually is rather than claiming PDF. -->
+        <span class="k">R&eacute;sum&eacute;</span><span class="v">Word document &darr;</span>
+      </a>
+    </div>
+  </section>
+
   <div class="pfoot">
     <a href="../">Back to the start <span class="arw">&rarr;</span></a>
-    <span class="sig">Shrey Mehra &middot; Melbourne, <time id="mel-time">local time</time></span>
+    <span class="sig">Shrey Mehra &middot; Melbourne, <time id="mel-time-2">local time</time></span>
   </div>
 </main>
 
 <script src="../assets/site.js"></script>
+<script src="../assets/contact.js" defer></script>
 <script src="../assets/vendor/lenis.min.js" defer></script>
 <script src="../assets/scroll-feel.js" defer></script>
 </body></html>

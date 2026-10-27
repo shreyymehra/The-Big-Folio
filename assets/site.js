@@ -119,7 +119,12 @@
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    /* M1: fire BEFORE the block arrives, not 8% after it has. The
+       negative bottom margin meant an element had to be well inside the
+       viewport to reveal, so a fast scroll outran it and left a gap. A
+       positive margin starts it early and the reveal is finished by the
+       time the reader gets there. */
+    }, {threshold:0, rootMargin:'0px 0px 15% 0px'});
     document.querySelectorAll('.rv').forEach(function(el,k){
       el.style.transitionDelay = (Math.min(k,6)*60) + 'ms'; io.observe(el);
     });
