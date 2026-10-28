@@ -3007,3 +3007,107 @@ html body .print figcaption b{font-size:.75rem}
 .mv[open] .mv-grid{grid-template-columns:minmax(0,1fr);gap:var(--s-6)}
 .mv[open] .mv-do{display:flex;flex-wrap:wrap;gap:4px var(--s-4)}
 .mv[open] .mv-figs li{grid-template-columns:max-content minmax(0,1fr)}
+
+/* ============================================================
+   WHAT IT MOVED - THE SEEDED SCATTER            (28 Oct 2026)
+   Five group headings and a tidy three-column list became
+   fourteen tiles, each carrying its own group as a tag. Size,
+   tilt and offset are dealt once by tools/build-stats.js from
+   the seed in content/stats.json and written into the class
+   list, so the layout is fixed in the markup and cannot
+   reshuffle between loads, between pages or between readers.
+
+   NO OVERLAP IS STRUCTURAL, NOT HAND-PLACED. These are grid
+   items with a 24px gap, so nothing can land on anything else
+   whatever the column count. The tilt is the only thing that
+   grows a tile past its box: at 1.5deg a 200x150 tile gains
+   2.6px on each side, so the worst-case clear gap is 18.8px,
+   above the 16px floor. Absolute placement was not attempted:
+   this file records four passes where hand-placed hero marks
+   collided at a width nobody checked.
+
+   This is a SURFACE that follows the UI, not a printed plane,
+   so border and ink are tokens and both flip with the theme.
+   ============================================================ */
+.mv-scatter{list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));
+  gap:26px;align-items:start}
+
+.mv-tile{position:relative;display:flex;flex-direction:column;gap:.3rem;
+  padding:var(--s-4) var(--s-4) var(--s-5);
+  border:var(--line) solid var(--deep);background:none;
+  transform:rotate(var(--tl,0deg));transform-origin:50% 50%;
+  margin-top:var(--of,0)}
+
+/* the group heading, now one tag per tile */
+.mv-tag{margin:0 0 .15rem;font-family:var(--fu);font-size:var(--xs);
+  letter-spacing:.1em;text-transform:uppercase;
+  /* 84%, not a lower mix and never opacity. Sampled from the PAINTED
+     pixel: 78% composites to rgb(73,100,182) on the ground and measures
+     5.05, which passes and is thin, and this exact pattern has failed
+     twice in this file. 84% measures 5.8. */
+  color:color-mix(in srgb,var(--deep) 84%,transparent)}
+
+.mv-tile b{font-family:var(--fd);font-weight:900;line-height:.95;
+  letter-spacing:var(--fd-track);color:var(--deep);
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.mv-tile .mv-what{margin-top:.1rem}
+
+/* three size classes */
+.mv-sz-1 b{font-size:clamp(1.25rem,2.1vw,1.6rem)}
+.mv-sz-2 b{font-size:clamp(1.55rem,2.8vw,2.1rem)}
+.mv-sz-3 b{font-size:clamp(1.95rem,3.7vw,2.8rem)}
+.mv-sz-3{padding-bottom:var(--s-6)}
+
+/* three tilts and two vertical offsets, dealt from the seed */
+.mv-tl-1{--tl:-1.5deg}
+.mv-tl-2{--tl:0deg}
+.mv-tl-3{--tl:1.5deg}
+.mv-of-1{--of:0px}
+.mv-of-2{--of:18px}
+
+/* ---- how it was measured ----------------------------------
+   The text is ALWAYS in the DOM and never display:none or
+   visibility:hidden, so a screen reader reads it whether or
+   not the reveal is open: the collapse is visual only, done
+   with a 0fr grid row. The control exists only on a tile that
+   has a method (.has-how), so an empty figure shows no button,
+   no collapsed box and no affordance at all - an empty reveal
+   reads as a broken reveal, which is worse than none.
+   ------------------------------------------------------------ */
+.mv-how-btn{appearance:none;background:none;border:0;padding:.35rem 0 0;
+  margin:.25rem 0 0;min-height:24px;text-align:left;cursor:pointer;
+  font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent-type);
+  text-decoration:underline;text-underline-offset:3px}
+.mv-how-btn:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+
+.mv-how{display:grid;grid-template-rows:0fr;margin:0;
+  font-family:var(--fb);font-size:var(--t-small);line-height:1.35;
+  color:var(--deep);opacity:0;
+  transition:grid-template-rows .22s var(--e-out),opacity .22s var(--e-out)}
+/* the row collapses to 0fr, so the text needs a real element to be
+   clipped by: bare text in the <p> is an anonymous grid item and
+   cannot take overflow:hidden. The generator emits the span. */
+.mv-how > span{display:block;min-height:0;overflow:hidden}
+.mv-tile.has-how:is(:hover,:focus-within) .mv-how,
+.mv-tile.is-open .mv-how{grid-template-rows:1fr;opacity:1;margin-top:.4rem}
+
+@media (prefers-reduced-motion:reduce){.mv-how{transition:none}}
+
+/* phone: one column, and the tilt halves so a full-width tile
+   does not read as crooked rather than placed.
+
+   THE GAP HAS TO SCALE HERE AND A CONSTANT WILL NOT DO. A tilt
+   lifts a tile's corner by half its WIDTH times sin(angle), so
+   the same 1deg that costs a 190px tile 1.7px costs a 720px one
+   6.3px - and two neighbours tilted opposite ways pay it twice.
+   Measured at 768 with a flat 20px gap, the clear space between
+   two tiles fell to 7.69px, under his 16px floor. 5vw tracks the
+   tile width, which is what the geometry actually depends on. */
+@media (max-width:768px){
+  .mv-scatter{grid-template-columns:minmax(0,1fr);gap:clamp(26px,5vw,40px)}
+  .mv-tl-1{--tl:-1deg}
+  .mv-tl-3{--tl:1deg}
+  .mv-of-2{--of:0px}
+}

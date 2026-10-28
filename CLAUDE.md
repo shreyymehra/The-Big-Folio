@@ -2162,3 +2162,78 @@ either way, and this is the first time it failed in the tokenising direction.**
 string arrived as `/d+/` instead of `/\d+/` and silently matched nothing - it
 reports MISS rather than failing. **Anything with an escape in it goes in a
 file written with the editor tool, never an `-e` flag.**
+
+## THE SEEDED SCATTER (28 Oct 2026, at his instruction)
+
+**"What it moved" is fourteen tiles, not five groups and a list.** Each tile
+carries its own group as a small-caps tag, so the five headings dissolve into
+the set. Size (3 classes), tilt (-1.5/0/+1.5deg) and vertical offset (flush or
+18px) are **dealt once at build time** by `tools/build-stats.js` from the seed
+in `content/stats.json` and written into the class list, so the layout is fixed
+in the markup and cannot reshuffle between loads, pages or readers.
+
+**`content/stats.json` is the new source of truth for the figures**, and the
+script carries a **hardcoded freeze** of all fourteen values, captions and
+employers: it refuses to write if any of them has moved. A number quietly
+changing in a data file is the one thing this portfolio cannot afford.
+
+**No overlap is structural, not hand-placed.** The tiles are grid items, so
+nothing can land on anything else whatever column count the browser picks.
+Absolute placement was not attempted: this file already records four passes
+where hand-placed hero marks collided at a width nobody checked.
+
+**The 16px gap floor needs a gap that scales, and a constant will not do.** A
+tilt lifts a corner by half the tile's WIDTH times sin(angle), so the same 1deg
+that costs a 190px tile 1.7px costs a 720px one 6.3px, and two neighbours
+tilted opposite ways pay it twice. Measured at 768 with a flat 20px gap the
+clear space fell to **7.69px**. It is `clamp(26px,5vw,40px)` below 768 now.
+Verified at 1920/1600/1440/1280/1024/900/768/640/430/390/360: **zero overlaps,
+minimum clear gap 19.4 to 26.1px, no horizontal scroll at any width.**
+
+**Order is dealt too, and the lead is pinned.** Source order runs the groups in
+blocks, so the first render printed "Launch and funnel" on three tiles in a row,
+which reads as a mistake rather than a scatter. The shuffle **minimises, it does
+not eliminate**: 14 tiles over 5 uneven groups, scored at every column count,
+bottoms out at **3 touching pairs of roughly 110 adjacencies**, and the script
+prints that number on every run so it stays a measurement. **+310% is pinned
+first at the largest size**, because a free shuffle dealt the number the closed
+pill previews into eighth place: a scattered layout quietly demoting the
+evidence.
+
+**No method, no reveal.** `measuredBy` is empty for all fourteen (NEEDS A2), so
+no tile renders a control, a collapsed box or any affordance. An empty tooltip
+reads as a broken tooltip. The reveal text, when it lands, is **always in the
+DOM** and never `display:none` or `visibility:hidden` - the collapse is visual
+only, a `0fr` grid row - so a screen reader reads it whether or not it is open.
+**The `<span>` inside `.mv-how` is load-bearing:** bare text in the `<p>` is an
+anonymous grid item and cannot take `overflow:hidden`, so the row would not
+clip. Hover and focus are CSS; the tap half is a delegated listener in
+`home.js`, inert until a method lands.
+
+### TWO HARNESS TRAPS, BOTH OF WHICH PRODUCED A CONFIDENT WRONG NUMBER
+
+1. **`Page.captureScreenshot`'s `clip` is in DOCUMENT coordinates;
+   `getBoundingClientRect` returns VIEWPORT coordinates.** Passing the rect
+   straight through cropped blank ground, and the probe dutifully reported a
+   contrast ratio of 1.00 for ink against itself. Add `window.scrollX/scrollY`.
+2. **`getComputedStyle` hands back an unresolved `color(srgb .. / .84)` for a
+   `color-mix`,** and a naive parser reads those as three 0-255 channels. That
+   returned 19.08 for type that actually measures 5.85. **A translucent ink has
+   no colour until it is painted**, so the only honest measurement is the
+   painted pixel: screenshot the element's own box and read the darkest and
+   lightest pixels out of it. `scratchpad/tagpx.mjs` does this; keep the method.
+
+The tag ink is `color-mix(--deep 84%)` and measures **5.85 light, 10.0 dark**.
+78% measured 5.05 - passing, and thin, and this is the third time translucent
+ink on small type has come close in this file. **Never opacity, and not below
+84% against this ground.**
+
+**A standing false positive worth knowing about:** `scratchpad/a11y.mjs`
+samples the hero CTAs mid-reveal and reports them at anywhere from 1.36 to 3.12,
+differently on every run. Measured at rest they are **9.18 in both themes**.
+The instability is the signature. It predates this pass; it is not a regression
+and it is not a failure.
+
+**Dead with the old list, left in place rather than swept:** `.mv-group`,
+`.mv-gk`, `.mv-figs` and their media queries. Hide, do not delete, is his
+standing rule; the next sweep can take them.

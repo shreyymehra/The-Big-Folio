@@ -1,0 +1,118 @@
+{
+  "_readme": [
+    "The fourteen verified figures, lifted verbatim from index.html on 28 Oct 2026.",
+    "THE NUMBERS ARE FROZEN. Nothing here may be edited except `measuredBy`.",
+    "",
+    "`measuredBy` is the one line that answers 'how was this measured': the",
+    "instrument, the window and the baseline. It is empty for every figure",
+    "because only Shrey knows it (NEEDS A2). An empty string renders NO reveal",
+    "at all - no control, no collapsed text, no affordance. A figure with a",
+    "method is evidence; a figure with an empty tooltip is a figure with a",
+    "broken tooltip, which is worse than a figure on its own.",
+    "",
+    "Rebuild the markup after editing:  node tools/build-stats.js",
+    "The scatter is seeded from `seed` below, so the layout never reshuffles.",
+    "Changing the seed, or the order of `figures`, re-rolls every tile."
+  ],
+  "seed": 20261028,
+  "figures": [
+    {
+      "value": "+310%",
+      "what": "click-through, new product and pricing launches",
+      "who": "Tickertape",
+      "group": "Launch and funnel",
+      "measuredBy": ""
+    },
+    {
+      "value": "+140%",
+      "what": "customer experience score",
+      "who": "Tickertape",
+      "group": "Launch and funnel",
+      "measuredBy": ""
+    },
+    {
+      "value": "160k",
+      "what": "customers reached across 20 locations",
+      "who": "Tickertape",
+      "group": "Launch and funnel",
+      "measuredBy": ""
+    },
+    {
+      "value": "−16%",
+      "what": "churn, month on month, through lifecycle marketing",
+      "who": "Tickertape",
+      "group": "Lifecycle and retention",
+      "measuredBy": ""
+    },
+    {
+      "value": "20k",
+      "what": "monthly active users grown through ad campaigns",
+      "who": "Tickertape",
+      "group": "Lifecycle and retention",
+      "measuredBy": ""
+    },
+    {
+      "value": "+170%",
+      "what": "engagement, year on year",
+      "who": "Tickertape",
+      "group": "Lifecycle and retention",
+      "measuredBy": ""
+    },
+    {
+      "value": "+46%",
+      "what": "engagement, month on month",
+      "who": "iSelect and Compare the Market",
+      "group": "Internal comms and alignment",
+      "measuredBy": ""
+    },
+    {
+      "value": "700+",
+      "what": "employees aligned across APAC",
+      "who": "iSelect and Compare the Market",
+      "group": "Internal comms and alignment",
+      "measuredBy": ""
+    },
+    {
+      "value": "−78%",
+      "what": "vendor costs, renegotiated across 20+ events",
+      "who": "iSelect and Compare the Market",
+      "group": "Commercial and operations",
+      "measuredBy": ""
+    },
+    {
+      "value": "+56%",
+      "what": "sales uplift, with profit up 32% in Q2",
+      "who": "Bliss and Birch",
+      "group": "Commercial and operations",
+      "measuredBy": ""
+    },
+    {
+      "value": "−30%",
+      "what": "event costs, through vendor and budget management",
+      "who": "TEDxUniMelb",
+      "group": "Commercial and operations",
+      "measuredBy": ""
+    },
+    {
+      "value": "1.2M",
+      "what": "views, sold out in two days",
+      "who": "TEDxVIPS",
+      "group": "Community and events",
+      "measuredBy": ""
+    },
+    {
+      "value": "130+",
+      "what": "volunteers led",
+      "who": "TEDxVIPS",
+      "group": "Community and events",
+      "measuredBy": ""
+    },
+    {
+      "value": "+65%",
+      "what": "sign-ups, engagement up 40%",
+      "who": "TEDxUniMelb",
+      "group": "Community and events",
+      "measuredBy": ""
+    }
+  ]
+}

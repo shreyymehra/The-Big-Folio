@@ -590,6 +590,31 @@
     paint();
   })();
 
+  /* ---- "how it was measured", the tap half -------------------
+     Hover and focus are CSS. Tap is not: a touch device fires a
+     synthetic :hover that then sticks on the last tile touched,
+     so the open state has to be something the page owns.
+
+     Delegated from the list, so it costs one listener whatever
+     the tile count and keeps working when the generator re-deals
+     them. It is inert today: no figure in content/stats.json has
+     a method yet, so no tile carries .has-how and no button is
+     rendered. That is the point - an empty reveal is worse than
+     no reveal, and this is here so the control works the day a
+     method lands rather than needing a second pass. */
+  (function () {
+    var list = document.querySelector('.mv-scatter');
+    if (!list) return;
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('.mv-how-btn') : null;
+      if (!btn || !list.contains(btn)) return;
+      var tile = btn.closest('.mv-tile');
+      if (!tile) return;
+      var open = !tile.classList.contains('is-open');
+      tile.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
 
 })();
 /* The easter egg came out on 20 Oct at his instruction: a floating head at
