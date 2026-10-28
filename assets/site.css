@@ -3068,3 +3068,5 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
     grid-template-areas:"title" "org" "when" "line";gap:2px}
   .xp-when{white-space:normal}
 }
+/* the /work filter chips were missed by the D12 pass: 47x29 */
+.fbtn{min-height:44px;display:inline-flex;align-items:center}

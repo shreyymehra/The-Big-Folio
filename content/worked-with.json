@@ -1,0 +1,15 @@
+{
+  "_note": "D8 / A4: the relationship behind each mark. NOTHING RENDERS FROM THIS YET and that is deliberate — see _why below. Fill the relationship values and tell me to build it.",
+  "_why": "The grouping question has been answered three different ways already: the marks carried a 'College project' line, then it was removed on 6 Oct at Shrey's instruction, then the row was relabelled 'Employers, clients and volunteer work' on 7 Oct. Rebuilding the strip into groups now, against assignments nobody has confirmed, would be the fourth answer. PRD-V1-ADDENDUM section F recommends the experience summary (D7) solves the same problem better, with dates and titles instead of a taxonomy, and that grouping moves to V2. This file exists so A4 has somewhere to land if he disagrees.",
+  "_enum": ["employer", "internship", "project", "event"],
+  "marks": [
+    { "file": "iselect-mono.webp",    "name": "iSelect",             "relationship": "{{employer|internship|project|event}}" },
+    { "file": "ctm-mono.webp",        "name": "Compare the Market",  "relationship": "{{employer|internship|project|event}}" },
+    { "file": "tickertape-mono.webp", "name": "Tickertape",          "relationship": "{{employer|internship|project|event}}" },
+    { "file": "amazon-mono.webp",     "name": "Amazon",              "relationship": "{{employer|internship|project|event}}" },
+    { "file": "tedx-mono.webp",       "name": "TEDxVIPS",            "relationship": "{{employer|internship|project|event}}" },
+    { "file": "blissbirch-mono.webp", "name": "Bliss and Birch",     "relationship": "{{employer|internship|project|event}}" },
+    { "file": "unyouth-mono.webp",    "name": "UN Youth",            "relationship": "{{employer|internship|project|event}}" },
+    { "file": "bcg-mono.webp",        "name": "BCG",                 "relationship": "{{employer|internship|project|event}}" }
+  ]
+}
