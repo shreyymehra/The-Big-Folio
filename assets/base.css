@@ -196,7 +196,9 @@ html body nav#nav .nav-end{grid-area:1/2;min-width:0;display:flex;align-items:ce
   transition:opacity 260ms ease,transform 420ms var(--e-spring)}
 html body nav#nav .links{display:flex;gap:var(--s-5)}
 html body nav#nav .links a{padding:var(--s-3) 0;white-space:nowrap;min-width:24px;text-align:center}
-html body nav#nav .theme-toggle{width:40px;height:40px;margin-left:var(--s-3)}
+/* 44, not 40: the one island control whose width can grow without
+   changing the pill’s shape, because it is already square (D12). */
+html body nav#nav .theme-toggle{width:44px;height:44px;margin-left:var(--s-3)}
 .island-now{grid-area:1/2;min-width:0;display:flex;align-items:center;gap:var(--s-2);opacity:0;white-space:nowrap;pointer-events:none;
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
   transition:opacity 260ms ease,transform 420ms var(--e-spring);transform:translateY(4px)}

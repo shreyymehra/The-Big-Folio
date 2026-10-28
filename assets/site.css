@@ -3010,3 +3010,33 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 /* the lockup is the picture of the heading, so it keeps every rule the
    .hero-name children already had; it is only a wrapper for aria-hidden */
 .hero-lockup{display:contents}
+
+/* ---------- D12: 44px tap targets (28 Oct) ----------
+   Measured at 375: thirteen interactive elements under 44px, none under
+   the 24px WCAG floor. So the site met the standard and missed his bar.
+
+   The height is bought with padding rather than a min-height box, so the
+   text stays where it is and only the hit area grows. Where an element is
+   inline in a sentence, the padding is vertical only and negative margin
+   pulls the line back to its original rhythm: a 44px link in a paragraph
+   would otherwise space the paragraph out.
+
+   The island is the exception and it is deliberate. Its three controls sit
+   inside a floating pill he has tuned three times; growing them grows the
+   pill on every route. They are brought to 44 in HEIGHT, which is the axis
+   a thumb misses on, and keep their width. Flagged in PRD-V1-ADDENDUM B2
+   as a decision, and this is the middle answer until he picks. */
+.ways a,.so-col a,.mlist-k a,.creach a,.pfoot a,.cnote .wk-note,
+a.wk-note,.rc-more summary,.srcs a{
+  min-height:44px;display:inline-flex;align-items:center}
+/* inline links inside running copy: grow the target, keep the rhythm */
+p > a,li > a{padding-block:12px;margin-block:-12px}
+.copybtn{min-height:44px;padding-block:9px}
+.disc-btn{width:44px;height:44px}
+.theme-toggle{width:44px;height:44px}
+/* the island: 44 tall, natural width */
+nav#nav .links a{min-height:44px;display:inline-flex;align-items:center}
+nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
+/* the sign-off copy button is icon-only to fit a 319px column; it gets its
+   width from padding so the icon stays the size it is */
+.sign-off .copybtn{min-width:44px;justify-content:center}
