@@ -18,9 +18,9 @@
      --t-small was 14 and carried 129 elements on the homepage, so it was
      the body size in practice rather than a caption size. Headings step
      down on narrow screens; body and small never shrink. */
-  --t-h1:clamp(2.25rem,5.2vw,3.5rem);     /* 36 -> 56 */
-  --t-h2:clamp(1.75rem,3.4vw,3.5rem);     /* 28 -> 56 */
-  --t-h3:clamp(1.25rem,2.3vw,2rem);       /* 20 -> 32 */
+  --t-h1:3.5rem;                          /* 56, the display step  */
+  --t-h2:2rem;                            /* 32, section headings  */
+  --t-h3:1.25rem;                         /* 20                    */
   --t-body:1.25rem;                       /* 20 */
   --t-small:1rem;                         /* 16, the body floor */
   --lh-tight:1.02; --lh-head:1.1; --lh-body:1.6;
@@ -308,7 +308,7 @@ html body nav#nav .links a:is(:hover,:focus-visible,[aria-current="page"])::afte
    lives in data-slot and in FILL-IN.md. */
 .ph{display:grid;place-content:center;gap:2px;box-sizing:border-box;padding:6px;text-align:center;
   background:repeating-linear-gradient(135deg,#FCFAF4 0 8px,#F7F4EC 8px 16px);color:#0D1633;
-  border:2px dashed #0D1633;font-family:var(--fu);font-size:11px;line-height:1.25;letter-spacing:.04em;text-transform:uppercase}
+  border:var(--line) dashed #0D1633;font-family:var(--fu);font-size:11px;line-height:1.25;letter-spacing:.04em;text-transform:uppercase}
 /* ---------- THE GAP REGISTER (7 Oct 2026) ----------
    Every missing thing on the site is now one component with one treatment and
    one code, G01 upward in page order, matched line for line by FILL-IN.md.
@@ -458,4 +458,13 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 @media (prefers-reduced-motion:reduce){
   /* it is already display:none under reduced motion, so nothing to clear */
   .loader,#sm-loader{animation:none}
+}
+
+
+/* H6 (28 Oct): the scale STEPS, it does not slide. A clamp lands on
+   whatever the viewport makes it - 29, 44 and 46 at 1280 - and none
+   of those is in his 12/16/20/32/56. One breakpoint, one step down,
+   so at any width the page uses at most five sizes. */
+@media (max-width:760px){
+  :root{--t-h1:2rem; --t-h2:1.25rem;}
 }

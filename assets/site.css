@@ -70,7 +70,7 @@
   --xs:var(--t-small); --sm:var(--t-small); --base:var(--t-body); --md:var(--t-h3);
   --lg:var(--t-h3); --xl:var(--t-h2); --xxl:var(--t-h1);
   --ease:cubic-bezier(.16,1,.3,1);
-  --sec:clamp(var(--s-8),10vw,var(--s-10));
+  --sec:clamp(var(--s-8),10vw,var(--s-9)); /* 64 -> 96, his numbers. Was --s-10 (128). */
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -214,7 +214,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    The whole strip is also a way into the metrics below it: home.js makes a
    click on it open that drawer, which is why it carries a pointer. */
 .logo-strip{position:relative;overflow:hidden;cursor:pointer;
-  border-top:2px solid var(--deep);border-bottom:2px solid var(--deep)}
+  border-top:var(--line) solid var(--deep);border-bottom:var(--line) solid var(--deep)}
 /* the shared .xtrack rule went with the crossing bands; each track needs its
    own row now or the four repeat copies stack instead of running */
 .logo-strip .xtrack{display:flex;width:max-content;will-change:transform}
@@ -227,7 +227,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    type inside is ink and the red accent stays off it. */
 .mv{margin-top:var(--s-6)}
 .mv-pill{cursor:pointer;list-style:none;display:flex;align-items:center;gap:var(--s-4);
-  background:var(--yellow);color:#0D1633;border:2px solid #0D1633;border-radius:999px;
+  background:var(--yellow);color:#0D1633;border:var(--line) solid #0D1633;border-radius:999px;
   padding:clamp(.9rem,2vw,1.3rem) clamp(1.6rem,3.5vw,2.6rem);min-height:56px}
 .mv-pill::-webkit-details-marker{display:none}
 .mv-pill-k{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);line-height:1.1;
@@ -265,7 +265,7 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    and the disciplines are the context: the hierarchy and the geometry now
    say the same thing. Measured at 1440: 463/609 before, 436/706 after. */
 .mv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.618fr);gap:clamp(2rem,5vw,4.5rem);
-  align-items:start;border-top:2px solid var(--deep);padding-top:var(--s-6)}
+  align-items:start;border-top:var(--line) solid var(--deep);padding-top:var(--s-6)}
 /* Both columns are native <details> (9 Oct, at his instruction). Native,
    because it is keyboard operable, announced correctly, and works with the
    script switched off, none of which a div and a click handler gives you.
@@ -469,7 +469,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* ---------- brain dump (dark) ---------- */
 .dump{background:var(--deep);color:var(--cream);padding:var(--sec) 0}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-7) var(--s-6);margin-top:var(--s-4)}
-.step{border-left:2px solid var(--fluoro);padding:0 0 0 1rem}
+.step{border-left:var(--line) solid var(--fluoro);padding:0 0 0 1rem}
 .step .n{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:1;opacity:.82;display:block;margin-bottom:.5rem;letter-spacing:var(--fd-track)}
 .step h3{font-size:var(--t-body);margin-bottom:.5rem}
 .step p{font-size:var(--sm);line-height:1.5;opacity:.85;margin:0}
@@ -499,7 +499,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .prose p{margin-block:0 var(--s-4)}
 .beat + .beat{margin-top:var(--s-4)}
 .skills h3{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
-  margin:0 0 .8rem;padding-bottom:.4rem;border-bottom:2px solid var(--deep)}
+  margin:0 0 .8rem;padding-bottom:.4rem;border-bottom:var(--line) solid var(--deep)}
 .skills .grp{margin-bottom:1.8rem}
 .skills .cat{font-family:var(--fu);font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 .4rem}
 .skills ul{list-style:none;margin:0 0 .9rem;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
@@ -649,7 +649,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .vouch{position:relative}
 .vouch-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-5)}
 .vouch-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-4)}
-.vouch-card{background:var(--cream);border:2px solid var(--deep);padding:var(--s-5) var(--s-5) var(--s-4)}
+.vouch-card{background:var(--cream);border:var(--line) solid var(--deep);padding:var(--s-5) var(--s-5) var(--s-4)}
 .vc-big{margin:0;font-family:var(--fd);font-weight:900;font-size:clamp(1.35rem,2.1vw,1.75rem);
   line-height:1.05;letter-spacing:var(--fd-track);color:var(--deep)}
 .vc-sub{margin:var(--s-3) 0 0;font-family:var(--fb);font-size:var(--t-small);line-height:1.45;color:var(--deep)}
@@ -669,7 +669,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .is-deck .vouch-card.is-gone{opacity:0}
 .vouch-nav{display:flex;align-items:center;gap:var(--s-3);margin-top:var(--s-5)}
 .vouch-nav button{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
-  background:none;border:2px solid var(--deep);color:var(--deep);cursor:pointer;
+  background:none;border:var(--line) solid var(--deep);color:var(--deep);cursor:pointer;
   font-family:var(--fu);font-size:var(--t-small);transition:background var(--d-1) ease,color var(--d-1) ease}
 .vouch-nav button:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
 .vouch-count{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
@@ -770,7 +770,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    hover or focus, 44px of height to hit. */
 .more{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;margin-top:2.4rem;
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;
+  color:var(--deep);text-decoration:none;border-bottom:var(--line) solid transparent;
   transition:border-color var(--d-1) ease}
 .more:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .more .arw{transition:transform 220ms var(--ease)}
@@ -796,7 +796,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   border-bottom:1px solid rgba(var(--deep-rgb),.25)}
 .filter .lab{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .fbtn{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;background:none;
-  border:0;color:inherit;cursor:pointer;padding:0 0 .55rem;border-bottom:2px solid transparent;opacity:.82;
+  border:0;color:inherit;cursor:pointer;padding:0 0 .55rem;border-bottom:var(--line) solid transparent;opacity:.82;
   transition:opacity 200ms var(--ease),border-color 200ms var(--ease)}
 .fbtn:hover{opacity:1}
 .fbtn[aria-pressed="true"]{opacity:1;border-bottom-color:var(--fluoro)}
@@ -842,7 +842,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 }
 
 @media(max-width:900px){.cblock{grid-template-columns:1fr;gap:2rem}}
-.creach{display:grid;gap:0;border-top:2px solid var(--deep)}
+.creach{display:grid;gap:0;border-top:var(--line) solid var(--deep)}
 .creach a{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;
   border-bottom:1px solid rgba(var(--deep-rgb),.3);text-decoration:none;transition:padding 240ms var(--ease)}
 .creach a:hover,.creach a:focus-visible{padding-left:.7rem}
@@ -859,7 +859,7 @@ a.wrow:hover .go::after{padding-left:.25em}
    not merely ground colour — per the section brief.
    ============================================================ */
 .plate{position:relative;overflow:hidden;aspect-ratio:16/10;background:var(--deep);
-  border:2px solid var(--deep);display:grid;isolation:isolate}
+  border:var(--line) solid var(--deep);display:grid;isolation:isolate}
 .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1}
 .plate .pw{font-family:var(--fd);font-weight:700;text-transform:uppercase;
   color:var(--cream);line-height:.8;letter-spacing:var(--fd-track);margin:0;z-index:1;
@@ -906,7 +906,7 @@ a.wrow:hover .go::after{padding-left:.25em}
 .p-abs .pm{right:.6rem;bottom:.5rem;color:var(--cream)}
 
 /* 06/07 — not built yet. The plate says so rather than pretending. */
-.p-soon{background:transparent;border:2px dashed rgba(var(--deep-rgb),.4);place-items:center}
+.p-soon{background:transparent;border:var(--line) dashed rgba(var(--deep-rgb),.4);place-items:center}
 .p-soon .pw{color:var(--deep);opacity:.82;font-size:var(--t-body);
   letter-spacing:.06em;font-family:var(--fu);font-weight:400;text-align:center;padding:0 .8rem}
 .p-soon::after{display:none}
@@ -1329,14 +1329,14 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .so-mail{font-size:var(--t-body);letter-spacing:.01em;text-transform:none}
 .so-mail{display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;margin-top:var(--s-4);
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--deep);text-decoration:none;border-bottom:2px solid transparent;
+  color:var(--deep);text-decoration:none;border-bottom:var(--line) solid transparent;
   transition:border-color var(--d-1) ease}
 .so-mail:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .so-k{margin:0 0 var(--s-4);font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .so-col ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s-1)}
 .so-col a{display:inline-flex;align-items:center;gap:var(--s-2);min-height:36px;min-width:44px;
   font-family:var(--fu);font-size:var(--t-small);color:var(--deep);text-decoration:none;
-  border-bottom:2px solid transparent;transition:border-color var(--d-1) ease}
+  border-bottom:var(--line) solid transparent;transition:border-color var(--d-1) ease}
 .so-col a:is(:hover,:focus-visible){border-bottom-color:var(--fluoro)}
 .so-ico{width:17px;height:17px;flex:none}
 .so-social a{letter-spacing:.01em}
@@ -1454,7 +1454,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .stage{position:relative;z-index:2;min-height:calc(100svh - var(--s-10) - var(--s-9));display:grid;place-items:center}
 
 .print{margin:0;width:clamp(168px,17vw,228px);transform:rotate(-2.4deg)}
-.print-mount{display:block;position:relative;background:var(--card);border:2px solid var(--deep);padding:10px 10px 0}
+.print-mount{display:block;position:relative;background:var(--card);border:var(--line) solid var(--deep);padding:10px 10px 0}
 /* ============================================================
    THE BRUSH (6 Oct 2026, Shrey, after the Up bank reveal cursor)
    The photograph is printed black and white. The cursor paints the colour
@@ -1482,7 +1482,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .print-mount:is(:focus-within) .print-colour{-webkit-mask-image:none;mask-image:none}
 @media (hover:none){.print-colour{-webkit-mask-image:none;mask-image:none;opacity:.001}}
 .print-mount img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.12)}
-.print figcaption{padding:var(--s-2) 10px var(--s-3);background:var(--card);border:2px solid var(--deep);border-top:0;
+.print figcaption{padding:var(--s-2) 10px var(--s-3);background:var(--card);border:var(--line) solid var(--deep);border-top:0;
   font-family:var(--fu);font-size:13px;line-height:1.38;color:var(--deep)}
 .print figcaption b{display:block;font-family:var(--fu);font-weight:400;text-transform:uppercase;letter-spacing:.08em;font-size:12px;opacity:.82}
 
@@ -1566,7 +1566,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    the pill veto still holds. The second one is the outline variant: equal
    size, lower weight, which is how two actions sit together without the
    secondary one disappearing. */
-.stage-copy .hero-cta .hbtn{min-height:48px;padding:0 var(--s-4);border:2px solid var(--deep);
+.stage-copy .hero-cta .hbtn{min-height:48px;padding:0 var(--s-4);border:var(--line) solid var(--deep);
   font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;text-transform:uppercase;
   transition:background-color var(--d-1) ease,color var(--d-1) ease}
 .stage-copy .hero-cta .hbtn-alt{background:transparent;color:var(--deep);text-transform:none;
@@ -1585,7 +1585,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .fl a{position:relative}
 .fl-hint{position:absolute;left:50%;top:calc(100% + 6px);z-index:5;
   width:max-content;max-width:min(230px,42vw);padding:4px 9px;
-  background:var(--yellow);color:#0D1633;border:2px solid var(--deep);
+  background:var(--yellow);color:#0D1633;border:var(--line) solid var(--deep);
   font-family:var(--fu);font-size:11px;line-height:1.3;text-align:left;
   transform:translate(-50%,0) rotate(-1.6deg) scale(.86);
   opacity:0;visibility:hidden;pointer-events:none;
@@ -1614,13 +1614,13 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .stage-centre{display:block;width:min(1180px,calc(100% - 2 * var(--pad)))}
 
 .idcard{position:relative;z-index:3;width:min(540px,100%);
-  background:#FFFDF7;color:#0D1633;border:2px solid #0D1633;
+  background:#FFFDF7;color:#0D1633;border:var(--line) solid #0D1633;
   padding:clamp(1.1rem,2vw,1.5rem);display:grid;gap:clamp(.9rem,1.6vw,1.2rem);
   transform:rotate(-1.2deg)}
 
 /* head: the cut-out name, and the number every licence carries */
 .id-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-4);
-  border-bottom:2px solid #0D1633;padding-bottom:clamp(.7rem,1.4vw,1rem)}
+  border-bottom:var(--line) solid #0D1633;padding-bottom:clamp(.7rem,1.4vw,1rem)}
 .id-head .hero-name{position:static;display:grid;justify-items:start;gap:3px;margin:0;
   width:auto;max-width:100%}
 .id-head .hero-name .l1{display:flex;flex-wrap:wrap;align-items:flex-end;gap:5px}
@@ -1719,7 +1719,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    sits still and scrolls horizontally by hand like any overflow list.
    ============================================================ */
 .hstrip{position:relative;margin:var(--s-9) 0;padding:var(--s-6) 0;
-  border-top:2px solid var(--deep);border-bottom:2px solid var(--deep);
+  border-top:var(--line) solid var(--deep);border-bottom:var(--line) solid var(--deep);
   background:var(--yellow);overflow:hidden}
 .hs-view{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .hs-view::-webkit-scrollbar{display:none}
@@ -1792,8 +1792,8 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    plane sits behind it on a plain negative index. No blur, no transparency:
    one plate printed slightly off another, which is not what the veto list
    means by an offset shadow. */
-.stage-centre{transform:rotate(-1.2deg)}
-.idcard{transform:none;z-index:auto;background:#FFFDF7;border:2px solid #0D1633;
+.stage-centre{transform:rotate(-1.5deg)} /* H6: 1.5, not 1.2 */
+.idcard{transform:none;z-index:auto;background:#FFFDF7;border:var(--line) solid #0D1633;
   padding:clamp(1.1rem,2vw,1.5rem)}
 .idcard::before{content:"";position:absolute;z-index:-1;inset:12px -12px -12px 12px;
   background:var(--fluoro)}
@@ -1839,7 +1839,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    is now the numbers alone: what he does, and what it moved. It is still the
    plain break between the hero and the work, and it is still the only thing
    between them, which is the point he was making. */
-.moved{background:var(--cream);border-top:2px solid var(--deep)}
+.moved{background:var(--cream);border-top:var(--line) solid var(--deep)}
 /* no bottom rule: the work block tears away from this one, and a ruled edge
    12px above a torn one reads as a mistake rather than as two devices. */
 
@@ -1869,7 +1869,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 /* bottom only, for the same reason: the work block above already tears into
    this one. */
 .ideas::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  border-bottom:2px solid var(--deep)}
+  border-bottom:var(--line) solid var(--deep)}
 :root[data-theme="dark"] .ideas{background:color-mix(in srgb,var(--cream) 94%,#000)}
 
 /* --- 5. ME: the texture returns ------------------------------------------
@@ -2088,7 +2088,7 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
   border-radius:50%;background:#0D1633;display:grid;place-items:center;
   border:3px solid #0D1633}
 .disc-platter{display:block;width:62%;aspect-ratio:1;border-radius:50%;overflow:hidden;
-  border:2px solid #FFFDF7}
+  border:var(--line) solid #FFFDF7}
 .disc-platter img{display:block;width:100%;height:100%;object-fit:cover}
 /* it only turns while sound is actually coming out */
 .disc.spinning .disc-platter{animation:disc-spin 3.2s linear infinite}
@@ -2101,7 +2101,7 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
 .disc-arm .arm-head{fill:#E8251F}
 .disc-arm .arm-pivot{fill:#FFFDF7}
 .disc-btn{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;
-  border-radius:50%;border:2px solid #0D1633;background:#FFED10;cursor:pointer;
+  border-radius:50%;border:var(--line) solid #0D1633;background:#FFED10;cursor:pointer;
   display:grid;place-items:center;padding:0}
 .disc-btn span{display:block;width:0;height:0;margin-left:3px;
   border-left:12px solid #0D1633;border-top:8px solid transparent;border-bottom:8px solid transparent}
@@ -2140,7 +2140,7 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
   gap:clamp(.7rem,1.4vw,1.2rem);margin:var(--s-6) 0 0;padding:0;list-style:none;
   align-items:start}
 .pcards li{min-width:0}
-.pcards img{display:block;width:100%;height:auto;border:2px solid #0D1633;
+.pcards img{display:block;width:100%;height:auto;border:var(--line) solid #0D1633;
   /* a slight tilt so five identical rectangles read as cards on a table
      rather than as a chart. Alternating, so it is not a repeated stamp. */
   transform:rotate(-1.1deg);
@@ -2407,7 +2407,7 @@ p > a:only-child,
    version only needs its own breathing room: the index page opens with a
    filter bar and this one opens straight into the rows. */
 .windex--home{margin-top:var(--s-6)}
-.windex--home .wrow:first-child{border-top:2px solid var(--deep)}
+.windex--home .wrow:first-child{border-top:var(--line) solid var(--deep)}
 
 /* The homepage work section stands on the cape blue plane, which is that
    section's own ground. Every line and chip in a .wrow is drawn in --deep,
@@ -2475,7 +2475,7 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .plate .pm{position:absolute;z-index:2;font-family:var(--fd);font-weight:900;
   font-size:var(--t-small);letter-spacing:.14em;text-transform:uppercase;
   opacity:1;background:var(--cream);color:var(--accent-type);
-  padding:4px 9px;border:2px solid var(--accent-type);
+  padding:4px 9px;border:var(--line) solid var(--accent-type);
   box-shadow:inset 0 0 0 1px var(--cream),inset 0 0 0 3px color-mix(in srgb,var(--accent-type) 55%,transparent);
   transform:rotate(-4deg);transform-origin:center}
 /* every plate's chip was individually coloured for its own ground; the
@@ -2549,7 +2549,7 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
    backgrounds fading in and out */
 .cz-chips{position:relative;display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0 0 var(--s-4)}
 .cz-chip{position:relative;z-index:1;min-height:40px;padding:8px 14px;
-  background:none;border:2px solid var(--deep);color:var(--deep);
+  background:none;border:var(--line) solid var(--deep);color:var(--deep);
   font-family:var(--fu);font-size:var(--t-small);cursor:pointer;
   transition:color var(--d-1) var(--e-out)}
 .cz-chip[aria-checked="true"]{color:var(--cream)}
@@ -2559,12 +2559,12 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .cz-ind[data-ready]{opacity:1}
 
 /* the letter, on paper */
-.cz-paper{background:#FFFDF7;border:2px solid var(--deep);padding:var(--s-4)}
+.cz-paper{background:#FFFDF7;border:var(--line) solid var(--deep);padding:var(--s-4)}
 .cz-k{margin:0 0 var(--s-2);font-size:var(--xs);letter-spacing:.08em;
   text-transform:uppercase;color:#0D1633;opacity:.75}
 .cz-letter{margin:0;font-size:var(--t-body);line-height:2;color:#0D1633}
 .cz-blank{font:inherit;color:#173CA8;background:none;border:0;
-  border-bottom:2px solid var(--fluoro);padding:0 2px;min-width:4ch;
+  border-bottom:var(--line) solid var(--fluoro);padding:0 2px;min-width:4ch;
   border-radius:0}
 .cz-blank::placeholder{color:#0D1633;opacity:.42}
 .cz-blank:focus-visible{outline:2px solid var(--fluoro);outline-offset:3px}
@@ -2574,7 +2574,7 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .cz-acts{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-4)}
 .cz-btn{min-height:40px;padding:9px 14px;cursor:pointer;
   font-family:var(--fu);font-size:var(--t-small);
-  background:none;border:2px solid var(--deep);color:#173CA8;
+  background:none;border:var(--line) solid var(--deep);color:#173CA8;
   transition:background var(--d-1) var(--e-out),color var(--d-1) var(--e-out)}
 .cz-btn:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
 .cz-btn--go{background:var(--deep);color:var(--cream)}
@@ -2582,12 +2582,12 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .cz-say{margin:var(--s-3) 0 0;min-height:1.4em;font-family:var(--fu);
   font-size:var(--t-small);color:var(--accent-type)}
 .cz-fallback{display:block;width:100%;margin-top:var(--s-2);font:inherit;
-  font-size:var(--t-small);padding:8px;border:2px solid var(--deep);background:var(--cream)}
+  font-size:var(--t-small);padding:8px;border:var(--line) solid var(--deep);background:var(--cream)}
 .cz-plain{margin:var(--s-3) 0 0;font-size:var(--t-small);color:#0D1633}
 
 /* the three taped notes down the side */
 .cside{display:grid;gap:var(--s-5)}
-.cnote{background:#FFFDF7;border:2px solid var(--deep);padding:var(--s-4);
+.cnote{background:#FFFDF7;border:var(--line) solid var(--deep);padding:var(--s-4);
   transform:rotate(-.8deg)}
 .cside .cnote:nth-child(2){transform:rotate(.7deg)}
 .cside .cnote:nth-child(3){transform:rotate(-.4deg)}
@@ -2793,7 +2793,7 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
    not exist at all until a row is published; it never ships as a stub. */
 .xp{padding:var(--sec) 0}
 .xp-list{list-style:none;margin:var(--s-6) 0 0;padding:0;
-  border-top:2px solid var(--deep)}
+  border-top:var(--line) solid var(--deep)}
 .xp-row{display:grid;gap:4px var(--s-5);align-items:baseline;
   grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) max-content;
   grid-template-areas:"title org when" "line line line";
@@ -3390,3 +3390,47 @@ html.js .ledger.is-all .lg-more{display:grid}
    a five-piece slate it invited the reader to budget rather than
    to open. "Open" keeps the row's one call. */
 .wrow .aside .t{display:none}
+
+
+/* H6: row titles are h3 on home (under the section h2) and h2 on
+   /work (under the page h1). Both are correct for their page, and
+   every rule that styled .wrow h2 has to style .wrow h3 too or the
+   two pages drift - which is the failure this repo keeps returning
+   to. One selector, both tags. */
+html body .wrow h3{font:inherit;margin:0}
+html body .wrow :is(h2,h3){font-family:var(--fd);font-weight:900;
+  font-size:var(--t-h2);line-height:1.08;letter-spacing:var(--fd-track);
+  color:inherit;margin:0 0 var(--s-3)}
+
+/* ---- H6, the last strays off the scale -------------------------
+   The audit measures every text leaf on the page. After the clamps
+   were stepped, four sizes were still outside 12/16/20/32/56:
+
+     13px  .print figcaption, a hand-set value
+     27px  .vc-big, a clamp between 20 and 32
+     29px  .idcard .claim, a clamp between 20 and 32
+     198px .bigmark
+
+   The first three are on the scale now. .bigmark is NOT type and is
+   left alone with its reason: it is the giant wordmark at the foot
+   of the page, aria-hidden, a drawn shape that happens to be made of
+   letters. Putting it on a type scale would be like putting the star
+   on one. If his test counts it, it is the one exception and it is
+   named here rather than quietly excluded. */
+html body .print figcaption{font-size:var(--xs)}
+html body .vc-big{font-size:var(--t-h3)}
+html body .idcard .claim{font-size:var(--t-h3)}
+
+/* ---- H6: two display steps, not one --------------------------
+   Stepping the clamps put section headings and work-row titles both
+   on --t-h2, so the section heading stopped dominating the rows
+   under it, and the hero claim landed on --t-h3 next to its own
+   sub-line at the same size. That is the "flat, nothing stands out"
+   failure the type scale exists to prevent, and it is a type-scale
+   problem, not a spacing one.
+
+   Two steps, both in his five: a section heading is 56, everything
+   below it in that block is 32. */
+html body :is(.shead h2,h2.clip,.wlist-head h2){font-size:var(--t-h1)}
+html body .mv-h{font-size:var(--t-h2)}
+html body .idcard .claim{font-size:var(--t-h2)}
