@@ -3236,3 +3236,32 @@ html body .print figcaption b{font-size:.75rem}
    all the slack lands in row two, where align-self:start pins the
    question to the top of it. */
 .faqhome .tile-q,.faqhome .tile-q:nth-child(n){grid-template-rows:1.4em auto}
+
+/* ---------- T8: the first three receipts, no click (28 Oct) ----------
+   The drawer ships open, which reverses the 13 Oct decision to ship it
+   closed. His call, and the right one: the figures are the only
+   independently real evidence on the page and a scanning reader does not
+   open drawers.
+
+   Full width, and the first three figures lead. The rest stay in the
+   drawer below them, so nothing is lost and nothing needs a second click
+   to find. The summary stops looking like a button, because it no longer
+   is the way in: it is a heading with a control on it. */
+.mv[open] .mv-pill{background:none;border:0;padding:0;cursor:default}
+.mv[open] .mv-pill-n{display:none}
+.mv[open] .mv-chev{display:none}
+.mv[open] .mv-pill-k{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+  letter-spacing:var(--fd-track);color:var(--deep)}
+.mv[open] .mv-grid{margin-top:var(--s-5)}
+/* the figures run full width and the first three read first */
+.mv[open] .mv-figs{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5) var(--s-6)}
+@media (max-width:900px){.mv[open] .mv-figs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.mv[open] .mv-figs{grid-template-columns:minmax(0,1fr)}}
+/* "full width" means the figures get the page, not 61% of it. Open, the
+   two columns stack: the disciplines read as a line across the top and
+   the figures run the full measure underneath, which is what stops a
+   label like "click-through, new product and pricing launches" wrapping
+   over six lines in a 190px column. */
+.mv[open] .mv-grid{grid-template-columns:minmax(0,1fr);gap:var(--s-6)}
+.mv[open] .mv-do{display:flex;flex-wrap:wrap;gap:4px var(--s-4)}
+.mv[open] .mv-figs li{grid-template-columns:max-content minmax(0,1fr)}
