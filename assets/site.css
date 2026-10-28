@@ -3434,3 +3434,54 @@ html body .idcard .claim{font-size:var(--t-h3)}
 html body :is(.shead h2,h2.clip,.wlist-head h2){font-size:var(--t-h1)}
 html body .mv-h{font-size:var(--t-h2)}
 html body .idcard .claim{font-size:var(--t-h2)}
+
+/* ============================================================
+   H7: THE FAQ IS A LIST ON /about/ TOO       (28 Oct, his note)
+   T7 made the three on home a two-column list on 27 Oct. The nine
+   on /about/ were still a six-column bento of bordered cards,
+   collapsed. Same component, two treatments, which is how two
+   pages drift apart.
+
+   The answers OPEN. /about/#faq is where the FAQ actually lives,
+   so nine questions behind nine clicks is nine reasons to leave;
+   the home three have read open since T7 and these now match. The
+   buttons keep their disclosure wiring - the markup is unchanged
+   and site.js still drives them - so this is a style change only
+   and it reverts in one block.
+   ============================================================ */
+.faq .bento{display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+  border-top:var(--line) solid rgba(var(--deep-rgb),.28)}
+.faq .bento .tile-q,.faq .bento .tile-q:nth-child(n){
+  grid-column:span 1;display:grid;align-items:start;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  gap:var(--s-3) var(--s-6);
+  background:none;border:0;
+  border-bottom:var(--line) solid rgba(var(--deep-rgb),.28);
+  padding:var(--s-5) 0;text-align:left;cursor:default}
+.faq .bento .tile-q[aria-expanded="true"]{background:none;color:inherit}
+.faq .bento .qn{grid-column:1;font-family:var(--fu);font-size:var(--xs);
+  letter-spacing:.08em;color:var(--accent-type)}
+.faq .bento .qt{grid-column:1;grid-row:2;font-family:var(--fd);font-weight:900;
+  font-size:var(--t-h3);line-height:1.12;letter-spacing:var(--fd-track);
+  color:var(--deep);display:block}
+/* the + marker was the card's affordance; with the answer open it
+   points at nothing */
+.faq .bento .qt .pm{display:none}
+.faq .bento .ans{grid-column:2;grid-row:1 / span 2;
+  max-height:none;overflow:visible;opacity:1;
+  font-family:var(--fb);font-size:var(--t-small);line-height:1.5;
+  color:var(--deep)}
+@media (max-width:768px){
+  .faq .bento .tile-q,.faq .bento .tile-q:nth-child(n){
+    grid-template-columns:minmax(0,1fr)}
+  .faq .bento .ans{grid-column:1;grid-row:3;margin-top:var(--s-3)}
+}
+
+/* THE QUESTION SAT LOW IN ITS CELL, in both FAQs. The answer spans
+   both rows and is the taller column, so the tile grows to it and
+   the two auto rows in the left column stretch to share the extra
+   height - which pushed the question away from its own Q number by
+   up to 100px. align-items:start aligns an item inside its track;
+   it is align-CONTENT that stops the tracks themselves stretching.
+   Only visible in a screenshot: every box measured correctly. */
+.faqhome .tile-q,.faq .bento .tile-q{align-content:start}
