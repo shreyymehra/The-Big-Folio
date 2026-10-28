@@ -3085,7 +3085,7 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
 .foot-wrap{position:relative;z-index:2}
 .foot-wrap .foot{margin-top:24px;padding-top:0;border-top:0}
 /* the email in the pill reads at 18, not 14 */
-.sign-off .so-mail{font-size:18px;min-height:44px;display:inline-flex;align-items:center}
+.sign-off .so-mail{font-size:var(--t-body);min-height:44px;display:inline-flex;align-items:center}
 /* moving the row down put it exactly where the fixed record player sits,
    so the clock ran under it. The row keeps clear of that corner. */
 .foot-wrap .foot{padding-right:clamp(0px,7vw,110px)}
@@ -3158,3 +3158,15 @@ a.wrow:is(:hover,:focus-visible) .plate,
    chevron, which is a drawn mark rather than a border */
 html body section.contact{border-top-width:var(--line)}
 html body .mv-chev{border-width:var(--line-hi)}
+
+/* T5: buttons and inputs inherit the page's face. The theme toggle and the
+   record-player button were rendering in Arial, because a <button> takes
+   the UA font unless told otherwise and neither carried a family. */
+button,input,select,textarea{font:inherit}
+/* T5: the two things still under the floor.
+   .fl-hint is the sticker's hover caption at 11px, and the photo caption's
+   year at 12. Both go to 12, which is the caps-label step and the floor
+   for anything that is not body copy. The hint is sentence case, so it
+   takes the step rather than the label treatment. */
+html body .fl-hint{font-size:.75rem}
+html body .print figcaption b{font-size:.75rem}

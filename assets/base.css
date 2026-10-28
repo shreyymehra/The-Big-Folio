@@ -12,15 +12,17 @@
 
 :root{
   /* TYPE SCALE. Five sizes and nothing between them.
-     H1 hero headlines 64, H2 section headlines 40, H3 subheads 28,
-     body 18, small 14 (captions, metadata, footnotes). Headings step
-     down on narrow screens so a 64px line never wraps into a wall;
-     body and small never shrink. 14px is the floor for any text. */
-  --t-h1:clamp(2.5rem,5.2vw,4rem);        /* 40 -> 64 */
-  --t-h2:clamp(1.875rem,3.4vw,2.5rem);    /* 30 -> 40 */
-  --t-h3:clamp(1.375rem,2.3vw,1.75rem);   /* 22 -> 28 */
-  --t-body:1.125rem;                      /* 18 */
-  --t-small:.875rem;                      /* 14 */
+     Reset to his scale on 28 Oct (T5): 12 for caps labels only, then
+     16, 20, 32, 56. H1 and H2 both top out at 56; H3 is 32; body is 20
+     and --t-small is 16, which is the floor for body copy and buttons.
+     --t-small was 14 and carried 129 elements on the homepage, so it was
+     the body size in practice rather than a caption size. Headings step
+     down on narrow screens; body and small never shrink. */
+  --t-h1:clamp(2.25rem,5.2vw,3.5rem);     /* 36 -> 56 */
+  --t-h2:clamp(1.75rem,3.4vw,3.5rem);     /* 28 -> 56 */
+  --t-h3:clamp(1.25rem,2.3vw,2rem);       /* 20 -> 32 */
+  --t-body:1.25rem;                       /* 20 */
+  --t-small:1rem;                         /* 16, the body floor */
   --lh-tight:1.02; --lh-head:1.1; --lh-body:1.6;
 
   /* SPACING SCALE. Every gap is one of these. */
