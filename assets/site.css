@@ -3343,3 +3343,50 @@ html.js .ledger.is-all .lg-more{display:grid}
    blocks starting at the container left, which is what H6 asks for. */
 .mv-grid{grid-template-columns:minmax(0,1fr);gap:var(--s-7)}
 .mv-col--do .mv-do{max-width:none}
+
+/* ============================================================
+   H5: THE WORK ROWS LOSE THEIR CHROME        (28 Oct, his note)
+   Max two tags, plain text joined by " / ", no outlines. The
+   reading time goes. The plate stamp and "Open" stay.
+
+   Five outlined chips under a two-line teaser were competing
+   with the title for the row, and four of them repeated words
+   already in the teaser. Two in plain text read as a byline.
+
+   HIDDEN, NOT DELETED: tags three and up are still in the
+   markup and still carry their words, so the cut is one
+   declaration to undo. /work filters on data-d, not on these,
+   so nothing stops working. The rows are one component shared
+   by home and /work, so this lands on both, which is the point.
+   ============================================================ */
+.wrow .tags{display:flex;flex-wrap:wrap;align-items:baseline;gap:0}
+.wrow .tags > span:nth-child(n+3){display:none}
+
+/* no plane, no outline, no padding: plain text in the metadata
+   register. .aud loses its blue plane here too - it is the first
+   of the two tags, not a badge. */
+.wrow .tags span,
+.work .windex--home .tags span,
+.wrow .tags .aud,
+.work .windex--home .tags .aud{
+  background:none;border:0;padding:0;color:inherit;font-weight:inherit}
+
+/* the separator is generated, so it never appears before the
+   first tag and never dangles after a hidden one */
+/* THE SPACING IS A MARGIN, NOT SPACES IN THE STRING. content:" / "
+   drops its leading space against the inline box before it, which
+   rendered "B2C/ BRAND STRATEGY". The \00a0 fix for that was worse:
+   the shell turned the backslash-zero into a literal NUL byte and
+   wrote two of them into this file, which grep then reported as a
+   binary. A margin needs no escape, cannot collapse, and cannot be
+   mangled on its way through a shell.
+
+   Both faults were found by LOOKING at the page and at the file.
+   textContent never shows a pseudo-element, so no DOM probe would
+   have caught either one. */
+.wrow .tags > span + span::before{content:"/";margin:0 .45em;opacity:.55}
+
+/* reading time: gone. It was an estimate nobody asked for, and on
+   a five-piece slate it invited the reader to budget rather than
+   to open. "Open" keeps the row's one call. */
+.wrow .aside .t{display:none}
