@@ -3111,3 +3111,46 @@ html body .print figcaption b{font-size:.75rem}
   .mv-tl-3{--tl:1deg}
   .mv-of-2{--of:0px}
 }
+
+/* ============================================================
+   H1: THE SUBTRACTION                        (28 Oct, his list)
+   HIDDEN BEHIND A FLAG, NOT DELETED. Every rule below is one
+   line, named for what it switches off, so any of them comes
+   back by deleting its own line and nothing else. The markup,
+   the images and the behaviour are all still in the repo.
+
+   Already off before this pass, by T6 on 27 Oct, and left
+   alone here so there is one switch per thing and not two:
+     the wave edge   .work::before/::after, .ideas::after
+     the cloud band  .contact::after
+   Both are in the T6 block above.
+   ============================================================ */
+
+/* the iPod and the playlist frame. The LINK to the playlist
+   survives this: it is in the About line, which H2 keeps. */
+#listening{display:none}
+
+/* the six hero marks. They were primary navigation, so note
+   what goes with them: the island still carries Work, Ideas,
+   Me and Contact, and FAQ is reachable from Me. Listening has
+   nowhere left to point, which is consistent - the block it
+   pointed at is hidden on the line above. */
+.floats{display:none}
+
+/* the three marks fanned into the sign-off */
+.so-fan{display:none}
+
+/* H1, last item: the About text is one column, 65ch.
+   .abody was a 1.618/1 grid and .prose p capped at 32em, which
+   is roughly 32 characters per em-width - near 65ch already on
+   the body face, but stated in the wrong unit to hold. ch is
+   the unit the brief names and the one that tracks the face. */
+.abody{grid-template-columns:minmax(0,1fr)}
+/* THE MEASURE GOES ON THE CONTAINER, NOT THE PARAGRAPH. ch scales
+   with font-size, and the opening paragraph is set at --md, so a
+   per-paragraph 65ch resolved to 1062px there and capped nothing
+   at all while the body paragraphs sat at 585px. One measure means
+   one element at one size: .prose is at body size, so 65ch there
+   is 65 characters of the face the reader is actually reading. */
+.abody .prose,.prose{max-width:65ch}
+.abody .prose p,.prose p{max-width:none}
