@@ -357,4 +357,31 @@
     }, true);
   })();
 
+
+  /* ---------- D1: the nav publishes its own height ----------
+     The island is fixed and its height changes with the width: at 375 it
+     wraps to two rows and runs 12 to 108px, while the hero's name tiles
+     start at 96. Measured, not guessed, because the wrap point moves with
+     the type and there is no constant that is right at every width.
+
+     The CSS carries a 108px fallback, so with this script blocked the
+     reserve is the worst case rather than nothing. */
+  (function(){
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    var last = -1;
+    function measure(){
+      var r = nav.getBoundingClientRect();
+      var h = Math.round(r.bottom);   /* bottom, not height: the island floats */
+      if (h === last) return;
+      last = h;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    measure();
+    addEventListener('resize', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    /* the island changes shape on scroll, so it is re-read then too */
+    addEventListener('scroll', function(){ requestAnimationFrame(measure); }, { passive: true });
+  })();
+
 })();

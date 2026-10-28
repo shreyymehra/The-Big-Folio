@@ -2991,3 +2991,18 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
    moved except space. */
 .about{padding-top:var(--s-5)}
 .me-turn{margin:40px 0 72px}
+
+/* ---------- D1: nothing starts under the floating island ----------
+   Measured at 375: the island wraps to two rows and ends at 108px, and
+   the hero's cut-out name tiles started at 96. The reserve is the island's
+   own measured bottom plus a gap, published as --nav-h by site.js, with a
+   108px fallback so a blocked script reserves the worst case rather than
+   nothing.
+
+   Scoped to the widths where the island wraps: at desktop it is one row
+   and the hero is a centred full-screen layout that must not be pushed. */
+@media (max-width:860px){
+  .stage-hero{padding-top:calc(var(--nav-h,108px) + 16px)}
+}
+/* and an anchor jump never lands a heading under it, at any width */
+[id]{scroll-margin-top:calc(var(--nav-h,108px) + 16px)}
