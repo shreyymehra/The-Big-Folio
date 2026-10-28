@@ -3040,3 +3040,31 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
 /* the sign-off copy button is icon-only to fit a 319px column; it gets its
    width from padding so the icon stays the size it is */
 .sign-off .copybtn{min-width:44px;justify-content:center}
+
+/* ---------- D7: the experience summary ----------
+   Title, employer, dates, one line. The site had no dates anywhere, so a
+   recruiter could not tell whether iSelect was a year or a month: on the
+   sixty-second read that was the biggest unanswered question on the page.
+
+   Generated into the markup, not rendered in the browser, so the dates are
+   in the HTML a crawler and a slow phone both receive. The section does
+   not exist at all until a row is published; it never ships as a stub. */
+.xp{padding:var(--sec) 0}
+.xp-list{list-style:none;margin:var(--s-6) 0 0;padding:0;
+  border-top:2px solid var(--deep)}
+.xp-row{display:grid;gap:4px var(--s-5);align-items:baseline;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) max-content;
+  grid-template-areas:"title org when" "line line line";
+  padding:var(--s-4) 0;border-bottom:1px solid rgba(var(--deep-rgb),.25)}
+.xp-title{grid-area:title;font-family:var(--fd);font-weight:900;
+  font-size:var(--t-h3);line-height:1.1;letter-spacing:var(--fd-track)}
+.xp-org{grid-area:org;font-family:var(--fu);font-size:var(--t-small);
+  color:color-mix(in srgb,var(--deep) 84%,var(--cream))}
+.xp-when{grid-area:when;font-size:var(--t-small);white-space:nowrap;
+  color:color-mix(in srgb,var(--deep) 84%,var(--cream))}
+.xp-line{grid-area:line;max-width:60ch;font-size:var(--t-small);line-height:1.5}
+@media (max-width:760px){
+  .xp-row{grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"title" "org" "when" "line";gap:2px}
+  .xp-when{white-space:normal}
+}

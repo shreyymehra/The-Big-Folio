@@ -1,0 +1,45 @@
+{
+  "_note": "D7 / PRD: the experience summary. Rows render in this order. The section is OMITTED ENTIRELY from index.html while this list is empty or every row is published:false, so it can never ship as a stub. Run: node tools/build-experience.js",
+  "_fields": {
+    "title": "the job title as it appeared, not a reframing of it",
+    "org": "employer",
+    "from": "YYYY-MM",
+    "to": "YYYY-MM, or the word Present",
+    "line": "one sentence, 120 characters or fewer, what the job was for",
+    "published": "false until Shrey has checked the dates"
+  },
+  "roles": [
+    {
+      "title": "{{TITLE}}",
+      "org": "iSelect and Compare the Market",
+      "from": "{{YYYY-MM}}",
+      "to": "{{YYYY-MM}}",
+      "line": "{{ONE SENTENCE, 120 characters or fewer}}",
+      "published": false
+    },
+    {
+      "title": "{{TITLE}}",
+      "org": "Tickertape",
+      "from": "{{YYYY-MM}}",
+      "to": "{{YYYY-MM}}",
+      "line": "{{ONE SENTENCE, 120 characters or fewer}}",
+      "published": false
+    },
+    {
+      "title": "{{TITLE}}",
+      "org": "Bliss and Birch",
+      "from": "{{YYYY-MM}}",
+      "to": "{{YYYY-MM}}",
+      "line": "{{ONE SENTENCE, 120 characters or fewer}}",
+      "published": false
+    },
+    {
+      "title": "{{TITLE}}",
+      "org": "TEDxVIPS",
+      "from": "{{YYYY-MM}}",
+      "to": "{{YYYY-MM}}",
+      "line": "{{ONE SENTENCE, 120 characters or fewer}}",
+      "published": false
+    }
+  ]
+}
