@@ -56,7 +56,6 @@
   --t:var(--p-paper-dim); --t-mute:#9AA2C0; --t-accent:var(--p-fluoro-lift);
   --rule:rgba(247,241,227,.18) }/* Reading inset. The near-white column that body copy sits on. */
 
-
 /* ---------- PROOF ----------
    The one fluoro plane. Fluoro carries no small type anywhere; on this ground
    the type colour is ink, measured 4.79.
@@ -64,8 +63,6 @@
 
 /* The figures count up with the scroll: see PROOF figures in home.js. They are
    never hidden; with no JS the markup already holds the final values. */
-
-
 
 :root{
   /* palette, families, --pad and --max are defined in base.css */
@@ -163,7 +160,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
   font-size:var(--t-body);font-weight:600;text-decoration:none;transition:background-color var(--d-1) ease,color var(--d-1) ease}
 .hbtn:hover,.hbtn:focus-visible{background:var(--deep);color:var(--cream)}
 
-
 /* the words: one column, centred on the screen's height */
 
 /* tablets and phones: the artefact on top, full width, then the words */
@@ -204,14 +200,12 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    height it still reads light. One nudge, the way a logo wall is normally
    optically corrected. */
 
-
 /* ---------- the cross ----------
    Two bands meet in an X, from the riyadesign reference (chosen by Shrey,
    17 Sep 2026). What he does runs one way on deep; what it moved runs the
    other way on cream, ruled so it reads where it crosses. Speed follows the
    scroll through Lenis: scrolling pushes the bands, scrolling back reverses
    them, pointing at a band slows it to a stop. The riso star is the separator. */
-
 
 /* ---------- the strip of marks (13 Oct, at his instruction) ----------
    One comic ticker on this page and it is the quote tape. These are other
@@ -327,36 +321,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
   border-top:3px solid #0D1633;border-bottom:3px solid #0D1633;margin:var(--s-6) 0 0}
 .process .pr-band{position:relative;overflow:hidden}
 .process .xtrack{display:flex;width:max-content;will-change:transform}
-.pr-set{list-style:none;margin:0;padding:0;display:flex;align-items:stretch;flex:none}
-/* An infographic, not a list of names (19 Oct, at his instruction). The band
-   used to run the five step names and nothing else, which repeated the cards
-   below it word for word and carried no information they did not. Each step
-   now shows its mark, its number, its name and the one line that says what
-   actually happens in it, so the band is the summary and the cards are the
-   detail.
-   The marks are his own hero artwork, matched to meaning rather than assigned
-   to fill a slot: the record player listens, the pencil starts blank, the bulb
-   is the research turning into something, the phone is the step that is a
-   conversation, the star is the standard it becomes. */
-.pr-step{flex:none;display:flex;align-items:center;gap:clamp(.7rem,1.3vw,1.1rem);
-  padding:clamp(.85rem,1.5vw,1.15rem) clamp(1.1rem,2.4vw,2rem);white-space:nowrap;
-  border-right:2px solid rgba(13,22,51,.28)}
-.pr-ico{flex:none;display:block;width:clamp(48px,5.2vw,74px);height:clamp(48px,5.2vw,74px)}
-.pr-ico img{display:block;width:100%;height:100%;object-fit:contain}
-.pr-txt{display:grid;gap:2px;line-height:1.12}
-.pr-txt b{font-family:var(--fu);font-weight:400;font-size:var(--xs);letter-spacing:.1em;color:#0D1633}
-.pr-txt strong{font-family:var(--fd);font-weight:900;font-size:clamp(1rem,1.5vw,1.3rem);
-  letter-spacing:var(--fd-track);color:#0D1633}
-/* No opacity on type over the orange, ever. The step numbers were at .7 here
-   and measured 3.98; this sub-line was at .72 and measured 4.16. Both were
-   estimated rather than checked. Full ink is 9.1 and the hierarchy is carried
-   by family and size, which costs nothing. */
-.pr-txt i{font-family:var(--fb);font-style:normal;font-size:var(--t-small);
-  color:#0D1633;white-space:normal;max-width:22ch}
-@media (max-width:640px){
-  .pr-txt i{display:none}
-  .pr-ico{width:38px;height:38px}
-}
 
 /* ---------- work: pinned collage ----------
    Scroll and hover mechanics translated from alaris.studio (reference chosen by
@@ -372,15 +336,14 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
    the collage pins as a deck instead of stacking. Only reduced motion stacks. */
 .work{--wk-ease:cubic-bezier(.2,.75,.2,1);background:var(--deep);color:var(--cream);position:relative;
   padding:clamp(4.5rem,12vw,6rem) var(--pad) clamp(4rem,10vw,5.5rem)}
-.wk-shell{position:relative;max-width:var(--max);margin:0 auto}
+
 .wk-eyebrow,.wk-note,.wk-label{font-family:var(--fu);text-transform:uppercase}
 .wk-eyebrow{font-size:var(--xs);letter-spacing:.08em;opacity:.82;margin:0}
 .wk-title{font-family:var(--fd);font-weight:700;font-size:var(--t-h2);line-height:.92;
   letter-spacing:var(--fd-track);max-width:9ch;margin:.8rem 0 0;color:var(--cream)}
-.wk-sub{font-size:var(--base);line-height:1.5;opacity:.82;max-width:24em;margin:1.2rem 0 0}
+
 .wk-ghost{display:none}
 
-.wk-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:2.6rem;margin-top:3rem}
 .wk-tile{display:block;color:var(--cream);text-decoration:none;transform:rotate(var(--r,0deg))}
 .wk-tile:focus-visible{outline:3px solid var(--fluoro);outline-offset:8px}
 /* 16:10 again (12 Oct): the covers were portrait A-series when they arrived
@@ -395,19 +358,6 @@ nav#nav .sig{background:none;border:0;padding:0;box-shadow:none}
   padding:5cqw 5.5cqw;transition:opacity .25s var(--wk-ease)}
 .wk-poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;
   background-image:radial-gradient(circle at 1px 1px,currentColor 1px,transparent 1.2px);background-size:5px 5px}
-
-/* inside: what the hover reveals. Scrolls once, like a recording of the page,
-   and snaps back to the top when the pointer leaves, like a video rewinding. */
-
-/* The caption is the only writing on a poster wall, so it is set to be read
-   from across the room rather than squinted at: the name at display size on
-   its own line, the state under it. It also sits on a paper plate, which is
-   what makes it read as a sticker on the print rather than a caption floating
-   on the blue. */
-.wk-label{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-top:14px;
-  font-size:var(--t-small);letter-spacing:.08em;color:rgba(var(--cream-rgb),.72)}
-.wk-label span:first-child{color:var(--cream);font-weight:600}
-.wk-label span:last-child{text-align:right}
 
 .wk-note{display:block;font-size:var(--xs);letter-spacing:.08em;line-height:1.55;color:rgba(var(--cream-rgb),.55);margin:2.4rem 0 0}
 a.wk-note{display:inline-flex;align-items:center;gap:14px;padding:6px 0;color:var(--cream);text-decoration:none}
@@ -458,12 +408,12 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   /* the pin is gone with the collage (24 Oct): the section is its content
      tall now, not 240vh of sticky stage. */
   .work{padding:clamp(4.5rem,12vw,6rem) var(--pad) clamp(4rem,10vw,5.5rem)} /* was 400vh: 41% of the page for three projects (22 Sep 2026) */
-    .wk-shell{max-width:var(--max);margin:0 auto}
+
   .wk-copy{position:absolute;z-index:15;top:clamp(86px,11vh,118px);
     --wk-left:max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)));
     left:var(--wk-left);max-width:calc(31vw - var(--wk-left) - 2rem)}
   .wk-title{font-size:var(--t-h2);max-width:none}
-  .wk-sub{font-size:var(--sm)}
+
   /* the crosshair is gone for good (13 Oct): it followed no grid line and
      carried nothing. It was set to display:none at the top of this file and
      then switched back on here, which is why it kept coming back. */
@@ -471,7 +421,7 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
     overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
   .wk-ghost-text{font-family:var(--fd);font-weight:700;letter-spacing:var(--fd-track);fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
   .wk-ghost [data-ghost-stars] path{fill:rgba(var(--cream-rgb),.12)}
-  .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
+
   .work .wk-tile,.work.wk-live .wk-tile{position:absolute;left:var(--x);top:var(--y);width:var(--w);pointer-events:auto;
     transform:translate3d(0,calc(16vh - var(--p,1) * 16vh),0) scale(calc(.9 + var(--p,1) * .1)) rotate(var(--r));
     transition:opacity .42s var(--wk-ease)}
@@ -483,32 +433,26 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   .wk-note--left{left:max(var(--pad),calc((100vw - var(--max)) / 2 + var(--pad)))}
   .wk-note--right{left:40%;max-width:320px}
 }
-@media (min-width:760px) and (max-width:1200px) and (prefers-reduced-motion:no-preference){
-  .wk-label{flex-direction:column;align-items:flex-start;gap:3px}
-  .wk-label span:last-child{text-align:left}
-}
 /* pinned, narrow: the collage becomes a deck. Same scroll maths over 300vh,
    each tile landing on the one before, offset enough that the pile reads. */
 @media (max-width:759px) and (prefers-reduced-motion:no-preference){
     .work{padding:clamp(3.5rem,10vw,4.5rem) var(--pad) clamp(3rem,8vw,4rem)} /* was 300vh */
-    .wk-shell{max-width:var(--max);margin:0 auto}
+
   .wk-copy{position:absolute;z-index:15;top:clamp(72px,10vh,96px);left:var(--pad);right:var(--pad)}
   .wk-title{font-size:var(--t-h2);max-width:12ch}
-  .wk-sub{font-size:var(--sm);margin-top:.7rem}
+
   .wk-ghost{display:block;position:absolute;z-index:0;top:30vh;left:-30vw;width:170vw;height:60vh;
     overflow:visible;pointer-events:none;transform:translate3d(0,calc((var(--wp,0) - .45) * -5vh),0)}
   .wk-ghost-text{font-family:var(--fd);font-weight:700;letter-spacing:var(--fd-track);fill:rgba(var(--cream-rgb),.12);dominant-baseline:middle}
   .wk-ghost [data-ghost-stars] path{fill:rgba(var(--cream-rgb),.12)}
-  .wk-stage{position:absolute;inset:0;z-index:6;display:block;margin:0;pointer-events:none}
+
   .work .wk-tile,.work.wk-live .wk-tile,.work.wk-live .wk-tile.is-visible{position:absolute;left:var(--dx);
     top:calc(var(--deck-top,43vh) + var(--dy));width:var(--deck-w,min(80vw,440px));pointer-events:auto;
     transform:translate3d(0,calc(16vh - var(--p,1) * 16vh),0) scale(calc(.9 + var(--p,1) * .1)) rotate(var(--r));
     transition:opacity .42s var(--wk-ease)}
   .work.wk-live .wk-tile{opacity:0}
   .work.wk-live .wk-tile.is-visible{opacity:1}
-  /* the labels stay: hiding them until hover was what made the wall read as
-     decoration rather than as three pieces of work */
-  .wk-label{opacity:1}
+
   
   .wk-tile:nth-child(1){--dx:6vw;--dy:0vh}
   .wk-tile:nth-child(2){--dx:13vw;--dy:3vh}
@@ -517,9 +461,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
   a.wk-note{right:auto}
   .wk-note--left{top:var(--link-top,auto);bottom:auto}
   .wk-note--right{bottom:4vh;letter-spacing:.08em}
-}
-@media (min-width:760px) and (prefers-reduced-motion:reduce){
-  .wk-stage{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){
   .work.wk-live .wk-tile{opacity:1;transform:rotate(var(--r,0deg));transition:none}
@@ -658,8 +599,6 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
    of whatever section you are reading. So it is not there until it is asked
    for. The Listening mark in the hero links to #vinyl, which makes it the
    target, and once it is playing it stays. Summoned, not parked. */
-@media (max-width:640px){
-}
 :focus-within{opacity:1;transform:none;pointer-events:auto}
 /* 24px minimum on the target (WCAG 2.5.8). It was 23, which the caption only
    exposed once the player started opening on hover. */
@@ -671,16 +610,11 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 /* .vinyl-host and its iframe rule are gone with the Spotify embed (13 Oct).
    Checked against the markup AND the scripts before deleting, which is the
    rule this repo learnt the hard way with .rise. */
-@media (max-width:640px){
-}
-@media (prefers-reduced-motion:reduce){
-}
 
 /* star scroll indicator */
 .scrollstar{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);width:22px;z-index:60}
 .scrollstar svg{display:block;width:100%}
 @media(max-width:900px){.scrollstar{display:none}}
-
 
 /* ---------- star marks ---------- */
 .smark{grid-column:1;grid-row:1;justify-self:start;align-self:center;width:24px;height:24px;object-fit:contain}
@@ -907,8 +841,6 @@ a.wrow:hover .go::after{padding-left:.25em}
     grid-auto-flow:column;justify-content:start;gap:1.2rem;align-items:baseline}
 }
 
-/* contact page */
-.cblock{display:grid;grid-template-columns:minmax(0,1.618fr) minmax(0,1fr);gap:3rem;align-items:start;padding:0 0 var(--sec)}
 @media(max-width:900px){.cblock{grid-template-columns:1fr;gap:2rem}}
 .creach{display:grid;gap:0;border-top:2px solid var(--deep)}
 .creach a{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;
@@ -918,7 +850,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .creach .v{font-family:var(--fd);font-weight:700;font-size:var(--t-h3);line-height:1;letter-spacing:var(--fd-track)}
 
 /* project / idea cross-navigation on a light page */
-
 
 /* ============================================================
    WORK PLATES — the visual slot for each project.
@@ -1003,7 +934,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   .js-wipe .plate .pw{transform:none;transition:none}
 }
 
-
 /* ---------- dark mode, for the cream / deep / fluoro system ----------
    Driven by <html data-theme> (set by assets/theme.js when the visitor picks)
    and otherwise by prefers-color-scheme, the same contract the Proof section
@@ -1028,17 +958,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   .reach{font-size:var(--t-h3);overflow-wrap:anywhere}
 }
 
-
-/* ---------- scale pass: fixes found by looking, 18 Sep ---------- */
-/* the record: the song leads, the artist line follows, sentence case at 14 */
-/* work tiles: names in sentence case so 14px labels fit the tile, not the page */
-.wk-label{text-transform:none;letter-spacing:.02em;
-  background:var(--cream);color:var(--deep);padding:.5rem .8rem .55rem;
-  border:2px solid var(--deep);transform:rotate(-1deg);align-self:flex-start;max-width:100%}
-.wk-label span:first-child{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
-  line-height:1.05;letter-spacing:var(--fd-track);color:var(--deep)}
-.wk-label span:last-child{font-family:var(--fu);font-size:var(--t-small);
-  letter-spacing:.04em;color:var(--accent-type);text-align:left}
 .wk-tile:is(:hover,:focus-visible) .wk-label{background:var(--yellow)}
 .wk-tile:is(:hover,:focus-visible) .wk-label span:first-child{color:#0D1633}
 .wk-note{letter-spacing:.04em}
@@ -1068,13 +987,10 @@ a.wrow:hover .go::after{padding-left:.25em}
 .wk-poster{transition:opacity .25s var(--wk-ease),transform var(--d-2) var(--e-out)}
 .wk-tile:is(:hover,:focus-visible) .wk-poster{transform:translateY(-2.9rem)}
 .wk-tile:is(:hover,:focus-visible) .wk-open span{transform:translateX(4px)}
-.wk-label span{transition:color var(--d-1) ease}
+
 .wk-tile:is(:hover,:focus-visible) .wk-label span:first-child{color:var(--accent-type)}
 
 @media (prefers-reduced-motion:reduce){.wk-open,.wk-open span,.wk-poster{transition:none}}
-/* labels: name and status each stay on one line; status drops below if short of room */
-.wk-label{flex-wrap:wrap;row-gap:2px}
-.wk-label span{white-space:nowrap}
 
 /* ---------- about: direction and beliefs ----------
    Direction is what he wants next, stated plainly for a recruiter routing
@@ -1086,7 +1002,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 .stance-body p{margin:0;font-size:var(--t-body);line-height:var(--lh-body)}
 .stance-body .stance-lede{font-family:var(--fd);font-weight:500;font-size:var(--t-h3);line-height:1.25;letter-spacing:var(--fd-track)}
 
-
 /* ============================================================
    IDEAS: the magazine (built 18 Sep 2026)
    The hero is the base kit: cream ground, deep ink, the cut-out SHREY
@@ -1097,43 +1012,16 @@ a.wrow:hover .go::after{padding-left:.25em}
    Phones: a swipe track, one page at a time. No JS: pages stack.
    ============================================================ */
 .mag{position:relative;margin:var(--s-6) auto 0}
-.mag-book{position:relative;display:grid;gap:var(--s-6)}
 
 /* ---------- a page ---------- */
 .mag-page{position:relative;container-type:inline-size;overflow:hidden;background:var(--cream);color:var(--deep);
   aspect-ratio:3/4;padding:var(--s-7) var(--s-7) var(--s-8);display:flex;flex-direction:column;border:1px solid var(--deep)}
-.pg-kick{font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0 0 var(--s-3)}
-.pg-title{font-family:var(--fd);font-weight:700;font-size:clamp(1.75rem,8.4cqw,var(--t-h2));line-height:1.02;
-  letter-spacing:var(--fd-track);margin:0 0 var(--s-5);max-width:14ch}
-.pg-body{font-size:var(--t-body);line-height:var(--lh-body);max-width:24em;margin:0 0 var(--s-5)}
-.pg-folio{position:absolute;bottom:var(--s-5);right:var(--s-7);font-size:var(--t-small);opacity:.82}
-.pg-link{margin-top:auto;align-self:flex-start;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;
-  color:inherit;text-decoration:none;border-bottom:2px solid currentColor;padding:var(--s-2) 0 2px}
-.pg-link span{display:inline-block;transition:transform var(--d-2) var(--e-spring)}
-.pg-link:hover span,.pg-link:focus-visible span{transform:translateX(4px)}
 
-/* 1. cover: masthead over the photograph, the hero's overlap move */
-/* The cover is Shrey's own artwork now (delivered 1 Oct), so the page is a
-   frame for it and nothing is composed on top. It fills the leaf and is
-   cropped from the top if the leaf is squarer than the art. */
-.cv-art{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
-.pg-cover{padding:0;background:var(--cream)}
-/* the orange duotone predates the retro palette: set it back to one ink and
-   print it red, the way a two-colour newsstand cover would */
-.pg-cover{isolation:isolate}
-/* The red multiply wash over the cover is gone (13 Oct). It was left from
-   the composed cover his artwork replaced, and it was repainting the blue
-   half of his own cover red. Never screen delivered artwork. */
-
-/* 2. contents: the inversion */
-.pg-contents{background:var(--deep);color:var(--cream);border-color:var(--deep)}
 .toc{list-style:none;margin:0;padding:0;border-top:1px solid rgba(var(--cream-rgb),.4)}
 .toc a{display:grid;grid-template-columns:2.6rem minmax(0,1fr);grid-template-areas:"n t" ". k";column-gap:var(--s-3);
   padding:var(--s-3) 0;border-bottom:1px solid rgba(var(--cream-rgb),.4);color:inherit;text-decoration:none;
   transition:padding var(--d-2) var(--e-out),background var(--d-1) ease}
-.toc-n{grid-area:n;font-size:var(--t-small);opacity:.82;padding-top:.3em}
-.toc-t{grid-area:t;font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.6cqw,1.375rem);line-height:1.15;letter-spacing:var(--fd-track)}
-.toc-k{grid-area:k;font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;opacity:.82}
+
 .toc a:hover,.toc a:focus-visible{padding-left:var(--s-3);background:rgba(var(--cream-rgb),.08)}
 
 /* 3. manifesto */
@@ -1144,39 +1032,14 @@ a.wrow:hover .go::after{padding-left:.25em}
 .briefs a,.briefs .bf-soon{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s-3);flex-wrap:wrap;
   padding:var(--s-2) 0;color:inherit;text-decoration:none}
 .briefs .bf-soon{padding:var(--s-2) 0}
-.bf-t{font-family:var(--fd);font-weight:700;font-size:clamp(.95rem,4cqw,1.25rem);line-height:1.15;letter-spacing:var(--fd-track)}
-.bf-m{font-size:var(--t-small);opacity:.82;white-space:nowrap}
+
 .briefs a{transition:color var(--d-1) ease,padding var(--d-2) var(--e-out)}
 .briefs a:hover,.briefs a:focus-visible{color:var(--accent-type);padding-left:var(--s-2)}
 .briefs .bf-soon .bf-t{opacity:.82}
 
-/* 5. process: the accent plane, ink type (4.8:1; cream would be 3.0:1) */
-.pg-process{background:var(--fluoro);color:#0D1633;border-color:#0D1633}
-.pg-process .pg-kick,.pg-process .pg-folio{opacity:1}
-
-/* 7. letters: deep, the locked CTA at display size */
-.pg-letters{background:var(--deep);color:var(--cream);border-color:var(--deep)}
-.lt-cta{font-family:var(--fd);font-weight:700;font-size:clamp(1.8rem,10cqw,3.4rem);line-height:.98;letter-spacing:var(--fd-track);margin:0 0 var(--s-6)}
-.lt-mail{font-family:var(--fd);font-weight:700;font-size:clamp(1rem,4.8cqw,1.5rem);color:inherit;
-  text-decoration:none;border-bottom:3px solid var(--fluoro);align-self:flex-start;overflow-wrap:anywhere;letter-spacing:var(--fd-track)}
-.pg-letters .pg-link{margin-top:auto}
-
-/* 8. back cover */
-.pg-back{background:var(--deep);color:var(--cream);align-items:center;justify-content:center;gap:var(--s-5);border-color:var(--deep)}
-.bk-star{width:34cqw;height:auto;transform:rotate(-8deg)}
 .bk-sign{margin:0}.bk-sign img{width:44cqw;height:auto;display:block}
-.bk-meta{font-size:var(--t-small);letter-spacing:.08em;text-transform:uppercase;opacity:.82;margin:0}
 
-/* ---------- controls ---------- */
-.mag-bar{display:none;justify-content:space-between;align-items:center;gap:var(--s-4);margin:var(--s-5) auto 0}
 .mag.is-bound .mag-bar,.mag.is-track .mag-bar{display:flex}
-.mag-btn{white-space:nowrap;font-family:var(--fu);font-size:var(--t-small);letter-spacing:.04em;color:var(--deep);background:none;
-  border:1px solid var(--deep);padding:var(--s-3) var(--s-4);min-height:44px;cursor:pointer;
-  transition:background var(--d-1) ease,color var(--d-1) ease,opacity var(--d-1) ease}
-.mag-btn:hover:not(:disabled),.mag-btn:focus-visible{background:var(--deep);color:var(--cream)}
-.mag-btn:disabled{color:color-mix(in srgb,var(--deep) 88%,var(--cream));border-style:dashed;
-  border-color:color-mix(in srgb,var(--deep) 45%,var(--cream));cursor:default}
-.mag-count{margin:0;font-size:var(--t-small);letter-spacing:.06em;text-transform:uppercase;opacity:.82;text-align:center}
 
 /* ---------- bound: leaves on a spine ---------- */
 .mag.is-bound{width:min(100%,1120px,calc((100svh - 230px) * 1.5));perspective:2600px}
@@ -1201,8 +1064,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   .mag-leaf,.mag.is-bound .mag-book,.toc a,.briefs a,.pg-link span{transition:none}
 }
 
-
-
 @media (max-width:899px){.mag-page{padding:var(--s-6) var(--s-5) var(--s-8)}.pg-folio{right:var(--s-5)}}
 
 /* ============================================================
@@ -1214,14 +1075,14 @@ a.wrow:hover .go::after{padding-left:.25em}
    ============================================================ */
 .desk{padding:var(--sec) 0 0}
 .desk-surface{position:relative;max-width:1400px;margin:var(--s-5) auto 0;padding:var(--s-7) var(--pad) var(--sec)}
-.desk-props{position:absolute;inset:0;pointer-events:none;z-index:1}
+
 .prop{position:absolute;display:block;height:auto;
   transform:translate3d(0,var(--py,0px),0) rotate(var(--rot,0deg));will-change:transform}
 .sticker:empty{display:none}
 .sticker{width:clamp(40px,4vw,56px)}
 .sticker img{display:block;width:100%;height:auto}
 .s1{left:14%;top:44%;--rot:-12deg}.s2{right:15%;top:38%;--rot:9deg}.s3{left:22%;bottom:4%;--rot:6deg}
-.desk-mag{position:relative;z-index:2}
+
 .desk-mag .mag{margin-top:0}
 @media (min-width:900px){.desk-mag .mag.is-bound{width:min(78%,1000px,calc((100svh - 230px) * 1.5))}}
 /* before the issue arrives, and if it never does: the cover as a link */
@@ -1230,11 +1091,6 @@ a.wrow:hover .go::after{padding-left:.25em}
   .sticker{display:none}
 }
 @media (prefers-reduced-motion:reduce){.prop{transform:rotate(var(--rot,0deg))}}
-.mag-count{white-space:nowrap}
-
-
-
-
 
 /* ---------- the magazine, as a magazine (21 Sep 2026) ----------
    Newsstand furniture, all of it doing a job a real cover does: the volume
@@ -1296,7 +1152,6 @@ a.wrow:hover .go::after{padding-left:.25em}
    seam between the hero and the rest of the page. Its edges are drawn, not
    ruled: a wobbly ink line top and bottom. Quotes are set in the display face
    in ink (11.0 on yellow), separated by hand-drawn stars. */
-
 
 /* ---------- readability pass (21 Sep 2026) ----------
    Muted text is now opacity .82 everywhere, the lowest that holds 4.5:1 on
@@ -1367,7 +1222,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* the marks: paper, ink, one colour each. Fixed colours, so they stay paper in dark mode */
 /* the label: a cut-out word that snaps in on intent */
 
-
 /* the camera date stamp, printed on the picture */
 
  /* no drift, no hover on touch: the island menu is the navigation */
@@ -1385,8 +1239,6 @@ a.wrow:hover .go::after{padding-left:.25em}
 /* below 1180px the strips beside the print are too narrow to hold the marks
    clear of it; the island nav carries navigation there, as on phones */
 
-
-
 /* ============================================================
    REFERENCE BOOK BUILD (23 Sep 2026). Rows marked Take, built here.
    ============================================================ */
@@ -1403,9 +1255,6 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
    any more, so the two systems cannot fight over its transform. */
 @media (prefers-reduced-motion:reduce){.plate,.wk-tile .wk-frame{transition:none}a.wrow:is(:hover,:focus-visible) .plate,.wk-tile:is(:hover,:focus-visible) .wk-frame{transform:none}}
 
-/* 05 Ideas: the magazine sits on its clipboard */
-.desk-mag{position:relative}
-.ph-clip{position:absolute;z-index:0;left:50%;top:50%;width:min(94%,760px);height:calc(100% + 96px);transform:translate(-50%,-50%) rotate(-2deg);pointer-events:none}
 .desk-mag > .mag{position:relative;z-index:1}
 
 /* ============================================================
@@ -1421,12 +1270,6 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .reach{position:relative;z-index:1;padding:.05em .16em .2rem}
 .reach{transition:border-color 220ms var(--ease),background 220ms var(--ease),color 220ms var(--ease)}
 
-/* the scribble: drawn, not decorative. It underlines the one thing on the
-   page a visitor is meant to do. */
-.scribble{position:absolute;left:-.1em;right:-.1em;bottom:-.95rem;width:auto;height:clamp(14px,1.6vw,22px);
-  overflow:visible;pointer-events:none;z-index:2}
-.scribble path{fill:none;stroke:var(--fluoro);stroke-width:3.5;stroke-linecap:round;
-  stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 620ms var(--e-out)}
 .scribble .s2{stroke-width:2.5;opacity:.75;transition-delay:90ms}
 
 /* the dark graphic, row 02. It comes up beside the address, not over it. */
@@ -1554,8 +1397,6 @@ a.wrow:is(:hover,:focus-visible) .plate{transform:translateY(-6px) rotate(-1.6de
 .creach .reach-row:is(:hover,:focus-visible) .scribble path{stroke-dashoffset:0}
 @media (prefers-reduced-motion:reduce){.scribble path{transition:none;stroke-dashoffset:0}}
 
-
-
 /* 06 Me: the floating head, and the globe at the end of the story */
 .phead{position:relative}
 .me-head{position:absolute;right:max(var(--pad),4vw);top:var(--s-6);width:clamp(140px,18vw,240px);aspect-ratio:1;
@@ -1654,8 +1495,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .stage-copy .hero-cta{margin-top:var(--s-4);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-5)}
 @media (max-width:560px){.stage-copy .hero-cta{gap:var(--s-3)}}
 
-
-
 .fl a{display:grid;justify-items:center;gap:var(--s-2);text-decoration:none;color:var(--deep);cursor:pointer}
 .fl-icon{display:block;width:var(--fl-w);height:var(--fl-w);transition:transform 220ms var(--e-spring)}
 .fl-icon img{display:block;width:100%;height:100%;object-fit:contain}
@@ -1668,11 +1507,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 .fl a:hover .fl-icon,.fl a:focus-visible .fl-icon{transform:rotate(-2deg) scale(1.06)}
 .fl a:focus-visible{outline:none}
 .fl a:focus-visible .fl-icon{outline:3px solid var(--fluoro);outline-offset:3px}
-
-
-
-
-
 
 /* ============================================================
    FINALISED HERO (6 Oct 2026). Appended last so it wins by order.
@@ -1852,7 +1686,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .idcard .hero-pola{width:min(220px,62%)}
 }
 
-
 /* ---------- the card is printed, so it ignores the theme ----------
    The fourth time this trap has been walked into, and it is always the same
    one: a surface that is conceptually a PRINTED OBJECT cannot be built from
@@ -1908,21 +1741,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .hstrip{margin:var(--s-8) 0;padding:var(--s-5) 0}
   .hs-say{max-width:18ch}
 }
-
-/* ---------- the choppiness pass (13 Oct 2026) ----------
-   Three things he reported as "overlaps and unnecessary gaps", all of them
-   found by screenshotting the scroll rather than by reading the file. */
-
-/* The notes that stood here described the quote tape and the logo strip
-   clearances. Both sections came off home at his instruction, so the fixes
-   and their reasoning went with them. The seam they were protecting is now
-   the hero meeting the numbers block directly. */
-
-/* 3. The dashed slot behind the zine read as a broken frame rather than as a
-      waiting image: it is a large empty dashed rectangle with nothing in it,
-      which is the one placeholder treatment this site had already decided
-      against everywhere else. It comes back when the clipboard art lands. */
-.ph-clip{display:none}
 
 /* ---------- the card carries the name properly (13 Oct 2026) ----------
    The first build of the card shrank the cut-out name to a 150px thumbnail in
@@ -2075,19 +1893,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
    it needs air on both sides rather than the flush bleed it has on home */
 .dump .process{margin:var(--s-6) 0 var(--s-7)}
 
-/* ---------- the manifesto spread carries one line, big ----------
-   The five beliefs are the star-head strip on /about/ now, so printing all
-   five here as a numbered list was the same copy twice. A zine that prints
-   its loudest line at full size is behaving like a zine; a zine that prints
-   a bulleted list is behaving like a slide. The other four are one click away
-   and the page says so. */
-.mani-one{margin:0;border:0;padding:0}
-.mani-one p{margin:0;font-family:var(--fd);font-weight:900;
-  font-size:clamp(1.75rem,3.2vw,3.1rem);line-height:1.02;
-  letter-spacing:var(--fd-track);color:var(--deep);text-wrap:balance}
-.mani-more{margin:var(--s-5) 0 0;font-family:var(--fu);font-size:var(--t-small)}
-.mani-more a{display:inline-flex;align-items:center;min-height:24px;padding:2px 0}
-.mani-more a{color:var(--accent-type);text-decoration:none;border-bottom:1.5px solid currentColor}
 .mani-more a:is(:hover,:focus-visible){background:var(--yellow);color:#0D1633;border-color:#0D1633}
 
 /* ---------- the star, with him in the middle of it (13 Oct 2026) ----------
@@ -2140,9 +1945,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   .wk-tile::after{content:attr(data-n);position:absolute;left:.2rem;top:-1.9rem;
     font-family:var(--fu);font-size:var(--t-small);letter-spacing:.1em;
     color:rgba(var(--cream-rgb),.62)}
-  .wk-label{font-size:var(--t-small)}
-  .wk-label span:first-child{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
-    letter-spacing:var(--fd-track)}
+
 }
 
 /* The easter-egg head is GONE (20 Oct, at his instruction). A floating head
@@ -2195,62 +1998,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 :root[data-theme="dark"] .ideas::after{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M0 0h240v4c-14 3-26-2-40 0s-24 4-38 1-30-3-44 0-22 3-36 1-26-4-42-1-26 2-40-1z' fill='%230D1633'/%3E%3C/svg%3E")}
 
-/* ---------- why the marks are NOT beside the figures (20 Oct 2026) ----------
-   Tried and reverted, recorded so it is not tried again. The idea was to let
-   each client mark cite the number it produced, turning an assertion into
-   evidence with a source attached. It was built, looked at, and it was wrong
-   for two reasons:
-
-   1. The figure ALREADY names its source in words. A small mark beside the
-      word "Tickertape" says Tickertape a second time. Nobody trusts +310%
-      more because a logo sits next to it; the line had already said so.
-   2. Half of the eight are plate lockups rather than wordmarks. iSelect is
-      white knocked out of a red rounded rectangle. Tinted to one ink it is a
-      grey box, and at the 16px a citation allows it is mud either way.
-
-   The marks are information where the question "who has he worked with" is
-   actually being asked, which is /about/, not next to a number that has
-   already answered it. That is where they live now. */
-
-/* ---------- Worked with, on /about/ (20 Oct 2026) ----------
-   The eight marks finally earn a place. They came off the top of home at his
-   instruction and he was right: a row of other people's logos before a
-   visitor has seen anything he made is an interruption. On the page that is
-   about his background it is the opposite, it is the fastest answer on the
-   site to a question a recruiter is actually asking.
-
-   STATIC, not a loop. They ran as a marquee on home until 13 Oct and the
-   motion was part of the problem: eight names moving become a texture you
-   scan past. Eight names held still are read in one glance.
-
-   Each mark keeps its own colour. Four of the eight are plate lockups rather
-   than wordmarks (iSelect is white knocked out of red), and tinting those to
-   one ink turns them into grey boxes. That was learnt by doing it. */
-.worked-at{margin:0 0 var(--s-7)}
-.worked-at h3{margin:0 0 .2rem}
-.wa-marks{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4) var(--s-5);
-  margin:var(--s-4) 0 0;padding:0;list-style:none}
-.wa-marks li{display:flex;align-items:center}
-/* sized by HEIGHT, never by a shared box: a square device in the same box as
-   a wide wordmark reads half the size. This was settled on 6 Oct and the
-   reasoning is worth keeping. */
-.wa-marks img{display:block;width:auto;max-width:none;height:clamp(20px,2.4vw,30px)}
-/* two exceptions, both devices drawn small inside their own lockup rather
-   than wordmarks, so a shared cap height leaves them looking like holes */
-.wa-marks li:nth-child(6) img,
-.wa-marks li:nth-child(7) img{height:clamp(30px,3.6vw,44px)}
 @media (max-width:640px){.wa-marks{gap:var(--s-3) var(--s-4)}}
-
-/* ---------- the alphabet page (20 Oct 2026) ----------
-   The sheet every cut-out letter in the hero was lifted from. It is the one
-   artefact on the site that shows a system behind a device rather than the
-   device on its own, which is why it is a page rather than a background.
-   Contained, never cropped: the value is seeing all 26 with their three
-   variants, so it fits the page rather than filling it. */
-.pg-alpha{display:flex;flex-direction:column}
-.pg-alpha-art{display:block;flex:1 1 auto;min-height:0;width:100%;height:100%;
-  object-fit:contain;object-position:center top;margin:var(--s-4) 0 0;
-  border:2px solid var(--deep);background:#fff}
 
 /* ---------- the figures group by capability (20 Oct 2026, his call) ----------
    Seven figures in a flat list read as seven things that happened. Fourteen
@@ -2291,8 +2039,6 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
 :focus-visible) span{
   background:linear-gradient(to right,#0D1633 0 34%,transparent 34% 66%,#0D1633 66% 100%)}
 
-
-
 /* ---------- /work reads, instead of competing with itself (20 Oct) ----------
    His note: the work pages read cluttered and the background impairs
    reading. Both were true and they were separate problems.
@@ -2311,7 +2057,6 @@ body:has(.wrow)::before{display:none}
 /* the rows get air: 11 of them at the old rhythm is a wall */
 .wrow{padding-block:clamp(1.1rem,2vw,1.6rem)}
 .wrow .tags{gap:.45rem}
-
 
 /* ---------- TWO OBJECTS, not one box (20 Oct, his third correction) ----------
    "MP4 is a disc player on site and the spotify playlist is a music list on
@@ -2716,7 +2461,6 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
   a.wrow:is(:hover,:focus-visible) .plate{transform:none;box-shadow:6px 6px 0 #0D1633}
 }
 
-
 /* ---------- stamp chips (27 Oct, pass 1, design brief D) ----------
    Status is the honest layer of this site, so it stops looking like a UI
    label and starts looking like something pressed onto the artefact.
@@ -2787,8 +2531,6 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
       the colour is overridden rather than a second link component built. */
 .faqhome .wk-note{color:var(--deep)}
 .faqhome a.wk-note:focus-visible{outline:3px solid var(--fluoro);outline-offset:6px}
-
-
 
 /* ---------- Contact v2 (27 Oct) ----------
    One job per block, three type sizes, no horizontal rules: the old page
