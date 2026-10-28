@@ -3485,3 +3485,81 @@ html body .idcard .claim{font-size:var(--t-h2)}
    it is align-CONTENT that stops the tracks themselves stretching.
    Only visible in a screenshot: every box measured correctly. */
 .faqhome .tile-q,.faq .bento .tile-q{align-content:start}
+
+/* ============================================================
+   H9: /contact/ IS A HEADLINE AND TWO ACTIONS  (28 Oct, his note)
+   headline > one line of guidance > Email me + Copy address >
+   looking-for rows > LinkedIn > Resume (PDF).
+
+   Everything else that was on this page is gone because its value
+   was empty, which is his own rule: thirteen slots reading "To be
+   confirmed" and "Being written" across a reply time, a what
+   happens next, four looking-for rows, a receipts block and four
+   FAQ answers. Four of those sat in one list, which is exactly the
+   repetition HARD RULE 3 exists to stop.
+   ============================================================ */
+.cguide{font-family:var(--fb);font-size:var(--t-body);line-height:1.5;
+  color:var(--deep);max-width:50ch;margin:var(--s-6) 0 var(--s-7)}
+
+.cacts{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-4);
+  margin:0 0 var(--s-4)}
+.cbtn{display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:0 var(--s-5);
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;
+  text-decoration:none;cursor:pointer;
+  background:none;color:var(--deep);
+  border:var(--line) solid var(--deep);border-radius:999px}
+.cbtn--go{background:var(--deep);color:var(--cream)}
+.cbtn:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
+.cbtn--go:is(:hover,:focus-visible){background:none;color:var(--deep)}
+.cbtn:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+
+/* INLINE, NOT A DIALOG. A modal to confirm a clipboard write is a
+   modal to dismiss. The region is in the DOM from the start with
+   role=status, because a live region created at the moment of the
+   message is announced by nobody. */
+.ccopied{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent-type);min-height:1em}
+
+.cplain{font-family:var(--fb);font-size:var(--t-small);line-height:1.5;
+  color:color-mix(in srgb,var(--deep) 84%,transparent);margin:0 0 var(--s-8)}
+.cplain a{color:var(--deep)}
+
+.ch2{font-family:var(--fd);font-weight:900;font-size:var(--t-h2);
+  line-height:1.1;letter-spacing:var(--fd-track);color:var(--deep);
+  margin:0 0 var(--s-5)}
+.cblock{margin:0 0 var(--s-8)}
+
+.croutes{list-style:none;margin:0;padding:0;
+  border-top:var(--line) solid rgba(var(--deep-rgb),.28)}
+.croutes a{display:grid;grid-template-columns:minmax(0,14ch) minmax(0,1fr);
+  gap:var(--s-4);align-items:baseline;min-height:44px;padding:var(--s-4) 0;
+  border-bottom:var(--line) solid rgba(var(--deep-rgb),.28);
+  text-decoration:none;color:var(--deep)}
+.croutes .k{font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent-type)}
+.croutes .v{font-family:var(--fb);font-size:var(--t-small)}
+.croutes a:is(:hover,:focus-visible) .v{text-decoration:underline;
+  text-underline-offset:3px}
+@media (max-width:640px){
+  .croutes a{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
+}
+
+/* ---- H6, the last two failures, both on the sign-off ----------
+   h2.so-cta measured 46px (not in the scale) and started at x=205
+   while every other heading started at 128. The 205 is the pill's
+   own left padding: it is a plane, and text inside a plane keeps
+   the plane's margin.
+
+   His test says all h2 share one left x, so the PILL moves rather
+   than the text inside it. It bleeds left by exactly its own left
+   padding, which puts the heading on the container edge and leaves
+   the pill's right side where it was. At 1280 the page gutter is
+   80px a side, so the bleed sits in the gutter rather than off the
+   screen; below 1100 the pill squares off and the bleed goes with
+   it, because there the gutter is the content's only breathing
+   room. */
+html body .so-cta{font-size:var(--t-h1);font-weight:900}
+@media (min-width:1101px){
+  .contact .sign-off{margin-left:calc(-1 * clamp(2.4rem,6vw,6rem))}
+}
