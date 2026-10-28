@@ -3191,3 +3191,48 @@ html body .print figcaption b{font-size:.75rem}
 /* the ground change is now carried by the block's own edge, not a tear */
 .work{border-top:var(--line) solid rgba(var(--cream-rgb),.34);
   border-bottom:var(--line) solid rgba(var(--cream-rgb),.34)}
+
+/* ---------- T7: the homepage FAQ is a list, not cards (28 Oct) ----------
+   Yesterday it became three equal cards, which fixed a ragged grid but
+   kept the boxes. His note is a two-column list: question left, answer
+   right, no boxes. That reads as a transcript of the screening call,
+   which is what the section is, rather than three things to choose from.
+
+   The tiles stay <button>s with their disclosure wiring, because the nine
+   on /about/ use the same component and must keep working. Here they are
+   open and the chrome comes off: no plane, no border, no marker. */
+.faqhome .bento{display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+  border-top:var(--line) solid rgba(var(--deep-rgb),.28)}
+.faqhome .tile-q,.faqhome .tile-q:nth-child(n){
+  grid-column:span 1;display:grid;align-items:start;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  gap:var(--s-3) var(--s-6);
+  background:none;border:0;border-bottom:var(--line) solid rgba(var(--deep-rgb),.28);
+  padding:var(--s-5) 0;text-align:left;cursor:default}
+.faqhome .tile-q[aria-expanded="true"]{background:none;color:inherit}
+.faqhome .qn{grid-column:1;font-family:var(--fu);font-size:var(--xs);
+  letter-spacing:.08em;color:var(--accent-type)}
+.faqhome .qt{grid-column:1;grid-row:2;font-family:var(--fd);font-weight:900;
+  font-size:var(--t-h3);line-height:1.12;letter-spacing:var(--fd-track);
+  color:var(--deep);display:block}
+.faqhome .ans{grid-column:2;grid-row:1 / span 2;max-height:none;overflow:visible;
+  margin:0;font-size:var(--t-small);line-height:var(--lh-body);color:var(--deep)}
+/* the plus marker is a disclosure affordance and nothing here discloses */
+.faqhome .qt .pm{display:none}
+@media (max-width:760px){
+  .faqhome .tile-q,.faqhome .tile-q:nth-child(n){grid-template-columns:minmax(0,1fr)}
+  .faqhome .qt{grid-row:2}
+  .faqhome .ans{grid-column:1;grid-row:3}
+}
+/* the answer spans both rows, which stretched them and dropped the
+   question to the bottom of its cell. The rows size to their content and
+   the question sits under its number. */
+.faqhome .tile-q,.faqhome .tile-q:nth-child(n){
+  grid-template-rows:max-content max-content;align-content:start}
+.faqhome .qn,.faqhome .qt{align-self:start}
+/* The answer spans both rows, so its extra height was shared between
+   them and pushed the question down whenever the answer was long: Q.02
+   sat 41px lower than Q.01. Row one is the number's own line exactly, so
+   all the slack lands in row two, where align-self:start pins the
+   question to the top of it. */
+.faqhome .tile-q,.faqhome .tile-q:nth-child(n){grid-template-rows:1.4em auto}
