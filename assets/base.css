@@ -36,7 +36,7 @@
   --fd-track:-.015em; /* Asimov Print B is already tight; Geist needed more */
   --fb:'Inter','Geist',system-ui,sans-serif;
   --fu:'Geist Light','Geist',system-ui,sans-serif;
-  --pad:clamp(1.2rem,4vw,3rem); --max:1240px;
+  --pad:clamp(24px,4vw,48px); --max:1120px;
 
   /* PAPER. A hand-drawn grid, not a ruled one (Shrey, 2 Oct 2026, with a
      reference image): 90px cells, lines that wobble between the crossings and

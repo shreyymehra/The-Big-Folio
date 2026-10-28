@@ -3090,3 +3090,22 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
    so the clock ran under it. The row keeps clear of that corner. */
 .foot-wrap .foot{padding-right:clamp(0px,7vw,110px)}
 @media (max-width:640px){.foot-wrap .foot{padding-right:0;padding-bottom:72px}}
+
+/* ---------- T2: one left edge (28 Oct) ----------
+   Measured at 1280 before: section headings landed on 67, 96, 68, 68 and
+   145 — five edges for one grid. The container is 1120 wide with 24/48
+   padding now, which puts its content edge at 128.
+
+   Two headings still missed it and both for a structural reason, not a
+   spacing one:
+   - the metrics pill's own heading sat 1px in, from the summary's padding;
+   - the sign-off heading is inside the blue pill, which is a plane with
+     its own inset. A plane's content cannot sit on the page's edge
+     without the plane starting there too, and the pill is deliberately
+     centred. So it is excluded by name rather than forced.
+
+   The work-row titles at 467 are NOT misaligned: they are the second
+   column of a row grid, which this repo already records as a thing the
+   alignment harness reports and a human has to dismiss. */
+.moved .mv-pill{padding-left:0}
+.moved .mv-pill-k{margin-left:0}
