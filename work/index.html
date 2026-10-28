@@ -1,10 +1,10 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><script src="../assets/theme.js"></script><link rel="stylesheet" href="../assets/base.css"><script src="../assets/feel.js" defer></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Work · Shrey Mehra</title>
-<meta name="description" content="The complete index. Five briefs I set myself, one that shipped, one in build.">
+<meta name="description" content="The complete index. Three briefs I set myself, one that shipped, one in build.">
 <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Work · Shrey Mehra">
-<meta property="og:description" content="The complete index. Five briefs I set myself, one that shipped, one in build.">
+<meta property="og:description" content="The complete index. Three briefs I set myself, one that shipped, one in build.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://shreyymehra.github.io/The-Big-Folio/work/">
 <meta property="og:image" content="https://shreyymehra.github.io/The-Big-Folio/assets/img/og-card.jpg">
@@ -124,7 +124,7 @@
   </div>
   <p class="fempty" id="fempty" hidden>Nothing under that filter.</p>
 
-  <p class="slot" data-slot="G10">Duolingo and L&rsquo;Or&eacute;al are being written. They stay unlinked until they are.</p>
+  <p class="slot" hidden data-slot="G10">Duolingo and L&rsquo;Or&eacute;al are being written. They stay unlinked until they are.</p>
 
   <div class="pfoot">
     <a href="../about/">Me <span class="arw">&rarr;</span></a>
@@ -141,16 +141,32 @@
 <script src="../assets/scroll.js"></script>
 <script>
 (function(){
-  var rows = [].slice.call(document.querySelectorAll('#windex .wrow'));
+  /* .soon rows are the unbuilt projects. They are hidden in the markup and
+     this filter must never own them: before this, pressing All set
+     hidden=false on every row and brought them back. */
+  var rows = [].slice.call(document.querySelectorAll('#windex .wrow:not(.soon)'));
   var empty = document.getElementById('fempty');
-  document.querySelectorAll('.fbtn').forEach(function(b){
+  var btns = [].slice.call(document.querySelectorAll('.fbtn'));
+
+  function matches(r, f){
+    return f === 'all' || (' ' + r.dataset.d + ' ').indexOf(' ' + f + ' ') > -1;
+  }
+
+  /* the counts are computed from what is actually here, so they cannot
+     drift from the rows again */
+  btns.forEach(function(b){
+    var c = b.querySelector('.c');
+    if (c) c.textContent = rows.filter(function(r){ return matches(r, b.dataset.f); }).length;
+  });
+
+  btns.forEach(function(b){
     b.addEventListener('click', function(){
       var f = b.dataset.f, shown = 0;
-      document.querySelectorAll('.fbtn').forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      btns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
       rows.forEach(function(r){
-        var hit = f === 'all' || (' ' + r.dataset.d + ' ').indexOf(' ' + f + ' ') > -1;
+        var hit = matches(r, f);
         r.hidden = !hit;
-        if(hit){ shown++; r.classList.add('in'); }
+        if (hit){ shown++; r.classList.add('in'); }
       });
       empty.hidden = shown > 0;
     });
