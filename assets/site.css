@@ -3170,3 +3170,24 @@ button,input,select,textarea{font:inherit}
    takes the step rather than the label treatment. */
 html body .fl-hint{font-size:.75rem}
 html body .print figcaption b{font-size:.75rem}
+
+/* ---------- T6: the stitch is the only divider (28 Oct) ----------
+   HIDDEN, NOT DELETED, and flagged so both come back in one line.
+
+   The torn edge was the transition language settled 19-20 Oct: where two
+   grounds meet the upper block tears away in its own colour. The cloud
+   band was the sky added to the sign-off on 23 Oct. Both are his and both
+   are one declaration away from returning: delete this block.
+
+   What the page keeps is the dashed running stitch, which is the device
+   with a reason behind it — the sewing machine in the 2003 photograph —
+   and which does the same job with one line instead of three.
+
+   The seams still need to say something, so the blocks that were torn
+   apart take a stitch's worth of rule instead of a ragged edge. */
+.work::before,.work::after,.ideas::after{display:none}
+.contact::after{display:none}
+
+/* the ground change is now carried by the block's own edge, not a tear */
+.work{border-top:var(--line) solid rgba(var(--cream-rgb),.34);
+  border-bottom:var(--line) solid rgba(var(--cream-rgb),.34)}
