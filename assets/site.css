@@ -2956,3 +2956,38 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 .contact,.pfoot{padding-bottom:max(var(--s-7),96px)}
 /* and a work row never runs under it: the aside column stops short */
 @media (min-width:760px){.windex .wrow{padding-right:clamp(0px,6vw,96px)}}
+
+/* ---------- the homepage FAQ is three, not nine (28 Oct) ----------
+   The bento is a 6-column grid with hand-set spans for nine tiles. The
+   homepage carries three, so those spans left two ragged rows and about
+   400px of empty cream in an 866px section: the first tile ended at
+   column 3, the second ran to column 8, and the third dropped to a new
+   row on its own.
+
+   Three tiles want three equal columns. The spans are overridden rather
+   than the grid rebuilt, so /about/ keeps its nine-tile bento exactly as
+   it is. They also stretch to a shared height, because three cards of
+   three different depths in one row is what made it look unfinished. */
+.faqhome .bento{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;
+  gap:var(--s-3)}
+.faqhome .tile-q,.faqhome .tile-q:nth-child(n){grid-column:span 1}
+.faqhome .tile-q{display:flex;flex-direction:column}
+/* the answers are open here, so the card grows to its content and the
+   three level up rather than one hanging below the others */
+.faqhome .tile-q .ans{flex:1 1 auto}
+@media (max-width:900px){
+  .faqhome .bento{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---------- Me stops opening on 324px of nothing (28 Oct) ----------
+   Measured: the section pays 128px of its own padding, then .me-turn adds
+   96px above itself and 64px below, so the heading did not start until
+   324px into the section. Two devices were spacing the same seam.
+
+   The turn is a divider, so it belongs near the torn edge it follows, not
+   floating in the middle of the gap. The section gives up most of its top
+   padding and the air moves below the turn, where it is doing something:
+   separating the divider from the heading. 324px to 166px, and nothing
+   moved except space. */
+.about{padding-top:var(--s-5)}
+.me-turn{margin:40px 0 72px}
