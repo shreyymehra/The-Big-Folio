@@ -3006,3 +3006,7 @@ a.wrow:active .plate{transition-duration:80ms;transform:translateY(0) rotate(0de
 }
 /* and an anchor jump never lands a heading under it, at any width */
 [id]{scroll-margin-top:calc(var(--nav-h,108px) + 16px)}
+
+/* the lockup is the picture of the heading, so it keeps every rule the
+   .hero-name children already had; it is only a wrapper for aria-hidden */
+.hero-lockup{display:contents}
