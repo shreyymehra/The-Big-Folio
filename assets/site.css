@@ -3124,3 +3124,37 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
 .plate .pm{transform:rotate(-1.5deg)}
 .case .stamp-thunk{animation:thunk 120ms var(--e-out) 1}
 @keyframes thunk{from{transform:rotate(-1.5deg) scale(1.15)}to{transform:rotate(-1.5deg) scale(1)}}
+
+/* ---------- T4: one line weight (28 Oct) ----------
+   Measured on home: 1px on 63 elements, 2px on 51, 3px on 11. Three
+   weights doing one job, so a card's edge and a section's rule read as
+   different kinds of line for no reason.
+
+   One weight, 1.6px, and 2.4px only where something is active or hovered,
+   so weight means state rather than decoration. Declared as tokens so the
+   next component inherits the decision instead of picking a number. */
+:root{--line:1.6px; --line-hi:2.4px}
+/* the html body prefix is the pattern this file already uses for the
+   island: component rules like .wrow .plate are two classes deep and beat
+   a bare .plate, so the first attempt changed nothing. */
+html body :is(.plate,.idcard,.vouch-card,.tile-q,.cnote,.cz-paper,.cz-chip,
+.cz-btn,.copybtn,.fl-name,.print,.xp-list,.wrow,.tags span,.mv-pill,
+.casefig,.creach a,.hbtn,.so-mail,.fl-hint,.pm,.shead,.windex,.id-head,
+.mv-grid,.wwstrip,.mv-gk,.more){border-width:var(--line)}
+.windex .wrow{border-top-width:0;border-bottom-width:var(--line)}
+.windex--home .wrow:first-child{border-top-width:var(--line)}
+.xp-list{border-top-width:var(--line)}
+.xp-row{border-bottom-width:var(--line)}
+/* the left rule on a gap, a trade-off or a pull quote is the one place a
+   heavier line carries meaning, so it takes the active weight */
+.slot,.slot-i{border-left-width:var(--line-hi)}
+/* state, and only state */
+a.wrow:is(:hover,:focus-visible) .plate,
+.tile-q[aria-expanded="true"],
+.cz-chip[aria-checked="true"],
+.cz-btn:is(:hover,:focus-visible),
+.copybtn:is(:hover,:focus-visible){border-width:var(--line-hi)}
+/* the last two 3px edges: the contact section's top rule and the pill's
+   chevron, which is a drawn mark rather than a border */
+html body section.contact{border-top-width:var(--line)}
+html body .mv-chev{border-width:var(--line-hi)}
