@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Working documents and archived builds. Not content.
+Disallow: /_archive/
+Disallow: /scratchpad/
+
+Sitemap: https://shreyymehra.github.io/The-Big-Folio/sitemap.xml
