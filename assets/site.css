@@ -727,9 +727,9 @@ a.wk-note:hover .wk-arrow,a.wk-note:focus-visible .wk-arrow{width:96px}
 .is-deck .vouch-card{position:absolute;inset:0 0 auto;height:auto;min-height:15rem;
   transform-origin:50% 100%;will-change:transform;
   transition:transform var(--d-2) var(--e-out),opacity var(--d-2) ease}
-.is-deck .vouch-card[data-at="0"]{z-index:3;transform:rotate(-1deg)}
-.is-deck .vouch-card[data-at="1"]{z-index:2;transform:translateY(10px) scale(.965) rotate(1.4deg)}
-.is-deck .vouch-card[data-at="2"]{z-index:1;transform:translateY(20px) scale(.93) rotate(-.6deg)}
+.is-deck .vouch-card[data-at="0"]{z-index:3;transform:rotate(-1.5deg)}
+.is-deck .vouch-card[data-at="1"]{z-index:2;transform:translateY(10px) scale(.965) rotate(1.5deg)}
+.is-deck .vouch-card[data-at="2"]{z-index:1;transform:translateY(20px) scale(.93) rotate(-1.5deg)}
 .is-deck .vouch-card[data-at="0"]{cursor:grab}
 .is-deck .vouch-card[data-at="0"].is-held{cursor:grabbing;transition:none}
 .is-deck .vouch-card.is-gone{opacity:0}
@@ -3109,3 +3109,18 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
    alignment harness reports and a human has to dismiss. */
 .moved .mv-pill{padding-left:0}
 .moved .mv-pill-k{margin-left:0}
+
+/* ---------- T3: two tilts, not fifteen (28 Oct) ----------
+   Measured: fifteen distinct angles on main. Most were legitimate — the
+   six floating stickers, the desk stickers, the sign star, the ground
+   star, and two 45deg icon markers which are states rather than tilt.
+
+   Two things were genuinely arbitrary and are now -1.5 and +1.5:
+   - the validation cards sat at 1.4, -0.6 and -1.0, three angles chosen
+     to look random, which reads as three mistakes rather than one device;
+   - the status stamps sat at -4, which I picked on 27 Oct by eye.
+
+   The hero card keeps its own -1.2, which his note allows. */
+.plate .pm{transform:rotate(-1.5deg)}
+.case .stamp-thunk{animation:thunk 120ms var(--e-out) 1}
+@keyframes thunk{from{transform:rotate(-1.5deg) scale(1.15)}to{transform:rotate(-1.5deg) scale(1)}}
