@@ -3070,3 +3070,23 @@ nav#nav .sig{min-height:44px;display:inline-flex;align-items:center}
 }
 /* the /work filter chips were missed by the D12 pass: 47x29 */
 .fbtn{min-height:44px;display:inline-flex;align-items:center}
+
+/* ---------- T1: the footer clears the wordmark (28 Oct) ----------
+   .bigmark was absolutely positioned and pulled down 22%, so the "Made by
+   / Melbourne" row ran straight through it. The wordmark joins the flow,
+   so there is a real box for the row to sit under, and the row follows it
+   in the DOM with 24px of clearance.
+
+   line-height .85, his number: the wordmark is one line of display type
+   and the default leading was adding a band of air under it that the
+   absolute positioning was hiding. */
+.bigmark{position:static;transform:none;width:auto;line-height:.85;
+  margin:var(--s-6) 0 0}
+.foot-wrap{position:relative;z-index:2}
+.foot-wrap .foot{margin-top:24px;padding-top:0;border-top:0}
+/* the email in the pill reads at 18, not 14 */
+.sign-off .so-mail{font-size:18px;min-height:44px;display:inline-flex;align-items:center}
+/* moving the row down put it exactly where the fixed record player sits,
+   so the clock ran under it. The row keeps clear of that corner. */
+.foot-wrap .foot{padding-right:clamp(0px,7vw,110px)}
+@media (max-width:640px){.foot-wrap .foot{padding-right:0;padding-bottom:72px}}
