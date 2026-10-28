@@ -3154,3 +3154,54 @@ html body .print figcaption b{font-size:.75rem}
    is 65 characters of the face the reader is actually reading. */
 .abody .prose,.prose{max-width:65ch}
 .abody .prose p,.prose p{max-width:none}
+
+/* ============================================================
+   H2: THE MUSIC IS A LINK                    (28 Oct, his note)
+   The record player is hidden behind the same one-line flag as
+   H1. The deck, the arm, the sleeve, the mp3 and home.js's
+   wiring are all still here; delete the line below and the
+   player is back.
+   ============================================================ */
+.disc{display:none}
+
+/* 56px, bottom right, the same corner the deck held. It is a
+   link and nothing else: no hover growth, no spin, no state to
+   disagree with. The site's own line work draws the record -
+   a Spotify glyph is a brand asset and the ABBA sleeve would
+   promise one track and open a playlist - so the destination
+   is carried by the accessible name, which says Spotify and
+   says the tab is new. */
+.playlink{position:fixed;z-index:60;
+  right:clamp(.8rem,2vw,1.6rem);bottom:clamp(.8rem,2vw,1.6rem);
+  width:56px;height:56px;display:block;border-radius:999px;
+  -webkit-tap-highlight-color:transparent}
+.playlink svg{display:block;width:56px;height:56px}
+.playlink .pl-disc{fill:#101830}
+.playlink .pl-groove{fill:none;stroke:#F7F4EC;stroke-width:1.6;opacity:.38}
+.playlink .pl-label{fill:#E8251F}
+.playlink .pl-spindle{fill:#F7F4EC}
+.playlink:is(:hover,:focus-visible) .pl-label{fill:var(--yellow)}
+.playlink:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){
+  .playlink .pl-label{transition:fill 160ms var(--e-out)}
+}
+
+/* the playlist line, lifted out of the hidden #listening block.
+   Label and link on one row, the label in the metadata register so
+   the link is the only thing with weight. 44px tall so it clears
+   the target minimum on a phone (WCAG 2.5.8). */
+.plline{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-3) var(--s-4);
+  margin:var(--s-6) 0 0}
+.plline-k{font-size:var(--xs);letter-spacing:.08em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--deep) 84%,transparent)}
+.plline a{display:inline-flex;align-items:center;min-height:44px;
+  font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+  letter-spacing:var(--fd-track);color:var(--deep);text-decoration:none;
+  border-bottom:var(--line) solid transparent}
+.plline a:is(:hover,:focus-visible){border-bottom-color:var(--accent-type)}
+
+/* the deck inherits the single column from H1, so it inherits the
+   measure too. Left at full width a quote card ran 1024px with its
+   text ending at 760, which reads as a stretched box rather than a
+   card. Same 65ch, so the column has one right edge. */
+.abody .vouch{max-width:65ch}

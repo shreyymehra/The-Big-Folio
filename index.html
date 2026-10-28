@@ -254,12 +254,18 @@
     <div class="shead rv shead--me"><span class="no">03 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
       <div class="prose"><p data-scrub><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
+      <!-- H2: this line was inside #listening, which H1 switches off. It is
+           the one survivor of that block and it is the same URL as the
+           floating record, so there is exactly one playlist destination on
+           the page. Moved, not copied. -->
+      <p class="plline">
+        <span class="plline-k mono">What I build to</span>
+        <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m"
+           target="_blank" rel="noopener noreferrer">Shrey&rsquo;s Bizarre Adventures <span aria-hidden="true">&nearr;</span></a>
+      </p>
+
         <!-- 2. THE MUSIC LIST. A different object: rows, not a machine. -->
         <section class="mlist" id="listening" aria-labelledby="mlist-title">
-          <p class="mlist-k mono" id="mlist-title">
-            <span>What I build to</span>
-            <a href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m" target="_blank" rel="noopener noreferrer">Shrey&rsquo;s Bizarre Adventures <span aria-hidden="true">&nearr;</span></a>
-          </p>
           <!-- The playlist in the iPod. The png is decorative and the embed
                is the content, so the image carries empty alt and the iframe
                keeps its title. Screen coordinates are measured off the png,
@@ -373,6 +379,26 @@
      nothing is fetched until it is used. It rests small and opens on hover,
      focus or while playing, because a floating control may cover the corner
      it lives in but it may not cover the copy. -->
+<!-- H2 (28 Oct, at his instruction): the floating record is a LINK to the
+     playlist now, not a player. The deck below is hidden by one line in the
+     flag block in site.css, not cut.
+
+     The mark is drawn from the site's own line work and deliberately NOT a
+     Spotify asset: the destination is named in the accessible name instead.
+     The ABBA sleeve would have been worse than a borrowed glyph - it would
+     promise one track and open a playlist. -->
+<a class="playlink" id="playlink"
+   href="https://open.spotify.com/playlist/5H4RUSMx6CMD4czgpEGV8m"
+   target="_blank" rel="noopener noreferrer"
+   aria-label="Open Shrey&rsquo;s playlist on Spotify (new tab)">
+  <svg viewBox="0 0 56 56" aria-hidden="true" focusable="false">
+    <circle class="pl-disc" cx="28" cy="28" r="26"/>
+    <circle class="pl-groove" cx="28" cy="28" r="20"/>
+    <circle class="pl-groove" cx="28" cy="28" r="15"/>
+    <circle class="pl-label" cx="28" cy="28" r="8.5"/>
+    <circle class="pl-spindle" cx="28" cy="28" r="2"/>
+  </svg>
+</a>
 <figure class="disc" id="disc">
   <div class="disc-deck">
     <span class="disc-platter" aria-hidden="true">
