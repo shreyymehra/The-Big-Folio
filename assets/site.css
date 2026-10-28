@@ -3266,3 +3266,80 @@ html body .print figcaption b{font-size:.75rem}
   .stitch{clip-path:none}
   .stitch.in{transition:none}
 }
+
+/* ============================================================
+   H4: THE RESULTS ARE A LEDGER                (28 Oct, his note)
+   number | label | org | period, a 1.6px rule under each row,
+   no boxes and no pills. Six rows, then a 44px toggle to all 14.
+
+   THIS REVERSES TWO EARLIER INSTRUCTIONS OF HIS and that is
+   deliberate: the shield-yellow pill (13 Oct) and the seeded
+   scatter (28 Oct, this morning). Both are in git. The ledger
+   is the later word and a ledger is what a reader scans.
+
+   ONE CLASH, FLAGGED NOT SPLIT. H4 asks for the number at 40px;
+   H6 locks the scale to 12/16/20/32/56 and his own TESTS say
+   "<=5 font sizes". 40 would be a sixth and fail his test, so
+   the number is 32. One value to change if he wants the 40.
+   ============================================================ */
+.mv-h{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+  line-height:1.1;letter-spacing:var(--fd-track);color:var(--deep);
+  margin:0 0 var(--s-6)}
+
+.ledger{list-style:none;margin:0;padding:0}
+.lg-row{display:grid;align-items:baseline;
+  /* the LABEL takes the slack, not the number. The first cut gave the
+     number 127px and the label 91, which is the most important text in
+     the row at the narrowest column in it. */
+  grid-template-columns:max-content minmax(0,1fr) minmax(0,16ch) minmax(7ch,max-content);
+  gap:var(--s-3) var(--s-5);padding:var(--s-4) 0;
+  border-bottom:var(--line) solid rgba(var(--deep-rgb),.28)}
+
+/* 32 (the cap of --t-h3), not the 40 H4 asks for: 40 is not in the
+   H6 scale and would be a sixth font size, failing his own
+   "<=5 font sizes" test. One value to change if he wants the 40. */
+.lg-n{font-family:var(--fd);font-weight:900;font-size:var(--t-h3);
+  line-height:1;letter-spacing:var(--fd-track);color:var(--deep);
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.lg-l{font-family:var(--fb);font-size:var(--t-body);line-height:1.35;color:var(--deep)}
+.lg-o{font-family:var(--fu);font-size:var(--xs);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-type)}
+/* THE PERIOD CELL IS EMPTY WHEN THERE IS NO PERIOD. Never TBC, never
+   n/a: a placeholder in a date column reads as an unfinished ledger.
+   The cell keeps its width so the four columns stay aligned. */
+.lg-p{font-family:var(--fu);font-size:var(--xs);letter-spacing:.06em;
+  color:color-mix(in srgb,var(--deep) 84%,transparent);
+  font-variant-numeric:tabular-nums}
+.lg-how{grid-column:2 / -1;font-family:var(--fb);font-size:var(--t-small);
+  line-height:1.35;color:color-mix(in srgb,var(--deep) 84%,transparent)}
+
+/* rows 7 to 14 are only hidden where a script can bring them back.
+   With no script every row is visible and the toggle is not shown,
+   because a control that does nothing is worse than no control. */
+.lg-toggle{display:none}
+html.js .lg-toggle{display:inline-flex;align-items:center;
+  min-height:44px;padding:0 var(--s-5);margin-top:var(--s-5);
+  background:none;border:var(--line) solid var(--deep);border-radius:999px;
+  font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--deep);cursor:pointer}
+html.js .lg-toggle:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
+html.js .lg-toggle:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+html.js .ledger .lg-more{display:none}
+html.js .ledger.is-all .lg-more{display:grid}
+
+@media (max-width:768px){
+  .lg-row{grid-template-columns:minmax(0,1fr);gap:var(--s-2) 0;padding:var(--s-4) 0}
+  .lg-how{grid-column:1}
+  /* an empty period on one column would be an empty ROW, which reads as
+     a gap in the list rather than a missing value, so it collapses */
+  .lg-p:empty{display:none}
+}
+
+/* THE LEDGER TAKES THE FULL CONTAINER, so the two blocks stack.
+   In the 1fr/1.618fr split the ledger had 595px for four columns and
+   the label - the most important text in the row - wrapped to four
+   lines while the empty period column held 7ch of nothing beside it.
+   A four-column ledger needs the width. Stacking also keeps both
+   blocks starting at the container left, which is what H6 asks for. */
+.mv-grid{grid-template-columns:minmax(0,1fr);gap:var(--s-7)}
+.mv-col--do .mv-do{max-width:none}

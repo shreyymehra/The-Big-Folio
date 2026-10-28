@@ -590,6 +590,30 @@
     paint();
   })();
 
+  /* ---- H4: the ledger shows six, then all fourteen -----------
+     The button is in the markup, not injected, so it is in the
+     tab order and announced before this runs. CSS hides it until
+     html.js is set and hides rows 7+ in the same breath, so with
+     no script every row is visible and there is no control that
+     does nothing.
+
+     It never collapses back to six on its own and it does not
+     scroll: a reader who opened the list is reading it. */
+  (function () {
+    var list = document.getElementById('ledger');
+    var btn = document.querySelector('.lg-toggle');
+    if (!list || !btn) return;
+    var hidden = list.querySelectorAll('[data-more]').length;
+    if (!hidden) { btn.hidden = true; return; }
+    var all = list.children.length;
+    btn.addEventListener('click', function () {
+      var open = !list.classList.contains('is-all');
+      list.classList.toggle('is-all', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? 'Fewer results' : 'All ' + all + ' results';
+    });
+  })();
+
   /* ---- "how it was measured", the tap half -------------------
      Hover and focus are CSS. Tap is not: a touch device fires a
      synthetic :hover that then sticks on the last tile touched,
