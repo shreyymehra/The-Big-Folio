@@ -3979,3 +3979,27 @@ html body .mv-sz-3 b{font-size:var(--t-h1)}    /* 56 */
 @media (max-width:1100px){
   html body .work > .wrap,html body .work .windex{padding-inline:0}
 }
+
+/* The floating record is fixed bottom-right and the ticker head puts
+   its Pause button in the same corner at narrow widths, so the two
+   controls overlapped at 375. This repo's own rule is that a floating
+   control may cover the corner it lives in but may not cover the copy;
+   covering another CONTROL is worse than covering copy, because both
+   are targets. The head wraps below 560 and the button goes to its own
+   row, clear of the corner. */
+@media (max-width:560px){
+  .ww-head{flex-wrap:wrap;gap:var(--s-3)}
+  html.js .ww-pause{margin-right:72px}
+}
+
+/* THE RECORD STANDS DOWN OVER THE HERO, which the deck it replaced
+   already did and the new link never inherited. home.js still sets
+   html.at-hero while the hero holds the screen; nothing was reading
+   it for this element, so at 375 the fixed 56px link sat on the
+   hero card's own email button - two targets in one place.
+
+   Opacity and pointer-events, not display, so it fades rather than
+   appearing from nothing when the hero leaves. */
+html.at-hero .playlink{opacity:0;pointer-events:none}
+.playlink{transition:opacity 240ms var(--e-out)}
+@media (prefers-reduced-motion:reduce){.playlink{transition:none}}
