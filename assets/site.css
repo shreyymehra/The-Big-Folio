@@ -3661,3 +3661,26 @@ html body .moved .mv-do li::after{color:#0D1633;opacity:.45}
    a second divider language on a page that now has one. The copy
    is still in the markup and one line brings it back. */
 .me-turn{display:none}
+
+/* ============================================================
+   P0-3: ONE GRID                             (29 Oct, his spec)
+   Container 1120 and side padding 24/48 were already his numbers
+   from the T pass, and every h2, case title and result group was
+   put on one left edge by H6. Both verified, neither touched.
+
+   What was NOT uniform is the section padding. Measured across
+   the six bands: 81/81, 80/64, 96/88, 24/96, 0/0 and 80/96 -
+   six blocks, six rhythms, which is what makes a page feel
+   assembled rather than set. One value now, 64 on a phone and 96
+   on a desktop, applied with enough weight to beat the
+   per-section rules rather than by hunting them down one at a
+   time and missing one.
+
+   THE HERO IS EXEMPT, and only the hero: his spec says it may
+   break the grid. It sizes itself to the viewport, so a fixed
+   block padding would fight that.
+   ============================================================ */
+html body :is(.moved,.work,.about,.faqhome,.contact){
+  padding-block:var(--sec)}
+/* --sec is clamp(64px,10vw,96px): his two numbers, and the 10vw
+   between them means the step is not a jump at one breakpoint. */
