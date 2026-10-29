@@ -1,0 +1,15 @@
+/* components/letters.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* Ransom letters. NEEDS AN ASSET: three cuts of each letter from his own
+   alphabet sheet. With one variant the boil does nothing and says so -
+   code never draws, traces or generates the art.
+   See assets/ASSET_REQUESTS.json, id letters-alphabet. */
+.c-letters{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.08em;
+  margin:0;padding:0;list-style:none}
+.c-letters__ch{display:block;height:1em;width:auto}
+.c-letters__ch[data-variants="1"]{/* one cut only: static, by design */}
+@media (prefers-reduced-motion:reduce){
+  .c-letters__ch{animation:none!important}
+}

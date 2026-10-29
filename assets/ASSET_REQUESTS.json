@@ -1,0 +1,121 @@
+{
+  "_readme": [
+    "THE THROW-BACK PROTOCOL (Baseline System v1, section 6).",
+    "",
+    "Code never draws, traces, generates or sources art, icons, photos,",
+    "logos, record art, letter variants or scribbles, and never writes copy",
+    "or quotes. When a component needs one it gets an entry here and the",
+    "build moves on.",
+    "",
+    "status: requested | received | approved",
+    "An entry that is not `approved` renders NOTHING in production. In dev",
+    "(?dev=1 or localhost) it renders a labelled grey tile so the slot is",
+    "visible while building. `npm run audit` prints N slots unfilled.",
+    "",
+    "path is filled in when the file lands, relative to the repo root.",
+    "ASSET_REQUESTS.md carries the longer prose version of the P1 list;",
+    "this file is what the build and the audit read."
+  ],
+  "requests": [
+    {
+      "id": "letters-alphabet",
+      "component": "Letters(ransom)",
+      "purpose": "Hero name lockup, and case numbers on work rows. Three cuts of every letter so the comic boil has something to swap between; with one cut the preset does nothing by design rather than faking a wobble.",
+      "size": "each letter ~800px on its longest edge",
+      "format": "PNG or WebP with real alpha, one file per letter per variant",
+      "style-rule": "his own alphabet sheet, cut from found print. No tracing, no generated letterforms, no font standing in for a cut-out.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "work-thumbs",
+      "component": "Row(work)",
+      "purpose": "A taped cut-out thumbnail per case, five in total. The posters already on the site are his designed covers, which is a different artefact.",
+      "size": "640px on the long edge",
+      "format": "WebP with alpha",
+      "style-rule": "his own screenshots, taped and cut by hand. Not a crop of the poster.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "proof-circle",
+      "component": "Row(work)",
+      "purpose": "The hand-circled proof number on each work row.",
+      "size": "400px on the long edge",
+      "format": "PNG with alpha",
+      "style-rule": "his scanned circle mark. A drawn circle is his hand or it is not the device.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "contact-postcard",
+      "component": "Section(contact)",
+      "purpose": "Stitched postcard with a stamp and a Melbourne postmark, behind the contact actions.",
+      "size": "1200px wide",
+      "format": "WebP",
+      "style-rule": "his artwork. Nothing on the site is a postcard yet; this would be the first.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "contact-arrow",
+      "component": "Section(contact)",
+      "purpose": "One hand-drawn arrow pointing at the email button.",
+      "size": "300px on the long edge",
+      "format": "PNG with alpha",
+      "style-rule": "his hand, same rule as the proof circle.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "delhi-colour",
+      "component": "Cutout(hero print)",
+      "purpose": "The colour original of the 2003 Delhi frame. The brush device reveals colour into the black-and-white print; today it keys off the same halftone, so what it reveals is a saturated version rather than true colour.",
+      "size": "1440px on the long edge",
+      "format": "WebP or JPEG",
+      "style-rule": "the original scan, unretouched.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "quote-attributions",
+      "component": "QuoteStrip",
+      "purpose": "Names and roles for the six colleague quotes. The component refuses to render an unattributed quote, so the strip is absent until these land.",
+      "size": null,
+      "format": "text, one line per quote: name, role, company",
+      "style-rule": "his colleagues' real names, with their permission. Code does not write quotes or invent attributions.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "resume-pdf",
+      "component": "Section(contact)",
+      "purpose": "The resume as a PDF. The only file on disk is a .docx and labelling a Word file as a PDF is the kind of small lie this portfolio cannot afford, so the row currently says Word document.",
+      "size": null,
+      "format": "PDF",
+      "style-rule": null,
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "stat-methods",
+      "component": "StatTile",
+      "purpose": "One line per verified figure answering how it was measured: instrument, window, baseline. Fourteen of them. A tile with no method renders no reveal at all - an empty tooltip reads as a broken tooltip.",
+      "size": null,
+      "format": "text, into content/stats.json measuredBy",
+      "style-rule": "only he knows these. Code does not invent a measurement.",
+      "status": "requested",
+      "path": null
+    },
+    {
+      "id": "stat-periods",
+      "component": "StatTile",
+      "purpose": "The window each figure covers. An empty period renders no element at all; never TBC.",
+      "size": null,
+      "format": "text, into content/stats.json period",
+      "style-rule": "only he knows these.",
+      "status": "requested",
+      "path": null
+    }
+  ]
+}

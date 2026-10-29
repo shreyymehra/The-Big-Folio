@@ -1,0 +1,26 @@
+/* components/stitch.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* The running stitch. ONE divider, on every colour seam and nowhere
+   else. The artwork is generated once by tools/build-stitch.js with a
+   seeded RNG; this file only places it.
+   2560px wide and NOT a small tile: a tile repeats and the eye finds
+   the period at once on a line this thin. */
+.c-stitch{display:block;height:14px;border:0;margin:0;padding:0;
+  background-image:url("../assets/img/stitch.svg");
+  background-repeat:repeat-x;background-position:left center;
+  background-size:2560px 14px}
+/* ON the seam, half either side: that is what sewing two pieces
+   together looks like - one line holding two cloths, not a line drawn
+   on one of them. */
+.c-stitch[data-seam]{position:absolute;left:0;right:0;top:-7px;z-index:3;
+  pointer-events:none;height:14px}
+@media (prefers-reduced-motion:no-preference){
+  .c-stitch[data-draw]{clip-path:inset(0 100% 0 0)}
+  .c-stitch[data-draw].is-in{clip-path:inset(0 0 0 0);
+    transition:clip-path var(--dur-slow) var(--ease)}
+}
+@media (prefers-reduced-motion:reduce){
+  .c-stitch[data-draw]{clip-path:none;transition:none}
+}

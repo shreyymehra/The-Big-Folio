@@ -1,0 +1,18 @@
+/* components/nav-pill.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* The island. Three shapes driven by one object, never three objects.
+   It styles itself from tokens and nothing else. */
+.c-nav{display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-1) var(--space-3);
+  background:var(--c-ink);color:var(--c-cream);
+  border-radius:var(--radius-pill);
+  transition:width var(--dur-base) var(--ease)}
+.c-nav__link{font-family:var(--font-label);font-size:var(--size-body);
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:inherit;
+  min-height:var(--tap-min);display:inline-flex;align-items:center}
+.c-nav__link[aria-current="page"]{color:var(--c-yellow)}
+.c-nav__link:hover{color:var(--c-yellow)}
+.c-nav__link:focus-visible{outline:3px solid var(--c-yellow);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){ .c-nav{transition:none} }

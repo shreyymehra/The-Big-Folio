@@ -1,0 +1,38 @@
+/* components/row.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  number, thumbnail, title, teaser, tags, status, action
+   The row title is an h3: it sits under the section's h2, and a row
+   title at h2 puts five headings on a left edge no grid can hold. */
+.c-row{display:grid;align-items:start;gap:var(--space-2) var(--space-3);
+  grid-template-columns:3ch minmax(0,18ch) minmax(0,1fr) max-content;
+  padding:var(--space-3) 0;text-decoration:none;color:inherit;
+  border-bottom:var(--line) solid currentColor;
+  transition:transform var(--dur-fast) var(--ease)}
+.c-row__n{font-family:var(--font-label);font-size:var(--size-body);opacity:.72}
+.c-row__thumb{display:block;width:100%;height:auto;border-radius:var(--radius-flat)}
+.c-row__title{margin:0 0 var(--space-1);font-family:var(--font-display);font-weight:900;
+  font-size:var(--size-section);line-height:1.08;letter-spacing:var(--font-display-track)}
+.c-row__teaser{margin:0 0 var(--space-1);font-family:var(--font-body);font-size:var(--size-body);line-height:1.4}
+.c-row__action{font-family:var(--font-display);font-size:var(--size-body);
+  min-height:var(--tap-min);display:inline-flex;align-items:center}
+
+@media (hover:hover) and (pointer:fine){
+  .c-row:hover,.c-row:focus-within{transform:translateY(-4px) rotate(.5deg)}
+}
+.c-row:focus-visible{outline:3px solid currentColor;outline-offset:4px}
+/* a row with nothing behind it is labelled and NOT a link: no dead
+   links, and unfinished work is never linked */
+.c-row[aria-disabled="true"]{pointer-events:none}
+.c-row[aria-disabled="true"] .c-row__action{display:none}
+
+@media (max-width:767px){
+  .c-row{grid-template-columns:3ch minmax(0,1fr);gap:var(--space-1) var(--space-2)}
+  .c-row__thumb{grid-column:2}
+  .c-row__action{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){
+  .c-row{transition:none}
+  .c-row:hover,.c-row:focus-within{transform:none}
+}

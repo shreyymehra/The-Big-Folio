@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Styleguide &middot; Baseline System v1</title>
+<link rel="stylesheet" href="../design/tokens.css">
+<link rel="stylesheet" href="../components/index.css">
+<link rel="stylesheet" href="styleguide.css">
+</head>
+<body>
+<header class="sg-head">
+  <h1 class="sg-title">Baseline System v1</h1>
+  <p class="sg-lede">Every component, every state. This page is <strong>noindex</strong> and is the only
+    page that loads <code>components/index.css</code>: B2 builds the library, B3 is where home
+    starts using it.</p>
+  <p class="sg-lede"><strong>Forced states.</strong> Hover, focus and active are shown with a class so they can be
+    seen without a pointer. The element beside each one is live, so the real state can be checked too.</p>
+  <p class="sg-lede" id="sg-rm"></p>
+</header>
+<main class="sg-main">
+    <section class="sg-block" id="section">
+      <h2 class="sg-h">Section</h2>
+      <p class="sg-note">Three bands: paper, band, highlight. Each sets its ground AND its own ink, because a ground change is a trap for every rule written before it. Never two the same touching.</p>
+      <div class="sg-row">
+        <p class="sg-state">paper</p>
+        <div class="sg-demo"><div class="sg-band-demo c-section" data-band="paper"><div class="c-section__inner"><p class="c-section__label">01 / Section</p><p>Body copy on the paper ground.</p></div></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">band</p>
+        <div class="sg-demo"><div class="sg-band-demo c-section" data-band="band"><div class="c-section__inner"><p class="c-section__label">02 / Section</p><p>Cream type on cobalt. The label takes yellow.</p></div></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">highlight</p>
+        <div class="sg-demo"><div class="sg-band-demo c-section" data-band="highlight"><div class="c-section__inner"><p class="c-section__label">03 / Section</p><p>Ink on shield yellow.</p></div></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="button">
+      <h2 class="sg-h">Button</h2>
+      <p class="sg-note">Tokens only. 44px is the floor. Disabled is a DASHED EDGE, not an opacity: a faded control is a contrast failure, which this repo settled once already on the magazine back button.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><a class="c-button" href="#">Read the case</a> <a class="c-button" data-variant="solid" href="#">The receipts</a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">hover (forced)</p>
+        <div class="sg-demo"><a class="c-button sg-hover" href="#">Read the case</a> <a class="c-button sg-hover" data-variant="solid" href="#">The receipts</a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">focus-visible (forced)</p>
+        <div class="sg-demo"><a class="c-button sg-focus" href="#">Read the case</a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">active (forced)</p>
+        <div class="sg-demo"><a class="c-button sg-active" href="#">Read the case</a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">disabled</p>
+        <div class="sg-demo"><button class="c-button" type="button" disabled>Not yet</button></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">reduced-motion</p>
+        <div class="sg-demo"><a class="c-button" href="#">No transition in that mode</a></div>
+      </div>
+    </section>
+    <section class="sg-block" id="tag">
+      <h2 class="sg-h">Tag</h2>
+      <p class="sg-note">Plain small-caps text joined by " / ". No border, no fill, no radius. The separator is a MARGIN, not spaces in the content string: a leading space collapses against the inline box before it, which shipped once as "B2C/ BRAND STRATEGY".</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><ul class="c-tags"><li>B2C</li><li>Brand strategy</li></ul></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">one tag</p>
+        <div class="sg-demo"><ul class="c-tags"><li>B2B</li></ul></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">on a band</p>
+        <div class="sg-demo"><div class="sg-on-band"><ul class="c-tags"><li>B2B</li><li>AI tool</li></ul></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="stamp">
+      <h2 class="sg-h">Stamp</h2>
+      <p class="sg-note">The status vocabulary is four words and only four: Shipped, In build, Spec, In writing. On a cobalt band it takes yellow, because tomato is 1.5 there.</p>
+      <div class="sg-row">
+        <p class="sg-state">shipped</p>
+        <div class="sg-demo"><span class="c-stamp" data-status="shipped">Shipped</span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">in build</p>
+        <div class="sg-demo"><span class="c-stamp" data-status="in-build">In build</span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">spec</p>
+        <div class="sg-demo"><span class="c-stamp" data-status="spec">Spec</span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">in writing</p>
+        <div class="sg-demo"><span class="c-stamp" data-status="in-writing">In writing</span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">on a band</p>
+        <div class="sg-demo"><div class="sg-on-band"><span class="c-stamp" data-status="shipped">Shipped</span></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="stattile">
+      <h2 class="sg-h">StatTile</h2>
+      <p class="sg-note">Number then label then org. Three size classes, tilts -1.5/0/+1.5. Tabular numerals, or the row jitters sideways for the whole count-up. An EMPTY PERIOD RENDERS NOTHING - never TBC.</p>
+      <div class="sg-row">
+        <p class="sg-state">size 1 / tilt -1.5</p>
+        <div class="sg-demo"><div class="c-stat" data-size="1" style="--tilt:var(--tilt-left)">
+  <p class="c-stat__tag">Launch and funnel</p>
+  <b class="c-stat__n">20k</b>
+  <span class="c-stat__label">monthly active users</span>
+  <span class="c-stat__org">Tickertape</span>
+  <span class="c-stat__period"></span>
+</div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">size 2 / tilt 0</p>
+        <div class="sg-demo"><div class="c-stat" data-size="2" style="--tilt:0deg">
+  <p class="c-stat__tag">Launch and funnel</p>
+  <b class="c-stat__n">+46%</b>
+  <span class="c-stat__label">engagement, month on month</span>
+  <span class="c-stat__org">iSelect</span>
+  <span class="c-stat__period"></span>
+</div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">size 3 / tilt +1.5</p>
+        <div class="sg-demo"><div class="c-stat" data-size="3" style="--tilt:var(--tilt-right)">
+  <p class="c-stat__tag">Launch and funnel</p>
+  <b class="c-stat__n">+310%</b>
+  <span class="c-stat__label">click-through, new launches</span>
+  <span class="c-stat__org">Tickertape</span>
+  <span class="c-stat__period"></span>
+</div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">hover (forced)</p>
+        <div class="sg-demo"><div class="sg-hover-wrap"><div class="c-stat" data-size="2" style="--tilt:var(--tilt-left)">
+  <p class="c-stat__tag">Launch and funnel</p>
+  <b class="c-stat__n">+56%</b>
+  <span class="c-stat__label">sales uplift</span>
+  <span class="c-stat__org">Bliss and Birch</span>
+  <span class="c-stat__period"></span>
+</div></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">on the highlight band</p>
+        <div class="sg-demo"><div class="sg-on-highlight"><div class="c-stat" data-size="2" style="--tilt:0deg">
+  <p class="c-stat__tag">Launch and funnel</p>
+  <b class="c-stat__n">130+</b>
+  <span class="c-stat__label">volunteers led</span>
+  <span class="c-stat__org">TEDxVIPS</span>
+  <span class="c-stat__period"></span>
+</div></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">reduced-motion</p>
+        <div class="sg-demo"><p class="sg-small">no transition, hover resolves to the resting angle</p></div>
+      </div>
+    </section>
+    <section class="sg-block" id="row-work-">
+      <h2 class="sg-h">Row (work)</h2>
+      <p class="sg-note">The title is an h3: it sits under the section h2, and a row title at h2 puts five headings on a left edge no grid can hold. A row with nothing behind it is labelled and NOT a link - no dead links.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><a class="c-row" href="#"><span class="c-row__n">01</span><span class="sg-thumb"></span><span><h3 class="c-row__title">Vastr: Out With The Old</h3><p class="c-row__teaser">An AI wardrobe companion for people who want to dress like themselves.</p><ul class="c-tags"><li>B2C</li><li>Brand strategy</li></ul></span><span class="c-row__action">Open &rarr;</span></a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">hover (forced)</p>
+        <div class="sg-demo"><a class="c-row sg-hover" href="#"><span class="c-row__n">02</span><span class="sg-thumb"></span><span><h3 class="c-row__title">Cut The Noise</h3><p class="c-row__teaser">The campaign that wins back Hungry Jack&rsquo;s.</p><ul class="c-tags"><li>B2C</li><li>Campaign</li></ul></span><span class="c-row__action">Open &rarr;</span></a></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">not linked (in writing)</p>
+        <div class="sg-demo"><div class="c-row" aria-disabled="true"><span class="c-row__n">06</span><span class="sg-thumb"></span><span><h3 class="c-row__title">Duolingo</h3><p class="c-row__teaser">Being written. It stays unlinked until it is.</p><span class="c-stamp" data-status="in-writing">In writing</span></span><span class="c-row__action">Open &rarr;</span></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="stitch">
+      <h2 class="sg-h">Stitch</h2>
+      <p class="sg-note">ONE divider, on every colour seam and nowhere else. The artwork is generated once by tools/build-stitch.js with a seeded RNG: 169 stitches, back-stitched and knotted at both ends. 2560px wide and not a tile, because a tile repeats and the eye finds the period.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><hr class="c-stitch"></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">on a seam (cream to cobalt)</p>
+        <div class="sg-demo"><div class="sg-seam"><div class="sg-seam-a"></div><hr class="c-stitch" data-seam><div class="sg-seam-b"></div></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">draw-on, once</p>
+        <div class="sg-demo"><hr class="c-stitch" data-draw id="sg-draw"> <button class="c-button" type="button" data-sg-draw>Replay</button></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">reduced-motion</p>
+        <div class="sg-demo"><p class="sg-small">no clip, drawn state from the start</p></div>
+      </div>
+    </section>
+    <section class="sg-block" id="cutout">
+      <h2 class="sg-h">Cutout</h2>
+      <p class="sg-note">A keyed-out artefact that carries its own tilt and drifts on its own loop, so a group never lines up into a grid. Transform only: it cannot stack or lag the way the per-frame pointer system did.</p>
+      <div class="sg-row">
+        <p class="sg-state">still</p>
+        <div class="sg-demo"><span class="sg-cut c-cutout" style="--tilt:var(--tilt-left)"></span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">drifting</p>
+        <div class="sg-demo"><span class="sg-cut c-cutout" data-drift style="--tilt:var(--tilt-right);--delay:.4s"></span></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">reduced-motion</p>
+        <div class="sg-demo"><p class="sg-small">no animation; the tilt stays</p></div>
+      </div>
+    </section>
+    <section class="sg-block" id="ticker">
+      <h2 class="sg-h">Ticker</h2>
+      <p class="sg-note">40s linear CSS marquee, transform only, no per-frame JavaScript. Pointer and focus hold it; the Pause button is the MECHANISM WCAG 2.2.2 asks for, because a reader who never hovers has no other way to stop it. Reduced motion is a wrapped grid, not a stopped row.</p>
+      <div class="sg-row">
+        <p class="sg-state">running</p>
+        <div class="sg-demo"><div class="c-ticker" id="sg-ticker"><div class="c-ticker__head"><p class="sg-small">Worked with</p><button class="c-button c-ticker__pause" type="button" aria-pressed="false">Pause motion</button></div><div class="c-ticker__track"><ul class="c-ticker__set"><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">Employer</span></li><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">Internship</span></li><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">College project</span></li></ul><ul class="c-ticker__set" aria-hidden="true"><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">Employer</span></li><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">Internship</span></li><li class="c-ticker__item"><span class="sg-logo"></span><span class="c-ticker__label">College project</span></li></ul></div></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="quotestrip">
+      <h2 class="sg-h">QuoteStrip</h2>
+      <p class="sg-note">AN UNATTRIBUTED QUOTE DOES NOT RENDER. The component hides it rather than showing a quote with nobody behind it. Six of these are waiting on attributions - assets/ASSET_REQUESTS.json, id quote-attributions.</p>
+      <div class="sg-row">
+        <p class="sg-state">attributed</p>
+        <div class="sg-demo"><ul class="c-quotes"><li class="c-quote"><p class="c-quote__text">&ldquo;The line that was worth quoting.&rdquo;</p><p class="c-quote__who">Name &middot; Role, Company</p></li></ul></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">unattributed (renders nothing)</p>
+        <div class="sg-demo"><ul class="c-quotes"><li class="c-quote"><p class="c-quote__text">&ldquo;This one is hidden by the component.&rdquo;</p><p class="c-quote__who"></p></li></ul><p class="sg-small">&uarr; one item in the list above; nothing is drawn</p></div>
+      </div>
+    </section>
+    <section class="sg-block" id="accordion">
+      <h2 class="sg-h">Accordion</h2>
+      <p class="sg-note">Two-column list, question left, answer right, no cards. align-CONTENT, not align-items: the answer spans both rows and is taller, so auto rows stretch and push the question up to 100px away from its own number.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><div class="c-accordion"><button class="c-accordion__item" aria-expanded="true"><span class="c-accordion__n">Q.01</span><span class="c-accordion__q">What are you actually looking for?</span><span class="c-accordion__a">A place to build a culture and take my curiosity for a drive. Full time preferred.</span></button><button class="c-accordion__item" aria-expanded="true"><span class="c-accordion__n">Q.02</span><span class="c-accordion__q">What are you best at?</span><span class="c-accordion__a">Perspective shaping.</span></button></div></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">on a band</p>
+        <div class="sg-demo"><div class="sg-on-band"><div class="c-accordion"><button class="c-accordion__item" aria-expanded="true"><span class="c-accordion__n">Q.01</span><span class="c-accordion__q">On cobalt the number is yellow</span><span class="c-accordion__a">Tomato is 1.5 here, so the accent has to change with the ground.</span></button></div></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="nav-pill">
+      <h2 class="sg-h">Nav pill</h2>
+      <p class="sg-note">One object in three shapes, never three objects. aria-current marks the page.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><nav class="c-nav"><a class="c-nav__link" href="#" aria-current="page">Work</a><a class="c-nav__link" href="#">Me</a><a class="c-nav__link" href="#">Contact</a></nav></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">hover (forced)</p>
+        <div class="sg-demo"><nav class="c-nav"><a class="c-nav__link sg-hover" href="#">Work</a><a class="c-nav__link" href="#">Me</a></nav></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">focus-visible (forced)</p>
+        <div class="sg-demo"><nav class="c-nav"><a class="c-nav__link sg-focus" href="#">Work</a></nav></div>
+      </div>
+    </section>
+    <section class="sg-block" id="footer">
+      <h2 class="sg-h">Footer</h2>
+      <p class="sg-note">The wordmark, then the credit row BELOW it in the flow. They stopped overlapping by being in the flow rather than placed over each other, at every width.</p>
+      <div class="sg-row">
+        <p class="sg-state">default</p>
+        <div class="sg-demo"><div class="c-footer"><p class="c-footer__mark sg-mark">shreyymehraa</p><div class="c-footer__row"><p class="c-footer__sign">Made by Shrey Mehra, duh</p><p class="c-footer__meta">Melbourne &middot; local time</p></div></div></div>
+      </div>
+    </section>
+    <section class="sg-block" id="letters-ransom-">
+      <h2 class="sg-h">Letters (ransom)</h2>
+      <p class="sg-note">NEEDS AN ASSET and renders nothing without it. Three cuts of every letter from his own alphabet sheet; with one cut the comic boil does nothing BY DESIGN rather than faking a wobble. Code never draws or traces letterforms. assets/ASSET_REQUESTS.json, id letters-alphabet.</p>
+      <div class="sg-row">
+        <p class="sg-state">unfilled slot (production)</p>
+        <div class="sg-demo"><p class="sg-small">nothing renders</p></div>
+      </div>
+      <div class="sg-row">
+        <p class="sg-state">unfilled slot (dev)</p>
+        <div class="sg-demo"><span class="sg-slot" data-slot="letters-alphabet">letters-alphabet &mdash; 3 variants per letter</span></div>
+      </div>
+    </section>
+</main>
+<script type="module" src="styleguide.js"></script>
+</body>
+</html>

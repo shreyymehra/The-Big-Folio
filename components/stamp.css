@@ -1,0 +1,18 @@
+/* components/stamp.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  data-status="shipped|in-build|spec|in-writing"
+   The status vocabulary is four words and only four. */
+.c-stamp{display:inline-block;padding:.2em .5em;
+  font-family:var(--font-display);font-size:var(--size-label);
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--c-accent-type);
+  border:var(--line) solid currentColor;border-radius:var(--radius-flat);
+  transform:rotate(var(--tilt-left))}
+.c-stamp[data-status="shipped"]{color:var(--c-accent-type)}
+.c-stamp[data-status="in-build"]{color:var(--c-accent-type);border-style:dashed}
+.c-stamp[data-status="spec"]{color:var(--c-cobalt)}
+.c-stamp[data-status="in-writing"]{color:var(--c-cobalt);border-style:dashed}
+/* a stamp on a dark band inverts, or it disappears */
+[data-band="band"] .c-stamp{color:var(--c-yellow)}

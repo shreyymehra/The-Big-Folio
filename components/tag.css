@@ -1,0 +1,16 @@
+/* components/tag.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  a list of tags, joined by " / ". No border, no fill, no radius:
+   five outlined chips under a two-line teaser compete with the title,
+   and four of them repeat words already in it. */
+.c-tags{display:flex;flex-wrap:wrap;align-items:baseline;gap:0;margin:0;padding:0;list-style:none}
+.c-tags > li{font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.1em;text-transform:uppercase;color:inherit;
+  background:none;border:0;padding:0}
+/* the separator is generated, so it never appears before the first tag
+   and never dangles after a hidden one. A MARGIN, not spaces in the
+   string: a leading space in content collapses against the inline box
+   before it. */
+.c-tags > li + li::before{content:"/";margin:0 .45em;opacity:.55}

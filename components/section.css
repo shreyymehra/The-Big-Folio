@@ -1,0 +1,27 @@
+/* components/section.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  data-band="paper|band|highlight"   data-label="..."
+   The band sets the ground AND its own ink, because a ground change is
+   a trap for every rule written before it: tomato is 1.5 on cobalt and
+   3.2 on yellow, so each band restates its accents rather than
+   inheriting one that stops working. */
+.c-section{padding-block:var(--space-5);position:relative}
+.c-section > .c-section__inner{max-width:var(--container);margin-inline:auto;
+  padding-inline:var(--gutter);box-sizing:border-box}
+.c-section__label{margin:0 0 var(--space-2);font-family:var(--font-label);
+  font-size:var(--size-label);letter-spacing:.1em;text-transform:uppercase}
+
+.c-section[data-band="paper"]{background:var(--c-cream);color:var(--c-cobalt)}
+.c-section[data-band="paper"] .c-section__label{color:var(--c-accent-type)}
+
+.c-section[data-band="band"]{background:var(--c-cobalt);color:var(--c-cream)}
+/* tomato is 1.5 on cobalt; yellow is 8.70 and is the only accent that
+   survives here */
+.c-section[data-band="band"] .c-section__label{color:var(--c-yellow)}
+
+.c-section[data-band="highlight"]{background:var(--c-yellow);color:var(--c-ink)}
+.c-section[data-band="highlight"] .c-section__label{color:var(--c-ink)}
+
+@media (max-width:767px){ .c-section{padding-block:var(--space-5)} }

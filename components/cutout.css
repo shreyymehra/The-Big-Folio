@@ -1,0 +1,21 @@
+/* components/cutout.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* A keyed-out artefact: a head, a mark, a polaroid. It carries its own
+   tilt and drifts on its own loop, so a group never lines up into a
+   grid. Transform only - the compositor handles it, and it cannot
+   stack or lag the way a per-frame pointer system did. */
+.c-cutout{display:block;max-width:100%;height:auto;
+  transform:rotate(var(--tilt,0deg))}
+@media (prefers-reduced-motion:no-preference){
+  .c-cutout[data-drift]{animation:c-drift var(--dur-drift) ease-in-out infinite;
+    animation-delay:var(--delay,0s)}
+}
+@keyframes c-drift{
+  0%,100%{transform:rotate(var(--tilt,0deg)) translate(0,0)}
+  50%{transform:rotate(var(--tilt,0deg)) translate(3px,calc(var(--drift-distance) * -1))}
+}
+@media (prefers-reduced-motion:reduce){
+  .c-cutout[data-drift]{animation:none}
+}

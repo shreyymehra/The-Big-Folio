@@ -1,0 +1,37 @@
+/* components/ticker.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* CSS marquee: 40s linear, transform only, no per-frame JavaScript.
+   Two copies of the list is the minimum for a seamless -50% loop. */
+.c-ticker{overflow:hidden}
+.c-ticker__head{display:flex;align-items:center;gap:var(--space-3);
+  margin:0 0 var(--space-3);
+  max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter);
+  box-sizing:border-box}
+.c-ticker__track{display:flex;width:max-content;will-change:transform}
+.c-ticker__set{display:flex;align-items:flex-end;gap:var(--space-4);
+  list-style:none;margin:0;padding:0 var(--space-3) 0 0}
+.c-ticker__item{display:grid;justify-items:center;gap:var(--space-1);flex:none}
+/* one ink, by filter rather than re-exported files: brightness(0) keeps
+   the alpha and collapses the rest, so each mark is its own silhouette */
+.c-ticker__mark{display:block;height:28px;width:auto;max-width:none;
+  filter:brightness(0) saturate(100%);opacity:.86}
+.c-ticker__label{font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+
+@keyframes c-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:no-preference){
+  .c-ticker__track{animation:c-roll var(--dur-marquee) linear infinite}
+  .c-ticker:is(:hover,:focus-within) .c-ticker__track{animation-play-state:paused}
+  .c-ticker.is-paused .c-ticker__track{animation-play-state:paused}
+}
+/* REDUCED MOTION IS A WRAPPED GRID, not a stopped marquee: a paused
+   track is still one long row clipped to the viewport, so most of the
+   marks are unreachable. */
+@media (prefers-reduced-motion:reduce){
+  .c-ticker__track{display:grid;width:auto;animation:none}
+  .c-ticker__set{flex-wrap:wrap;padding-right:0;gap:var(--space-3) var(--space-4)}
+  .c-ticker__set[aria-hidden="true"]{display:none}
+  .c-ticker__pause{display:none}
+}

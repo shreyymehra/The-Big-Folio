@@ -1,0 +1,37 @@
+/* components/stat-tile.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  --tilt  --size(1|2|3)   number 40 / label 16, his hierarchy.
+   Flat, square-cornered, one outline weight. */
+.c-stat{display:flex;flex-direction:column;gap:.3em;
+  padding:var(--space-2) var(--space-2) var(--space-3);
+  border:var(--line) solid currentColor;border-radius:var(--radius-flat);
+  background:none;transform:rotate(var(--tilt,0deg));
+  transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease)}
+.c-stat__tag{font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.1em;text-transform:uppercase;opacity:.84}
+.c-stat__n{font-family:var(--font-display);font-weight:900;line-height:1;
+  letter-spacing:var(--font-display-track);
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;
+  /* tabular, or the row jitters sideways for the whole count-up, which
+     is what makes a count-up look cheap */
+  font-size:var(--size-section)}
+.c-stat[data-size="1"] .c-stat__n{font-size:var(--size-item)}
+.c-stat[data-size="3"] .c-stat__n{font-size:var(--size-display)}
+.c-stat__label{font-family:var(--font-body);font-size:var(--size-body);line-height:1.3}
+.c-stat__org{font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.06em;text-transform:uppercase}
+/* an empty period renders NOTHING. Never TBC: a placeholder in a date
+   column reads as an unfinished ledger. */
+.c-stat__period:empty{display:none}
+
+@media (hover:hover) and (pointer:fine){
+  .c-stat:hover,.c-stat:focus-within{
+    transform:rotate(0deg) translateY(-4px);
+    box-shadow:6px 6px 0 0 currentColor}
+}
+@media (prefers-reduced-motion:reduce){
+  .c-stat{transition:none}
+  .c-stat:hover,.c-stat:focus-within{transform:rotate(var(--tilt,0deg));box-shadow:none}
+}

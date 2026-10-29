@@ -1,0 +1,83 @@
+/* styleguide/styleguide.css
+   The page's OWN furniture only. Nothing here styles a component: if a
+   component needs a rule it belongs in components/, or the styleguide
+   stops telling the truth about what ships.
+   ------------------------------------------------------------------ */
+body{margin:0;background:var(--c-cream);color:var(--c-cobalt);
+  font-family:var(--font-body);font-size:var(--size-body);line-height:1.5}
+.sg-head,.sg-main{max-width:var(--container);margin-inline:auto;
+  padding-inline:var(--gutter);box-sizing:border-box}
+.sg-head{padding-block:var(--space-4) var(--space-3)}
+.sg-title{margin:0 0 var(--space-2);font-family:var(--font-display);font-weight:900;
+  font-size:var(--size-display);line-height:1.05;letter-spacing:var(--font-display-track)}
+.sg-lede{margin:0 0 var(--space-1);max-width:65ch}
+code{font-family:var(--font-label)}
+
+.sg-block{padding-block:var(--space-4);border-top:var(--line) solid currentColor}
+.sg-h{margin:0 0 var(--space-1);font-family:var(--font-display);font-weight:900;
+  font-size:var(--size-section);letter-spacing:var(--font-display-track)}
+.sg-note{margin:0 0 var(--space-3);max-width:65ch;
+  font-size:var(--size-body);color:var(--c-accent-type)}
+
+.sg-row{display:grid;grid-template-columns:minmax(0,14ch) minmax(0,1fr);
+  gap:var(--space-2) var(--space-3);align-items:start;
+  padding:var(--space-2) 0;border-top:var(--line) dashed currentColor}
+.sg-state{margin:0;font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.1em;text-transform:uppercase;opacity:.84}
+.sg-demo{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:flex-start}
+.sg-small{margin:0;font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.08em;text-transform:uppercase;opacity:.84}
+
+/* FORCED STATES. These mirror the component's own :hover/:focus-visible
+   rules so a state can be SEEN on a page nobody is pointing at. They are
+   a duplicate by necessity; if one drifts from the component the
+   styleguide is lying, so each is one line and sits next to nothing else. */
+.c-button.sg-hover{border-width:var(--line-strong);background:var(--c-cobalt);color:var(--c-cream)}
+.c-button[data-variant="solid"].sg-hover{background:none;color:var(--c-cobalt)}
+.c-button.sg-focus{outline:3px solid currentColor;outline-offset:3px}
+.c-button.sg-active{transform:scale(.97);border-width:var(--line-strong)}
+.c-row.sg-hover{transform:translateY(-4px) rotate(.5deg)}
+.c-nav__link.sg-hover{color:var(--c-yellow)}
+.c-nav__link.sg-focus{outline:3px solid var(--c-yellow);outline-offset:3px}
+.sg-hover-wrap .c-stat{transform:rotate(0deg) translateY(-4px);box-shadow:6px 6px 0 0 currentColor}
+
+/* grounds, so a component can be checked on the band it will live on */
+.sg-on-band{background:var(--c-cobalt);color:var(--c-cream);padding:var(--space-2)}
+.sg-on-highlight{background:var(--c-yellow);color:var(--c-ink);padding:var(--space-2)}
+.sg-band-demo{padding-block:var(--space-3)}
+
+/* stand-ins, clearly NOT artwork: the throw-back protocol says code does
+   not draw, trace or source art, so these are flat token-coloured boxes
+   and nothing more */
+.sg-thumb{display:block;width:120px;aspect-ratio:16/10;background:currentColor;opacity:.12}
+.sg-logo{display:block;width:90px;height:28px;background:currentColor;opacity:.3}
+.sg-cut{display:block;width:72px;height:72px;background:currentColor;opacity:.18}
+.sg-mark{font-size:var(--size-display)}
+
+/* the dev tile for an unfilled slot. Production renders nothing at all. */
+.sg-slot{display:inline-flex;align-items:center;min-height:var(--tap-min);
+  padding:0 var(--space-2);background:color-mix(in srgb,currentColor 12%,transparent);
+  border:var(--line) dashed currentColor;
+  font-family:var(--font-label);font-size:var(--size-label);letter-spacing:.06em}
+
+.sg-seam{position:relative}
+.sg-seam-a{height:48px;background:var(--c-cream)}
+.sg-seam-b{height:48px;background:var(--c-cobalt)}
+.sg-seam .c-stitch[data-seam]{top:48px}
+
+@media (max-width:767px){
+  .sg-row{grid-template-columns:minmax(0,1fr)}
+}
+
+/* 37px of horizontal scroll at 375, found by the audit on its own
+   styleguide. The demo stand-ins are fixed widths and the stat tiles
+   and rows have real minimums, so at 375 a demo row could push past
+   the gutter. The demo area scrolls inside itself rather than the
+   page: a component that is genuinely wider than a phone should be
+   visible as that, not hidden by wrapping. */
+.sg-demo{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.sg-demo > *{flex:0 0 auto}
+@media (max-width:767px){
+  .sg-thumb{width:84px}
+  .c-row,.sg-demo .c-row{min-width:0}
+}

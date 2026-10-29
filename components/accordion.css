@@ -1,0 +1,30 @@
+/* components/accordion.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* Two-column list, question left, answer right. No cards.
+   The control is a real <button> with aria-expanded, so the keyboard
+   path and the announcement are correct before any script runs. */
+.c-accordion{display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+  border-top:var(--line) solid currentColor}
+.c-accordion__item{display:grid;align-content:start;align-items:start;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  gap:var(--space-1) var(--space-3);
+  background:none;border:0;border-bottom:var(--line) solid currentColor;
+  padding:var(--space-3) 0;text-align:left;color:inherit;font:inherit;
+  min-height:var(--tap-min);cursor:pointer}
+/* align-CONTENT, not align-items: the answer spans both rows and is the
+   taller column, so auto rows stretch and push the question up to 100px
+   from its own number. */
+.c-accordion__n{grid-column:1;font-family:var(--font-label);
+  font-size:var(--size-label);letter-spacing:.08em;color:var(--c-accent-type)}
+.c-accordion__q{grid-column:1;grid-row:2;font-family:var(--font-display);
+  font-weight:900;font-size:var(--size-item);line-height:1.12}
+.c-accordion__a{grid-column:2;grid-row:1 / span 2;
+  font-family:var(--font-body);font-size:var(--size-body);line-height:1.5}
+.c-accordion__item:focus-visible{outline:3px solid currentColor;outline-offset:-3px}
+[data-band="band"] .c-accordion__n{color:var(--c-yellow)}
+@media (max-width:767px){
+  .c-accordion__item{grid-template-columns:minmax(0,1fr)}
+  .c-accordion__a{grid-column:1;grid-row:3;margin-top:var(--space-1)}
+}

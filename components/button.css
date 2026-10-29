@@ -1,0 +1,36 @@
+/* components/button.css
+   Baseline System v1, B2. Tokens only: see design/tokens.css.
+   States: default, hover, focus-visible, active, disabled, reduced-motion.
+   ------------------------------------------------------------------ */
+/* PROPS  data-variant="solid|outline"  [disabled]
+   44px is the floor, not a target: his tap-target rule and WCAG 2.5.8. */
+.c-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-1);
+  min-height:var(--tap-min);padding:0 var(--space-3);
+  font-family:var(--font-label);font-size:var(--size-body);
+  letter-spacing:.06em;text-decoration:none;cursor:pointer;
+  background:none;color:var(--c-cobalt);
+  border:var(--line) solid currentColor;border-radius:var(--radius-pill);
+  transition:transform var(--dur-fast) var(--ease),
+             background-color var(--dur-fast) var(--ease),
+             color var(--dur-fast) var(--ease),
+             border-width var(--dur-fast) var(--ease)}
+.c-button[data-variant="solid"]{background:var(--c-cobalt);color:var(--c-cream)}
+
+.c-button:hover{border-width:var(--line-strong)}
+.c-button:not([data-variant="solid"]):hover{background:var(--c-cobalt);color:var(--c-cream)}
+.c-button[data-variant="solid"]:hover{background:none;color:var(--c-cobalt)}
+
+.c-button:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+.c-button:active{transform:scale(.97);border-width:var(--line-strong)}
+
+.c-button[disabled],.c-button[aria-disabled="true"]{
+  cursor:not-allowed;opacity:1;
+  /* NOT opacity: a faded control is a contrast failure, and this repo
+     already settled that a disabled magazine button is a dashed edge
+     at 4.5+, not a ghost. */
+  border-style:dashed;color:var(--c-accent-type);background:none}
+
+@media (prefers-reduced-motion:reduce){
+  .c-button{transition:none}
+  .c-button:active{transform:none}
+}

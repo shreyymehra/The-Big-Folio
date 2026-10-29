@@ -8,7 +8,7 @@ SOURCE LINT (Principle 0: no raw hex, px font-size or inline transform outside d
 
 about/index.html  @375   3 FAIL
     FAIL h2 left edges: 2 -> 274, 24  | majority 24, off: h2.no@274 "Who I am"
-    FAIL tilt angles on non-stickers: 4 -> -3, 2.5, -1.1, 1.3
+    FAIL tilt angles on non-stickers: 4 -> -2.7, 2.5, -1.1, 1.3
     FAIL outline weights: 1px x61, 3px x1
 about/index.html  @768   3 FAIL
     FAIL h2 left edges: 2 -> 66, 31  | majority 31, off: h2.no@66 "Who I am"
@@ -25,10 +25,13 @@ index.html  @375   2 FAIL
     FAIL tilt angles on non-stickers: 4 -> -1.5, 1, -1, 1.5
     FAIL overlapping sibling text boxes: 3 -> span x span, span x span, span x span
 index.html  @768   2 FAIL
-    FAIL tilt angles on non-stickers: 4 -> -1.5, 1, -1, 1.5
-    FAIL overlapping sibling text boxes: 36 -> span x span, span x span, span x span
+    FAIL tilt angles on non-stickers: 5 -> -1.5, 1, -1, -0.6, 0.6
+    FAIL overlapping sibling text boxes: 30 -> span x span, span x span, span x span
 index.html  @1280   1 FAIL
     FAIL overlapping sibling text boxes: 9 -> span x span, span x span, span x span
+styleguide/index.html  @375   pass
+styleguide/index.html  @768   pass
+styleguide/index.html  @1280   pass
 work/absolutily/index.html  @375   3 FAIL
     FAIL h2 left edges: 2 -> 19, 41  | majority 19, off: h2@41 "What would be measured"
     FAIL outline weights: 1px x27, 2px x12, 3px x10, 4px x1
@@ -106,6 +109,6 @@ work/vrl/index.html  @1280   4 FAIL
     FAIL tap targets under 44px tall: 10 -> a.sig 40x41, a.label 70x36, a 419x43, a.label 106x31
     FAIL placeholder text on the page: being written
 
-0 slots unfilled
+10 slots unfilled
 
 AUDIT FAILED: 75 finding(s)
