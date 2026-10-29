@@ -1,0 +1,130 @@
+/* =========================================================================
+   design/tokens.css — THE SINGLE SOURCE OF TRUTH
+   Baseline System v1, B0 (29 Oct 2026, at his instruction)
+
+   HARVESTED, NOT INVENTED. Every value below was read off the RENDERED
+   pages at 1280 across home, /about/, /contact/, /work/ and a case page,
+   not copied out of a stylesheet. A declared token that nothing uses is
+   not the system; a literal that beat a token is. The computed output is
+   byte-identical to the pre-baseline tag: this file changes where the
+   values live, not what they are.
+
+   WHAT CONSUMES THIS. assets/base.css aliases its own names to these, so
+   nothing else in the repo had to change in B0 and no rule could shift.
+   Those aliases are the migration path: as components move to the new
+   names the aliases shrink, and the day the last one goes the old names
+   go with it.
+
+   HOW TO CHANGE SOMETHING. Edit it here, once. Nothing else in the repo
+   may carry a raw hex, a px font-size or an inline transform - that is
+   the lint in tools/audit.mjs, and it fails the build.
+   ========================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------
+     COLOUR — five names, and three more the site genuinely uses.
+
+     His brief names cream, cobalt, tomato, yellow, ink. The harvest found
+     three more in real use, and none of them is a stray:
+
+       --c-accent-type  #B8141A  tomato is 3.69 on cream and carries no
+                                 type under 24px. This is the readable red
+                                 for small caps labels: 6.06 on cream.
+       --c-card         #FFFDF7  the hero ID card and the case page plane.
+                                 A printed object, deliberately NOT cream.
+       --c-polaroid     #F2F1EA  probed pixel by pixel off his own scan;
+                                 a polaroid card is not white.
+
+     Flagged in the B0 report rather than quietly folded into the five.
+     --------------------------------------------------------------------- */
+  --c-cream:#F7F4EC;          /* bg      the ground */
+  --c-cobalt:#173CA8;         /* band    type, line work, the work band */
+  --c-tomato:#E8251F;         /* accent-stamp  planes and type >=24px only */
+  --c-yellow:#FFED10;         /* highlight     the Results band, marks */
+  --c-ink:#0D1633;            /* text    on yellow and on paper planes */
+
+  --c-accent-type:#B8141A;    /* the readable red: small caps only */
+  --c-card:#FFFDF7;           /* a printed plane, not the ground */
+  --c-polaroid:#F2F1EA;       /* his scan, measured */
+
+  /* channel lists, for the rgba() mixes that predate color-mix */
+  --c-cream-rgb:247,244,236;
+  --c-cobalt-rgb:23,60,168;
+  --c-ink-rgb:13,22,51;
+
+  /* ROLES. A component asks for a role, never for a colour. */
+  --role-bg:var(--c-cream);
+  --role-band:var(--c-cobalt);
+  --role-text:var(--c-cobalt);
+  --role-accent-stamp:var(--c-tomato);
+  --role-highlight:var(--c-yellow);
+
+  /* ---------------------------------------------------------------------
+     TYPE — the three families the harvest found, and no fourth.
+     Geist Light x125, Inter x54, Asimov Print B x51 on home. No Arial
+     anywhere, on any route: form controls already inherit.
+     --------------------------------------------------------------------- */
+  --font-display:'Asimov Print B','Geist',system-ui,sans-serif;
+  --font-body:'Inter','Geist',system-ui,sans-serif;
+  --font-label:'Geist Light','Geist',system-ui,sans-serif;
+  --font-display-track:-.015em;
+
+  /* SIZES. Five, and nothing between them. These are STEPS, not clamps:
+     a clamp lands on whatever the viewport makes it, which is how the
+     page measured ten distinct sizes before H6. */
+  --size-label:0.75rem;   /* 12 — caps labels ONLY */
+  --size-body:1rem;       /* 16 — the body floor */
+  --size-item:1.25rem;    /* 20 — L3 */
+  --size-section:2rem;    /* 32 — L2 */
+  --size-display:3.5rem;  /* 56 — L1, one per page */
+
+  --lh-tight:1.02; --lh-head:1.1; --lh-body:1.6;
+
+  /* ---------------------------------------------------------------------
+     SPACE — his five. The repo's older 4/12/128 steps are aliased in
+     base.css and are on the list to retire with the old names.
+     --------------------------------------------------------------------- */
+  --space-1:8px;
+  --space-2:16px;
+  --space-3:24px;
+  --space-4:48px;
+  --space-5:96px;
+
+  --container:1120px;
+  --gutter:24px;
+
+  /* ---------------------------------------------------------------------
+     LINE, RADIUS, TILT
+     1.6px declared; Chrome snaps it to the device pixel and reports 1px,
+     which is why the audit counts DECLARED weights and not computed ones.
+     --------------------------------------------------------------------- */
+  --line:1.6px;
+  --line-strong:2.4px;        /* hover and active only */
+  --radius-flat:0;
+  --radius-pill:999px;        /* buttons only */
+  --tilt-left:-1.5deg;
+  --tilt-right:1.5deg;
+
+  /* ---------------------------------------------------------------------
+     MOTION — the numbers live here; the presets live in design/motion.js.
+     --------------------------------------------------------------------- */
+  --dur-fast:150ms;
+  --dur-base:300ms;
+  --dur-slow:600ms;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --stagger:60ms;
+  --tick-comic:83ms;          /* 12fps */
+  --dur-marquee:40s;
+  --dur-drift:8s;
+  --drift-distance:6px;
+
+  /* ---------------------------------------------------------------------
+     BREAKPOINTS are documented here and used in media queries, which
+     cannot read a custom property. Changing one means a find-and-replace,
+     and the audit runs at exactly these three.
+       375  768  1280
+     TAP TARGET 44px.
+     --------------------------------------------------------------------- */
+  --tap-min:44px;
+}

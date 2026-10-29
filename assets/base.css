@@ -11,6 +11,15 @@
    ============================================================ */
 
 :root{
+  /* ======================================================================
+     B0 (29 Oct): these names are now ALIASES into design/tokens.css, which
+     is the single source of truth. Every value below is a var() reference,
+     so the computed output is unchanged and nothing in the repo had to move.
+
+     The aliases are the migration path, not the destination: as components
+     adopt the token names the aliases shrink, and when the last one goes
+     the old names go with it. Do not add a new alias; use the token.
+     ====================================================================== */
   /* TYPE SCALE. Five sizes and nothing between them.
      Reset to his scale on 28 Oct (T5): 12 for caps labels only, then
      16, 20, 32, 56. H1 and H2 both top out at 56; H3 is 32; body is 20
@@ -18,27 +27,27 @@
      --t-small was 14 and carried 129 elements on the homepage, so it was
      the body size in practice rather than a caption size. Headings step
      down on narrow screens; body and small never shrink. */
-  --t-h1:3.5rem;                          /* 56, the display step  */
-  --t-h2:2rem;                            /* 32, section headings  */
-  --t-h3:1.25rem;                         /* 20                    */
-  --t-body:1.25rem;                       /* 20 */
-  --t-small:1rem;                         /* 16, the body floor */
+  --t-h1:var(--size-display);                          /* 56, the display step  */
+  --t-h2:var(--size-section);                            /* 32, section headings  */
+  --t-h3:var(--size-item);                         /* 20                    */
+  --t-body:var(--size-item);                       /* 20 */
+  --t-small:var(--size-body);                         /* 16, the body floor */
   --lh-tight:1.02; --lh-head:1.1; --lh-body:1.6;
 
   /* SPACING SCALE. Every gap is one of these. */
-  --s-1:4px;  --s-2:8px;  --s-3:12px; --s-4:16px; --s-5:24px;
-  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+  --s-1:4px;  --s-2:var(--space-1);  --s-3:12px; --s-4:var(--space-2); --s-5:var(--space-3);
+  --s-6:32px; --s-7:var(--space-4); --s-8:64px; --s-9:var(--space-5); --s-10:128px;
 
   /* PALETTE AND FAMILIES. The locked three colours and the three faces.
      Defined here, not in site.css, because the case pages load only this
      file and tw.css. */
-  --cream:#F7F4EC; --deep:#173CA8; --fluoro:#E8251F;
-  --cream-rgb:247,244,236; --deep-rgb:23,60,168;
-  --fd:'Asimov Print B','Geist',system-ui,sans-serif;
-  --fd-track:-.015em; /* Asimov Print B is already tight; Geist needed more */
-  --fb:'Inter','Geist',system-ui,sans-serif;
-  --fu:'Geist Light','Geist',system-ui,sans-serif;
-  --pad:clamp(24px,4vw,48px); --max:1120px;
+  --cream:var(--c-cream); --deep:var(--c-cobalt); --fluoro:var(--c-tomato);
+  --cream-rgb:var(--c-cream-rgb); --deep-rgb:var(--c-cobalt-rgb);
+  --fd:var(--font-display);
+  --fd-track:var(--font-display-track); /* Asimov Print B is already tight; Geist needed more */
+  --fb:var(--font-body);
+  --fu:var(--font-label);
+  --pad:clamp(24px,4vw,48px); --max:var(--container);
 
   /* PAPER. A hand-drawn grid, not a ruled one (Shrey, 2 Oct 2026, with a
      reference image): 90px cells, lines that wobble between the crossings and
