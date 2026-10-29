@@ -3563,3 +3563,74 @@ html body .so-cta{font-size:var(--t-h1);font-weight:900}
 @media (min-width:1101px){
   .contact .sign-off{margin-left:calc(-1 * clamp(2.4rem,6vw,6rem))}
 }
+
+/* ============================================================
+   P0-1: THE SECTION BANDS                    (29 Oct, his spec)
+   hero cream | Results yellow | work cobalt | about cream |
+   FAQ cobalt | contact cream. Never two the same touching.
+
+   Measured before changing anything: only TWO pairs clashed,
+   hero/Results and about/FAQ, both reading cream on cream. The
+   other four were already his order, so they are not touched.
+
+   Existing tokens only. Ink on yellow is 14.73 and cream on
+   cobalt is 8.50, so the two new bands need no new colour - but
+   every accent ON them does, because tomato on cobalt is 1.5
+   and that is what makes a band a trap rather than a change of
+   ground. Each band below restates its own accent.
+   ============================================================ */
+
+/* ---- Results: shield yellow, ink type ---- */
+.moved{background:var(--yellow);color:#0D1633}
+.moved :is(h2,.mv-h,.mv-k,.lg-n,.lg-l,.mv-what,.lg-p){color:#0D1633}
+/* tomato on yellow is 3.2 and this is small caps type, so the
+   employer line takes ink at full weight instead of the accent */
+.moved :is(.lg-o,.mv-who,.mv-tag){color:#0D1633}
+.moved .lg-row{border-bottom-color:rgba(13,22,51,.34)}
+.moved .ledger{border-top-color:rgba(13,22,51,.34)}
+html.js .moved .lg-toggle{border-color:#0D1633;color:#0D1633}
+html.js .moved .lg-toggle:is(:hover,:focus-visible){background:#0D1633;color:var(--yellow)}
+html.js .moved .lg-toggle:focus-visible{outline-color:#0D1633}
+/* the stitch is tomato and tomato on yellow is 3.2: as a LINE
+   that is fine (it is not type), but the seam either side of a
+   yellow band carries the ink shadow the SVG already draws */
+
+/* ---- FAQ: cobalt, cream type ---- */
+.faqhome{background:var(--deep);color:var(--cream)}
+.faqhome :is(h2,.qt,.ans,.sub,.shead h2,.shead .sub){color:var(--cream)}
+/* the Q number was --accent-type, which is 1.5 on cobalt. Yellow
+   on cobalt is 8.70 and is the one accent that survives here,
+   which is the same choice the sign-off pill already made. */
+.faqhome .qn{color:var(--yellow)}
+.faqhome .bento{border-top-color:rgba(var(--cream-rgb),.34)}
+.faqhome .tile-q{border-bottom-color:rgba(var(--cream-rgb),.34)}
+.faqhome .no,.faqhome .smark{color:var(--cream)}
+.faqhome a{color:var(--cream)}
+.faqhome a:is(:hover,:focus-visible){color:var(--yellow)}
+
+/* ---- about: cream, stated rather than inherited ----
+   It was transparent, so it took the body ground. That reads the
+   same today and stops reading the same the moment anything
+   above or below it changes, which is exactly the bug this task
+   is fixing. A band declares its own ground. */
+.about{background:var(--cream);color:var(--deep)}
+
+/* .wk-note is declared later than the band block and carries its own
+   colour, so "All nine answers" sat at 1.00: deep ink on the cobalt
+   band. This is the whole reason a band needs its accents restated
+   rather than assumed - a ground change is a trap for every rule
+   written before it. Found by measuring every text leaf on each band,
+   not by reading the file. */
+html body .faqhome .wk-note{color:var(--cream)}
+html body .faqhome .wk-note:is(:hover,:focus-visible){color:var(--yellow)}
+html body .faqhome .wk-note .wk-arrow{background:currentColor}
+
+/* THE WHOLE YELLOW BAND IS INK, not just the headings. The first
+   cut left the discipline list on cape blue, which PASSES contrast
+   at 7.86 and is still wrong: his spec says "on yellow/cream = ink",
+   and blue on yellow reads as two accents arguing rather than as one
+   ground. A band has one ink. Caught by looking, not by the numbers,
+   which is the distinction that matters here. */
+html body .moved,
+html body .moved :is(p,li,span,h2,h3,b,i,em,strong,a,button,dt,dd){color:#0D1633}
+html body .moved .mv-do li::after{color:#0D1633;opacity:.45}
