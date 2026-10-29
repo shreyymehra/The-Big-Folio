@@ -3738,3 +3738,36 @@ html body .moved .mv-how-btn:focus-visible{outline-color:#0D1633}
    hidden-but-measurable uses .vh, which is a different tool.
    ============================================================ */
 html body [hidden]{display:none !important}
+
+/* ============================================================
+   P0-8: ONE TAP-TO-COPY BUTTON AND A TOAST   (29 Oct, his spec)
+   The button carries the address as its own visible label, so a
+   reader whose clipboard is blocked can still read and select
+   it, and everyone else gets it in one tap.
+   ============================================================ */
+.cbtn--mail{flex-direction:column;align-items:flex-start;gap:2px;
+  min-height:64px;padding:var(--s-3) var(--s-5);text-align:left}
+.cbtn-k{font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;opacity:.82}
+.cbtn-v{font-family:var(--fb);font-size:var(--t-body);letter-spacing:0;
+  text-transform:none;word-break:break-all}
+
+/* THE TOAST. Fixed, bottom centre, transform and opacity only - the
+   two properties the compositor handles and the only two his spec
+   allows. role="status" and in the DOM from first paint, because a
+   live region created at the moment of the message is announced by
+   nobody. It is not a dialog, it traps nothing and it needs no
+   dismissing. */
+.ctoast{position:fixed;left:50%;bottom:24px;z-index:80;margin:0;
+  padding:12px 20px;pointer-events:none;
+  background:#0D1633;color:#F7F4EC;
+  font-family:var(--fu);font-size:var(--t-small);letter-spacing:.06em;
+  border-radius:999px;
+  opacity:0;transform:translate(-50%,12px);
+  transition:opacity 200ms var(--e-out),transform 200ms var(--e-out)}
+.ctoast.is-up{opacity:1;transform:translate(-50%,0)}
+/* hard-coded, not tokens: this is a plane floating over whatever is
+   behind it, and --deep becomes the light cream in dark mode. The
+   plane trap, for the eighth time in this file. */
+@media (prefers-reduced-motion:reduce){
+  .ctoast{transition:none;transform:translate(-50%,0)}
+}

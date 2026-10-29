@@ -42,16 +42,13 @@
     <time id="mel-time">local time</time> in Melbourne.</p>
 
   <div class="cacts">
-    <!-- SUBJECT ONLY, no body. A prefilled body arrives in the reader's
-         sent folder as words they did not write, and every client
-         mangles the line breaks differently. -->
-    <a class="cbtn cbtn--go" href="mailto:shreyymehraa@gmail.com?subject=Hello%20Shrey">Email me</a>
-    <!-- the address is the button's own text for a copy that fails:
-         with no clipboard permission the reader can still read it -->
-    <button class="cbtn" type="button" data-copy="shreyymehraa@gmail.com">Copy address</button>
-    <!-- inline, two seconds, announced. No modal: a dialog for a
-         clipboard write is a dialog to dismiss. -->
-    <span class="ccopied" role="status" aria-live="polite"></span>
+    <!-- P0-8: ONE button. It carries the address as its own label, so a
+         reader who cannot use the clipboard can still read and select it,
+         and a reader who can gets it in one tap. -->
+    <button class="cbtn cbtn--go cbtn--mail" type="button" data-copy="shreyymehraa@gmail.com">
+      <span class="cbtn-k">Tap to copy</span>
+      <span class="cbtn-v">shreyymehraa@gmail.com</span>
+    </button>
   </div>
 
   <p class="cplain">Or write straight to
@@ -68,12 +65,17 @@
     <h2 class="ch2" id="routes-title">Other routes</h2>
     <ul class="croutes">
       <li><a href="https://linkedin.com/in/shreymehraa" target="_blank" rel="noopener noreferrer"><span class="k">LinkedIn</span><span class="v">/shreymehraa &nearr;</span></a></li>
-        <!-- R&eacute;sum&eacute; (PDF) is not rendered: the only file on disk is a
-             .docx, and labelling a Word file as a PDF is exactly the kind
-             of small lie this portfolio cannot afford. The row appears the
-             day a PDF lands. -->
+        <!-- P0-8 reverses H9 here: "PDF when supplied, otherwise current
+             file". No PDF exists, so the row renders and says Word, which
+             is the honest way to show it - the format is stated rather
+             than a .docx being labelled a PDF. One string changes the day
+             a PDF lands. -->
+        <li><a href="../public/Shrey-Mehra-Resume.docx" download><span class="k">R&eacute;sum&eacute;</span><span class="v">Word document &darr;</span></a></li>
     </ul>
   </section>
+
+
+  <p class="ctoast" role="status" aria-live="polite"></p>
 
 </main>
 
