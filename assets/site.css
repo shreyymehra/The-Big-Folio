@@ -3720,3 +3720,21 @@ html body .moved .mv-how-btn:focus-visible{outline-color:#0D1633}
    swept, so the next sweep decides: .ledger, .lg-row and the toggle
    are H4's and come back with it. */
 .lg-toggle{display:none}
+
+/* ============================================================
+   THE HIDE FLAG HAS TO WIN                   (29 Oct, P0-6)
+   `hidden` is display:none in the UA stylesheet, which means ANY
+   author display rule beats it. `.beat{display:block}` is
+   declared later than the UA sheet, so the loophole sentence
+   carried the attribute and stayed on the page - visible in the
+   rendered text while the markup looked correct.
+
+   This is the same class of bug as the source-order traps this
+   repo keeps hitting, and it matters more here: a hide flag that
+   silently does nothing is worse than no flag, because the next
+   person reads the attribute and believes it.
+
+   [hidden] is now unconditional. Anything that needs to be
+   hidden-but-measurable uses .vh, which is a different tool.
+   ============================================================ */
+html body [hidden]{display:none !important}
