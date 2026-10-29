@@ -1,0 +1,14 @@
+{
+  "name": "the-big-folio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shrey Mehra's portfolio. NO BUILD STEP and NO DEPENDENCIES: this file exists so `npm run audit` works literally, and for nothing else. There is no node_modules and `npm install` is not part of any workflow here - commit d5aa99b stripped the toolchain on purpose. Every script below is plain node against the files in this repo.",
+  "scripts": {
+    "audit": "node tools/audit.mjs",
+    "audit:shots": "node tools/audit.mjs --open",
+    "stats": "node tools/build-stats.js",
+    "stitch": "node tools/build-stitch.js",
+    "experience": "node tools/build-experience.js",
+    "proof": "node tools/validate-proof.js"
+  }
+}

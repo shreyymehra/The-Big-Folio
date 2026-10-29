@@ -1,0 +1,111 @@
+SOURCE LINT (Principle 0: no raw hex, px font-size or inline transform outside design/)
+  FAIL assets/base.css  raw hex x18  e.g. #E8251F #B8141A #FFED10 #0D1633 #E00080
+  FAIL assets/base.css  px font-size x1  e.g. font-size:11px
+  FAIL assets/site.css  raw hex x128  e.g. #F7F1E3 #E8D6A4 #E8251F #173CA8 #0D1633
+  FAIL assets/site.css  px font-size x5  e.g. font-size:13px | font-size:12px | font-size:9px
+  FAIL assets/tw/input.css  raw hex x40  e.g. #FFFDF7 #173CA8 #F7F4EC #E8251F #0D1633
+  FAIL index.html  raw hex x3  e.g. #F7F4EC #173CA8 #E8251F
+
+about/index.html  @375   3 FAIL
+    FAIL h2 left edges: 2 -> 274, 24  | majority 24, off: h2.no@274 "Who I am"
+    FAIL tilt angles on non-stickers: 4 -> -3, 2.5, -1.1, 1.3
+    FAIL outline weights: 1px x61, 3px x1
+about/index.html  @768   3 FAIL
+    FAIL h2 left edges: 2 -> 66, 31  | majority 31, off: h2.no@66 "Who I am"
+    FAIL tilt angles on non-stickers: 4 -> -3, 2.5, -1.1, 1.3
+    FAIL outline weights: 1px x61, 3px x1
+about/index.html  @1280   3 FAIL
+    FAIL h2 left edges: 2 -> 163, 128  | majority 128, off: h2.no@163 "Who I am"
+    FAIL tilt angles on non-stickers: 4 -> -3, 2.5, -1.1, 1.3
+    FAIL outline weights: 1px x61, 3px x1
+contact/index.html  @375   pass
+contact/index.html  @768   pass
+contact/index.html  @1280   pass
+index.html  @375   2 FAIL
+    FAIL tilt angles on non-stickers: 4 -> -1.5, 1, -1, 1.5
+    FAIL overlapping sibling text boxes: 3 -> span x span, span x span, span x span
+index.html  @768   2 FAIL
+    FAIL tilt angles on non-stickers: 4 -> -1.5, 1, -1, 1.5
+    FAIL overlapping sibling text boxes: 36 -> span x span, span x span, span x span
+index.html  @1280   1 FAIL
+    FAIL overlapping sibling text boxes: 9 -> span x span, span x span, span x span
+work/absolutily/index.html  @375   3 FAIL
+    FAIL h2 left edges: 2 -> 19, 41  | majority 19, off: h2@41 "What would be measured"
+    FAIL outline weights: 1px x27, 2px x12, 3px x10, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 102x24, a 337x43, a.label 106x31
+work/absolutily/index.html  @768   3 FAIL
+    FAIL h2 left edges: 2 -> 31, 34  | majority 31, off: h2@34 "What would be measured"
+    FAIL outline weights: 1px x27, 2px x12, 3px x10, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 102x24, a 707x43, a.label 106x31
+work/absolutily/index.html  @1280   3 FAIL
+    FAIL h2 left edges: 2 -> 68, 71  | majority 68, off: h2@71 "What would be measured"
+    FAIL outline weights: 1px x27, 2px x12, 3px x10, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 102x24, a 419x43, a.label 106x31
+work/cut-the-noise/index.html  @375   3 FAIL
+    FAIL h2 left edges: 2 -> 19, 41  | majority 19, off: h2@41 "What would be measured"
+    FAIL outline weights: 1px x28, 2px x14, 3px x9, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 86x24, a 337x43, a.label 106x31
+work/cut-the-noise/index.html  @768   3 FAIL
+    FAIL h2 left edges: 2 -> 31, 34  | majority 31, off: h2@34 "What would be measured"
+    FAIL outline weights: 1px x28, 2px x14, 3px x9, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 86x24, a 707x43, a.label 106x31
+work/cut-the-noise/index.html  @1280   3 FAIL
+    FAIL h2 left edges: 2 -> 68, 71  | majority 68, off: h2@71 "What would be measured"
+    FAIL outline weights: 1px x28, 2px x14, 3px x9, 4px x1
+    FAIL tap targets under 44px tall: 14 -> a.sig 40x41, a.label 70x36, a 86x24, a 419x43, a.label 106x31
+work/index.html  @375   1 FAIL
+    FAIL outline weights: 1px x53, 3px x1
+work/index.html  @768   1 FAIL
+    FAIL outline weights: 1px x54, 3px x1
+work/index.html  @1280   1 FAIL
+    FAIL outline weights: 1px x54, 3px x1
+work/vastr/index.html  @375   3 FAIL
+    FAIL h2 left edges: 2 -> 19, 41  | majority 19, off: h2@41 "No numbers, because th"
+    FAIL outline weights: 1px x34, 2px x11, 3px x9, 4px x2
+    FAIL tap targets under 44px tall: 19 -> a.sig 40x41, a.label 70x36, a.font-display 136x25, a 68x24, a 113x24, a 337x43
+work/vastr/index.html  @768   3 FAIL
+    FAIL h2 left edges: 2 -> 31, 34  | majority 31, off: h2@34 "No numbers, because th"
+    FAIL outline weights: 1px x34, 2px x11, 3px x9, 4px x2
+    FAIL tap targets under 44px tall: 19 -> a.sig 40x41, a.label 70x36, a.font-display 136x25, a 68x24, a 113x24, a 707x43
+work/vastr/index.html  @1280   3 FAIL
+    FAIL h2 left edges: 2 -> 68, 71  | majority 68, off: h2@71 "No numbers, because th"
+    FAIL outline weights: 1px x34, 2px x11, 3px x9, 4px x2
+    FAIL tap targets under 44px tall: 19 -> a.sig 40x41, a.label 70x36, a.font-display 136x25, a 68x24, a 113x24, a 419x43
+work/vastr/prd/index.html  @375   2 FAIL
+    FAIL outline weights: 1px x27, 2px x30, 3px x7, 4px x8
+    FAIL tap targets under 44px tall: 11 -> a.sig 40x41, a.label 180x36, a 337x43
+work/vastr/prd/index.html  @768   2 FAIL
+    FAIL outline weights: 1px x63, 2px x16, 3px x7, 4px x8
+    FAIL tap targets under 44px tall: 11 -> a.sig 40x41, a.label 180x36, a 707x43
+work/vastr/prd/index.html  @1280   2 FAIL
+    FAIL outline weights: 1px x63, 2px x16, 3px x7, 4px x8
+    FAIL tap targets under 44px tall: 11 -> a.sig 40x41, a.label 180x36, a 419x43
+work/voicedna/index.html  @375   2 FAIL
+    FAIL outline weights: 1px x41, 2px x13, 3px x14, 4px x1
+    FAIL tap targets under 44px tall: 8 -> a.sig 40x41, a.label 70x36, a 337x43, a.label 106x31
+work/voicedna/index.html  @768   3 FAIL
+    FAIL outline weights: 1px x41, 2px x13, 3px x14, 4px x1
+    FAIL horizontal scroll: 74px
+    FAIL tap targets under 44px tall: 8 -> a.sig 40x41, a.label 70x36, a 707x43, a.label 106x31
+work/voicedna/index.html  @1280   2 FAIL
+    FAIL outline weights: 1px x41, 2px x13, 3px x14, 4px x1
+    FAIL tap targets under 44px tall: 8 -> a.sig 40x41, a.label 70x36, a 419x43, a.label 106x31
+work/vrl/index.html  @375   4 FAIL
+    FAIL h2 left edges: 2 -> 19, 41  | majority 19, off: h2@41 "Three out of four, acr"
+    FAIL outline weights: 1px x29, 2px x11, 3px x14, 4px x1
+    FAIL tap targets under 44px tall: 10 -> a.sig 40x41, a.label 70x36, a 337x43, a.label 106x31
+    FAIL placeholder text on the page: being written
+work/vrl/index.html  @768   4 FAIL
+    FAIL h2 left edges: 2 -> 31, 34  | majority 31, off: h2@34 "Three out of four, acr"
+    FAIL outline weights: 1px x29, 2px x11, 3px x14, 4px x1
+    FAIL tap targets under 44px tall: 10 -> a.sig 40x41, a.label 70x36, a 707x43, a.label 106x31
+    FAIL placeholder text on the page: being written
+work/vrl/index.html  @1280   4 FAIL
+    FAIL h2 left edges: 2 -> 68, 71  | majority 68, off: h2@71 "Three out of four, acr"
+    FAIL outline weights: 1px x29, 2px x11, 3px x14, 4px x1
+    FAIL tap targets under 44px tall: 10 -> a.sig 40x41, a.label 70x36, a 419x43, a.label 106x31
+    FAIL placeholder text on the page: being written
+
+0 slots unfilled
+
+AUDIT FAILED: 75 finding(s)

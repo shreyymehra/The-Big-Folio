@@ -31,3 +31,4 @@ _archive/source-assets/
 
 # The share card is a built asset, not a delivered master: it has to ship.
 !assets/img/og-card.jpg
+audit/*.png
