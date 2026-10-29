@@ -3771,3 +3771,24 @@ html body [hidden]{display:none !important}
 @media (prefers-reduced-motion:reduce){
   .ctoast{transition:none;transform:translate(-50%,0)}
 }
+
+/* ============================================================
+   P0-9: THE RECORD SPINS WHILE IT IS REACHED FOR (29 Oct)
+   The link, the target and the rel landed on 28 Oct (H2). What
+   this adds is the motion: it turns while hovered or focused and
+   is still otherwise, which is the whole of his spec.
+
+   Transform only, so the compositor handles it and nothing
+   reflows. The spin is on the SVG rather than the <a>, because
+   the anchor is the hit area and a rotating hit area moves the
+   target out from under the pointer that is already on it.
+   ============================================================ */
+@keyframes pl-spin{to{transform:rotate(360deg)}}
+.playlink svg{transform-origin:50% 50%}
+@media (prefers-reduced-motion:no-preference){
+  .playlink:is(:hover,:focus-visible) svg{animation:pl-spin 2.6s linear infinite}
+}
+/* reduced motion: the final state, which for a record is simply
+   the record. No animation is declared at all under the query
+   above, so there is nothing to stop - collapsing a duration
+   does not stop a loop, which this repo has recorded twice. */
