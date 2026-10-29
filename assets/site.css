@@ -3634,3 +3634,30 @@ html body .faqhome .wk-note .wk-arrow{background:currentColor}
 html body .moved,
 html body .moved :is(p,li,span,h2,h3,b,i,em,strong,a,button,dt,dd){color:#0D1633}
 html body .moved .mv-do li::after{color:#0D1633;opacity:.45}
+
+/* ============================================================
+   P0-2: THE STITCH IS ON EVERY COLOUR SEAM   (29 Oct, his spec)
+   The SVG, the seeded RNG, the back-stitch and the knots all
+   landed on 27 Oct (H3). What P0-1 changed is the number of
+   seams: two new grounds meant two new colour joins, and the
+   audit found both of them bare.
+
+     hero  -> Results   cream to yellow   was bare
+     about -> FAQ       cream to cobalt   was bare
+
+   One declaration per band that starts a ground, rather than a
+   new element at each join: the seam belongs to the block below
+   it, the same way .work already owns its own two.
+   ============================================================ */
+.moved,.faqhome{position:relative}
+.moved::before,.faqhome::before{content:"";display:block;position:absolute;
+  left:0;right:0;top:-7px;height:14px;z-index:3;pointer-events:none;
+  background-image:url("img/stitch.svg");
+  background-repeat:repeat-x;background-position:left center;
+  background-size:2560px 14px}
+
+/* the labelled blue rule goes, hidden not deleted. It was a
+   full-bleed 3px rule with "Enough about the work" sitting on it:
+   a second divider language on a page that now has one. The copy
+   is still in the markup and one line brings it back. */
+.me-turn{display:none}
