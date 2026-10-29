@@ -3684,3 +3684,39 @@ html body :is(.moved,.work,.about,.faqhome,.contact){
   padding-block:var(--sec)}
 /* --sec is clamp(64px,10vw,96px): his two numbers, and the 10vw
    between them means the step is not a jump at one breakpoint. */
+
+/* ============================================================
+   P0-4: RESULTS ARE THE SEEDED SCATTER AGAIN (29 Oct, his spec)
+   This REVERSES H4's ledger, which was yesterday's instruction.
+   Both are in git. Flat, square-cornered, 1.6px outline, three
+   size classes, tilts -1.5/0/+1.5, two vertical offsets, no
+   overlaps, same content and same order.
+
+   Kept from the ledger pass, because none of it was his to
+   reverse: the hardcoded freeze on all fourteen figures, the
+   8-word label check, and the column-aware order with +310%
+   pinned first.
+
+   THE TILES ARE ON YELLOW NOW, so the outline and the ink are
+   the band's ink and not cape blue. A tile is a surface that
+   follows its band, not a printed plane, so these are literals
+   only because the band itself is - see the plane trap note.
+   ============================================================ */
+html body .moved .mv-tile{border-color:#0D1633;background:none}
+html body .moved .mv-tile b,
+html body .moved .mv-tile .mv-what,
+html body .moved .mv-tile .mv-who,
+html body .moved .mv-tag{color:#0D1633}
+html body .moved .mv-tag{color:color-mix(in srgb,#0D1633 84%,transparent)}
+html body .moved .mv-how{color:#0D1633}
+html body .moved .mv-how-btn{color:#0D1633;text-decoration-color:#0D1633}
+html body .moved .mv-how-btn:focus-visible{outline-color:#0D1633}
+/* a period only exists on a tile that has one; the generator emits
+   no element at all when it is empty */
+.mv-period{font-family:var(--fu);font-size:var(--xs);letter-spacing:.06em;
+  color:color-mix(in srgb,#0D1633 84%,transparent)}
+
+/* the ledger furniture has no markup any more. Hidden rather than
+   swept, so the next sweep decides: .ledger, .lg-row and the toggle
+   are H4's and come back with it. */
+.lg-toggle{display:none}
