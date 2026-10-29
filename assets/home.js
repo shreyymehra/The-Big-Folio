@@ -311,7 +311,9 @@
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(request);
     /* scroll-feel.js is deferred, so Lenis exists by DOMContentLoaded, not now */
     document.addEventListener('DOMContentLoaded',function(){
-      if(window.lenis&&window.lenis.on) window.lenis.on('scroll',update);
+      /* was window.lenis.on('scroll', ..) - the library is gone, so the
+       native event is the only one there is */ 
+      window.addEventListener('scroll',update,{passive:true});
     });
 
     /* hover: poster out, inside plays; leave: stop and rewind.
@@ -358,7 +360,7 @@
     place();
     addEventListener('scroll',req,{passive:true});
     addEventListener('resize',req);
-    document.addEventListener('DOMContentLoaded',function(){ if(window.lenis&&window.lenis.on) window.lenis.on('scroll',place); });
+    window.addEventListener('scroll',place,{passive:true});
   })();
 })();
 

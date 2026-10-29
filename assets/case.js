@@ -107,7 +107,9 @@
   measure(); write();
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', function(){ measure(); onScroll(); });
-  if (window.lenis && window.lenis.on) window.lenis.on('scroll', onScroll);
+  /* was window.lenis.on('scroll', ..) - the library is gone, so the
+       native event is the only one there is */ 
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
 /* ---------- the stamp lands when the page opens (pass 1, brief F) -------

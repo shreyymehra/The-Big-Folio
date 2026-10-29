@@ -267,7 +267,7 @@
     function frame(t){
       if(!running){ raf=0; return; }
       var dt=lastT?Math.min(.05,(t-lastT)/1000):0; lastT=t;
-      var v=window.lenis&&typeof window.lenis.velocity==='number'?window.lenis.velocity:(scrollY-lastY);
+      var v=(scrollY-lastY);   /* Lenis published a velocity; without it the frame delta IS the velocity */
       lastY=scrollY; vel+=(v-vel)*.12;
       go+=((paused?0:1)-go)*.08; /* pause eases out rather than snapping */
       bands.forEach(function(b){

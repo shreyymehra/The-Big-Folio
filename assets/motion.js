@@ -23,23 +23,12 @@
   var hasST = hasGsap && typeof window.ScrollTrigger !== 'undefined';
   if (hasST) gsap.registerPlugin(ScrollTrigger);
 
-  /* Lenis owns scrolling site-wide, so ScrollTrigger has to be told when it
-     moves or every trigger fires against a stale scroll position. scroll-feel.js
-     publishes the instance on window.lenis. If it is not there yet we hook it
-     on the first frame it appears, which is cheaper than polling forever. */
-  if (hasST) {
-    var hooked = false, tries = 0;
-    (function hook() {
-      if (hooked || tries++ > 60) return;
-      if (window.lenis && window.lenis.on) {
-        window.lenis.on('scroll', ScrollTrigger.update);
-        hooked = true;
-        ScrollTrigger.refresh();
-        return;
-      }
-      requestAnimationFrame(hook);
-    })();
-  }
+  /* ScrollTrigger listens to the native scroll event itself, so there is
+     nothing to bridge. The hook that used to feed it from Lenis went with
+     the library on 29 Oct ("No smooth-scroll library"); leaving it would
+     have been a listener waiting for an event nobody fires, which is the
+     dead-listener pattern this repo has removed twice. */
+  if (hasST) ScrollTrigger.refresh();
 
   /* ============================================================
      1. THE WORK WALL — the tile you are looking at straightens
