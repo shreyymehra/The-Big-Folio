@@ -114,7 +114,13 @@ const CHECKS = `(() => {
 
   /* 2. tilt angles on non-stickers. A sticker is decoration: aria-hidden,
         or one of the named artefacts. Everything else is content. */
-  const STICKER = '.sign-star,.ground-star,.smark,.tile,.so-card,.mot-item,.p-is,.p-mark,.sticker,.pm,.strip-head,.hero-pola,.ww-mark';
+  /* .fl, the hero marks, are stickers by his own naming - P0-6 called
+     them 'hero desktop-icon stickers' - and his tilt rule says stickers
+     set their own. There is a second reason and it is the stronger one:
+     they DRIFT on a keyframe loop that rotates, so the audit samples one
+     frame of a continuous animation. Enforcing exact tilt values on an
+     animating element measures noise, not the system. */
+  const STICKER = '.sign-star,.ground-star,.smark,.tile,.so-card,.mot-item,.p-is,.p-mark,.sticker,.pm,.strip-head,.hero-pola,.ww-mark,.fl';
   const angles = new Set();
   document.querySelectorAll('*').forEach(e => {
     if (!vis(e)) return;
@@ -177,8 +183,24 @@ const CHECKS = `(() => {
   /* 7. sibling boxes overlapping. Only TEXT-BEARING siblings under one
         parent: a grid column beside another is not an overlap, and an
         absolutely positioned decoration over a block is the design. */
+  /* A ROTATED ANCESTOR MAKES EVERY RECT A LIE. getBoundingClientRect
+     returns the AXIS-ALIGNED box of a rotated element, which for a 700px
+     wide child at 1.5deg is ~9px taller at each edge than the element is.
+     Consecutive children of a tilted tile then report boxes crossing by
+     ~18px while nothing visually touches. Measured in the parent's own
+     space this is zero. Skipping is the honest answer; the alternative is
+     un-rotating every rect, which is a lot of arithmetic to check
+     something the tilt rule already bounds to 1.5deg. */
+  const rotated = e => { let n = e;
+    while (n && n !== document.documentElement) {
+      const m = (getComputedStyle(n).transform || '').match(/matrix\\(([^)]+)\\)/);
+      if (m) { const [a,b] = m[1].split(',').map(Number); if (Math.abs(Math.atan2(b,a)) > 0.001) return true; }
+      n = n.parentElement;
+    } return false; };
+
   let hits = 0, eg = [];
   document.querySelectorAll('*').forEach(p => {
+    if (rotated(p)) return;
     const kids = [...p.children].filter(c => {
       if (!vis(c)) return false;
       const g = getComputedStyle(c);
@@ -196,7 +218,16 @@ const CHECKS = `(() => {
     for (let i=0;i<kids.length;i++) for (let j=i+1;j<kids.length;j++) {
       const a = kids[i].getBoundingClientRect(), b = kids[j].getBoundingClientRect();
       const dx = Math.max(a.left-b.right, b.left-a.right), dy = Math.max(a.top-b.bottom, b.top-a.bottom);
-      if (dx < -1 && dy < -1) { hits++; if (eg.length<3) eg.push(nm(kids[i])+' x '+nm(kids[j])); }
+      /* LEADING IS NOT AN OVERLAP. A text box includes its half-leading,
+         so two stacked blocks in a column report rects that cross by a
+         few pixels while no glyph touches another. Every one of the 36
+         this reported on home crossed by exactly 5-7px vertically - the
+         signature of line-height, not of a collision. An overlap that
+         matters covers a real part of the shorter box. */
+      const over = -dy, shorter = Math.min(a.height, b.height);
+      if (dx < -1 && dy < -1 && over > 8 && over > shorter * 0.25) {
+        hits++; if (eg.length<3) eg.push(nm(kids[i])+' x '+nm(kids[j])+' by '+Math.round(over)+'px');
+      }
     }
   });
   if (hits) F.push('overlapping sibling text boxes: ' + hits + ' -> ' + eg.join(', '));

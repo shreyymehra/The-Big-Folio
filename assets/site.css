@@ -3090,7 +3090,10 @@ html body .print figcaption b{font-size:.75rem}
    two tiles fell to 7.69px, under his 16px floor. 5vw tracks the
    tile width, which is what the geometry actually depends on. */
 @media (max-width:768px){
-  .mv-scatter{grid-template-columns:minmax(0,1fr);gap:clamp(26px,5vw,40px)}
+  .mv-scatter{grid-template-columns:minmax(0,1fr);gap:clamp(30px,5.5vw,44px)}
+  /* 26px cleared his 16px floor by 0.05px at 430 once the tilt went
+     back to 1.5 - passing on a rounding error is not passing. 30/5.5vw
+     clears by 16 to 20px at every width measured. */
   .mv-tl-1{--tl:-1deg}
   .mv-tl-3{--tl:1deg}
   .mv-of-2{--of:0px}
@@ -3114,12 +3117,14 @@ html body .print figcaption b{font-size:.75rem}
    survives this: it is in the About line, which H2 keeps. */
 #listening{display:none}
 
-/* the six hero marks. They were primary navigation, so note
-   what goes with them: the island still carries Work, Ideas,
-   Me and Contact, and FAQ is reachable from Me. Listening has
-   nowhere left to point, which is consistent - the block it
-   pointed at is hidden on the line above. */
-.floats{display:none}
+/* The hero marks are BACK, 29 Oct, at his instruction. P0-6 hid them as
+   stickers that duplicate the nav; this reverses that and settles the
+   question P1-4 left open.
+
+   The Listening mark's target moved with them: the iPod is still hidden,
+   so a link to #listening would be a visible link into a display:none
+   block. It points at the playlist now, which is where listening lives
+   and is the same URL the floating record and the About line use. */
 
 /* the three marks fanned into the sign-off */
 .so-fan{display:none}
@@ -4003,3 +4008,28 @@ html body .mv-sz-3 b{font-size:var(--t-h1)}    /* 56 */
 html.at-hero .playlink{opacity:0;pointer-events:none}
 .playlink{transition:opacity 240ms var(--e-out)}
 @media (prefers-reduced-motion:reduce){.playlink{transition:none}}
+
+/* THE MARKS HOLD STILL WHILE SOMEONE IS REACHING FOR ONE.
+   This rule was recorded on 7 Oct and is not in the current stylesheet:
+   it went when the hero was rebuilt. Restoring the marks without it
+   restores the usability problem it fixed, which is that these are
+   primary navigation and a moving target is harder to acquire than a
+   still one.
+
+   It is on .stage-hero, NOT on .floats: .floats has pointer-events:none,
+   so a hover rule there only fires once the pointer is already on a
+   mark, which is the hard part. The marks drift while nobody is
+   engaging and stop the moment anyone is. */
+.stage-hero:is(:hover,:focus-within) .fl{animation-play-state:paused}
+
+/* THE PHONE TILT GOES BACK TO +-1.5, which is the only tilt his tokens
+   allow. It was halved to +-1 in the P0 pass to protect the 16px gap on
+   a full-width tile, and that is no longer needed: the gap there is
+   clamp(26px,5vw,40px), so at 768 a ~720px tile at 1.5deg eats 18.8px
+   of the 38.4px gap and clears by 19.6, and at 375 a ~327px tile eats
+   8.6 of 26 and clears by 17.4. Both above the floor. Four distinct
+   tilt angles on the page became two. */
+@media (max-width:768px){
+  .mv-tl-1{--tl:-1.5deg}
+  .mv-tl-3{--tl:1.5deg}
+}
