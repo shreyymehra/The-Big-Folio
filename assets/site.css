@@ -2189,32 +2189,16 @@ html.at-hero .disc{transform:translateY(140%);pointer-events:none}
    already committed; here a strip that moves is what says there are more of
    these than fit the width. Same engine as the rest: holds on pointer and
    focus, never starts under reduced motion. */
-.wwstrip{position:absolute;left:0;right:0;bottom:0;z-index:8;
-  display:flex;align-items:center;gap:var(--s-4);
-  padding:var(--s-2) 0;overflow:hidden;
-  border-top:1.5px solid color-mix(in srgb,var(--deep) 22%,transparent)}
-.ww-k{flex:none;margin:0;padding-left:max(var(--pad),4vw);
-  font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;
-  /* mixed toward the ground, NOT opacity: .72 on --deep landed this
-     label at 4.33, under the 4.5 small type needs. A mix is the same quiet
-     and it is a real colour, so the harness can read it. Same mistake the
-     gap register already carries a warning about. */
-  color:color-mix(in srgb,var(--deep) 84%,var(--cream))}
-.wwstrip .ww-band{position:relative;flex:1 1 auto;min-width:0;overflow:hidden}
-.wwstrip .xtrack{display:flex;width:max-content;will-change:transform}
-.ww-set{display:flex;align-items:center;gap:clamp(2rem,4vw,3.4rem);
-  margin:0;padding:0 clamp(1rem,2vw,1.7rem);list-style:none;flex:none}
-.ww-set li{display:flex;align-items:center}
-/* sized by HEIGHT, never a shared box: a square device in the same box as a
-   wide wordmark reads half the size. Settled 6 Oct, worth keeping. */
-.ww-mark{display:block;width:auto;max-width:none;height:clamp(17px,1.9vw,24px)}
-@media (max-width:860px){
-  /* on a phone the hero is already a card plus six marks; the strip becomes
-     part of the flow rather than pinned to the hero's bottom edge */
-  .wwstrip{position:relative;margin-top:var(--s-5);display:block}
-  .ww-k{margin-bottom:var(--s-2)}
-  .ww-set{gap:1.6rem}
-}
+/* The hero-pinned ticker block was deleted on 29 Oct (P0-10). It put
+   .wwstrip at position:absolute against the hero's bottom edge and laid
+   it out as a single flex row, which put the new Pause button on top of
+   the first mark; and ".wwstrip .ww-band" beat the new bare rule, which
+   kept each label inline beside its logo instead of under it.
+
+   Deleted rather than overridden, which is this file's own lesson: two
+   placement systems for one object is how the 560px offset bug
+   happened. The replacement is the CSS marquee near the end of this
+   file. git show pre-fix:assets/site.css has the original. */
 
 /* The marks are placed against the hero, and the worked-with strip now owns
    the bottom of it, so the field has to stop above the strip or the last
@@ -3792,3 +3776,91 @@ html body [hidden]{display:none !important}
    the record. No animation is declared at all under the query
    above, so there is nothing to stop - collapsing a duration
    does not stop a loop, which this repo has recorded twice. */
+
+/* ============================================================
+   P0-10: THE WORKED-WITH TICKER              (29 Oct, his spec)
+   A CSS marquee: 40s, linear, infinite, transform only. There is
+   no per-frame JavaScript driving it at all now - the old strip
+   was on the JS ticker engine, which is why it carried four
+   copies of the list. A -50% loop needs exactly two.
+
+   THE LABELS RESTORE A RULE RATHER THAN ADD A DECORATION.
+   CLAUDE.md's CONTENT section: UN Youth and BCG "were side
+   projects during college, and are always labelled 'College
+   project' wherever they appear. Never present them as
+   employment." That came off on 6 Oct and has been an open risk
+   in the handover since. Amazon is Internship, which the site
+   has never said.
+   ============================================================ */
+.wwstrip{overflow:hidden}
+.ww-head{display:flex;align-items:center;gap:var(--s-5);
+  margin:0 0 var(--s-5)}
+.ww-k{margin:0;font-size:var(--xs);letter-spacing:.1em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--deep) 84%,transparent)}
+
+/* the control is in the markup and hidden until a script exists to
+   make it mean something */
+.ww-pause{display:none}
+html.js .ww-pause{display:inline-flex;align-items:center;min-height:44px;
+  padding:0 var(--s-4);background:none;
+  border:var(--line) solid var(--deep);border-radius:999px;
+  font-family:var(--fu);font-size:var(--xs);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--deep);cursor:pointer}
+html.js .ww-pause:is(:hover,:focus-visible){background:var(--deep);color:var(--cream)}
+html.js .ww-pause:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+
+.ww-band{overflow:hidden}
+.ww-track{display:flex;width:max-content;will-change:transform}
+.ww-set{display:flex;align-items:flex-end;gap:clamp(2rem,4vw,3.5rem);
+  list-style:none;margin:0;padding:0 clamp(1rem,2vw,1.75rem) 0 0}
+.ww-item{display:grid;justify-items:center;gap:8px;flex:none}
+/* 28px, his number, for every mark. One height, no optical nudges:
+   he looked at those and wanted them all the same. */
+.ww-mark{display:block;height:28px;width:auto;max-width:none}
+.ww-label{font-family:var(--fu);font-size:var(--xs);letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;
+  color:color-mix(in srgb,var(--deep) 84%,transparent)}
+
+@keyframes ww-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:no-preference){
+  html.js .ww-track{animation:ww-roll 40s linear infinite}
+  /* pointer and focus hold it; the button is the mechanism */
+  .wwstrip:is(:hover,:focus-within) .ww-track{animation-play-state:paused}
+  html.js .wwstrip.is-paused .ww-track{animation-play-state:paused}
+}
+
+/* REDUCED MOTION IS A STATIC WRAPPED GRID, not a stopped marquee.
+   A paused track is still one long row clipped to the viewport, so
+   most of the marks are simply unreachable. The second copy goes
+   with it - it exists only to make the loop seamless. */
+@media (prefers-reduced-motion:reduce){
+  .ww-track{display:grid;width:auto;animation:none}
+  .ww-set{flex-wrap:wrap;justify-content:flex-start;padding-right:0;
+    gap:var(--s-5) clamp(2rem,4vw,3.5rem)}
+  .ww-set[aria-hidden="true"]{display:none}
+  .ww-pause,html.js .ww-pause{display:none}
+}
+
+/* ---- P0-10, two faults found by looking at it ----------------
+   1. THE HEAD RAN OFF THE LEFT EDGE. The marquee is full bleed on
+      purpose - a strip that stops at the container reads as a
+      panel - but "Worked with" and the Pause button are content
+      and belong on the one left edge P0-3 set. The head gets the
+      container; the band keeps the bleed.
+
+   2. THE MARKS WERE NOT MONOCHROME. The files are named -mono and
+      are not: comparethemarket's red dot, tickertape's red,
+      amazon's orange, TEDx's red and BCG's green all rendered.
+      The 2 Oct one-ink pass is in the repo's history but these
+      files are the untinted cut.
+
+      brightness(0) collapses every non-transparent pixel to black
+      while keeping the alpha, so each mark becomes its own
+      silhouette rather than a greyscale photograph of itself.
+      That is what one ink means here, and it is a filter rather
+      than eight re-exported files, so a re-supplied logo needs no
+      pipeline run. */
+.ww-head{max-width:var(--max);margin-inline:auto;
+  padding-inline:var(--pad);box-sizing:border-box}
+.ww-mark{filter:brightness(0) saturate(100%);opacity:.86}
+:root[data-theme="dark"] .ww-mark{filter:brightness(0) invert(1);opacity:.9}

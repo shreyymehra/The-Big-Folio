@@ -590,6 +590,44 @@
     paint();
   })();
 
+  /* ---- P0-10: the Pause motion control ----------------------
+     WCAG 2.2.2 wants a MECHANISM to stop motion that starts by
+     itself. Pointer-hold and focus-within are not one: a reader
+     who never hovers and a keyboard-only reader both have no way
+     to stop it. This is the control that came off on 6 Oct and
+     that the handover has carried as an open item since.
+
+     The marquee is pure CSS, so this toggles one class and sets
+     animation-play-state. Nothing is driven per frame here.
+
+     The choice is remembered, because a reader who stopped the
+     motion once meant it. The key is NOT the old 'sm-tickers'
+     one: that key stranded anyone who had pressed pause before
+     the control was removed, with their tickers frozen and no
+     control left to unfreeze them, and site.js now clears it on
+     sight. Reusing it would re-create that trap. */
+  (function () {
+    var strip = document.querySelector('.wwstrip');
+    var btn = strip && strip.querySelector('.ww-pause');
+    if (!strip || !btn) return;
+
+    var KEY = 'sm-ww-paused';
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+    function apply(paused) {
+      strip.classList.toggle('is-paused', paused);
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      btn.textContent = paused ? 'Play motion' : 'Pause motion';
+      try { localStorage.setItem(KEY, paused ? '1' : '0'); } catch (e) {}
+    }
+    if (stored === '1') apply(true);
+
+    btn.addEventListener('click', function () {
+      apply(!strip.classList.contains('is-paused'));
+    });
+  })();
+
   /* ---- H4: the ledger shows six, then all fourteen -----------
      The button is in the markup, not injected, so it is in the
      tab order and announced before this runs. CSS hides it until
