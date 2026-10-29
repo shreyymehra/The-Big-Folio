@@ -3950,3 +3950,32 @@ html body .stitch.rv.in,html body .stitch.in{clip-path:inset(0 0 0 0)}
   html body .wrow,html body .stitch{transition:none}
   html body .stitch{clip-path:none}
 }
+
+/* ---- ACCEPTANCE FIXES (29 Oct), all three found by his own tests ----
+
+   1. THE TILE FIGURES WERE OFF THE SCALE. P0-4 restored the scatter
+      with its original clamp()s, which land on 25, 26, 31, 34 and 45px
+      depending on the width - none of them in 12/16/20/32/56, and
+      enough to take the page to eight sizes at 1280. Three steps, all
+      from his five. A clamp cannot produce a step; this is the same
+      finding as H6 and it came back with the scatter. */
+html body .mv-sz-1 b{font-size:var(--t-h3)}    /* 20 */
+html body .mv-sz-2 b{font-size:var(--t-h2)}    /* 32 */
+html body .mv-sz-3 b{font-size:var(--t-h1)}    /* 56 */
+
+/* 2. TWO HEADINGS LEFT THE EDGE BELOW 1101px.
+      .so-cta: the pill bleed that aligns it was scoped to >=1101, so
+      under that the pill's own padding pushed its heading in again.
+      Below 1100 the pill squares off, so it can simply lose the
+      padding on the left instead of bleeding.
+      h2.clip: the work band's inner wrap carries its own padding on
+      top of the container's, so the heading started at 48 where every
+      other heading started at 24. */
+@media (max-width:1100px){
+  .contact .sign-off{padding-left:var(--pad);padding-right:var(--pad);
+    margin-left:calc(-1 * var(--pad));margin-right:calc(-1 * var(--pad));
+    border-radius:0}
+}
+@media (max-width:1100px){
+  html body .work > .wrap,html body .work .windex{padding-inline:0}
+}
