@@ -38,7 +38,10 @@ const FROZEN = [
   '700+|employees aligned across APAC|iSelect and Compare the Market',
   '−78%|vendor costs, renegotiated across 20+ events|iSelect and Compare the Market',
   '+56%|sales uplift, with profit up 32% in Q2|Bliss and Birch',
-  '−30%|event costs, through vendor and budget management|TEDxUniMelb',
+  /* changed 29 Oct at his instruction, P0-7: he supplied ~30%.
+     The freeze MOVES with a correction he supplies; it is not bypassed.
+     Any other change to any value still refuses to write. */
+  '~30%|event costs, through vendor and budget management|TEDxUniMelb',
   '1.2M|views, sold out in two days|TEDxVIPS',
   '130+|volunteers led|TEDxVIPS',
   '+65%|sign-ups, engagement up 40%|TEDxUniMelb'
