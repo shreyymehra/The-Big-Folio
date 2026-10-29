@@ -3864,3 +3864,89 @@ html.js .ww-pause:focus-visible{outline:3px solid var(--deep);outline-offset:3px
   padding-inline:var(--pad);box-sizing:border-box}
 .ww-mark{filter:brightness(0) saturate(100%);opacity:.86}
 :root[data-theme="dark"] .ww-mark{filter:brightness(0) invert(1);opacity:.9}
+
+/* ============================================================
+   P0-11: THE MOTION MINIMUM                  (29 Oct, his spec)
+   Transform and opacity only, everywhere. Every block below has
+   a reduced-motion branch that is the FINAL STATE with no
+   transition, not a shortened one.
+   ============================================================ */
+
+/* ---- section reveal: 12px, 400ms, ease-out, once ---- */
+html body .js .rv,
+html.js body .rv{opacity:0;transform:translateY(12px);
+  transition:opacity 400ms var(--e-out),transform 400ms var(--e-out)}
+html body .rv.in{opacity:1;transform:none}
+/* the stagger is written by site.js as a delay per entry within one
+   observer batch: siblings that arrive together go 60ms apart, and a
+   block that arrives alone waits for nothing. */
+
+/* ---- hover lift: -4px, +0.5deg, shadow grows, 180ms ----
+   The offset shadow is a deliberate exception to the veto list and
+   his spec asks for it by name. What that list bans is SOFT depth,
+   the glassy lift that makes a web card look like every other web
+   card. This is a hard offset in flat ink with no blur, which is a
+   print device and is already on the site for that reason. */
+@media (hover:hover) and (pointer:fine){
+  .mv-tile{transition:transform 180ms var(--e-out),box-shadow 180ms var(--e-out)}
+  .mv-tile:hover,.mv-tile:focus-within{
+    transform:rotate(calc(var(--tl,0deg) + .5deg)) translateY(-4px);
+    box-shadow:6px 6px 0 0 rgba(13,22,51,.18)}
+  .wrow{transition:transform 180ms var(--e-out),box-shadow 180ms var(--e-out)}
+  .wrow:hover,.wrow:focus-within{transform:translateY(-4px) rotate(.5deg)}
+}
+
+/* ---- the stitch draws itself in, 800ms, once ----
+   HIS SPEC SAYS stroke-dashoffset AND IT CANNOT BE. The stitch is a
+   background-image, so there is no stroke in the document to offset;
+   inlining 169 paths into every seam to get one would cost more than
+   the effect. A clip wipe is the same reading - the thread appears
+   left to right, once - using the one property that can do it here. */
+.stitch{clip-path:inset(0 100% 0 0)}
+.stitch.in{clip-path:inset(0 0 0 0);transition:clip-path 800ms var(--e-out)}
+@keyframes seam-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media (prefers-reduced-motion:no-preference){
+  html.js .moved.in::before,
+  html.js .faqhome.in::before,
+  html.js .work.in::before,
+  html.js .work.in::after{animation:seam-draw 800ms var(--e-out) both}
+}
+
+/* ---- reduced motion: the final state, no transition ---- */
+@media (prefers-reduced-motion:reduce){
+  html body .js .rv,html.js body .rv{opacity:1;transform:none;transition:none}
+  .stitch,.stitch.in{clip-path:none;transition:none}
+  .mv-tile,.wrow{transition:none}
+  .mv-tile:hover,.mv-tile:focus-within,
+  .wrow:hover,.wrow:focus-within{transform:rotate(var(--tl,0deg));box-shadow:none}
+  .moved::before,.faqhome::before,.work::before,.work::after{animation:none}
+}
+
+/* ---- P0-11, three rules that were being beaten ---------------
+   Measured, not assumed. .rv carries its own transition and every
+   one of these elements is also a .rv, so the reveal was winning:
+
+     .wrow hover read 400ms, not 180
+     .stitch read "opacity, transform", so the clip wipe never ran
+     the seam ::before never animated at all, because a band is not
+     a .rv and so never gets .in
+
+   The first two need the reveal's properties kept alongside the
+   new ones - dropping them would stop the element revealing at
+   all - so these declare both rather than replacing. */
+@media (hover:hover) and (pointer:fine){
+  html body .wrow.rv,html body .wrow{
+    transition:opacity 400ms var(--e-out),
+               transform 180ms var(--e-out),
+               box-shadow 180ms var(--e-out)}
+  html body .wrow:hover,html body .wrow:focus-within{
+    transform:translateY(-4px) rotate(.5deg)}
+}
+html body .stitch.rv,html body .stitch{
+  transition:opacity 400ms var(--e-out),clip-path 800ms var(--e-out);
+  transform:none}
+html body .stitch.rv.in,html body .stitch.in{clip-path:inset(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){
+  html body .wrow,html body .stitch{transition:none}
+  html body .stitch{clip-path:none}
+}

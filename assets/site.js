@@ -118,18 +118,45 @@
   /* scroll reveals */
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      /* P0-11: 60ms stagger. The delay is per ENTRY WITHIN ONE BATCH,
+         not per element index on the page: blocks that arrive together
+         go 60ms apart, and a block that arrives on its own waits for
+         nothing. An nth-child delay would make the fifth item on a page
+         pause 240ms even when it is the only thing entering.
+         Capped at six, or a long run of rows would hold the last one
+         for most of a second after the reader is already reading it. */
+      var step = 0;
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        if(step) e.target.style.transitionDelay = (Math.min(step,6)*60)+'ms';
+        step++;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        /* the delay is for the entrance only; left on, it would lag
+           every later transition this element ever runs */
+        setTimeout(function(){ e.target.style.transitionDelay = ''; }, 1200);
+      });
     /* M1: fire BEFORE the block arrives, not 8% after it has. The
        negative bottom margin meant an element had to be well inside the
        viewport to reveal, so a fast scroll outran it and left a gap. A
        positive margin starts it early and the reveal is finished by the
        time the reader gets there. */
     }, {threshold:0, rootMargin:'0px 0px 15% 0px'});
-    document.querySelectorAll('.rv').forEach(function(el,k){
-      el.style.transitionDelay = (Math.min(k,6)*60) + 'ms'; io.observe(el);
-    });
+    /* P0-11: the old index-based delay is gone. It set the delay HERE,
+       by position on the page, so the seventh .rv and everything after
+       it always waited 360ms - even when it was the only thing
+       entering the viewport. The stagger now lives in the callback and
+       is per batch: things that arrive together go 60ms apart. Two
+       stagger systems for one reveal is the "two systems for one
+       object" bug this repo keeps paying for, so this one goes rather
+       than being left alongside.
+
+       [data-seam] rides the same observer so the stitch at a ground
+       change draws itself once. A band is not a .rv - it must never
+       fade in, it is the ground - so it only ever receives .in. */
+    document.querySelectorAll('.rv,[data-seam]').forEach(function(el){ io.observe(el); });
   } else {
-    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('.rv,[data-seam]').forEach(function(el){ el.classList.add('in'); });
   }
 
   /* staggered entrances, shared by several pages */
