@@ -20,12 +20,12 @@
     {
       "id": "letters-alphabet",
       "component": "Letters(ransom)",
-      "purpose": "Hero name lockup, and case numbers on work rows. Three cuts of every letter so the comic boil has something to swap between; with one cut the preset does nothing by design rather than faking a wobble.",
+      "purpose": "Hero name lockup, and case numbers on work rows. Three cuts of every letter so the comic boil has something to swap between; with one cut the preset does nothing by design rather than faking a wobble. RECEIVED 30 Oct as a sheet (assets/img/alphabet.webp) and sliced into 67 transparent cuts. Still short: Q is not on the sheet, and V, W, X and Z have one cut each, so the comic boil cannot swap those four.",
       "size": "each letter ~800px on its longest edge",
       "format": "PNG or WebP with real alpha, one file per letter per variant",
       "style-rule": "his own alphabet sheet, cut from found print. No tracing, no generated letterforms, no font standing in for a cut-out.",
-      "status": "requested",
-      "path": null
+      "status": "received",
+      "path": "assets/img/letters/"
     },
     {
       "id": "work-thumbs",
