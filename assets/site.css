@@ -4328,3 +4328,40 @@ html body .contact::after{height:min(62vh,560px);opacity:.95;filter:saturate(1.0
 /* the section label now sits on the sky, not on cream: cobalt on that blue is
    about 3:1, ink is about 6:1 */
 html body .contact .no{color:var(--c-ink)}
+
+/* ============================================================
+   THE FIVE BELIEFS, MOVING                     (30 Oct, his note)
+   A yellow band between Work (cobalt) and Me (cream), so no two
+   grounds touch alike. His five lines from /about/ run on their
+   own and keep running: transform only, no per-frame script.
+   Slow on purpose: this is text to be read, not a texture, so the
+   loop is 80s where the logo strip is 40s.
+   Pointer and focus hold it. Reduced motion is a wrapped list.
+   ============================================================ */
+.beliefs{position:relative;overflow:hidden;background:var(--c-yellow);color:var(--c-ink);
+  padding-block:var(--space-3)}
+.bel-track{display:flex;width:max-content;will-change:transform}
+.bel-set{display:flex;align-items:center;gap:var(--space-4);list-style:none;margin:0;
+  padding:0 var(--space-4) 0 0}
+.bel-say{flex:none;white-space:nowrap;font-family:var(--font-display);font-weight:900;
+  font-size:var(--t-h2);line-height:1.1;letter-spacing:var(--font-display-track);color:var(--c-ink)}
+.bel-gap{flex:none;display:flex;align-items:center}
+.bel-gap img{display:block;height:1.1em;width:auto;font-size:var(--t-h2)}
+@keyframes bel-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:no-preference){
+  .bel-track{animation:bel-roll 80s linear infinite}
+  .beliefs:is(:hover,:focus-within) .bel-track{animation-play-state:paused}
+}
+@media (prefers-reduced-motion:reduce){
+  .bel-track{display:grid;width:auto;animation:none;padding-inline:var(--gutter)}
+  .bel-set{flex-wrap:wrap;gap:var(--space-2) var(--space-3);padding:0}
+  .bel-say{white-space:normal}
+  .bel-set[aria-hidden="true"]{display:none}
+  .bel-gap{display:none}
+}
+
+/* the seam into Me: the stitch, since cream follows yellow */
+html body .about{position:relative}
+html body .about::before{content:"";display:block;position:absolute;left:0;right:0;top:-7px;
+  height:14px;z-index:3;pointer-events:none;background-image:url("img/stitch.svg");
+  background-repeat:repeat-x;background-position:left center;background-size:2560px 14px}
