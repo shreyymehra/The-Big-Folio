@@ -4137,3 +4137,26 @@ html body .idcard{gap:var(--space-2);padding-top:var(--space-2)}
 html body .id-body{gap:var(--space-2)}
 html body .idcard .hero-pola{width:clamp(112px,11vw,138px)}
 html body .id-head .hero-name{margin-block:0}
+
+/* ============================================================
+   HERO FITS THE FRAME                          (30 Oct, his note)
+   The card measured 927px tall, so the actions fell below the fold
+   on every laptop. Cuts, in the order he allowed:
+     the photo caption goes - hidden, not deleted, one line to
+       restore (the locked 2003 line stays in the markup);
+     the name lockup comes down to four fifths;
+     the rule under it goes, the gaps close, the sentence widens
+       to three lines instead of four.
+   ============================================================ */
+html body .idcard .print figcaption{display:none}
+html body .id-head .t-hi{width:clamp(30px,3.5vw,42px)}
+html body .id-head .t-my{width:clamp(36px,4.2vw,49px)}
+html body .id-head .t-name{width:clamp(64px,7.3vw,86px)}
+html body .id-head .t-is{width:clamp(21px,2.4vw,29px)}
+html body .id-head .t-shrey{width:clamp(149px,16.8vw,198px)}
+html body .id-head{border-bottom:0;padding-bottom:0}
+html body .idcard{gap:var(--space-1);padding:var(--space-2) var(--space-3) var(--space-3)}
+html body .id-body{gap:var(--space-1)}
+html body .idcard .hero-pola{width:clamp(100px,10vw,124px)}
+html body .id-detail,html body .idcard .stage-copy{gap:var(--space-1)}
+html body .hero-line{max-width:54ch}
