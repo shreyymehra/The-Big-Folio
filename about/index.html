@@ -54,6 +54,10 @@
 <section class="hstrip" aria-labelledby="hstrip-title">
   <h2 class="vh" id="hstrip-title">Five things I believe</h2>
   <div class="hs-view">
+    <!-- 30 Oct: the strip runs by itself and keeps running. It used to move only
+         while the page was scrolled (motion.js, GSAP scrub). Two copies of the
+         track make a seamless -50% loop; the second is aria-hidden. -->
+    <div class="hs-run">
     <ol class="hs-track">
         <li class="hs-say"><span>You can never market the same thing to two people.</span></li>
         <li class="hs-face"><img src="../assets/img/heads/head2.webp" alt="Shrey in a fur hat, a red star drawn over one eye" width="520" height="662" loading="lazy" decoding="async"></li>
@@ -65,6 +69,18 @@
         <li class="hs-face"><img src="../assets/img/heads/head5.webp" alt="Shrey laughing, a pink star drawn over one eye" width="520" height="622" loading="lazy" decoding="async"></li>
         <li class="hs-say"><span>I am too young to have dead set opinions.</span></li>
     </ol>
+    <ol class="hs-track" aria-hidden="true">
+        <li class="hs-say"><span>You can never market the same thing to two people.</span></li>
+        <li class="hs-face"><img src="../assets/img/heads/head2.webp" alt="" width="520" height="662" loading="lazy" decoding="async"></li>
+        <li class="hs-say"><span>A picky eater should not be trusted for taste advice.</span></li>
+        <li class="hs-face"><img src="../assets/img/heads/head3.webp" alt="" width="520" height="651" loading="lazy" decoding="async"></li>
+        <li class="hs-say"><span>A culture can never be built without understanding the weakest links.</span></li>
+        <li class="hs-face"><img src="../assets/img/heads/head4.webp" alt="" width="520" height="621" loading="lazy" decoding="async"></li>
+        <li class="hs-say"><span>Being perfect is overhyped. Imagination beats perfection every time.</span></li>
+        <li class="hs-face"><img src="../assets/img/heads/head5.webp" alt="" width="520" height="622" loading="lazy" decoding="async"></li>
+        <li class="hs-say"><span>I am too young to have dead set opinions.</span></li>
+    </ol>
+    </div>
   </div>
 </section>
 

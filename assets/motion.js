@@ -141,6 +141,10 @@
     var view = document.querySelector('.hs-view'),
         track = view && view.querySelector('.hs-track');
     if (!track) return;
+    /* 30 Oct: the strip is a self-running CSS loop now (.hs-run). The scroll-linked
+       travel below is kept, but it must not also drive a transform on the same
+       strip or the two fight. */
+    if (view.querySelector('.hs-run')) return;
 
     gsap.to(track, {
       x: function () {

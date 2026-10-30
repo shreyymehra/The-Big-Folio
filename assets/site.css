@@ -4360,8 +4360,25 @@ html body .contact .no{color:var(--c-ink)}
   .bel-gap{display:none}
 }
 
-/* the seam into Me: the stitch, since cream follows yellow */
-html body .about{position:relative}
-html body .about::before{content:"";display:block;position:absolute;left:0;right:0;top:-7px;
-  height:14px;z-index:3;pointer-events:none;background-image:url("img/stitch.svg");
-  background-repeat:repeat-x;background-position:left center;background-size:2560px 14px}
+/* (the extra stitch into Me went with the home ticker: .work::after already carries that seam) */
+
+/* ============================================================
+   THE BELIEFS STRIP RUNS BY ITSELF, on /about/        (30 Oct)
+   It moved only while the page scrolled. Now it loops on its own:
+   transform only, 60s, a seamless -50% over two copies. Pointer
+   and focus hold it. Reduced motion goes back to a strip you can
+   scroll sideways by hand, with the duplicate copy not rendered.
+   ============================================================ */
+.hs-view{overflow:hidden}
+.hs-run{display:flex;width:max-content;will-change:transform}
+.hs-run > .hs-track{flex:none}
+@keyframes hs-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:no-preference){
+  .hs-run{animation:hs-roll 45s linear infinite}
+  .hstrip:is(:hover,:focus-within) .hs-run{animation-play-state:paused}
+}
+@media (prefers-reduced-motion:reduce){
+  .hs-view{overflow-x:auto}
+  .hs-run{animation:none}
+  .hs-run > .hs-track[aria-hidden="true"]{display:none}
+}
