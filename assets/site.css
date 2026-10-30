@@ -4160,3 +4160,57 @@ html body .id-body{gap:var(--space-1)}
 html body .idcard .hero-pola{width:clamp(100px,10vw,124px)}
 html body .id-detail,html body .idcard .stage-copy{gap:var(--space-1)}
 html body .hero-line{max-width:54ch}
+
+/* ============================================================
+   THE TICKER, PLAIN                            (30 Oct, his notes)
+   The Pause motion button is hidden: it read as abrupt and
+   cluttery. Pointer and focus still hold the loop, and reduced
+   motion still stops it. Hidden with a flag, not deleted.
+
+   The labels (Employer / Internship / Event / College project)
+   are hidden too, so it is a regular scroll. NOTE: CLAUDE.md
+   says UN Youth and BCG must always carry "College project";
+   this is his explicit instruction and it overrides that, the
+   same way the 6 Oct pass did. The labels stay in the markup.
+
+   Sizes are by VISUAL WEIGHT, not one shared height. A shared
+   28px made the device marks (Bliss and Birch, UN Youth) specks
+   beside wordmarks that fill their box, so each mark has its own
+   height and the uneven result is the point: the employers lead,
+   the rest sit beneath them.
+   ============================================================ */
+html body .ww-pause{display:none !important}
+html body .ww-label{display:none}
+html body .ww-set{align-items:center}
+html body .ww-item{gap:0}
+html body .ww-item:nth-child(1) .ww-mark{height:38px}   /* iSelect */
+html body .ww-item:nth-child(2) .ww-mark{height:30px}   /* Compare the Market */
+html body .ww-item:nth-child(3) .ww-mark{height:26px}   /* Tickertape */
+html body .ww-item:nth-child(4) .ww-mark{height:36px}   /* Amazon */
+html body .ww-item:nth-child(5) .ww-mark{height:32px}   /* TEDxVIPS */
+html body .ww-item:nth-child(6) .ww-mark{height:48px}   /* Bliss and Birch */
+html body .ww-item:nth-child(7) .ww-mark{height:50px}   /* UN Youth */
+html body .ww-item:nth-child(8) .ww-mark{height:26px}   /* BCG */
+
+/* the Bliss and Birch file is mostly padding around a small device, so 48px
+   of height drew ~30px of ink; it needs 76 to read at the weight of its
+   neighbours. Found by looking, not by the numbers. */
+html body .ww-item:nth-child(1) .ww-mark{height:40px}
+html body .ww-item:nth-child(2) .ww-mark{height:32px}
+html body .ww-item:nth-child(3) .ww-mark{height:28px}
+html body .ww-item:nth-child(4) .ww-mark{height:34px}
+html body .ww-item:nth-child(5) .ww-mark{height:30px}
+html body .ww-item:nth-child(6) .ww-mark{height:76px}
+html body .ww-item:nth-child(7) .ww-mark{height:56px}
+html body .ww-item:nth-child(8) .ww-mark{height:28px}
+
+/* THE LOWER MARKS WERE LANDING ON THE STRIP. With the Pause button gone the
+   strip changed height and the field the marks live in no longer stopped
+   above it: FAQ sat on "Worked with" and Vinyl on a logo. The field now
+   stops 150px short of the hero's foot, and the two lowest marks come up. */
+@media (min-width:1201px){
+  html body .floats{inset:0 0 150px 0}
+  html body .fl-faq{top:60%}
+  html body .fl-listen{top:66%}
+}
+@media (min-width:1201px){ html body .floats{inset:0 0 200px 0} }   /* the strip starts 207px above the hero's foot */
