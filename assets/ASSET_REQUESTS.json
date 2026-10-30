@@ -90,12 +90,12 @@
     {
       "id": "resume-pdf",
       "component": "Section(contact)",
-      "purpose": "The resume as a PDF. The only file on disk is a .docx and labelling a Word file as a PDF is the kind of small lie this portfolio cannot afford, so the row currently says Word document.",
+      "purpose": "The resume as a PDF. The only file on disk is a .docx and labelling a Word file as a PDF is the kind of small lie this portfolio cannot afford, so the row currently says Word document. RECEIVED 30 Oct. Linked from /contact/ and the home sign-off. The old .docx stays on disk and keeps its redirects.",
       "size": null,
       "format": "PDF",
       "style-rule": null,
-      "status": "requested",
-      "path": null
+      "status": "received",
+      "path": "public/shreymehra_resume_Q42026.pdf"
     },
     {
       "id": "stat-methods",
