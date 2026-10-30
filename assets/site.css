@@ -4214,3 +4214,48 @@ html body .ww-item:nth-child(8) .ww-mark{height:28px}
   html body .fl-listen{top:66%}
 }
 @media (min-width:1201px){ html body .floats{inset:0 0 200px 0} }   /* the strip starts 207px above the hero's foot */
+
+/* ============================================================
+   THE FOLD: ONE OPEN/CLOSE COMPONENT         (30 Oct, his notes)
+   What I do / what it moved, and the screening call, are the same
+   object: a heading row with a chevron, a rule under it, and a
+   body that opens and closes. A native <details>, so it is
+   keyboard operable and announced correctly, and the content is
+   in the DOM whether or not it is open.
+
+   It takes its ink from whatever band it sits in (currentColor),
+   so the yellow band gets ink and the cobalt band gets cream
+   without either one being written here.
+
+   Results opens on arrival (the figures are the evidence); the
+   FAQ is closed (it is the second thing a reader wants). One
+   attribute flips either.
+   ============================================================ */
+.fold{margin:0}
+.fold > summary.fold-sum{list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);
+  min-height:var(--tap-min);padding-block:var(--space-2);
+  border-bottom:var(--line) solid currentColor}
+.fold > summary.fold-sum::-webkit-details-marker{display:none}
+.fold > summary.fold-sum h2{margin:0}
+.fold > summary.fold-sum:focus-visible{outline:3px solid currentColor;outline-offset:4px}
+.fold-chev{flex:none;width:14px;height:14px;margin-right:6px;
+  border-right:var(--line-strong) solid currentColor;
+  border-bottom:var(--line-strong) solid currentColor;
+  transform:rotate(45deg) translate(-3px,-3px);
+  transition:transform var(--dur-base) var(--ease)}
+.fold[open] > summary .fold-chev{transform:rotate(225deg) translate(-3px,-3px)}
+.fold-body{padding-top:var(--space-3)}
+/* opening is a short rise, transform and opacity only */
+@keyframes fold-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fold[open] > .fold-body{animation:fold-in var(--dur-base) var(--ease)}
+@media (prefers-reduced-motion:reduce){
+  .fold-chev{transition:none}
+  .fold[open] > .fold-body{animation:none}
+}
+.fold-body > .sub{margin:0 0 var(--space-3);font-family:var(--font-body);
+  font-size:var(--size-item);line-height:1.4}
+/* the two fold headings are the same size: the FAQ one was inheriting a
+   smaller clamp, so the pair did not read as a pair */
+html body .fold > summary.fold-sum h2{font-family:var(--font-display);font-weight:900;
+  font-size:var(--t-h2);line-height:1.1;letter-spacing:var(--font-display-track)}
