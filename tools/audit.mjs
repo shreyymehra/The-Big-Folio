@@ -146,6 +146,10 @@ const CHECKS = `(() => {
        counting them reported the system contradicting itself. */
     if (e.matches(':hover,:active') || /\\bsg-(hover|active)\\b/.test(e.className)) return;
     const g = getComputedStyle(e);
+    /* A CSS TRIANGLE IS A SHAPE, NOT AN OUTLINE. The play glyph is built from
+       thick borders with a transparent side; counting its 8px and 12px as
+       outline weights reports the system contradicting itself. */
+    if (['Top','Right','Bottom','Left'].some(s => g['border'+s+'Color'] === 'rgba(0, 0, 0, 0)' && parseFloat(g['border'+s+'Width']) > 3)) return;
     ['Top','Right','Bottom','Left'].forEach(s => {
       const v = parseFloat(g['border'+s+'Width']);
       if (v > 0 && g['border'+s+'Style'] !== 'none') w[v] = (w[v]||0)+1;

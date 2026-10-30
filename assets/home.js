@@ -116,12 +116,20 @@
       fig.classList.toggle('spinning',on);
       btn.setAttribute('aria-pressed',on?'true':'false');
       btn.setAttribute('aria-label',(on?'Pause':'Play')+' Take A Chance On Me by ABBA');
+      /* the hero Vinyl mark is the same switch: it never navigates, it plays */
+      [].forEach.call(document.querySelectorAll('[data-play]'),function(m){
+        m.setAttribute('aria-pressed',on?'true':'false');
+        m.setAttribute('aria-label',(on?'Pause':'Play')+' Take A Chance On Me by ABBA');
+      });
     }
     au.addEventListener('play',function(){ set(true); });
     au.addEventListener('pause',function(){ set(false); });
     au.addEventListener('ended',function(){ set(false); });
     au.addEventListener('error',function(){
       fig.classList.add('dead'); btn.setAttribute('aria-label','Track unavailable');
+    });
+    [].forEach.call(document.querySelectorAll('[data-play]'),function(m){
+      m.addEventListener('click',function(e){ e.preventDefault(); btn.click(); });
     });
     btn.addEventListener('click',function(){
       if(au.paused){ var p=au.play(); if(p&&p.catch) p.catch(function(){ set(false); }); }

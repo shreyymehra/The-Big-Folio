@@ -3152,7 +3152,8 @@ html body .print figcaption b{font-size:.75rem}
    wiring are all still here; delete the line below and the
    player is back.
    ============================================================ */
-.disc{display:none}
+/* the deck is back, 30 Oct: the vinyl plays ABBA and goes nowhere. The ABBA
+   sleeve is its label (assets/img/abba-cover.webp). */
 
 /* 56px, bottom right, the same corner the deck held. It is a
    link and nothing else: no hover growth, no spin, no state to
@@ -4277,3 +4278,19 @@ html body .about .abody .prose p:first-child{font-size:var(--t-body);line-height
    container edge) is tied to that value. */
 html body .so-cta{font-size:var(--t-h2);line-height:1.1;max-width:14em}
 html body .sign-off{padding-block:clamp(2rem,4vw,3rem)}
+
+/* THE SPOTIFY LINK IS HIDDEN, NOT DELETED. His note: the vinyl on home does
+   not lead anywhere except playing the music. The hero Vinyl mark and the
+   floating deck both play ABBA; neither navigates. */
+.playlink{display:none}
+
+/* ONE OUTLINE WEIGHT. The new chevron was drawn at the 2.4px hover weight
+   and the restored deck carried a 3px frame; neither is a hover state, so
+   both are the one weight. */
+html body .fold-chev{border-right-width:var(--line);border-bottom-width:var(--line)}
+html body .disc-deck{border-width:var(--line)}
+
+/* the deck's play button measured 43.8px at 1280: a fraction under the 44px
+   floor, because the deck itself is sized by a clamp and the button scales
+   with it. Fixed size, centred on the platter. */
+html body .disc-btn{width:48px;height:48px;margin:-24px 0 0 -24px}
