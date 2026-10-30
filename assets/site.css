@@ -2912,7 +2912,8 @@ html body .print figcaption b{font-size:.75rem}
    The seams still need to say something, so the blocks that were torn
    apart take a stitch's worth of rule instead of a ragged edge. */
 .work::before,.work::after,.ideas::after{display:none}
-.contact::after{display:none}
+/* .contact::after (the sky) is back, 30 Oct, at his instruction: "restore the
+   scenery for end of page". T6 had hidden it. */
 
 /* the ground change is now carried by the block's own edge, not a tear */
 .work{border-top:var(--line) solid rgba(var(--cream-rgb),.34);
@@ -4267,3 +4268,12 @@ html body .fold > summary.fold-sum h2{font-family:var(--font-display);font-weigh
 html body .about .abody .prose p,
 html body .about .abody .prose p:first-child{font-size:var(--t-body);line-height:1.55;
   font-weight:400;margin:0 0 var(--space-2)}
+
+/* THE PILL, SIZED TO ITS NEW LINE (30 Oct). The sign-off headline was set at
+   56 to carry a three-line sentence; his line is one short question, so it
+   drops to 32 and the vertical padding comes down with it. The horizontal
+   padding is left exactly as it was, because the left-edge alignment rule
+   (the pill bleeds left by its own padding so the heading lands on the
+   container edge) is tied to that value. */
+html body .so-cta{font-size:var(--t-h2);line-height:1.1;max-width:14em}
+html body .sign-off{padding-block:clamp(2rem,4vw,3rem)}
