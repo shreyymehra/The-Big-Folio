@@ -112,6 +112,32 @@
     var fig=document.getElementById('disc'); if(!fig) return;
     var btn=fig.querySelector('.disc-btn'), au=fig.querySelector('.disc-audio');
     if(!btn||!au) return;
+    /* THE TEXT FOLLOWS THE GROUND. The deck floats over cream, yellow and cobalt
+       in turn, and its label was one fixed colour, so on the cobalt bands it
+       vanished. This reads the background actually behind the deck and sets
+       data-ground; the CSS picks ink or cream from that. rAF-throttled, writes
+       only on change, and measures the colour rather than naming sections, so
+       it is right in dark mode and for any band added later. */
+    (function(){
+      var queued=false, last='';
+      function lum(c){ var m=c.match(/[\d.]+/g); if(!m||m.length<3) return null; if(m.length>3&&+m[3]<.5) return null;
+        var v=[0,1,2].map(function(i){ var x=+m[i]/255; return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4); });
+        return .2126*v[0]+.7152*v[1]+.0722*v[2]; }
+      function sense(){
+        queued=false;
+        var r=fig.getBoundingClientRect(), prev=fig.style.pointerEvents;
+        fig.style.pointerEvents='none';
+        var el=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+        fig.style.pointerEvents=prev;
+        var L=null; while(el&&el!==document.documentElement){ L=lum(getComputedStyle(el).backgroundColor); if(L!==null) break; el=el.parentElement; }
+        var g=(L!==null&&L<.3)?'dark':'light';
+        if(g!==last){ last=g; fig.setAttribute('data-ground',g); }
+      }
+      function ask(){ if(!queued){ queued=true; requestAnimationFrame(sense); } }
+      addEventListener('scroll',ask,{passive:true}); addEventListener('resize',ask);
+      new MutationObserver(ask).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+      sense(); setTimeout(sense,500);
+    })();
     function set(on){
       fig.classList.toggle('spinning',on);
       btn.setAttribute('aria-pressed',on?'true':'false');

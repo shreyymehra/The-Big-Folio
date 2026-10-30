@@ -4294,3 +4294,37 @@ html body .disc-deck{border-width:var(--line)}
    floor, because the deck itself is sized by a clamp and the button scales
    with it. Fixed size, centred on the platter. */
 html body .disc-btn{width:48px;height:48px;margin:-24px 0 0 -24px}
+
+/* ============================================================
+   PRE-PROMOTION FIXES                          (30 Oct, his notes)
+   ============================================================ */
+
+/* 3. A HOVERED MARK COMES TO THE FRONT, with its label and its hint. Each
+   mark is its own stacking context (they all animate a transform), so a later
+   sibling paints over an earlier one: the hint under the mark above it was
+   being covered by the next icon down. z-index lifts the whole mark while it
+   is hovered or has focus, so its hint is never behind a neighbour. */
+html body .fl:is(:hover,:focus-within){z-index:30}
+
+/* 4. THE VINYL'S TEXT FOLLOWS THE GROUND behind it. home.js sets data-ground
+   from the colour actually under the deck. Tokens that do not swap in dark
+   mode, because the ground is measured, not assumed. No opacity: a mix, so
+   the harness can read it. */
+.disc[data-ground="light"] .disc-k{color:var(--c-accent-type)}
+.disc[data-ground="light"] .disc-title{color:var(--c-ink)}
+.disc[data-ground="light"] .disc-by{color:var(--c-ink);opacity:1}
+.disc[data-ground="dark"] .disc-k{color:var(--c-yellow)}
+.disc[data-ground="dark"] .disc-title{color:var(--c-cream)}
+.disc[data-ground="dark"] .disc-by{color:var(--c-cream);opacity:1}
+
+/* 5. THE SKY, LOUDER, AND THE GRID BEHIND IT NEARLY GONE. The grid layer on
+   this section sits ABOVE the clouds (z 0 against their -1), so every cloud
+   was being cross-hatched. Dropping it to a ghost lets the sky read; the cloud
+   itself is brighter, taller and fades in later so more of it shows. */
+html body .contact::before{opacity:calc(.05 + var(--paper-in) * .07)}
+html body .contact::after{height:min(62vh,560px);opacity:.95;filter:saturate(1.05);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 62%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 14%,#000 62%,transparent 100%)}
+/* the section label now sits on the sky, not on cream: cobalt on that blue is
+   about 3:1, ink is about 6:1 */
+html body .contact .no{color:var(--c-ink)}
