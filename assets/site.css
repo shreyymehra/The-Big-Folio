@@ -4033,3 +4033,107 @@ html.at-hero .playlink{opacity:0;pointer-events:none}
   .mv-tl-1{--tl:-1.5deg}
   .mv-tl-3{--tl:1.5deg}
 }
+
+/* ============================================================
+   HERO v2: ONE CENTRED OBJECT, SIX MARKS            (30 Oct)
+   Top to bottom, his order: the cut-out name, the childhood
+   portrait, the value line, the rolling-word line, the tags, his
+   sentence, the actions. Three marks down each side.
+
+   CENTRED AND SYMMETRICAL IS ON THE VETO LIST AS A FALLBACK, and
+   this is the deliberate exception he asked for by name.
+
+   THIS BLOCK IS THE LAST WORD ON THE HERO. The card carried a
+   column layout, a two-column layout and a bumped-width layout,
+   each written over the one before. Rather than a fourth
+   override of the same properties, this restates every one it
+   touches under html body, so nothing earlier can win by source
+   order. Tokens only: the card is a printed plane, so it takes
+   --c-* values, which do not swap in dark mode.
+   ============================================================ */
+html body .stage-centre{margin-inline:auto}
+html body .idcard{width:min(580px,100%);margin-inline:auto;text-align:center;
+  justify-items:center;gap:var(--space-3);
+  padding:var(--space-3) var(--space-3) var(--space-4)}
+
+/* name lockup, centred */
+html body .id-head{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;width:100%}
+html body .id-head .hero-name{justify-items:center;margin-inline:auto}
+html body .id-head .hero-name .l1{justify-content:center}
+
+/* one column: portrait, then the words */
+html body .id-body{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;
+  gap:var(--space-3);width:100%}
+html body .idcard .hero-pola{width:clamp(150px,15vw,190px);margin:0 auto}
+html body .id-detail,html body .idcard .stage-copy{display:grid;justify-items:center;
+  gap:var(--space-2);max-width:none;text-align:center;width:100%}
+
+/* THE VALUE LINE. L1 on the scale (56, stepping to 32 on a phone), because
+   the point of the hero is the value delivered. */
+.hero-vp{margin:0;font-family:var(--font-display);font-weight:900;
+  font-size:var(--t-h1);line-height:1.02;letter-spacing:var(--font-display-track);
+  color:var(--c-ink);text-wrap:balance}
+.hero-vp .hw{display:inline-block}
+.hero-vp .hl{position:relative;display:inline-block;isolation:isolate}
+/* THE HIGHLIGHT SITS BEHIND THE WORDS WITHOUT GOING BEHIND THE CARD.
+   .stage-centre is rotated, which makes a stacking context, so a bare
+   z-index:-1 here would paint under the card's white background and the
+   yellow would never show. isolation on .hl keeps the -1 inside it. */
+.hero-vp .hl::before{content:"";position:absolute;z-index:-1;
+  left:-.06em;right:-.06em;bottom:.04em;height:.48em;
+  background:var(--c-yellow);transform-origin:left center}
+/* visible by default, so with no script the line still has its highlight;
+   the draw only exists where a script is there to trigger it */
+html.js .hero-vp .hl::before{transform:scaleX(0)}
+html.js .hero-vp .hl.rise::before{animation:hl-draw 700ms var(--ease) 380ms forwards}
+@keyframes hl-draw{to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){
+  html.js .hero-vp .hl::before,html.js .hero-vp .hl.rise::before{transform:scaleX(1);animation:none}
+}
+
+/* the rolling-word line, demoted to L3 now that the value line leads */
+html body .idcard .claim{font-size:var(--t-h3);line-height:1.2;max-width:24em;
+  margin:0 auto;color:var(--c-ink)}
+html body .idcard .roll{background:var(--c-cobalt);color:var(--c-card)}
+
+.hero-tags{margin:0;font-family:var(--font-label);font-size:var(--size-label);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent-type)}
+.hero-line{margin:0;max-width:46ch;font-family:var(--font-body);
+  font-size:var(--size-body);line-height:1.5;color:var(--c-ink)}
+html body .idcard .hero-cta{display:flex;flex-wrap:wrap;justify-content:center;
+  gap:var(--space-1) var(--space-2);margin-top:var(--space-1)}
+
+/* SIX MARKS, THREE A SIDE. They sit in the gutters either side of the card
+   and are sized FROM the gutter, so they cannot reach the card at any
+   width: (viewport - card) / 2, less the page margin and the label. Each
+   side staggers between two columns so no two marks share a height. */
+html body .floats{--fl-w:clamp(84px,calc((100vw - 580px) / 2 - 5vw - 28px),208px)}
+html body .fl-work{left:2vw;right:auto;top:4%}
+html body .fl-me{left:calc(2vw + 20px);right:auto;top:35%}
+html body .fl-faq{left:2vw;right:auto;top:66%}
+html body .fl-ideas{right:2vw;left:auto;top:10%}
+html body .fl-contact{right:calc(2vw + 20px);left:auto;top:41%}
+html body .fl-listen{right:2vw;left:auto;top:72%}
+
+/* 1200, not 900: at 1100 the gutter is 260px and the card is tilted with a
+   12px red offset, so a mark in it reached the card by a few pixels. Measured,
+   not guessed - the check below reports marks on the card at every width. */
+@media (max-width:1200px){
+  html body .floats{position:relative;inset:auto;display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-2);
+    margin:var(--space-4) auto 0;max-width:560px;pointer-events:auto}
+  html body .fl{position:static;width:auto;animation:none}
+  html body :is(.fl-work,.fl-me,.fl-faq,.fl-ideas,.fl-contact,.fl-listen){
+    left:auto;right:auto;top:auto}
+  html body .fl-icon{width:100%;height:auto;aspect-ratio:1}
+}
+@media (max-width:900px){ html body .idcard{width:100%} }
+
+/* THE VALUE LINE WAS LANDING AT 600-720px, BELOW THE FOLD ON A LAPTOP.
+   The point of this hero is the value delivered, so the portrait comes
+   down to a stamp-sized print and the card's gaps close up. The order is
+   still his: name, portrait, value line. */
+html body .idcard{gap:var(--space-2);padding-top:var(--space-2)}
+html body .id-body{gap:var(--space-2)}
+html body .idcard .hero-pola{width:clamp(112px,11vw,138px)}
+html body .id-head .hero-name{margin-block:0}
