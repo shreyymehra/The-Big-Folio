@@ -48,6 +48,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "shreymehra.com"
+        }
+      ],
+      "destination": "https://www.shreymehra.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/public/ShreyMehra Master Resume.docx",
       "destination": "/public/Shrey-Mehra-Resume.docx",
       "permanent": true

@@ -5,4 +5,4 @@ Allow: /
 Disallow: /_archive/
 Disallow: /scratchpad/
 
-Sitemap: https://shreyymehra.github.io/The-Big-Folio/sitemap.xml
+Sitemap: https://www.shreymehra.com/sitemap.xml

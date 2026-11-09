@@ -444,9 +444,14 @@ other high-leverage companies. Every ordering and framing decision serves these.
 ## OPEN — needs Shrey, do not decide for him
 
 1. **DECIDED 20 Oct 2026: Vercel is canonical.** GitHub Pages becomes the redirect.
-   **Still needed from him: the Vercel domain.** A canonical tag and a Pages
+   **The domain is www.shreymehra.com (recorded 9 Nov 2026).** Canonical, og:url,
+   og:image and the sitemap all use it. The apex shreymehra.com has NO DNS record
+   (checked on 8.8.8.8 and 1.1.1.1; DNS is on Cloudflare), so www is the only host
+   that works until he adds one; vercel.json already carries the apex-to-www
+   redirect and it is inert until then. [The paragraph below this line is the older
+   note, kept for the deployment detail: A canonical tag and a Pages
    redirect both need an absolute URL and there is none recorded anywhere in the
-   repo. Not guessed, for the reason this file already gives about the Medium
+   repo.] Not guessed, for the reason this file already gives about the Medium
    and X links: a wrong URL in front of a recruiter is worse than a missing one.
    Original note kept below for the deployment detail, which still applies.
 
