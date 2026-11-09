@@ -1471,7 +1471,7 @@ html[data-theme="dark"] .stage-hero{--card:color-mix(in srgb,var(--cream) 90%,#f
   /* the path is stylesheet-relative on purpose: a url() inside a custom
      property is resolved against this file by the browser, not against the
      page, so an inline override from the markup resolves wrong */
-  background-image:url("img/delhi-colour.webp");
+  /* background-image moved: loads after the page, see the SPEED block at the foot */
   background-size:cover;background-position:center;
   /* the source is the colour original now, not the same halftone pushed, so
      the saturation boost that was faking colour comes off (12 Oct) */
@@ -2297,7 +2297,7 @@ p > a:only-child,
      photograph beside its own flip, which makes both joins invisible.
      The straight file tiled with a hard vertical seam every 720px, which
      reads as a rendering bug rather than a sky. */
-  background-image:url("img/clouds-tile.webp");
+  /* background-image moved: loads as the section approaches, see the SPEED block */
   background-size:auto 100%;background-repeat:repeat-x;background-position:center top;
   opacity:.5;filter:saturate(.72);
   -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 26%,transparent 94%);
@@ -4382,3 +4382,19 @@ html body .contact .no{color:var(--c-ink)}
   .hs-run{animation:none}
   .hs-run > .hs-track[aria-hidden="true"]{display:none}
 }
+
+/* ============================================================
+   SPEED: TWO IMAGES OFF THE FIRST PAINT          (9 Nov)
+   Measured on the live site over emulated slow 4G: 44 requests and
+   1.1MB before the first paint, which landed at 6.7s. Two of those
+   were backgrounds nothing needed yet.
+     delhi-colour.webp (64KB) is the colour layer the pointer brushes
+       into the print. It is a hover effect, so it waits for load.
+     clouds-tile.webp (64KB) is the sky at the very foot of the page,
+       so it loads when the section is within a screen of view.
+   Both are CSS backgrounds, which a browser fetches the moment the
+   element is rendered, offscreen or not; a class is the only way to
+   hold one back without a script building the element.
+   ============================================================ */
+html.is-loaded .idcard .print-colour{background-image:url("img/delhi-colour.webp")}
+html.sky-on .contact::after{background-image:url("img/clouds-tile.webp")}

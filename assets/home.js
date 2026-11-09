@@ -724,3 +724,22 @@
    rather than hanging off a fixed corner widget, so there is nothing to
    open and nothing to collide with the copy. */
 
+
+
+/* ---- SPEED (9 Nov): hold two backgrounds until they are wanted ----
+   is-loaded: the colour layer of the hero print, a hover effect.
+   sky-on: the clouds at the foot of the page, one screen before they show.
+   Without IntersectionObserver the sky simply arrives with the load. */
+(function(){
+  var root=document.documentElement;
+  function loaded(){ root.classList.add('is-loaded'); }
+  if(document.readyState==='complete') loaded(); else addEventListener('load',loaded);
+  var sec=document.querySelector('.contact');
+  if(!sec) return;
+  function sky(){ root.classList.add('sky-on'); }
+  if(!('IntersectionObserver' in window)){ addEventListener('load',sky); return; }
+  var io=new IntersectionObserver(function(es){
+    if(es.some(function(e){ return e.isIntersecting; })){ sky(); io.disconnect(); }
+  },{rootMargin:'100% 0px 100% 0px'});
+  io.observe(sec);
+})();
