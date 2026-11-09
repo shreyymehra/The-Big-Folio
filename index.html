@@ -93,13 +93,13 @@
              after another and the yellow pulls under the last two once they
              land: transform and opacity only, once, and static under reduced
              motion. -->
-        <p class="hero-vp"><span class="hw" data-t="400">I</span> <span class="hw" data-t="460">make</span> <span class="hw" data-t="520">ideas</span> <span class="hl" data-t="580">mean something.</span></p>
+        <p class="hero-vp"><span class="hw" data-t="400">I</span> <span class="hw" data-t="460">make</span> <span class="roll" data-t="520" aria-hidden="true" data-roll="worlds,stories,launches,products,campaigns,brands"></span><span class="rollword" id="rollword">brands</span> <span class="hl" data-t="580">mean something.</span></p>
         <!-- CLAIM. The bracketed word rides once through the list on load and
              settles on "brands". The roller is a stack of spans, never a <ul>:
              a list inside a <p> is auto-closed by the parser and the word
              escapes the sentence. aria-hidden on the roller, with the settled
              word carried in text for anything that does not watch it move. -->
-        <p class="claim" data-t="680">I build <span class="roll" data-t="680" aria-hidden="true" data-roll="worlds,stories,campaigns,brands"></span><span class="rollword" id="rollword">brands</span> people want to belong to, and the case for why they pay off.</p>
+        <!-- 9 Nov, at his instruction: the claim line ("I build brands people want to belong to, and the case for why they pay off.") moved to the closing pill; the rolling word is in the headline now. -->
         <p class="hero-k" data-t="540" hidden data-hidden="hero v2: replaced by the tags line below">Product marketing, brand strategy &amp; growth. Melbourne.</p>
         <p class="hero-tags" data-t="760">Brand strategy &middot; Product marketing &middot; GTM</p>
         <p class="hero-line" data-t="820">From campaigns and communications to developing AI-enabled product concepts, I like getting close to the problem, finding the interesting angle and making something worthy out of it.</p>
@@ -159,8 +159,8 @@
            has to be found rather than read past, and ink on yellow is 14.73. -->
       
 <hr class="stitch rv" aria-hidden="true">
-<details class="fold" id="mv" open>
-        <summary class="fold-sum"><h2 class="mv-h">What I do, and what it moved</h2><span class="fold-chev" aria-hidden="true"></span></summary>
+<details class="fold" id="mv">
+        <summary class="fold-sum"><h2 class="mv-h">What I do, and what it moved</h2><span class="mv-peek"><span class="pk"><b>+310%</b><span>click-through<i>Tickertape</i></span></span><span class="pk"><b>+46%</b><span>engagement, month on month<i>iSelect &amp; Compare the Market</i></span></span><span class="pk"><b>&minus;78%</b><span>vendor costs<i>across 20+ events</i></span></span></span><span class="mv-hint"><span class="mv-hint-o">See all fourteen</span><span class="mv-hint-c">Close</span></span><span class="fold-chev" aria-hidden="true"></span></summary>
         <div class="fold-body">
         <div class="mv-grid">
         <div class="mv-col mv-col--do">
@@ -283,7 +283,7 @@
     <div class="me-turn" aria-hidden="true"><span>Enough about the work</span></div>
     <div class="shead rv shead--me"><span class="no">03 / Me</span><h2>One fear:<br>being linear</h2></div>
     <div class="abody">
-      <div class="prose"><p data-scrub>I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear. I am someone who learnt Adobe After Effects in six hours for a high-stakes university presentation, and who ran GA4 analytics as an intern and presented key findings without being asked to. That is who I am, and that is why this exists.</p><p data-scrub>With a Master of Management (Marketing) from UniMelb, I came out with First Class Honours, holding a Faculty of Business &amp; Economics Scholarship and a 50% sponsored ride (phew, fewer education loans). This was on top of working with Compare the Market and iSelect, and serving liquor through BWS. A boy's got to fund his dreams and the city rent.</p><p data-scrub>I like to connect with people. My high-school crush called me an 'empath' once and I took it seriously as a job title. I am a creative marketer who builds, a communicator who listens, and most importantly a human who knows how to blend words with numbers.</p><p data-scrub hidden data-hidden="longer Me: his /about/ paragraphs replace this"><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat" hidden data-hidden="P0-6 loophole sentence">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
+      <div class="prose"><p data-scrub>I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear. I am someone who learnt Adobe After Effects in six hours for a high-stakes university presentation, and who ran GA4 analytics as an intern and presented key findings without being asked to. That is who I am, and that is why this exists.</p><details class="me-more"><summary><span class="me-more-open">Read the rest</span><span class="me-more-close">Fold it back</span></summary><p>With a Master of Management (Marketing) from UniMelb, I came out with First Class Honours, holding a Faculty of Business &amp; Economics Scholarship and a 50% sponsored ride (phew, fewer education loans). This was on top of working with Compare the Market and iSelect, and serving liquor through BWS. A boy's got to fund his dreams and the city rent.</p><p>I like to connect with people. My high-school crush called me an 'empath' once and I took it seriously as a job title. I am a creative marketer who builds, a communicator who listens, and most importantly a human who knows how to blend words with numbers.</p></details><p data-scrub hidden data-hidden="longer Me: his /about/ paragraphs replace this"><span class="beat beat--open">I am Shrey Mehra, a specialist in generalisation who has always had one fear: being linear.</span><span class="beat" hidden data-hidden="P0-6 loophole sentence">Also the same person who saved their company more than 200K AUD by finding a legal loophole, because an idea arrived while taking a shower.</span><span class="beat beat--close">That is who I am, and that is why this exists.</span></p></div>
       <!-- H2: this line was inside #listening, which H1 switches off. It is
            the one survivor of that block and it is the same URL as the
            floating record, so there is exactly one playlist destination on
@@ -369,6 +369,8 @@
     <div class="sign-off">
       <div class="so-say">
         <h2 class="so-cta">Let&#39;s do it together and make it <em>better</em>?</h2>
+        <p class="so-claim">I build brands people want to belong to, and the case for why they pay off.</p>
+        <p class="rights"><span class="rights-k">Working rights</span><span class="rights-v">Full-time, yes.</span></p>
         <span class="mailrow"><a class="so-mail" href="mailto:shreyymehraa@gmail.com"><svg class="so-ico" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"/></svg>shreyymehraa@gmail.com</a><button class="copybtn" type="button" data-copy="shreyymehraa@gmail.com" aria-label="Copy email address"><svg class="ico" aria-hidden="true" focusable="false" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span></button></span>
       </div>
 

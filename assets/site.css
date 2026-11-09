@@ -4398,3 +4398,98 @@ html body .contact .no{color:var(--c-ink)}
    ============================================================ */
 html.is-loaded .idcard .print-colour{background-image:url("img/delhi-colour.webp")}
 html.sky-on .contact::after{background-image:url("img/clouds-tile.webp")}
+
+/* ============================================================
+   HERO, ONE HEADLINE, A PRINT THAT SITS            (9 Nov, his notes)
+   - "I make [word] mean something." The rolling word moved up into the
+     value line and the second line ("I build brands...") went to the
+     closing pill, so the hero says one thing once.
+   - The card is two columns on desktop: a tilted print with tape on the
+     left, the words on the right, name across the top. Stacked, the
+     photo, headline, tags and line read as a column of unrelated
+     objects. Phones keep the single column.
+   - The print's caption (the locked 2003 line) comes back: the card is
+     short enough now that it fits, and a print without its lip reads as
+     a cropped photo.
+   - Inside the card every colour is literal: it is a printed plane.
+   ============================================================ */
+html body .hero-vp{font-size:var(--size-section);line-height:1.12}
+html body .hero-vp .roll{height:1.16em;line-height:1.16;margin-top:0;padding:0 .16em;vertical-align:bottom;transform:none}
+html body .hero-vp .roll .rollstack>span{height:1.16em;line-height:1.16em}
+html body .hero-vp .rollword{padding:0 .16em}
+html body .idcard .print figcaption{display:block;color:#0D1633}
+html body .idcard .hero-pola{isolation:isolate;transform:rotate(-3deg)}
+html body .idcard .hero-pola::before{content:"";position:absolute;z-index:3;top:-14px;left:50%;
+  width:46%;height:26px;margin-left:-23%;transform:rotate(2deg);
+  background:#FFED10;border-left:var(--line) dotted rgba(13,22,51,.28);border-right:var(--line) dotted rgba(13,22,51,.28)}
+html body .idcard .hero-pola::after{content:"";position:absolute;z-index:-1;inset:6px -10px -8px 12px;
+  transform:rotate(5.5deg);background:#E7E4D8;border:var(--line) solid rgba(13,22,51,.4)}
+@media (min-width:901px){
+  html body .idcard{width:min(800px,100%)}
+  html body .id-head{justify-items:start}
+  html body .id-head .hero-name{justify-items:start;margin-inline:0}
+  html body .id-head .hero-name .l1{justify-content:flex-start}
+  html body .id-body{grid-template-columns:auto minmax(0,1fr);justify-items:stretch;
+    align-items:center;gap:var(--space-5)}
+  html body .idcard .hero-pola{width:clamp(190px,20vw,248px);margin:var(--space-2) 0 var(--space-2) var(--space-2)}
+  html body .id-detail,html body .idcard .stage-copy{justify-items:start;text-align:left}
+  html body .hero-vp{text-align:left;text-wrap:pretty}
+  html body .idcard .hero-cta{justify-content:flex-start}
+}
+@media (min-width:1201px){
+  html body .floats{--fl-w:clamp(84px,calc((100vw - 840px) / 2 - 5vw - 28px),200px)}
+}
+@media (max-width:900px){
+  html body .idcard .hero-pola{width:min(210px,58%)}
+}
+
+/* ---------- worked with: smaller, and centred ---------- */
+html body .wwstrip{max-width:920px;margin-inline:auto}
+html body .ww-head{justify-content:center;text-align:center}
+html body .ww-band{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+html body .ww-item:nth-child(1) .ww-mark{height:29px}
+html body .ww-item:nth-child(2) .ww-mark{height:23px}
+html body .ww-item:nth-child(3) .ww-mark{height:20px}
+html body .ww-item:nth-child(4) .ww-mark{height:24px}
+html body .ww-item:nth-child(5) .ww-mark{height:22px}
+html body .ww-item:nth-child(6) .ww-mark{height:55px}
+html body .ww-item:nth-child(7) .ww-mark{height:40px}
+html body .ww-item:nth-child(8) .ww-mark{height:20px}
+
+/* ---------- working rights: a stamp, plain words ---------- */
+.rights{display:inline-flex;align-items:baseline;gap:var(--space-2);margin:var(--space-2) 0 0;
+  padding:8px 14px;background:#FFFDF7;color:#0D1633;border:var(--line) dashed #B8141A;transform:rotate(-1.4deg)}
+.rights-k{font-family:var(--fu,var(--font-label));font-size:var(--size-label);letter-spacing:.14em;text-transform:uppercase;color:#B8141A}
+.rights-v{font-family:var(--fd,var(--font-display));font-weight:900;font-size:var(--size-item);line-height:1.1;color:#0D1633}
+.so-claim{margin:var(--space-2) 0 0;max-width:30em;font-size:var(--size-body);line-height:1.4}
+
+/* ---------- Me: the rest opens and closes ---------- */
+.me-more{margin-top:var(--space-2)}
+.me-more>summary{display:inline-flex;align-items:center;gap:var(--space-2);cursor:pointer;list-style:none;
+  min-height:44px;font-family:var(--fu,var(--font-label));font-size:var(--size-label);letter-spacing:.12em;
+  text-transform:uppercase;border-bottom:var(--line) solid currentColor}
+.me-more>summary::-webkit-details-marker{display:none}
+.me-more>summary::after{content:"+";font-size:var(--size-item);line-height:1}
+.me-more[open]>summary::after{content:"\2212"}
+.me-more .me-more-close,.me-more[open] .me-more-open{display:none}
+.me-more[open] .me-more-close{display:inline}
+.me-more>summary:focus-visible{outline:3px solid var(--c-cobalt,#173CA8);outline-offset:3px}
+
+/* ---------- the figures, one tap from the hero (9 Nov) ----------
+   Closed by default, but never empty: the summary carries the three
+   strongest verified figures, each with its source, and opening shows
+   all fourteen. Same figures, same wording as the tiles below. */
+.mv-peek{display:flex;flex-wrap:wrap;gap:var(--space-1) var(--space-4);align-items:baseline;
+  font-family:var(--font-body);font-size:var(--size-label);line-height:1.3}
+.mv-peek b{font-family:var(--font-display);font-weight:900;font-size:var(--size-item);margin-right:.3em;color:var(--c-cobalt,#173CA8)}
+.mv-peek i{display:block;font-style:normal;font-size:var(--size-label);opacity:1;color:color-mix(in srgb,currentColor 84%,transparent)}
+.mv-hint{font-family:var(--font-label);font-size:var(--size-label);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.fold[open] .mv-peek,.fold[open] .mv-hint-o,.fold:not([open]) .mv-hint-c{display:none}
+html body #mv > summary.fold-sum{flex-wrap:wrap;gap:var(--space-2) var(--space-4);align-items:center}
+.mv-peek .pk{display:inline-flex;align-items:center;gap:.5em}
+.mv-peek .pk>span{display:block}
+.mv-peek b{margin-right:0}
+.mv-peek{flex:1 1 auto}
+@media (min-width:900px){html body #mv > summary.fold-sum{flex-wrap:nowrap}}
+@media (max-width:900px){html body .idcard .hero-pola{margin-top:var(--space-4)}}
